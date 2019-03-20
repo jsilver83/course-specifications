@@ -1,0 +1,26 @@
+syntax: glob
+
+docs/index.html
+docs/1-initial-requirements.{html,xml,pdf}
+docs/2-detailed-requirements.{html,xml,pdf}
+docs/3-charter.{html,xml,pdf}
+docs/4-srs.{html,xml,pdf}
+docs/5-design.{html,xml,pdf}
+docs/6-approvals.{html,xml,pdf}
+
+deploy/*.retry
+deploy/roles/*
+
+course_specification/db.sqlite3
+course_specification/uploads
+course_specification/course_specification/local_settings.py
+course_specification/course_specification/settings/local.py
+
+*htmlcov
+*.coverage
+
+*.pyc
+*.mo
+.idea
+.DS_Store
+.pytest_cache

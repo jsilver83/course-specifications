@@ -1,0 +1,85 @@
+- name: Deploy Course Specification
+  hosts: application-servers
+  become: yes
+  become_user: root
+
+  # common variables to all environments
+  # for environment-specific variables, see:
+  # environments/<env-name>/group_vars/all/vars.yml
+  vars:
+    vault_url: https://vault.itc.kfupm.edu.sa
+    django_project_name: course-specification
+    django_project_admin_username: alsowail
+    django_project_admin_email: alsowail@kfupm.edu.sa
+    django_project_package_name: course_specification
+    #apache_authn: cas
+    #apache_auth:
+    #  - path: /admin/
+    #    authn_type: cas
+    #    authz_type: none
+    admins:
+      - name: Saeed Alsowail
+        email: alsowail@kfupm.edu.sa
+    uwsgi_processes: 2
+
+  vars_prompt:
+    - name: ad_username
+      prompt: Your Active Directory username
+      private: no
+
+    - name: ad_password
+      prompt: Your Active Directory password
+      private: yes
+
+
+  # tasks to be performed before role tasks, if any
+  pre_tasks:
+
+    - name: Vault authentication
+      uri:
+        url: "{{ vault_url }}/v1/auth/ldap/login/{{ ad_username }}"
+        method: POST
+        body: {"password": "{{ ad_password }}"}
+        body_format: json
+      connection: local
+      become: no
+      register: auth
+
+    - name: Retrieve secret key from Vault
+      uri:
+        url: "{{ vault_url }}/v1/secret/{{ env }}/operations/apps/course-specification/secret_key"
+        headers:
+          X-Vault-Token: "{{ auth.json.auth.client_token }}"
+      connection: local
+      become: no
+      register: secret_key
+
+    - name: Retrieve database password from Vault
+      uri:
+        url: "{{ vault_url }}/v1/secret/{{ env }}/database/apps/course-specification/database_password"
+        headers:
+          X-Vault-Token: "{{ auth.json.auth.client_token }}"
+      connection: local
+      become: no
+      register: database_password
+
+    - name: Retrieve email password from Vault
+      uri:
+        url: "{{ vault_url }}/v1/secret/{{ env }}/email/apps/course-specification/email_password"
+        headers:
+          X-Vault-Token: "{{ auth.json.auth.client_token }}"
+      connection: local
+      become: no
+      register: email_password
+
+    - name: Generate local settings
+      set_fact:
+        django_project_local_settings: "{{ lookup('template', 'local_settings.py.j2') }}"
+
+  roles:
+    - django-project
+
+  # tasks to be performed after role tasks, if any
+  # post_tasks:
+  #   - name: some task
+  #     ...
