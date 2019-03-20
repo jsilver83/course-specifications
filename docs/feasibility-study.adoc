@@ -26,123 +26,131 @@ document?
 +
 |==================================================
 | Name | Title | Department | Email | Phone(s)
-| | | | |
-| | | | |
-| | | | |
+| Dr. Anas Al-Rabeei | |Academic Assessment Center |roubaiey@kfupm.edu.sa |8959
 |==================================================
 
 . Who will actually sign-off the requirements and overall request?
 +
 |==================================================
 | Name | Title | Department | Email | Phone(s)
-| | | | |
+|Dr. Saad Al-Abeedi |Director |Academic Assessment Center |alabeedi@kfupm.edu.sa |7833
 |==================================================
 
 . Who is the Subject Matter Expert (SME)?
 +
 |==================================================
 | Name | Title | Department | Email | Phone(s)
-| | | | |
+| Dr. Anas Al-Rabeei | |Academic Assessment Center |roubaiey@kfupm.edu.sa |8959
 |==================================================
 
 . Who will be the end users?
 +
-|==================================================
-| Name | Title | Department | Email | Phone(s)
-| | | | |
-| | | | |
-| | | | |
-|==================================================
+.. Faculty members
+.. Chairmen of the curriculum management committees
+.. Deanship of academic development staff
 
 
 == Client Needs
 
-TIP: What is the actual need of the client? What problem the application will
-solve)?
+The client needs a system that digitizes the course specification template, so all the data related to the course specification can be reused by other systems and reports. In addition,the process of approving and reviewing course specification has to be implemented in this system. However, in the first version of the system, only the first part of the approval process will be implemented. This covers the submission of the course specification by faculty members and the approval of the curriculum committee chairman of the corresponding academic department.
 
+Examples of systems and reports  that will use the course specification data include the course file system, course report, course syllabus, course outcome assessment report, and the assessment/accreditation system (Adaa). The course specification details for any course should be prepared to be exported as a document in given format.
 
 == Client Requirements
 
-TIP: What are the high-level functional requirements as per the listed areas
-below.
-
 === Data requirements
+* No special requirements
 
 === Access requirements
 
 . User categories that can access the application
-
-. Off-campus access
+.. Faculty members
+.. Chairmen of the curriculum management committees
+.. Deanship of academic development staff
 
 === Is the business process already defined and documented?
-- [ ] Yes
-- [ ] No
+- [x] Yes
+
 
 === Security requirements
+* No special requirements
 
 === Storage requirements
+* No special requirements
 
 === Frequency of usage
+* The system can be used anytime around the year
 
 === Expected number of concurrent users
-
-=== Any other requirements
-
+* Few faculty members will access the system concurrently
 
 == Client Expectations
 
-TIP: What are the client's expectations?
+The client expects that all the data captures by the system can be reused by other systems. This will reduce the effort currently required from faculty members to enter the same details in multiple places for different purposes.
 
 
 == Related Systems and Integrations
 
 . Is the request related to any existing system(s)?
+* No
 
 . Is there any specific preference of the client regarding the application to be
 used? e.g. E-Business, Banner, or any other existing system.
+* No
 
 . Will the solution involve integration or data exchange with other
 applications?
-
+* The system will not read data from any other system in its first implementation. However, it is expected to be integrated to an academic program management system in the future (this system does not exist now!). In addition, several systems are expected to read data from this system (including Banner).
 
 == Constraints
 
 . When does the client need the solution to be delivered?
 +
-Expected date:
+Expected date: End of April
+
+CAUTION: The system has been already announced to the academic departments. 
 
 . Is there any _binding_ deadline for request completion, such as
 already scheduled launch event?
 
-- [ ] Yes. Event name: ......... . Event date:
-- [ ] No.
+- [x] Yes. 
+* Event name: ABET Accreditation.
+* Event date: September 1, 2019
+
+CAUTION: The client expects that the both the course specification and the course file systems to be already utilized by the university by that time.
+
 
 . Are there any limitations regarding the environment in which the application
 will be deployed?
+* No
 
 . Any other constraints.
+* The system should be scalable enough to implement the remaining parts of the approval  and review processes, which will not be covered in the first version of the system.
 
 
 == Recommendations and Justifications
 
 === Existing vs. New System
 
-TIP: Can the request be satisfied using an existing system or is a new system
-required?
-
 .Recommendation
 
-- [x] Use an existing satellite system
+- [ ] Use an existing satellite system
 - [ ] Use an existing enterprise system
 - [ ] Develop a new solution
 
+- [x] Procurement/Acquisition of a specialized curriculum management software.
+
 .Justification
 
-Justify the above recommendation here.
+. A specialized curriculum management software will provide the functionality requested by the client, including other elements that are expected to be requested soon by the client in order to have full implementation of the accreditation and assessment process, which is the ultimate objective of the client. 
+. Full management of academic programs (including the approval process and the management of review cycles).
+. Courses will be managed as components of academic programs. All prerequisites and co-requisites relationships will be automatically handled by the software.
+. Easier integration with Banner system is expected.
+. The development of the system locally will require deep analysis of the entire assessment and accreditation process automation requirements in order to design a system that smoothly fits into the complete architecture. The specialized curriculum management system will at least make sure that there are no conflicts in its own components.
+
+
 
 === System Recommendations
-
-Would you like to recommend any system at this stage?
 
 .Recommendation
 
