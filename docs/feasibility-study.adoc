@@ -150,7 +150,7 @@ will be deployed?
 .. Full management of academic programs (including the approval process and the management of review cycles).
 .. Courses will be managed as components of academic programs. All prerequisites and co-requisites relationships will be automatically handled by the software.
 . Integration with Banner system will be part of the implementation scope.
-. If a decision is made to develop the remaining parts of the Adaa locally after completing this system, it is expected that several human resources will be occupied by the project for long periods of time. 
+. If a decision is made to develop the remaining parts of Adaa locally after completing this system, it is expected that several resources will be occupied by the project for long periods of time. 
 
 
 
@@ -158,10 +158,11 @@ will be deployed?
 
 .Recommendation
 
+* CourseLeaf 
 * Kuali Curriculum Management
-* Banner 3rd party module
+* FenixEdu
 
 .Justification
 
-Any one of the two can provide the requested functionality. However, more time is needed to make a final decision.
+Any one of the above can provide the requested functionality. More time is needed to make a final decision.
 
