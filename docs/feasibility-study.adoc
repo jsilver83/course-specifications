@@ -59,7 +59,7 @@ Examples of systems and reports  that will use the course specification data inc
 == Client Requirements
 
 === Data requirements
-* No special requirements
+* There may be a need to access books information from Sierra or using the APIs of publishers.
 
 === Access requirements
 
@@ -86,7 +86,7 @@ Examples of systems and reports  that will use the course specification data inc
 
 == Client Expectations
 
-The client expects that all the data captures by the system can be reused by other systems. This will reduce the effort currently required from faculty members to enter the same details in multiple places for different purposes.
+The client expects that all the data captured by the system can be reused by other systems. This will reduce the effort currently required from faculty members to enter the same details in multiple places for different purposes.
 
 
 == Related Systems and Integrations
@@ -100,13 +100,17 @@ used? e.g. E-Business, Banner, or any other existing system.
 
 . Will the solution involve integration or data exchange with other
 applications?
-* The system will not read data from any other system in its first implementation. However, it is expected to be integrated to an academic program management system in the future (this system does not exist now!). In addition, several systems are expected to read data from this system (including Banner).
+.. Authentication service
+.. E-Business to determine the basic information of the user (name and academic department)
+.. Adwar to determine the chainman of the curriculum committee.
+.. In the future, an integration will be needed to the academic programs management system (this system does not exist now!)
+.. Several systems are expected to read data from this system (including Banner).
 
 == Constraints
 
 . When does the client need the solution to be delivered?
 +
-Expected date: End of April
+Expected date: End of April 2019
 
 CAUTION: The system has been already announced to the academic departments. 
 
@@ -117,7 +121,7 @@ already scheduled launch event?
 * Event name: ABET Accreditation.
 * Event date: September 1, 2019
 
-CAUTION: The client expects that the both the course specification and the course file systems to be already utilized by the university by that time.
+CAUTION: The client expects that both the course specification and the course file systems to be already utilized by the university by December 2019.
 
 
 . Are there any limitations regarding the environment in which the application
@@ -142,11 +146,11 @@ will be deployed?
 
 .Justification
 
-. A specialized curriculum management software will provide the functionality requested by the client, including other elements that are expected to be requested soon by the client in order to have full implementation of the accreditation and assessment process, which is the ultimate objective of the client. 
-. Full management of academic programs (including the approval process and the management of review cycles).
-. Courses will be managed as components of academic programs. All prerequisites and co-requisites relationships will be automatically handled by the software.
-. Easier integration with Banner system is expected.
-. The development of the system locally will require deep analysis of the entire assessment and accreditation process automation requirements in order to design a system that smoothly fits into the complete architecture. The specialized curriculum management system will at least make sure that there are no conflicts in its own components.
+. A specialized curriculum management software will provide the functionality requested by the client, including other elements that are expected to be requested soon by the client in order to have full implementation of the accreditation and assessment process, which is the ultimate objective of the client. This will cover:
+.. Full management of academic programs (including the approval process and the management of review cycles).
+.. Courses will be managed as components of academic programs. All prerequisites and co-requisites relationships will be automatically handled by the software.
+. Integration with Banner system will be part of the implementation scope.
+. If a decision is made to develop the remaining parts of the Adaa locally after completing this system, it is expected that several human resources will be occupied by the project for long periods of time. 
 
 
 
@@ -154,8 +158,10 @@ will be deployed?
 
 .Recommendation
 
-List recommendations here.
+* Kuali Curriculum Management
+* Banner 3rd party module
 
 .Justification
 
-Justify the recommendations here.
+Any one of the two can provide the requested functionality. However, more time is needed to make a final decision.
+
