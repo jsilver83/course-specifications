@@ -56,6 +56,8 @@ The client needs a system that digitizes the course specification template, so a
 
 Examples of systems and reports  that will use the course specification data include the course file system, course report, course syllabus, course outcome assessment report, and the assessment/accreditation system (Adaa). The course specification details for any course should be prepared to be exported as a document in given format.
 
+This system is the first step in a larger initiative that aims to automate the assessment and accreditation process.
+
 == Client Requirements
 
 === Data requirements
@@ -146,7 +148,7 @@ will be deployed?
 
 .Justification
 
-. A specialized curriculum management software will provide the functionality requested by the client, including other elements that are expected to be requested soon by the client in order to have full implementation of the accreditation and assessment process, which is the ultimate objective of the client. This will cover:
+. A specialized curriculum management software will provide the functionality currently requested by the client. In addition, other functionalities that are expected to be requested soon by the client in order to have full implementation of the accreditation and assessment process will also be provided. This will cover:
 .. Full management of academic programs (including the approval process and the management of review cycles).
 .. Courses will be managed as components of academic programs. All prerequisites and co-requisites relationships will be automatically handled by the software.
 . Integration with Banner system will be part of the implementation scope.
