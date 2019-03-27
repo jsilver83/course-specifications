@@ -16,6 +16,7 @@ Internal
 |==================================================
 | Version | Author(s) | Date      | Change
 | 1.0     | Saeed Alsowail  <alsowail@kfupm.edu.sa> |  2019-03-20 | First version
+| 1.0     | Ali Aljowaher  <ali.aljowaher@kfupm.edu.sa> |  2019-03-27 | First version
 |==================================================
 
 <<<
@@ -24,9 +25,7 @@ Internal
 
 === Purpose
 
-Identify the purpose of this SDD and its intended
-audience. (e.g. “This software design document describes the
-architecture and system design of XX. ....”).
+The document contains the proposed intial datamodel for the CRF2. Course Specifications form.
 
 === Scope
 
@@ -158,12 +157,8 @@ requirements by the numbers/codes that you gave them in the SRS.
 
 [appendix]
 == First Appendix
-
-_This section is optional._
-
-Appendices may be included, either directly or by reference, to
-provide supporting details that could aid in the understanding of the
-Software Design Document.
+=== Data Model
+image:images/courseDM.png[]
 
 
 Source: http://www.atilim.edu.tr/~dmishra/se112/sdd_template.pdf
