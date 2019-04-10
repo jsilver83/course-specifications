@@ -1,0 +1,130 @@
+{% extends 'wizard_base.html' %}
+
+
+{% block tab_content %}
+
+<div class="panel panel-primary setup-content" id="step-2">
+    <div class="panel-heading">
+        <h3 class="panel-title">Course Identification and General Information</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-group col-md-10 offset-md-1">
+                <label class="control-label">Course title:</label>
+                <input type="text" required="required" class="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-5 offset-md-1">
+                <label class="control-label">Course code:</label>
+                <input type="text" required="required" class="form-control"/>
+            </div>
+            <div class="form-group col-md-5">
+                <label class="control-label">Course Credit Hours: </label>
+                <input type="text" required="required" class="form-control"/>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+
+
+        <div class="row">
+            <div class="form-group col-md-5 offset-md-1">
+                <label class="control-label">Program(s) in which it is offered as core course:</label>
+                <input type="text" required="required" class="form-control"/>
+            </div>
+            <div class="form-group col-md-5">
+                <label class="control-label"> Level at which this course is taught:</label>
+                <select class="form-control">
+                    <option value="pyp">PYP</option>
+                    <option value="freshman">Freshman (Level 1)</option>
+                    <option value="sophomore">Sophomore (Level 2)</option>
+                    <option value="junior">Junior (Level 3)</option>
+                    <option value="senior">Senior (Level 4)</option>
+                    <option value="graduate">Graduate</option>
+                </select>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+
+
+        <div class="row">
+            <div class="form-group col-md-5 offset-md-1">
+                <label class="control-label">Pre-requisites for this course (if any):</label>
+                <input type="text" required="required" class="form-control"/>
+            </div>
+            <div class="form-group col-md-5">
+                <label class="control-label"> Co-requisites for this course (if any):</label>
+                <input type="text" required="required" class="form-control"/>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+
+
+        <div class="row">
+            <div class="form-group col-md-5 offset-md-1">
+                <label class="control-label"> Location:</label>
+                <select class="form-control">
+                    <option value="main-campus">Main Campus</option>
+                    <option value="dcc">Dammam Community College</option>
+                    <option value="other">other</option>
+                </select>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+
+
+        <div class="row">
+            <div class="form-group col-md-10 offset-md-1">
+                <label class="control-label">Mode of Instruction:</label>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width: 30%">Mode of instruction</th>
+                        <th style="width: 40%"></th>
+                        <th style="width: 30%">Percentage (%)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>in class (face to face)</td>
+                        <td></td>
+                        <td><input type="number" required="required" class="form-control" placeholder="%"/></td>
+                    </tr>
+                    <tr>
+                        <td>Other (Specify):</td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control" placeholder="%"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group col-md-10 offset-md-1">
+                <label class="control-label"> Comments:</label>
+                <textarea class="form-control" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+       $('#step-2').click();
+    });
+</script>
+{% endblock %}
+
+{% block action_buttons %}
+<button class="btn btn-primary nextBtn pull-right m-2" type="submit" name="next_btn">Next</button>
+<button class="btn btn-default nextBtn pull-right m-2" type="submit" name="back_btn" disabled="disabled">Back</button>
+{% endblock %}
