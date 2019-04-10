@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mohamed Faraj">
+    <title>Irshad - King Fahd University of Petroleum and Minerals</title>
+    <link rel="icon" href="../images/favicon.png">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <!-- Main CSS -->
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/wizard.css" rel="stylesheet">
+
+    <!--JS-->
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../js/custom.js"></script>
+
+
+    <script src="../js/wizard.js"></script>
+
+
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-primary border-header  align-items-start flex-column">
+    <div class="container d-flex">
+        <div class="logo-section d-flex">
+            <a class="navbar-brand" href="#"><b>KFUPM</b></a>
+            <a class="navbar-brand" href="/">
+                <span class="en-title title">Course Specification</span>
+            </a>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!--Create new request-->
+                <div class="card mt-4">
+                    <div class="card-body">
+
+
+                        <div class="container">
+                            <div class="stepwizard">
+                                <div class="stepwizard-row setup-panel">
+                                    <div class="stepwizard-step col-xs-3">
+                                        <a href="#step-1" id="a-1" type="button" class="btn btn-success btn-circle"
+                                        disabled="disabled">1</a>
+                                        <p>
+                                            <small>Course Creation</small>
+                                        </p>
+                                    </div>
+                                    <div class="stepwizard-step col-xs-3">
+                                        <a href="#step-2" id="a-2" type="button" class="btn btn-default btn-circle"
+                                        disabled="disabled">1</a>
+                                        <p>
+                                            <small>Course Identification and General Information</small>
+                                        </p>
+                                    </div>
+                                    <div class="stepwizard-step col-xs-3">
+                                        <a href="#step-3" id="a-3" type="button" class="btn btn-default btn-circle"
+                                           disabled="disabled">2</a>
+                                        <p>
+                                            <small>Course Objectives</small>
+                                        </p>
+                                    </div>
+                                    <div class="stepwizard-step col-xs-3">
+                                        <a href="#step-4" id="a-4" type="button" class="btn btn-default btn-circle"
+                                           disabled="disabled">3</a>
+                                        <p>
+                                            <small>Course Description</small>
+                                        </p>
+                                    </div>
+                                    <div class="stepwizard-step col-xs-3">
+                                        <a href="#step-5" id="a-5" type="button" class="btn btn-default btn-circle"
+                                           disabled="disabled">4</a>
+                                        <p>
+                                            <small>Office Hours</small>
+                                        </p>
+                                    </div>
+
+                                    <div class="stepwizard-step col-xs-3">
+                                        <a href="#step-6" id="a-6" type="button" class="btn btn-default btn-circle"
+                                           disabled="disabled">4</a>
+                                        <p>
+                                            <small>Learning Resources</small>
+                                        </p>
+                                    </div>
+
+                                    <div class="stepwizard-step col-xs-3">
+                                        <a href="#step-7" id="a-7" type="button" class="btn btn-default btn-circle"
+                                           disabled="disabled">4</a>
+                                        <p>
+                                            <small>Course Evaluation</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form role="form">
+                                <!--<div class="panel panel-primary setup-content" id="step-1">-->
+                                    <!--<div class="panel-heading">-->
+                                        <!--<h3 class="panel-title">Course Identification and General Information</h3>-->
+                                    <!--</div>-->
+                                    <!--<div class="panel-body">-->
+                                        <!--<div class="form-group">-->
+                                            <!--<label class="control-label">First Name</label>-->
+                                            <!--<input maxlength="100" type="text" required="required" class="form-control"-->
+                                                   <!--placeholder="Enter First Name"/>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group">-->
+                                            <!--<label class="control-label">Last Name</label>-->
+                                            <!--<input maxlength="100" type="text" required="required" class="form-control"-->
+                                                   <!--placeholder="Enter Last Name"/>-->
+                                        <!--</div>-->
+                                        <!--<button class="btn btn-primary nextBtn pull-right" type="button">Next</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+
+                                {% block tab_content %}
+
+                                {% endblock %}
+                                {% block action_buttons %}
+                                    <button class="btn btn-primary nextBtn pull-right m-2" type="submit" name="next_btn">Next</button>
+                                    <button class="btn btn-default nextBtn pull-right m-2" type="submit" name="back_btn">Back</button>
+                                {% endblock %}
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
