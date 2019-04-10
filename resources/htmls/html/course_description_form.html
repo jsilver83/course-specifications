@@ -1,0 +1,169 @@
+{% extends 'wizard_base.html' %}
+
+
+{% block tab_content %}
+
+<div class="panel panel-primary setup-content" id="step-4">
+    <div class="panel-heading">
+        <h3 class="panel-title">Course Description</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-group col-md-10 offset-md-1">
+                <label class="control-label">Catalog Course Description (General description in the form used in Bulletin):</label>
+                <textarea class="form-control" rows="5"></textarea>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+
+
+        <div class="row">
+            <div class="form-group col-md-10 offset-md-1">
+                <label class="control-label">Topics to be Covered:</label>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width: 79%">List of Topics</th>
+                        <th style="width: 7%">No. of Weeks</th>
+                        <th style="width: 7%">Contact hours</th>
+                        <th style="width: 7%">Related CLOS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="text" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+
+
+        <div class="row">
+            <div class="form-group col-md-10 offset-md-1">
+                <label class="control-label">Course Components (total contact hours and credits):</label>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width: 20%"></th>
+                        <th style="width: 13%">Lecture</th>
+                        <th style="width: 13%">Tutorial</th>
+                        <th style="width: 13%">Laboratory or Studio</th>
+                        <th style="width: 13%">Practical</th>
+                        <th style="width: 13%">Other (including self-study*)</th>
+                        <th style="width: 13%">Total</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Actual (Contact) Hours**</td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+
+                    </tr>
+                    <tr>
+                        <td>Credit Hours (per week)</td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div>
+                    <p>*Typically for each credit hour the student is expected to spend one hour per week for self-study.</p>
+                    <p>** Total Semester Hours = Weekly hours x Number of weeks per semester</p>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+
+
+
+        <div class="row">
+            <div class="form-group col-md-10 offset-md-1">
+                <label class="control-label"> Subject Area Credit Hours:</label>
+                <p><small>(Indicate the number of credit hours against the classification below)</small></p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width: 16%">Engineering</th>
+                        <th style="width: 16%">Mathematics/ Science</th>
+                        <th style="width: 16%">Humanities</th>
+                        <th style="width: 16%">Social Sciences</th>
+                        <th style="width: 16%">General Education</th>
+                        <th style="width: 16%">Other</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+                        <td><input type="number" required="required" class="form-control"/></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <p>*Typically for each credit hour the student is expected to spend one hour per week for self-study.</p>
+                    <p>** Total Semester Hours = Weekly hours x Number of weeks per semester</p>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <br>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#a-4').click();
+        $("#a-4").removeAttr("disabled");
+    });
+</script>
+{% endblock %}
