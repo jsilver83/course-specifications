@@ -24,3 +24,5 @@ course_specification/course_specification/settings/local.py
 .idea
 .DS_Store
 .pytest_cache
+
+
