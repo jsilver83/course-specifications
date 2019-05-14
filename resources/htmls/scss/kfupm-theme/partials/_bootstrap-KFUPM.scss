@@ -1,0 +1,202 @@
+
+//
+// Color system
+//
+
+$white:    #fff !default;
+$gray-100: #F7F7F7 !default;
+$gray-200: #EBEBEB !default;
+$gray-300: #E5E5E5 !default;
+$gray-400: #D8D8D8 !default;
+$gray-500: #BABABA !default;
+$gray-600: #777777 !default;
+$gray-700: #535353 !default;
+$gray-800: #3B3B3B !default;
+$gray-900: #262626 !default;
+$black:    #000 !default;
+
+
+$green:   #007d40 !default;
+$yellow: #cfb65d !default;
+
+$primary:       $green !default;
+
+// Animations
+@keyframes pulse-scale
+{
+     0% {
+    	@include scale(0.5);
+     }
+     100% {
+    	@include scale(1);
+     }
+}
+
+a.btn{
+	text-decoration: none;
+}
+
+.btn-warning{
+	color: $white;
+}
+
+.card {
+	.list-group-item, .card{
+		border-radius: 0;
+		border-style: none;
+		border-bottom-style: solid;
+		padding-left: 4px;
+		padding-right: 4px;		
+		margin-bottom:0;
+	}
+	.list-group-item:last-child, .card:last-child{
+		border-bottom-style: none;
+	}
+}
+a.card{
+	color: $gray-700;
+}
+
+.card-body .card-body{
+	padding-left:0;
+	padding-right:0;
+}
+
+.badge{
+	text-transform: uppercase;
+}
+@each $color, $value in $theme-colors {
+  .badge-#{$color} {
+	background-color: transparent;
+	color: $gray-700;
+    @include badge-variant($value);
+  }
+}
+.list-unstyled{
+	
+	p{
+		margin-bottom:0;
+	}
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.btn{
+	font-size: 0.9rem;
+}
+.form-control{
+	font-size: 0.9rem;	
+}
+
+.border-header{
+	border: none;
+	border-bottom:solid 3px $yellow;
+}
+
+/*Bootstrap Slipt Cols lines*/
+.split-cols > [class*="col-"] {
+    border-left: solid 1px #fff;
+    border-right: solid 1px #e9e9e9;
+}
+.split-cols > [class*="col-"]:last-child {
+    border-right: none;
+}
+.split-cols > [class*="col-"]:first-child {
+    border-left: none;
+}
+.split-cols > [class*="order-"]:last-child {
+    border-left: none;
+    border-right: solid 1px #e9e9e9;
+}
+.split-cols > [class*="order-"]:first-child {
+    border-right: none;
+    border-left: solid 1px #fff;
+}
+
+body.admin-layout {
+    background-color: #1d995e !important;
+
+    .container{
+    	width: 100%;
+    	max-width: initial;
+    }
+	.border-header{
+		border: none;
+	}
+    main{
+    	background-color: $light;
+    	margin-left: 224px;
+    	min-height: 100vh;
+		border-left:solid 3px $yellow;
+    }
+    .navbar{
+    	padding: 0;
+    	width: 224px;
+	    position: absolute;
+	    left: 0;
+	    height: 100%;
+
+	    .container{
+    	    justify-content: unset;
+    		padding: 0;
+	    }
+    }
+    .logo-section{
+    	background-color: #19884f;
+    	padding: 0.5rem 1rem;
+    	width: 100%;
+    }
+	.side-nav {
+		width: 100%;
+	}
+
+}
+
+.navbar-dark{
+	
+	a{
+		color: $white;
+	}
+}
+
+/*Modal*/
+.modal-backdrop{
+	background-color: $light;
+}
+.modal-header{
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+
+	.close {
+	    padding: 0.5rem 1rem;
+	    margin: -0.5rem -1rem -0.5rem auto;
+	}
+}
+.modal-content{
+	border: none;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+body.modal-open .body-content {
+    filter: blur(10px);
+    @include scale(1.03);
+}
+body.modal-open .modal{
+	animation: pulse-scale 0.1s 1;
+}
+
+
+/*Badge*/
+.text-badge.badge{
+	text-transform: uppercase;
+}
+@each $color, $value in $theme-colors {
+  .text-badge.badge-#{$color} {
+    @include badge-variant($value);
+	background-color: transparent !important;
+	color: $value;
+	font-size: 85%;
+  }
+}
