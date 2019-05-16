@@ -1,0 +1,89 @@
+.arabic{
+	
+	.flt-left{
+		float: right;
+	}
+	.flt-right{
+		float: left;
+	}
+
+	.rgt-head {
+	    float: left;
+	    text-align: left;
+	}
+	
+	.header{
+		.lft-head .dept-logo {
+		    padding-left: initial;
+		    padding-right: 15px;
+
+		    .ar-title{
+		    	display: block;
+		    }
+		    .en-title{
+		    	display: none;
+		    }
+		}
+	}
+	.left-head .dept-logo{
+		border-left: none;
+		border-right: 1px solid #339766;
+	}
+
+	.side-menu{
+		left: auto;
+		right: 0;
+	}
+	.eval-cntnt-sec{
+		padding-left: 15px;
+		padding-right: 250px;
+	}
+
+	.side-menu ul{
+
+		li.active:before {
+		    left: auto;
+		    right: 0;
+		}
+		a{
+			.icon {
+			    left: auto;
+			    right: 5px;
+			}
+			> span {
+			    padding-left: 10px;
+			    padding-right: 35px;
+			}
+		}
+	}
+
+	.confirm-mess {
+	    padding-left: 10px;
+	    padding-right: 45px;
+	}
+
+	.i-alert {
+	    left: auto;
+	    right: 0;
+	}
+
+	.status-menu{
+		.thm-titile.side-status-bar:after {
+			left: auto;
+			right: 0;
+		}
+		.thm-titile.side-status-bar:before {
+			left: auto;
+			right: 0;
+		}
+		.side-status-bar {
+		    padding-left: initial;
+		    padding-right: 20px;
+
+		    > li:before {
+			    left: auto;
+			    right: -20px;
+			}
+		}
+	}
+}
