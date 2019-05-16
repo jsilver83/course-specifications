@@ -11,9 +11,12 @@
     <!-- <link href="css/font-awesome.min.css" rel="stylesheet"> -->
     <!-- Main CSS -->
     <link href="css/all-kfupm.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
     <!--JS-->
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle-4.1.3.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select-1.13.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-tagsinput.js"></script>
     <script type="text/javascript" src="js/custom.js"></script>
 </head>
 <body class="bg-light">
@@ -42,7 +45,7 @@
                 <li><a href="assessment-tasks-form.html"><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
                 <li class="active"><a href="learning-resources-form.html"><i class="far fa-circle check-icon"></i> <span>Learning resources</span></a></li>
                 <li><a href="course-evaluation-form.html"><i class="far fa-circle check-icon"></i> <span>Course evaluation</span></a></li>
-                <li><a href="accreditation-requirements-form.html"><i class="fas fa-check-circle check-icon completed"></i> <span>Accreditation requirements</span></a></li>
+                <li class="completed"><a href="accreditation-requirements-form.html"><i class="fas fa-check-circle check-icon"></i> <span>Accreditation requirements</span></a></li>
             </ul>
         </div>
         <div class="content-section">
@@ -71,8 +74,10 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>List required textbooks <sup class="text-danger">*</sup></label>
-                                            <input class="form-control" />
+                                            <label>Enter required textbooks <sup class="text-danger">*</sup><br>
+                                                <small class="text-muted">Use "," to enter multiple textbook titles</small>
+                                            </label>
+                                            <input class="form-control" type="text" value="" placeholder="Enter textbook titles." data-role="tagsinput" />
                                         </div>
                                     </div>
                                     <div class="col-12">

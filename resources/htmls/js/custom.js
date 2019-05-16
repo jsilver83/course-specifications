@@ -6,12 +6,11 @@
 // });
 $(document).ready(function($) {
 
-    $(".clickable tr").click(function() {
-        window.document.location = $(this).data("href");
-    });
+	// $('#multiple-checkboxes').multiselect({
+ //      includeSelectAllOption: true,
+ //    });
+    $('select').selectpicker();
 
+    // $('.select-two').select2();
 
-    //Overlay alert message alignment
-    var overlay_alert_width = $('.overlay-alert').width();
-    $('.overlay-alert').css('margin-left',-overlay_alert_width/2);
 });

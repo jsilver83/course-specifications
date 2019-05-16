@@ -10,9 +10,9 @@ $gray-300: #E5E5E5 !default;
 $gray-400: #D8D8D8 !default;
 $gray-500: #BABABA !default;
 $gray-600: #777777 !default;
-$gray-700: #535353 !default;
+$gray-700: #555555 !default;
 $gray-800: #3B3B3B !default;
-$gray-900: #262626 !default;
+$gray-900: #333333 !default;
 $black:    #000 !default;
 
 
@@ -20,6 +20,7 @@ $green:   #007d40 !default;
 $yellow: #cfb65d !default;
 
 $primary:       $green !default;
+
 
 // Animations
 @keyframes pulse-scale
@@ -88,7 +89,11 @@ label {
 	font-size: 0.9rem;
 }
 .form-control{
-	font-size: 0.9rem;	
+	font-size: 0.9rem;
+
+	&:focus{
+
+	}
 }
 
 .border-header{
@@ -165,6 +170,10 @@ body.admin-layout {
 /*Modal*/
 .modal-backdrop{
 	background-color: $light;
+
+	&.show{
+		@include Opacity(0.8);
+	}
 }
 .modal-header{
 	padding-top: 0.5rem;

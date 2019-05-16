@@ -1,0 +1,14 @@
+.bootstrap-tagsinput{
+	width: 100%;
+
+	.tag{
+		color: $gray-900;
+		background-color: $gray-200;
+	    border-radius: 20px;
+	    padding: 1px 8px;
+
+     	[data-role="remove"]{
+     		color: $gray-500;
+     	}
+	}
+}
