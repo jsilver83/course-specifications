@@ -3,9 +3,6 @@
 /* Optional theme */
 
 /*@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css');*/
- body {
-    margin-top:30px;
-}
 .stepwizard-step p {
     margin-top: 0px;
     color:#666;
@@ -24,7 +21,9 @@
 }
 .stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {
     opacity:1 !important;
-    color:#bbb;
+    background-color: #fff;
+    border: solid 2px #007d40;
+    color:#333;
 }
 .stepwizard-row:before {
     top: 14px;
@@ -46,7 +45,15 @@
     height: 30px;
     text-align: center;
     padding: 6px 0;
-    font-size: 12px;
-    line-height: 1.428571429;
+    font-size: 14px;
+    line-height: 16px;
     border-radius: 15px;
+    border: solid 2px #007d40;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    color: #007d40 !important;
+}
+.btn-circle.btn-success {
+    color: #fff !important;
 }

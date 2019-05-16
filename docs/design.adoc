@@ -25,13 +25,12 @@ Internal
 
 === Purpose
 
-The document contains the proposed intial datamodel for the CRF2. Course Specifications form.
+The document contains the proposed the data model for the CRF2. Course Specifications form.
 
 === Scope
 
-Provide a description and scope of the software and explain the goals,
-objectives and benefits of your project. This will provide the basis
-for the brief description of your product.
+The transformation of the Course Specifications written form into a digital form with automation of the corresponding and related
+fields .
 
 === Overview
 
@@ -159,6 +158,3 @@ requirements by the numbers/codes that you gave them in the SRS.
 == First Appendix
 === Data Model
 image:images/courseDM.png[]
-
-
-Source: http://www.atilim.edu.tr/~dmishra/se112/sdd_template.pdf

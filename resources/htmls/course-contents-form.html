@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mohamed Faraj">
+    <title>Course Specification - King Fahd University of Petroleum and Minerals</title>
+    <link rel="icon" href="images/favicon.png">
+    <!-- <link href="css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- Main CSS -->
+    <link href="css/all-kfupm.css" rel="stylesheet">
+    <!--JS-->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-primary border-header  align-items-start flex-column">
+    <div class="container d-flex">
+        <div class="logo-section mr-auto d-flex align-items-center">
+            <a class="navbar-brand kfupm-logo" href="#"><b>KFUPM</b></a>
+            <a class="navbar-brand" href="/">
+                <span class="en-title title">Course Specification</span>
+            </a>
+        </div>
+        <div class="controls-section text-white d-flex align-items-center">
+            <small class="text-light login-name mr-3">Mohammed</small>
+            <a href="#" class="logout-btn"><i class="fas fa-power-off mr-1"></i> <small>Logout</small></a>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="container pt-4 pb-4 side-nav-layout">
+        <div class="side-checklist side-nav">
+            <h6>Checklist</h6>
+            <ul class="checklist-menu nav flex-column">
+                <li><a href="course-identification-form.html"><i class="far fa-circle check-icon"></i> <span>Course identification and general information</span></a></li>
+                <li><a href="course-description-form.html"><i class="far fa-circle check-icon"></i> <span>Course Description, Objectives & Learning Outcomes</span></a></li>
+                <li class="active"><a href="course-contents-form.html"><i class="far fa-circle check-icon"></i> <span>Course contents</span></a></li>
+                <li><a href="assessment-tasks-form.html"><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
+                <li><a href="learning-resources-form.html"><i class="far fa-circle check-icon"></i> <span>Learning resources</span></a></li>
+                <li><a href="course-evaluation-form.html"><i class="far fa-circle check-icon"></i> <span>Course evaluation</span></a></li>
+                <li class="completed"><a href="accreditation-requirements-form.html"><i class="fas fa-check-circle check-icon"></i> <span>Accreditation requirements</span></a></li>
+            </ul>
+        </div>
+        <div class="content-section">
+            <form class="row">
+                <div class="col-12">
+                    <div class="card mb-4 course-title">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <h6 class="mb-0 mr-auto">Theory of Architecture I</h6>
+                                <div class="d-flex align-items-center">
+                                    <small class="text-danger mr-3">* Mandatory</small>
+                                    <button class="btn btn-sm btn-warning">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actual Contact Hours -->
+                    <div class="card mb-4 form-accordian completed">
+                        <div class="card-body p-0">
+                            <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#contact-hours" aria-expanded="false" aria-controls="contact-hours">
+                                <i class="fas fa-check check-icon"></i> <span class="mr-auto">Actual Contact Hours</span>
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                            <div class="collapse show p-3 pt-4 pb-4" id="contact-hours">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <nav>
+                                          <div class="nav nav-tabs" id="assessment-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true"><small>Lecture</small> <p class="h6 mb-0"><b>25 hrs</b><sup class="text-danger">*</sup></p></a>
+                                            
+                                            <a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="true"><small>Laboratory</small> <p class="h6 mb-0"><b>25 hrs</b><sup class="text-danger">*</sup></p></a>
+
+                                            <a class="nav-item nav-link" id="nav-tutorial-tab" data-toggle="tab" href="#nav-tutorial" role="tab" aria-controls="nav-tutorial" aria-selected="true"><small>Tutorial</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+
+                                            <a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab" href="#nav-practical" role="tab" aria-controls="nav-practical" aria-selected="true"><small>Practical</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+
+                                            <a class="nav-item nav-link" id="nav-other-tab" data-toggle="tab" href="#nav-other" role="tab" aria-controls="nav-other" aria-selected="true"><small>Other</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+                                          </div>
+                                        </nav>
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <!-- Lecture -->
+                                            <div class="tab-pane fade show active" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
+                                                <table class="table border">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1" width="50%">
+                                                                <small>List of Lecture topics</small>
+                                                            </th>
+                                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                                <small>Contact hours <b>(Max 15)</b></small>
+                                                            </th>
+                                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                                <small>Related CLOs</small>
+                                                            </th>
+                                                            <th scope="col"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td scope="row" class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="Enter lecture topic title" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-1">Add</button>
+                                                                <div class="modal fade" id="lec-clo-1" tabindex="-1" role="dialog" aria-labelledby="lec-clo-1" aria-hidden="true">
+                                                                  <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title">Related CLOs</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                          <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                        <ol class="pl-3">
+                                                                            <li>
+                                                                                <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                            </li>
+                                                                        </ol>
+                                                                        <div class="text-right">
+                                                                            <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add CLO</button>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                                        <button type="button" class="btn btn-primary">Update</button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td scope="row" class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="Enter lecture topic title" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-2"><b>3</b> Added</button>
+                                                                <div class="modal fade" id="lec-clo-2" tabindex="-1" role="dialog" aria-labelledby="lec-clo-2" aria-hidden="true">
+                                                                  <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title">Related CLOs</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                          <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                        <ol class="pl-3">
+                                                                            <li>
+                                                                                <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                            </li>
+                                                                        </ol>
+                                                                        <div class="text-right">
+                                                                            <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add CLO</button>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                                        <button type="button" class="btn btn-primary">Update</button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="text-right d-flex align-items-center">
+                                                    <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
+                                                    <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add topic</button>
+                                                </div>
+                                            </div>
+                                            <!-- /Lecture -->
+                                            <!-- Laboratory -->
+                                            <div class="tab-pane fade" id="nav-laboratory" role="tabpanel" aria-labelledby="nav-laboratory-tab">
+                                                <table class="table border">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1" width="50%">
+                                                                <small>List of Laboratory topics</small>
+                                                            </th>
+                                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                                <small>Contact hours <b>(Max 15)</b></small>
+                                                            </th>
+                                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                                <small>Related CLOs</small>
+                                                            </th>
+                                                            <th scope="col"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td scope="row" class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="Enter Laboratory topic title" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lab-clo-2"><b>3</b> Added</button>
+                                                                <div class="modal fade" id="lab-clo-2" tabindex="-1" role="dialog" aria-labelledby="lab-clo-2" aria-hidden="true">
+                                                                  <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title">Related CLOs</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                          <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                        <ol class="pl-3">
+                                                                            <li>
+                                                                                <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                            </li>
+                                                                        </ol>
+                                                                        <div class="text-right">
+                                                                            <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add CLO</button>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                                        <button type="button" class="btn btn-primary">Update</button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td scope="row" class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="Enter Laboratory topic title" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lab-clo-2"><b>2</b> Added</button>
+                                                                <div class="modal fade" id="lab-clo-2" tabindex="-1" role="dialog" aria-labelledby="lab-clo-2" aria-hidden="true">
+                                                                  <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title">Related CLOs</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                          <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                        <ol class="pl-3">
+                                                                            <li>
+                                                                                <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                            </li>
+                                                                        </ol>
+                                                                        <div class="text-right">
+                                                                            <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add CLO</button>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                                        <button type="button" class="btn btn-primary">Update</button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="text-right d-flex align-items-center">
+                                                    <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
+                                                    <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add topic</button>
+                                                </div>
+                                            </div>
+                                            <!-- /Laboratory -->
+
+                                            <!-- Tutorial -->
+                                            <div class="tab-pane fade" id="nav-tutorial" role="tabpanel" aria-labelledby="nav-tutorial-tab">
+                                                <div class="border p-3">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label>Tutorial hours</label>
+                                                                <input type="text" class="form-control" placeholder="e.g., 3 hrs" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right d-flex align-items-center mt-3">
+                                                    <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
+                                                </div>
+                                            </div>
+                                            <!-- /Tutorial -->
+
+                                            <!-- Practical -->
+                                            <div class="tab-pane fade" id="nav-practical" role="tabpanel" aria-labelledby="nav-practical-tab">
+                                                <div class="border p-3">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label>Practical hours</label>
+                                                                <input type="text" class="form-control" placeholder="e.g., 3 hrs" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right d-flex align-items-center mt-3">
+                                                    <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
+                                                </div>
+                                            </div>
+                                            <!-- /Practical -->
+
+                                            <!-- Other -->
+                                            <div class="tab-pane fade" id="nav-other" role="tabpanel" aria-labelledby="nav-other-tab">
+                                                <div class="border p-3">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label>Other hours</label>
+                                                                <input type="text" class="form-control" placeholder="e.g., 3 hrs" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right d-flex align-items-center mt-3">
+                                                    <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
+                                                </div>
+                                            </div>
+                                            <!-- /Other -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Actual Contact Hours -->
+
+                    <!-- Other self-study hours -->
+                    <div class="card mb-4 form-accordian">
+                        <div class="card-body p-0">
+                            <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#self-study" aria-expanded="false" aria-controls="course-level-outcomes">
+                                <i class="fas fa-check check-icon"></i> <span class="mr-auto">Other self-study hours</span>
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                            <div class="collapse show p-3 pt-4 pb-4" id="self-study">
+                                <div class="row">
+                                    <div class="col-sm-2 col-12">
+                                        <div class="form-group">
+                                            <lable>Lecture</lable>
+                                            <input type="text" class="form-control" placeholder="e.g., 2 hrs" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-12">
+                                        <div class="form-group">
+                                            <lable>Laboratory</lable>
+                                            <input type="text" class="form-control" placeholder="e.g., 2 hrs" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-12">
+                                        <div class="form-group">
+                                            <lable>Tutorial</lable>
+                                            <input type="text" class="form-control" placeholder="e.g., 2 hrs" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-12">
+                                        <div class="form-group">
+                                            <lable>Practical</lable>
+                                            <input type="text" class="form-control" placeholder="e.g., 2 hrs" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-12">
+                                        <div class="form-group">
+                                            <lable>Other</lable>
+                                            <input type="text" class="form-control" placeholder="e.g., 2 hrs" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-12">
+                                        <div class="form-group bg-light p-2 text-center">
+                                            <small class="d-block mb-2"><b>Total hrs</b></small>
+                                            <h5 class="mb-0">12</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-muted mb-0">
+                                    <small>Typically for each credit hour the student is expected to spend one hour per week for self-study.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Other self-study hours -->
+
+                    <!-- Subject area credit hours -->
+                    <div class="card mb-4 form-accordian">
+                        <div class="card-body p-0">
+                            <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#subject-area" aria-expanded="false" aria-controls="subject-area">
+                                <i class="fas fa-check check-icon"></i> <span class="mr-auto">Subject area credit hours</span>
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                            <div class="collapse show p-3 pt-4 pb-4" id="subject-area">
+                                <p class="text-muted">
+                                    <small>Typically for each credit hour the student is expected to spend one hour per week for self-study.</small>
+                                </p>
+                                <table class="table border">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                <small>Engineering <sup class="text-danger">*</sup></small>
+                                            </th>
+                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                <small>Mathematics / Science <sup class="text-danger">*</sup></small>
+                                            </th>
+                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                <small>Humanities <sup class="text-danger">*</sup></small>
+                                            </th>
+                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                <small>Social sciences <sup class="text-danger">*</sup></small>
+                                            </th>
+                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                <small>General education <sup class="text-danger">*</sup></small>
+                                            </th>
+                                            <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+                                                <small>Other</small>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td scope="row" class="align-middle border-bottom">
+                                                <input type="text" class="form-control" placeholder="e.g., 2 hrs" />
+                                            </td>
+                                            <td class="align-middle border-bottom">
+                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                            </td>
+                                            <td class="align-middle border-bottom">
+                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                            </td>
+                                            <td class="align-middle border-bottom">
+                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                            </td>
+                                            <td class="align-middle border-bottom">
+                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                            </td>
+                                            <td class="align-middle border-bottom">
+                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Other self-study hours -->
+
+                    <!--Form Button -->
+                    <div class="row">
+                        <div class="col-sm-6 col-12">
+                            <button class="btn btn-secondary"><small class="fas fa-chevron-left mr-1"></small> Previous</button>
+                        </div>
+                        <div class="col-sm-6 col-12 text-right">
+                            <button class="btn btn-primary">Save & continue <small class="fas fa-chevron-right ml-1"></small></button>
+                        </div>
+                    </div>
+                    <!--/Form Button -->
+
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

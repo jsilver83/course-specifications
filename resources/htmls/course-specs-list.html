@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mohamed Faraj">
+    <title>Course Specification - King Fahd University of Petroleum and Minerals</title>
+    <link rel="icon" href="images/favicon.png">
+    <!-- <link href="css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- Main CSS -->
+    <link href="css/all-kfupm.css" rel="stylesheet">
+    <!--JS-->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-primary border-header  align-items-start flex-column">
+    <div class="container d-flex">
+        <div class="logo-section mr-auto d-flex align-items-center">
+            <a class="navbar-brand kfupm-logo" href="#"><b>KFUPM</b></a>
+            <a class="navbar-brand" href="/">
+                <span class="en-title title">Course Specification</span>
+            </a>
+        </div>
+        <div class="controls-section text-white d-flex align-items-center">
+            <small class="text-light login-name mr-3">Mohammed</small>
+            <a href="#" class="logout-btn"><i class="fas fa-power-off mr-1"></i> <small>Logout</small></a>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="container pt-4 pb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-0 d-flex align-items-center">
+                            <h5 class="mb-0 mr-auto">Course specifications lists</h5>
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-plus mr-1"></i> <span>Create course</span></button>
+                        </div>
+                    </div>
+                    <div class="card-header d-flex align-items-center">
+                        <form class="form-inline search-group mr-auto">
+                            <i class="fas fa-search search-icon"></i>
+                            <input class="form-control form-control-sm search-field" placeholder="Search" />
+                        </form>
+                        <form class="form-inline">
+                            <small class="mr-2 text-muted">Status</small>
+                            <select class="form-control form-control-sm search-field" placeholder="Search">
+                                <option>All</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table clickable">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="align-middle border-top-0 text-muted">
+                                        <small>Course code</small>
+                                    </th>
+                                    <th scope="col" class="align-middle border-top-0 text-muted">
+                                        <small>Course title</small>
+                                    </th>
+                                    <th scope="col" class="status align-middle border-top-0 text-muted">
+                                        <small>Course credit hours</small>
+                                    </th>
+                                    <th scope="col" class="status align-middle border-top-0 text-muted">
+                                        <small>Last update</small>
+                                    </th>
+                                    <th scope="col" class="status align-middle border-top-0 text-muted">
+                                        <small>Status</small>
+                                    </th>
+                                    <th scope="col" class="align-middle border-top-0 text-muted">
+                                        
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-href="course-identification-form.html">
+                                    <td scope="row" class="align-middle">
+                                        <p class="mb-0">
+                                            ACCT110
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Intro. to Financial Accounting
+                                        </p>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            4 hrs
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            <small>
+                                                03-04-2019
+                                                <br>
+                                                08:00 AM
+                                            </small>
+                                        </p>
+                                    </td>
+                                    <td class="status align-middle">
+                                        <span class="badge badge-primary text-badge mr-auto">APPROVED</span>
+                                    </td>
+                                    <td class="status align-middle text-right">
+                                        <button class="btn btn-sm btn-outline-secondary">New version</button>
+                                    </td>
+                                </tr>
+                                <tr data-href="course-identification-form.html">
+                                    <td scope="row" class="align-middle">
+                                        <p class="mb-0">
+                                            ACCT110
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Intro. to Financial Accounting
+                                        </p>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            4 hrs
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            <small>
+                                                03-04-2019
+                                                <br>
+                                                08:00 AM
+                                            </small>
+                                        </p>
+                                    </td>
+                                    <td class="status align-middle">
+                                        <span class="badge badge-warning text-badge mr-auto">SUBMITTED</span>
+                                    </td>
+                                    <td class="status align-middle text-right">
+                                        <button class="btn btn-sm btn-outline-secondary">Update</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
