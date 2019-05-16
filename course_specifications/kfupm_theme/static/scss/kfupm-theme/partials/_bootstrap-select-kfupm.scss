@@ -1,0 +1,44 @@
+.bootstrap-select{
+	
+	.dropdown-menu li{
+		margin-bottom: 1px;
+
+		&.selected{
+			background-color: $gray-200;
+		}
+	}
+	&.show-tick{
+		
+		.dropdown-menu{
+			
+			.selected{
+
+				span.check-mark{
+					right: auto;
+					left: 15px;
+					font-size: 0.8rem;
+					top: 8px;
+				}
+			}
+			.dropdown-item{
+				padding-left: 2rem;
+			}
+		}
+	}
+
+	.dropdown-item{
+
+		&.active, &:active{
+			background-color: $gray-200;
+			color: $gray-900;
+		}
+	}	
+
+} 
+
+.bs-searchbox .form-control{
+	height: calc(1.8125rem + 2px);
+	padding: 0.25rem 0.5rem;
+	line-height: 1.5;
+	border-radius: 0.2rem;
+}

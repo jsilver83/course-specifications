@@ -1,0 +1,192 @@
+.login-name{
+	@include Opacity(0.5);
+}
+
+.card {
+    border-color: #EDEDED;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.side-nav-layout{
+	.side-checklist {
+	    background-color: rgba(255,255,255,0.3);
+	    border-radius: 12px;
+	    box-shadow: 0 0 16px rgba(0,0,0,.05);
+	    padding: 16px;
+	    width: 220px !important;
+        height: calc(100% - 48px);
+
+	    h6{
+	    	font-size: 0.9rem;
+	    	font-weight: 600;
+	    }
+	    .checklist-menu {
+		    margin-left: -16px;
+		    margin-right: -16px;
+
+		    li{
+		    	border-bottom: solid 1px #EDEDED;
+		    	@include Opacity(0.5);
+	    		position: relative;
+
+			    &:before{
+			    	content: "";
+			    	position: absolute;
+			    	left:0;
+			    	right:0;
+			    	top:0;
+			    	bottom:0;
+			    	z-index: 1;
+			    }
+
+			    a{
+			    	padding:12px 16px;
+			    	font-size: 13px;
+			    	text-decoration: none;
+			    	display: flex;
+			    	color: #333333;
+
+			    	.check-icon {
+					    margin-top: 1px;
+					    margin-right: 6px;
+					    font-size: 16px;
+					    color: #DFBE76;
+					}
+					&:hover{
+						background-color: #fff;
+				    }
+			    }
+			    &.active{
+			    	@include Opacity(1);
+
+			    	&:before{
+			    		display: none;
+			    	}
+
+				    a{
+				    	background-color: #fff;
+				    	color: #007d40;
+				    	font-weight: 600;
+				    }
+			    }
+
+			    &.completed{
+			    	@include Opacity(1);
+
+			    	&:before{
+			    		display: none;
+			    	}
+			    	.check-icon {
+				    	color: #007d40;
+			    	}
+			    }
+		    }
+		}
+	}
+
+	.content-section{
+	    padding-left: calc(220px + 24px);
+	}
+}
+
+
+.card.course-title {
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    border-color: rgba(237,237,237,0.6);
+
+    .card-body{
+    	padding-top: 16px;
+    	padding-bottom: 16px;
+
+	    h6{
+	    	color: #646464;
+	    }
+    }
+}
+
+.form-accordian{
+	position: relative;
+	display: block;
+	
+	&:before {
+	    content: "";
+	    background-image: linear-gradient(rgba(255, 255, 255, 0),rgba(255, 255, 255, 0), rgba(246, 246, 246, 0.5));
+	    width: 100%;
+	    height: calc(100% - 36px);
+	    display: block;
+	    position: absolute;
+	    bottom: 0;
+	    z-index: 0;
+	}
+	.fa-caret-down, .fa-caret-up{
+		color: $gray-500;
+	}
+	.card-body{
+		z-index: 2;
+	}
+	
+	.card-header{
+	    font-weight: 600;
+	    font-size: 0.85rem;
+
+		.check-icon{
+			font-size: 12px;
+			margin-right: 8px;
+			color: #D4D4D4;
+		}
+	}
+
+	.form-group{
+		
+		lable {
+		    font-size: 0.8rem;
+		    margin-bottom: 5px;
+		    display: block;
+	        font-weight: 600;
+		}
+	}
+	.input-group-text{
+		font-size: 0.7rem;
+		padding: 0;
+		padding-right: 4px;
+		margin: 0;
+	}
+
+	&.completed{
+
+		.card-header{
+			background-color: #D9ECE2;
+			color: #007D40;
+
+			.check-icon{
+				color: #007d40;
+			}
+		}
+	}
+
+	.nav-tabs{
+		border-bottom: 2px solid #EADBBC;
+
+		.nav-item{
+			margin-bottom: 0;
+		}
+		.nav-link{
+			color: #545454;
+			font-weight: 600;
+			background-color: $gray-100;
+			margin-right: 12px;
+
+			&.active{
+				background-color: #EDE1C7;
+				border-color: #EDE1C7;
+			}
+		}
+	}
+
+	.table .thead-light th{
+		background-color: $gray-100;
+		border-color: $gray-200;
+	}
+
+}
