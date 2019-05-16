@@ -8995,6 +8995,12 @@ body.modal-open .modal {
   background-color: #222222;
 }
 
+/* Alert */
+.alert .message-icon {
+  font-size: 18px;
+  margin-right: 0.7rem;
+}
+
 /*!
  * Bootstrap-select v1.13.1 (https://developer.snapappointments.com/bootstrap-select)
  *
@@ -9725,6 +9731,27 @@ small, .small {
 .side-nav-layout .content-section {
   padding-left: calc(240px + 24px);
   width: 100%;
+}
+
+/* Alert Popup */
+.alert-popup {
+  position: absolute;
+  top: 16px;
+  width: 100%;
+  z-index: 9999;
+}
+.alert-popup.with-shadow .alert {
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) ;
+  -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) ;
+  -ms-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) ;
+  -o-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) ;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) ;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.alert-popup.with-shadow .alert.alert-dismissible .close {
+  padding: 0.9rem 1.25rem;
+  height: 100%;
 }
 
 .login-name {

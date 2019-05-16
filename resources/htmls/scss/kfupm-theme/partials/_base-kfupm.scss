@@ -62,3 +62,26 @@ small, .small{
 	    width: 100%;
 	}
 }
+
+
+/* Alert Popup */
+.alert-popup{
+	position: absolute;
+	top: 16px;
+	width: 100%;
+	z-index: 9999;
+
+	&.with-shadow{
+
+		.alert{
+			@include box-shadow(0, 8px, 16px, rgba(0, 0, 0, 0.1));
+			padding-top: 1rem;
+    		padding-bottom: 1rem;
+
+    		&.alert-dismissible .close{
+    			padding: 0.9rem 1.25rem;
+			    height: 100%;
+    		}
+		}
+	}
+}

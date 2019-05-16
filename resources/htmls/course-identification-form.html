@@ -35,6 +35,48 @@
 </nav>
 <main>
     <div class="container pt-4 pb-4 side-nav-layout">
+        <!-- Alert Messages -->
+        <div class="text-center d-flex justify-content-center alert-popup with-shadow">
+
+            <!-- Success message -->
+            <div class="alert alert-success alert-dismissible fade show overlay-alert" role="alert">
+                <div class="d-flex align-items-center justify-content-center">
+                    <i class="fas fa-check message-icon"></i>
+                    <span>Success message</span>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!-- /Success message -->
+
+            <!-- Error message -->
+            <div class="alert alert-danger alert-dismissible fade show overlay-alert" role="alert">
+                <div class="d-flex align-items-center justify-content-center">
+                    <i class="fas fa-times message-icon"></i>
+                    <span>Error message</span>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!-- /Error message -->
+
+            <!-- Warning message -->
+            <div class="alert alert-warning alert-dismissible fade show overlay-alert" role="alert">
+                <div class="d-flex align-items-center justify-content-center">
+                    <i class="fas fa-exclamation message-icon"></i>
+                    <span>Warning message</span>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!-- /Warning message -->
+        </div>
+        <!-- /Alert Messages -->
+
+        
         <div class="side-checklist side-nav">
             <h6>Checklist</h6>
             <ul class="checklist-menu nav flex-column">
