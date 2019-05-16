@@ -80,7 +80,31 @@
                                         </nav>
                                         <div class="tab-content" id="nav-tabContent">
                                             <!-- Lecture -->
-                                            <div class="tab-pane fade show active" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
+                                            <div class="tab-pane fade show has-add-content active" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
+
+                                                <!-- Default for adding -->
+                                                <table class="d-none">
+                                                    <tbody class="add-this">
+                                                        <tr class="delete-this">
+                                                            <td scope="row" class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g. essay, test, group project, examination, speech, etc." />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <div class="input-group">
+                                                                  <input type="text" class="form-control border-right-0" placeholder="e.g., 20%" aria-describedby="total-value"/>
+                                                                  <div class="input-group-append m-0">
+                                                                    <small class="input-group-text text-muted pl-2 pr-2" id="total-value">Max 100%</small>
+                                                                  </div>
+                                                                </div>
+                                                            </td>
+                                                            <td><button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- /Default for adding -->
                                                 <table class="table border">
                                                     <thead class="thead-light">
                                                         <tr>
@@ -93,9 +117,10 @@
                                                             <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
                                                                 <small>Proportion of Total Assessment</small>
                                                             </th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="add-here">
                                                         <tr>
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="text" class="form-control" placeholder="e.g. essay, test, group project, examination, speech, etc." />
@@ -111,8 +136,9 @@
                                                                   </div>
                                                                 </div>
                                                             </td>
+                                                            <td></td>
                                                         </tr>
-                                                        <tr>
+                                                        <tr class="delete-this">
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="text" class="form-control" placeholder="e.g. essay, test, group project, examination, speech, etc." />
                                                             </td>
@@ -127,16 +153,40 @@
                                                                   </div>
                                                                 </div>
                                                             </td>
+                                                            <td><button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                                 <div class="text-right">
-                                                    <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add assessment</button>
+                                                    <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add assessment</button>
                                                 </div>
                                             </div>
                                             <!-- /Lecture -->
                                             <!-- Laboratory -->
-                                            <div class="tab-pane fade" id="nav-laboratory" role="tabpanel" aria-labelledby="nav-laboratory-tab">
+                                            <div class="tab-pane fade has-add-content" id="nav-laboratory" role="tabpanel" aria-labelledby="nav-laboratory-tab">
+                                                <!-- Default for adding -->
+                                                <table class="d-none">
+                                                    <tbody class="add-this">
+                                                        <tr class="delete-this">
+                                                            <td scope="row" class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g. essay, test, group project, examination, speech, etc." />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <div class="input-group">
+                                                                  <input type="text" class="form-control border-right-0" placeholder="e.g., 20%" aria-describedby="total-value"/>
+                                                                  <div class="input-group-append m-0">
+                                                                    <small class="input-group-text text-muted pl-2 pr-2" id="total-value">Max 100%</small>
+                                                                  </div>
+                                                                </div>
+                                                            </td>
+                                                            <td><button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- /Default for adding -->
                                                 <table class="table border">
                                                     <thead class="thead-light">
                                                         <tr>
@@ -149,9 +199,10 @@
                                                             <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
                                                                 <small>Proportion of Total Assessment</small>
                                                             </th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="add-here">
                                                         <tr>
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="text" class="form-control" placeholder="e.g. essay, test, group project, examination, speech, etc." />
@@ -167,8 +218,9 @@
                                                                   </div>
                                                                 </div>
                                                             </td>
+                                                            <td></td>
                                                         </tr>
-                                                        <tr>
+                                                        <tr class="delete-this">
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="text" class="form-control" placeholder="e.g. essay, test, group project, examination, speech, etc." />
                                                             </td>
@@ -183,11 +235,12 @@
                                                                   </div>
                                                                 </div>
                                                             </td>
+                                                            <td><button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                                 <div class="text-right">
-                                                    <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add assessment</button>
+                                                    <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add assessment</button>
                                                 </div>
                                             </div>
                                             <!-- /Laboratory -->

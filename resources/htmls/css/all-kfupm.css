@@ -9462,6 +9462,10 @@ select.selectpicker {
 }
 
 /*# sourceMappingURL=bootstrap-select.css.map */
+.bootstrap-select > .dropdown-toggle {
+  height: calc(2.25rem + 2px);
+  border: 1px solid #EBEBEB;
+}
 .bootstrap-select .dropdown-menu li {
   margin-bottom: 1px;
 }
@@ -9921,6 +9925,10 @@ small, .small {
 .form-accordian .table .thead-light th {
   background-color: #F7F7F7;
   border-color: #EBEBEB;
+}
+
+.add-this {
+  display: none;
 }
 
 .arabic .flt-left {

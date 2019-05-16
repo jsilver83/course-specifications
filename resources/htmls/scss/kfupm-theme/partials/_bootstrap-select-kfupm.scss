@@ -1,4 +1,9 @@
 .bootstrap-select{
+
+	> .dropdown-toggle{
+		height: $input-height;
+		border: $input-border-width solid $gray-200;
+	}
 	
 	.dropdown-menu li{
 		margin-bottom: 1px;

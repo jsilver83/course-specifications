@@ -113,6 +113,7 @@
                                                             </td>
                                                             <td class="align-middle border-bottom">
                                                                 <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-1">Add</button>
+                                                                <!-- Add CLO Modal -->
                                                                 <div class="modal fade" id="lec-clo-1" tabindex="-1" role="dialog" aria-labelledby="lec-clo-1" aria-hidden="true">
                                                                   <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
@@ -122,14 +123,32 @@
                                                                           <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                       </div>
-                                                                      <div class="modal-body">
-                                                                        <ol class="pl-3">
-                                                                            <li>
-                                                                                <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                      <div class="modal-body has-add-content">
+                                                                        <!-- Default for adding -->
+                                                                        <div class="add-this">
+                                                                            <li class="form-group delete-this">
+                                                                                <div class="d-flex">
+                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                                    <button class="btn btn-sm btn-link delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button>
+                                                                                </div>
+                                                                            </li>
+                                                                        </div>
+                                                                        <!-- /Default for adding -->
+                                                                        <ol class="pl-3 add-here">
+                                                                            <li class="form-group">
+                                                                                <div class="d-flex">
+                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                                </div>
+                                                                            </li>
+                                                                            <li class="form-group delete-this">
+                                                                                <div class="d-flex">
+                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button>
+                                                                                </div>
                                                                             </li>
                                                                         </ol>
                                                                         <div class="text-right">
-                                                                            <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add CLO</button>
+                                                                            <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add CLO</button>
                                                                         </div>
                                                                       </div>
                                                                       <div class="modal-footer">
@@ -139,6 +158,7 @@
                                                                     </div>
                                                                   </div>
                                                                 </div>
+                                                                <!-- /Add CLO Modal -->
                                                             </td>
                                                             <td></td>
                                                         </tr>
@@ -151,6 +171,7 @@
                                                             </td>
                                                             <td class="align-middle border-bottom">
                                                                 <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-2"><b>3</b> Added</button>
+                                                                <!-- Add CLO Modal -->
                                                                 <div class="modal fade" id="lec-clo-2" tabindex="-1" role="dialog" aria-labelledby="lec-clo-2" aria-hidden="true">
                                                                   <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
@@ -160,14 +181,32 @@
                                                                           <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                       </div>
-                                                                      <div class="modal-body">
-                                                                        <ol class="pl-3">
-                                                                            <li>
-                                                                                <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                      <div class="modal-body has-add-content">
+                                                                        <!-- Default for adding -->
+                                                                        <div class="add-this">
+                                                                            <li class="form-group delete-this">
+                                                                                <div class="d-flex">
+                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                                    <button class="btn btn-sm btn-link delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button>
+                                                                                </div>
+                                                                            </li>
+                                                                        </div>
+                                                                        <!-- /Default for adding -->
+                                                                        <ol class="pl-3 add-here">
+                                                                            <li class="form-group">
+                                                                                <div class="d-flex">
+                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                                </div>
+                                                                            </li>
+                                                                            <li class="form-group delete-this">
+                                                                                <div class="d-flex">
+                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
+                                                                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button>
+                                                                                </div>
                                                                             </li>
                                                                         </ol>
                                                                         <div class="text-right">
-                                                                            <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add CLO</button>
+                                                                            <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add CLO</button>
                                                                         </div>
                                                                       </div>
                                                                       <div class="modal-footer">
@@ -177,6 +216,7 @@
                                                                     </div>
                                                                   </div>
                                                                 </div>
+                                                                <!-- /Add CLO Modal -->
                                                             </td>
                                                             <td></td>
                                                         </tr>
@@ -184,7 +224,7 @@
                                                 </table>
                                                 <div class="text-right d-flex align-items-center">
                                                     <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
-                                                    <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add topic</button>
+                                                    <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add topic</button>
                                                 </div>
                                             </div>
                                             <!-- /Lecture -->
