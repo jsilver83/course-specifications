@@ -1,305 +1,105 @@
-{% load staticfiles %}
+{% load staticfiles i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mohamed Faraj">
-    <title>Course Specification - King Fahd University of Petroleum and Minerals</title>
-    <link rel="icon" href="{% static 'jmages/favicon.png' %}">
-    <!-- <link href="css/font-awesome.min.css" rel="stylesheet"> -->
-    <!-- Main CSS -->
-    <link href="{% static 'css/all-kfupm.css' %}" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="Mohamed Faraj">
+	<title>Course Specification - King Fahd University of Petroleum and Minerals</title>
+	<link rel="icon" href="{% static 'jmages/favicon.png' %}">
+	<!-- <link href="css/font-awesome.min.css" rel="stylesheet"> -->
+	<!-- Main CSS -->
+	<link href="{% static 'css/all-kfupm.css' %}" rel="stylesheet">
+	{% block css %}
+	{% endblock css %}
 
-    <!--JS-->
-    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.bundle-4.1.3.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap-select-1.13.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap-tagsinput.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+	<!--JS-->
+	<script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/bootstrap.bundle-4.1.3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/bootstrap-select-1.13.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/bootstrap-tagsinput.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+	{% block js %}
+	{% endblock js %}
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-dark bg-primary border-header  align-items-start flex-column">
-    <div class="container d-flex">
-        <div class="logo-section mr-auto d-flex align-items-center">
-            <a class="navbar-brand kfupm-logo" href="#"><b>KFUPM</b></a>
-            <a class="navbar-brand" href="/">
-                <span class="en-title title">Course Specification</span>
-            </a>
-        </div>
-        <div class="controls-section text-white d-flex align-items-center">
-            <small class="text-light login-name mr-3">Mohammed</small>
-            <a href="#" class="logout-btn"><i class="fas fa-power-off mr-1"></i> <small>Logout</small></a>
-        </div>
-    </div>
+	<div class="container d-flex">
+		<div class="logo-section mr-auto d-flex align-items-center">
+			<a class="navbar-brand kfupm-logo" href="#"><b>KFUPM</b></a>
+			<a class="navbar-brand" href="/">
+				<span class="en-title title">Course Specification</span>
+			</a>
+		</div>
+		<div class="controls-section text-white d-flex align-items-center">
+			<small class="text-light login-name mr-3">Mohammed</small>
+			<a href="#" class="logout-btn"><i class="fas fa-power-off mr-1"></i>
+				<small>Logout</small>
+			</a>
+		</div>
+	</div>
 </nav>
 <main>
-    <div class="container pt-4 pb-4 side-nav-layout">
-        <!-- Alert Messages -->
-        <div class="text-center d-flex justify-content-center alert-popup with-shadow">
+	<div class="container pt-4 pb-4 side-nav-layout">
+		<!-- Alert Messages -->
+		<div class="text-center d-flex justify-content-center alert-popup with-shadow">
 
-            <!-- Success message -->
-            <div class="alert alert-success alert-dismissible fade show overlay-alert" role="alert">
-                <div class="d-flex align-items-center justify-content-center">
-                    <i class="fas fa-check message-icon"></i>
-                    <span>Success message</span>
-                </div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <!-- /Success message -->
+			{% if messages %}
+			    {% for message in messages %}
+				    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show overlay-alert" role="alert">
+						<div class="d-flex align-items-center justify-content-center">
+							<i class="fas fa-check message-icon"></i>
+							<span>{{ message }}</span>
+						</div>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+	            {% endfor %}
+		    {% endif %}
 
-            <!-- Error message -->
-            <div class="alert alert-danger alert-dismissible fade show overlay-alert" role="alert">
-                <div class="d-flex align-items-center justify-content-center">
-                    <i class="fas fa-times message-icon"></i>
-                    <span>Error message</span>
-                </div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <!-- /Error message -->
+		    {% if formset.non_form_errors %}
+			    <div class="alert alert-danger alert-dismissible fade show overlay-alert" role="alert">
+					<div class="d-flex align-items-center justify-content-center">
+						<i class="fas fa-check message-icon"></i>
+						<h4>{% trans 'IMPORTANT: Fix below error(s) to proceed:' %}</h4>
+		                <ul>
+			                {% for error in formset.non_form_errors %}
+		                    <li>{{ error }}</li>
+			                {% endfor %}
+		                </ul>
+					</div>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+		    {% endif %}
 
-            <!-- Warning message -->
-            <div class="alert alert-warning alert-dismissible fade show overlay-alert" role="alert">
-                <div class="d-flex align-items-center justify-content-center">
-                    <i class="fas fa-exclamation message-icon"></i>
-                    <span>Warning message</span>
-                </div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <!-- /Warning message -->
-        </div>
-        <!-- /Alert Messages -->
+			{% if form.non_field_errors %}
+			    <div class="alert alert-danger alert-dismissible fade show overlay-alert" role="alert">
+					<div class="d-flex align-items-center justify-content-center">
+						<i class="fas fa-check message-icon"></i>
+						<h4>{% trans 'IMPORTANT: Fix below error(s) to proceed:' %}</h4>
+		                <ul>
+			                {% for error in form.non_field_errors %}
+		                    <li>{{ error }}</li>
+			                {% endfor %}
+		                </ul>
+					</div>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+		    {% endif %}
 
+		</div>
+		<!-- /Alert Messages -->
 
-        <div class="side-checklist side-nav">
-            <h6>Checklist</h6>
-            <ul class="checklist-menu nav flex-column">
-                <li class="active"><a href="course-identification-form.html"><i class="far fa-circle check-icon"></i> <span>Course identification and general information</span></a></li>
-                <li><a href="course-description-form.html"><i class="far fa-circle check-icon"></i> <span>Course Description, Objectives & Learning Outcomes</span></a></li>
-                <li><a href="course-contents-form.html"><i class="far fa-circle check-icon"></i> <span>Course contents</span></a></li>
-                <li><a href="assessment-tasks-form.html"><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
-                <li><a href="learning-resources-form.html"><i class="far fa-circle check-icon"></i> <span>Learning resources</span></a></li>
-                <li><a href="course-evaluation-form.html"><i class="far fa-circle check-icon"></i> <span>Course evaluation</span></a></li>
-                <li class="completed"><a href="accreditation-requirements-form.html"><i class="fas fa-check-circle check-icon"></i> <span>Accreditation requirements</span></a></li>
-            </ul>
-        </div>
-        <div class="content-section">
-            <form class="row">
-                <div class="col-12">
-                    <div class="card mb-4 course-title">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <h6 class="mb-0 mr-auto">Theory of Architecture I</h6>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-danger mr-3">* Mandatory</small>
-                                    <button class="btn btn-sm btn-warning">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Course identification -->
-                    <div class="card mb-4 form-accordian completed">
-                        <div class="card-body p-0">
-                            <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#courseidentification" aria-expanded="false" aria-controls="courseidentification">
-                                <i class="fas fa-check check-icon"></i> <span class="mr-auto">Course identification</span>
-                                <i class="fas fa-caret-down"></i>
-                            </div>
-                            <div class="collapse show p-3 pt-4 pb-4" id="courseidentification">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <lable>Course title <sup class="text-danger">*</sup></lable>
-                                            <input class="form-control" placeholder="Theory of Architecture I" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-12">
-                                        <div class="form-group">
-                                            <lable>Course code <sup class="text-danger">*</sup></lable>
-                                            <div class="row">
-                                                <div class="col-6 pr-1">
-                                                    <select class="form-control">
-                                                        <option>ARC</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-6 pl-1">
-                                                    <select class="form-control">
-                                                        <option>101</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-12">
-                                        <div class="form-group">
-                                            <lable>Location <sup class="text-danger">*</sup></lable>
-                                            <select class="form-control">
-                                                <option>Main campus</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-12">
-                                        <div class="form-group">
-                                            <lable>Credit hours <sup class="text-danger">*</sup></lable>
-                                            <div class="row">
-                                                <div class="col-4 pr-1">
-                                                    <div class="input-group">
-                                                      <input type="text" class="form-control border-right-0 pr-0" value="4" readonly="" aria-describedby="lecture-value"/>
-                                                      <div class="input-group-append m-0">
-                                                        <small class="input-group-text border-left-0 text-muted" id="lecture-value">Lecture</small>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 pl-2 pr-2">
-                                                    <div class="input-group">
-                                                      <input type="text" class="form-control border-right-0 pr-0" value="4" readonly="" aria-describedby="lab-value"/>
-                                                      <div class="input-group-append m-0 ">
-                                                        <small class="input-group-text border-left-0 text-muted" id="lab-value">Lab</small>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 pl-1">
-                                                    <div class="input-group">
-                                                      <input type="text" class="form-control border-right-0 pr-0" value="4" readonly="" aria-describedby="total-value"/>
-                                                      <div class="input-group-append m-0">
-                                                        <small class="input-group-text border-left-0 text-muted" id="total-value">Total</small>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Course identification -->
-
-                    <!-- Requisites for this course -->
-                    <div class="card mb-4 form-accordian">
-                        <div class="card-body p-0">
-                            <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#requisites" aria-expanded="false" aria-controls="requisites">
-                                <i class="fas fa-check check-icon"></i> <span class="mr-auto">Requisites for this course</span>
-                                <i class="fas fa-caret-down"></i>
-                            </div>
-                            <div class="collapse show p-3 pt-4 pb-4" id="requisites">
-                                <div class="row">
-                                    <div class="col-md-4 col-12">
-                                        <div class="form-group">
-                                            <lable>Pre-requisites for this course (if any)</lable>
-                                            <select class="form-control" multiple data-live-search="true">
-                                                <option>Select Pre-requisites (if any)</option>
-                                                <option>Select Pre-requisites (if any)</option>
-                                                <option>Select Pre-requisites (if any)</option>
-                                                <option>Select Pre-requisites (if any)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-12">
-                                        <div class="form-group">
-                                            <lable>Co-requisites for this course (if any)</lable>
-                                            <select class="form-control" multiple data-live-search="true">
-                                                <option>Select Co-requisites (if any)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Requisites for this course -->
-
-                    <!-- Mode of instruction -->
-                    <div class="card mb-4 form-accordian">
-                        <div class="card-body p-0">
-                            <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#mode-of-instruction" aria-expanded="false" aria-controls="mode-of-instruction">
-                                <i class="fas fa-check check-icon"></i> <span class="mr-auto">Mode of instruction</span>
-                                <i class="fas fa-caret-down"></i>
-                            </div>
-                            <div class="collapse show p-3 pt-4 pb-4" id="mode-of-instruction">
-                                <div class="row">
-                                    <div class="col-md-4 col-12">
-                                        <div class="form-group bg-light p-3">
-                                            <lable class="pt-2 pb-2">In class (face to face) <sup class="text-danger">*</sup></lable>
-                                            <div class="input-group mt-3">
-                                                <input type="text" class="form-control" placeholder="Percentage (%)" aria-label="" aria-describedby="mode-inclass">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text pl-2 pr-2 text-muted" id="mode-inclass">Max 100%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-12">
-                                        <div class="form-group bg-light p-3">
-                                            <input class="form-control" placeholder="Other (If any)" />
-                                            <div class="input-group mt-3">
-                                                <input type="text" class="form-control" placeholder="Percentage (%)" aria-label="" aria-describedby="mode-others">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text pl-2 pr-2 text-muted" id="mode-others">Max 100%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <lable>Comments</lable>
-                                            <textarea class="form-control" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. " rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Mode of instruction -->
-
-                    <!-- Office hours -->
-                    <div class="card mb-4 form-accordian">
-                        <div class="card-body p-0">
-                            <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#office-hours" aria-expanded="false" aria-controls="office-hours">
-                                <i class="fas fa-check check-icon"></i> <span class="mr-auto">Office hours <sup class="text-danger">*</sup></span>
-                                <i class="fas fa-caret-down"></i>
-                            </div>
-                            <div class="collapse show p-3 pt-4 pb-4" id="office-hours">
-                                <div class="row">
-                                    <div class="col-md-4 col-12">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="e.g., 3 hrs" aria-label="" aria-describedby="mode-inclass">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text pl-2 pr-2 text-muted" id="mode-inclass">Min 3 hrs</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Office hours -->
-
-
-                    <!--Form Button -->
-                    <div class="row">
-                        <div class="col-sm-6 col-12">
-                        </div>
-                        <div class="col-sm-6 col-12 text-right">
-                            <button class="btn btn-primary">Save & Continue <small class="fas fa-chevron-right ml-1"></small></button>
-                        </div>
-                    </div>
-                    <!--/Form Button -->
-
-                </div>
-            </form>
-        </div>
-    </div>
+		{% block main_content %}
+		{% endblock main_content %}
+	</div>
 </main>
 </body>
 </html>
