@@ -8,16 +8,18 @@
   # environments/<env-name>/group_vars/all/vars.yml
   vars:
     vault_url: https://vault.itc.kfupm.edu.sa
-    django_project_name: course-specification
-    django_project_admin_username: alsowail
-    django_project_admin_email: alsowail@kfupm.edu.sa
-    django_project_package_name: course_specification
+    django_project_name: course-specifications
+    django_project_admin_username: joud
+    django_project_admin_email: joud@kfupm.edu.sa
+    django_project_package_name: course_specifications
     #apache_authn: cas
     #apache_auth:
     #  - path: /admin/
     #    authn_type: cas
     #    authz_type: none
     admins:
+      - name: Abdukkah Joud
+          email: joud@kfupm.edu.sa
       - name: Saeed Alsowail
         email: alsowail@kfupm.edu.sa
     uwsgi_processes: 2

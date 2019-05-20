@@ -1,12 +1,12 @@
 env: testing
 django_project_branch: default
 apache_server_names:
-  - course-specification.test.kfupm.edu.sa
+  - courses.test.kfupm.edu.sa
 
 
 # pick a unique port that is not used by any other application on the target
 # application server
-uwsgi_http_port: 8000
+uwsgi_http_port: 5566
 
 # required for proper SSL termination on load-balancer while using CAS
 apache_public_url: https://course-specification.test.kfupm.edu.sa
@@ -19,8 +19,8 @@ apache_proxy:
     remote_path: /
 
 database_engine: django.db.backends.postgresql
-database_name: course-specification
-database_user: course-specification
+database_name: courses
+database_user: courses
 # database_password: set from Vault in playbook
 database_host: postgres.test.kfupm.edu.sa
 database_port: 5432
@@ -28,7 +28,7 @@ database_port: 5432
 django_debug: no
 apache_debug: yes
 
-email_user: course-specification@test.kfupm.edu.sa
+email_user: courses@test.kfupm.edu.sa
 email_host: mail.test.kfupm.edu.sa
 
 cas_login_url: "{{ test_cas_login_url }}"
