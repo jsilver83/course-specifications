@@ -18,7 +18,7 @@
     #    authn_type: cas
     #    authz_type: none
     admins:
-      - name: Abdukkah Joud
+      - name: Abdullah Joud
         email: joud@kfupm.edu.sa
       - name: Saeed Alsowail
         email: alsowail@kfupm.edu.sa

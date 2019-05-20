@@ -137,3 +137,8 @@ MAX_DIGITS = 10  # 10000000.00
 MAX_DECIMAL_POINT = 4  # .0000
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+try:
+    from .local_settings import *
+except ImportError:
+    print("Error importing local_settings.py")
