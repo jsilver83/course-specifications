@@ -24,7 +24,14 @@ $(document).ready(function($) {
 
     //Delete this
     $('body').on( "click", ".delete-btn", function() {
-    	$(this).parents('.delete-this').remove();
+    	var delete_this = $(this).parents('.delete-this');
+    	delete_this.hide();
+    	if(!delete_this.is(":visible")){
+    		$(this).find('.delete-check').prop( "checked", true );
+    	}
+    	else{
+    		$(this).find('.delete-check').prop( "checked", false );
+    	}
     });
 
 });
