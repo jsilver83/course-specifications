@@ -12,8 +12,8 @@ deploy/*.retry
 deploy/roles/*
 
 course_specifications/uploads
-course_specifications/course_specification/local_settings.py
-course_specifications/course_specification/settings/local.py
+course_specifications/course_specifications/local_settings.py
+course_specifications/course_specifications/settings/local.py
 
 *htmlcov
 *.coverage
