@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'main_app.apps.MainAppConfig',
     'kfupm_theme.apps.KfupmThemeConfig',
 
+    'crispy_forms',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,3 +135,5 @@ STATIC_URL = '/static/'
 # Decimal max digits
 MAX_DIGITS = 10  # 10000000.00
 MAX_DECIMAL_POINT = 4  # .0000
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
