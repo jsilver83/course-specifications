@@ -19,7 +19,7 @@
     #    authz_type: none
     admins:
       - name: Abdukkah Joud
-          email: joud@kfupm.edu.sa
+        email: joud@kfupm.edu.sa
       - name: Saeed Alsowail
         email: alsowail@kfupm.edu.sa
     uwsgi_processes: 2
@@ -49,7 +49,7 @@
 
     - name: Retrieve secret key from Vault
       uri:
-        url: "{{ vault_url }}/v1/secret/{{ env }}/operations/apps/course-specification/secret_key"
+        url: "{{ vault_url }}/v1/secret/{{ env }}/operations/apps/course-specifications/secret_key"
         headers:
           X-Vault-Token: "{{ auth.json.auth.client_token }}"
       connection: local
@@ -58,7 +58,7 @@
 
     - name: Retrieve database password from Vault
       uri:
-        url: "{{ vault_url }}/v1/secret/{{ env }}/database/apps/course-specification/database_password"
+        url: "{{ vault_url }}/v1/secret/{{ env }}/database/apps/course-specifications/database_password"
         headers:
           X-Vault-Token: "{{ auth.json.auth.client_token }}"
       connection: local
@@ -67,7 +67,7 @@
 
     - name: Retrieve email password from Vault
       uri:
-        url: "{{ vault_url }}/v1/secret/{{ env }}/email/apps/course-specification/email_password"
+        url: "{{ vault_url }}/v1/secret/{{ env }}/email/apps/course-specifications/email_password"
         headers:
           X-Vault-Token: "{{ auth.json.auth.client_token }}"
       connection: local

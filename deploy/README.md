@@ -52,7 +52,7 @@ Create the Secrets in Vault
 
 3. Write the secret key to Vault:
 
-        $ vault write -address https://vault.itc.kfupm.edu.sa secret/testing/operations/apps/course-specification/secret_key value="<generated-secret-key>"
+        $ vault write -address https://vault.itc.kfupm.edu.sa secret/testing/operations/apps/course-specifications/secret_key value="<generated-secret-key>"
 
     where `<generated-secret-key>` is the key you generated in the previous step.
 
@@ -61,11 +61,11 @@ Create the Secrets in Vault
     Use https://www.grc.com/passwords.htm to generate secure passwords (use the
     second or third red random string boxes; do not use the first!).
 
-        $ vault write -address https://vault.itc.kfupm.edu.sa secret/testing/database/apps/course-specification/database_password value=<generated-database-password>
+        $ vault write -address https://vault.itc.kfupm.edu.sa secret/testing/database/apps/course-specifications/database_password value=<generated-database-password>
 
 5. Generate and write a new email password to Vault.
 
-        $ vault write -address https://vault.itc.kfupm.edu.sa secret/testing/email/apps/course-specification/email_password value=<generated-email-password>
+        $ vault write -address https://vault.itc.kfupm.edu.sa secret/testing/email/apps/course-specifications/email_password value=<generated-email-password>
 
 6. Change the email password of the application email user: log into
    https://mail.kfupm.edu.sa/ using the application user, e.g. `course-specification@kfupm.edu.sa`, and change the password to the

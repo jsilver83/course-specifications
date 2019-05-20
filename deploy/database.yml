@@ -30,7 +30,7 @@
 
     - name: Retrieve database password from Vault
       uri:
-        url: "{{ vault_url }}/v1/secret/{{ env }}/database/apps/course-specification/database_password"
+        url: "{{ vault_url }}/v1/secret/{{ env }}/database/apps/course-specifications/database_password"
         headers:
           X-Vault-Token: "{{ auth.json.auth.client_token }}"
       connection: local
