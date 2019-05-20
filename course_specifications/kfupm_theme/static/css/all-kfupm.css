@@ -18638,3 +18638,9 @@ readers do not read off random characters that represent icons */
 }
 
 /*# sourceMappingURL=all-kfupm.css.map */
+
+/* ADDED BY JOUD */
+.errorlist{
+  color: red;
+}
+/* END OF ADDITION BY JOUD */
