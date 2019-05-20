@@ -1,0 +1,39 @@
+{% extends 'base_with_sidebar.html' %}
+
+{% load i18n %}
+
+{% block content %}
+	<form class="row" method="post">
+		{% csrf_token %}
+		<div class="col-12">
+			<div class="card mb-4 course-title">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<h6 class="mb-0 mr-auto">{% if course_title %}{{ course_title }}{% else %}{% trans 'New Course' %}{% endif %}</h6>
+						<div class="d-flex align-items-center">
+							<small class="text-danger mr-3">* {% trans 'Mandatory' %}</small>
+							<button class="btn btn-sm btn-warning">{% trans 'Save' %}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{% block form-fields %}
+			{% endblock form-fields %}
+
+			<!--Form Button -->
+			<div class="row">
+				<div class="col-sm-6 col-12">
+				</div>
+				<div class="col-sm-6 col-12 text-right">
+					<button class="btn btn-primary">{% trans 'Save & Continue' %}
+						<small class="fas fa-chevron-right ml-1"></small>
+					</button>
+				</div>
+			</div>
+			<!--/Form Button -->
+
+		</div>
+	</form>
+
+{% endblock content %}

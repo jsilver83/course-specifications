@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block main_content %}
+	<div class="side-checklist side-nav">
+		{% block sidebar %}
+		<h6>{% trans 'Checklist' %}</h6>
+		<ul class="checklist-menu nav flex-column">
+			{# stepn_state can be 'active', 'completed' and '' which means it's disabled #}
+			<li class="{{ step1_state }}">
+				<a href=""><i class="far fa-circle check-icon"></i>
+					<span>{% trans 'Course Identification And General Information' %}</span></a></li>
+			<li class="{{ step2_state }}">
+				<a href=""><i class="far fa-circle check-icon"></i>
+					<span>{% trans 'Course Description, Objectives And Learning Outcomes' %}</span></a></li>
+			<li class="{{ step3_state }}">
+				<a href=""><i class="far fa-circle check-icon"></i>
+					<span>{% trans 'Course Contents' %}</span></a></li>
+			<li class="{{ step4_state }}">
+				<a href=""><i class="far fa-circle check-icon"></i>
+					<span>{% trans 'Assessment Tasks' %}</span></a></li>
+			<li class="{{ step5_state }}">
+				<a href=""><i class="far fa-circle check-icon"></i>
+					<span>{% trans 'Learning Resources' %}</span></a></li>
+			<li class="{{ step6_state }}">
+				<a href=""><i class="far fa-circle check-icon"></i>
+					<span>{% trans 'Course Evaluation' %}</span></a></li>
+			<li class="{{ step7_state }}">
+				<a href=""><i class="fas fa-check-circle check-icon"></i>
+					<span>{% trans 'Accreditation Requirements' %}</span></a></li>
+		</ul>
+		{% endblock sidebar %}
+	</div>
+
+	<div class="content-section">
+		{% block content %}
+
+		{% endblock content %}
+	</div>
+{% endblock main_content %}
