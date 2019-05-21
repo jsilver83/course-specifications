@@ -30,7 +30,7 @@
     <div class="card mb-4 form-accordian completed">
         <div class="card-body p-0">
             <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#listmainobjectives" aria-expanded="false" aria-controls="listmainobjectives">
-                <i class="fas fa-check check-icon"></i> <span class="mr-auto">List the main objectives of this course <sup class="text-danger">*</sup></span>
+                <i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'List the main objectives of this course' %}<sup class="text-danger">*</sup></span>
                 <i class="fas fa-caret-down"></i>
             </div>
             <div class="collapse show p-3 pt-4 pb-4" id="listmainobjectives">
@@ -40,34 +40,28 @@
                         <div class="add-this">
                             <li class="form-group delete-this">
                                 <div class="d-flex">
-                                    <input class="form-control" placeholder="Enter objective" />
-                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button>
+	                                {% comment %}Note to faraj: i cannot add the below model form for your script to work since it
+	                                creates actual form fields that gets validated on client-side{% endcomment %}
+{#	                                {{ model_form.id }}{{ model_form.learning_objective }}{{ model_form.learning_objective.errors }}#}
+{#                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ model_form.DELETE }}</span></i></button>#}
                                 </div>
                             </li>
                         </div>
                         <!-- /Default for adding -->
                         <ol class="ml-0 pl-3 add-here">
-                            <li class="form-group">
-                                <div class="d-flex">
-                                    <input class="form-control" placeholder="Enter objective" />
-                                </div>
-                            </li>
+                            {{ formset.management_form }}
+	                        {% for form in formset %}
                             <li class="form-group delete-this">
                                 <div class="d-flex">
-                                    <input class="form-control" placeholder="Enter objective" />
-                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button>
+	                                {{ form.id }}{{ form.learning_objective }}{{ form.learning_objective.errors }}
+                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i></button>
                                 </div>
                             </li>
-                            <li class="form-group delete-this">
-                                <div class="d-flex">
-                                    <input class="form-control" placeholder="Enter objective" />
-                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"></i></button>
-                                </div>
-                            </li>
+	                        {% endfor %}
                         </ol>
                         <div class="row">
                             <div class="col-12 text-right">
-                                <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add objective</button>
+                                <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>{% trans 'Add objective' %}</button>
                             </div>
                         </div>
                     </div>
@@ -81,138 +75,90 @@
     <div class="card mb-4 form-accordian completed">
         <div class="card-body p-0">
             <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#course-level-outcomes" aria-expanded="false" aria-controls="course-level-outcomes">
-                <i class="fas fa-check check-icon"></i> <span class="mr-auto">Course-level Student Learning Outcomes <sup class="text-danger">*</sup></span>
+                <i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'Course-level Student Learning Outcomes' %} <sup class="text-danger">*</sup></span>
                 <i class="fas fa-caret-down"></i>
             </div>
             <div class="collapse show p-3 pt-4 pb-4 has-add-content" id="course-level-outcomes">
                 <!-- Default for adding -->
                 <div class="add-this">
                     <div class="delete-this">
-                        <div class="d-flex">
-                            <div class="row">
-                                <div class="col-sm-2 col-12 pr-sm-1">
-                                    <div class="form-group">
-                                        <lable>CLO Category</lable>
-                                        <select class="form-control">
-                                            <option>Knowledge</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-12 pr-sm-1">
-                                    <div class="form-group">
-                                        <lable>Outcome</lable>
-                                        <input type="text" class="form-control" placeholder="Enter the outcomes" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 col-12 pr-sm-1">
-                                    <div class="form-group">
-                                        <lable>PLO’s code</lable>
-                                        <select class="form-control">
-                                            <option>Select</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 col-12 pr-sm-1">
-                                    <div class="form-group">
-                                        <lable>Teaching strategy</lable>
-                                        <input type="text" class="form-control" placeholder="Enter strategy" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 col-12">
-                                    <div class="form-group">
-                                        <lable>Assessment method</lable>
-                                        <input type="text" class="form-control" placeholder="Enter method" />
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn btn-sm btn-link delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>
-                        </div>
+	                    {% comment %}Note to faraj: i cannot add the below model form for your script to work since it
+	                                creates actual form fields that gets validated on client-side{% endcomment %}
+{#                        <div class="d-flex">#}
+{#                            <div class="row">#}
+{#                                <div class="col-sm-2 col-12 pr-sm-1">#}
+{#                                    <div class="form-group">#}
+{#                                        <lable>CLO Category</lable>#}
+{#                                        <select class="form-control">#}
+{#                                            <option>Knowledge</option>#}
+{#                                        </select>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-sm-3 col-12 pr-sm-1">#}
+{#                                    <div class="form-group">#}
+{#                                        <lable>Outcome</lable>#}
+{#                                        <input type="text" class="form-control" placeholder="Enter the outcomes" />#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-sm-2 col-12 pr-sm-1">#}
+{#                                    <div class="form-group">#}
+{#                                        <lable>PLO’s code</lable>#}
+{#                                        <select class="form-control">#}
+{#                                            <option>Select</option>#}
+{#                                        </select>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-sm-2 col-12 pr-sm-1">#}
+{#                                    <div class="form-group">#}
+{#                                        <lable>Teaching strategy</lable>#}
+{#                                        <input type="text" class="form-control" placeholder="Enter strategy" />#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-sm-3 col-12">#}
+{#                                    <div class="form-group">#}
+{#                                        <lable>Assessment method</lable>#}
+{#                                        <input type="text" class="form-control" placeholder="Enter method" />#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <button class="btn btn-sm btn-link delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>#}
+{#                        </div>#}
                     </div>
                 </div>
                 <!-- /Default for adding -->
                 <div class="row">
                     <div class="col-12 add-here">
+                        {{ formset2.management_form }}
+                        {% for form in formset2 %}
                         <div class="delete-this">
                             <div class="d-flex">
                                 <div class="row">
                                     <div class="col-sm-2 col-12 pr-sm-1">
                                         <div class="form-group">
-                                            <lable>CLO Category</lable>
-                                            <select class="form-control">
-                                                <option>Knowledge</option>
-                                            </select>
+	                                        {{ form.id }}
+                                            {{ form.clo_category|as_crispy_field }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-12 pr-sm-1">
+                                        <div class="form-group">
+                                            {{ form.learning_outcome|as_crispy_field }}
                                         </div>
                                     </div>
                                     <div class="col-sm-3 col-12 pr-sm-1">
                                         <div class="form-group">
-                                            <lable>Outcome</lable>
-                                            <input type="text" class="form-control" placeholder="Enter the outcomes" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 col-12 pr-sm-1">
-                                        <div class="form-group">
-                                            <lable>PLO’s code</lable>
-                                            <select class="form-control">
-                                                <option>Select</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 col-12 pr-sm-1">
-                                        <div class="form-group">
-                                            <lable>Teaching strategy</lable>
-                                            <input type="text" class="form-control" placeholder="Enter strategy" />
+                                            {{ form.teaching_strategy|as_crispy_field }}
                                         </div>
                                     </div>
                                     <div class="col-sm-3 col-12">
                                         <div class="form-group">
-                                            <lable>Assessment method</lable>
-                                            <input type="text" class="form-control" placeholder="Enter method" />
+                                            {{ form.assessment_method|as_crispy_field }}
                                         </div>
                                     </div>
                                 </div>
+                                <button class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
                             </div>
                         </div>
-                        <div class="delete-this">
-                            <div class="d-flex">
-                                <div class="row">
-                                    <div class="col-sm-2 col-12 pr-sm-1">
-                                        <div class="form-group">
-                                            <lable>CLO Category</lable>
-                                            <select class="form-control">
-                                                <option>Knowledge</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 col-12 pr-sm-1">
-                                        <div class="form-group">
-                                            <lable>Outcome</lable>
-                                            <input type="text" class="form-control" placeholder="Enter the outcomes" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 col-12 pr-sm-1">
-                                        <div class="form-group">
-                                            <lable>PLO’s code</lable>
-                                            <select class="form-control">
-                                                <option>Select</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 col-12 pr-sm-1">
-                                        <div class="form-group">
-                                            <lable>Teaching strategy</lable>
-                                            <input type="text" class="form-control" placeholder="Enter strategy" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 col-12">
-                                        <div class="form-group">
-                                            <lable>Assessment method</lable>
-                                            <input type="text" class="form-control" placeholder="Enter method" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="btn btn-sm btn-link delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>
-                            </div>
-                        </div>
+	                    {% endfor %}
                     </div>
                 </div>
                 <div class="row">

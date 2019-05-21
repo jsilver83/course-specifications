@@ -1,7 +1,8 @@
 from django import forms
+from django.forms import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Course
+from .models import *
 
 
 class CourseIdentificationForm(forms.ModelForm):
@@ -59,10 +60,35 @@ class CourseDescriptionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # for field in self.fields:
-        #     self.fields[field].widget.attrs.update({'class': 'form-control'})
-
         self.fields['catalog_description'].widget.attrs.update({
              'class': 'form-control',
              'placeholder': _('General description about the course & topics')
         })
+
+
+class LearningObjectiveForm(forms.ModelForm):
+    class Meta:
+        model = LearningObjective
+        fields = ['learning_objective']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['learning_objective'].widget.attrs.update({
+             'class': 'form-control',
+             'placeholder': _('Enter objective')
+        })
+
+
+LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
+                                                extra=3, can_delete=True)
+
+
+class CourseLearningOutcomeForm(forms.ModelForm):
+    class Meta:
+        model = CourseLearningOutcome
+        fields = ['clo_category', 'learning_outcome', 'teaching_strategy', 'assessment_method', ]
+
+
+CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
+                                                    extra=3, can_delete=True)

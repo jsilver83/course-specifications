@@ -1,8 +1,9 @@
-from django.utils.translation import ugettext_lazy as _
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect, render_to_response, render, get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.shortcuts import redirect
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 
 from .forms import *
@@ -46,18 +47,43 @@ class Release(View):
     def get(self, request, *args, **kwargs):
         course = Course.objects.get(id=kwargs['course_id'])
         course.release()
-        return redirect('course_list')
+        return redirect('main_app:course_list')
 
 
-class CourseDescription(SuccessMessageMixin, UpdateView):
-    model = Course
-    form_class = CourseDescriptionForm
-    template_name = 'main_app/course-description.html'
-    success_url = reverse_lazy('main_app:index')
-    success_message = _('Course updated successfully')
+def course_description(request, pk):
+    course = get_object_or_404(Course, pk=pk)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['step1_state'] = 'completed'
-        context['step2_state'] = 'active'
-        return context
+    form = CourseDescriptionForm(instance=course)
+
+    model_form = LearningObjectiveForm()
+    formset = LearningObjectiveFormSet(queryset=course.learning_objectives.all())
+
+    model_form2 = CourseLearningOutcomeForm()
+    formset2 = CourseLearningOutcomeFormSet(queryset=course.learning_outcomes.all())
+
+    if request.method == 'POST':
+        form = CourseDescriptionForm(request.POST)
+        if form.is_valid():
+            saved_course = form.save()
+
+            formset = LearningObjectiveFormSet(request.POST)
+            if formset.is_valid():
+                for form in formset.forms:
+                    obj = form.save(commit=False)
+                    obj.course = course
+                formset.save()
+
+            formset2 = CourseLearningOutcomeFormSet(request.POST)
+            if formset2.is_valid():
+                for form2 in formset2.forms:
+                    obj2 = form2.save(commit=False)
+                    obj2.course = course
+                formset2.save()
+
+            messages.success(request, _('Course updated successfully'))
+            return redirect(reverse_lazy('main_app:course_description', args=(course.pk, )))
+
+    return render(request, 'main_app/course-description.html', {
+        'form': form, 'model_form': model_form, 'formset': formset, 'model_form2': model_form2, 'formset2': formset2,
+        'step1_state': 'completed', 'step2_state': 'active',
+    })
