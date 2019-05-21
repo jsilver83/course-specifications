@@ -67,9 +67,10 @@ small, .small{
 /* Alert Popup */
 .alert-popup{
 	position: absolute;
-	top: 16px;
-	width: 100%;
-	z-index: 9999;
+    top: 16px;
+    width: auto;
+    z-index: 9999;
+    left: 50%;
 
 	&.with-shadow{
 

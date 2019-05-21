@@ -78,6 +78,11 @@
 			    	}
 			    	.check-icon {
 				    	color: #007d40;
+
+				    	&:before{
+				    		font-weight: 900;
+    						content: "\f058";
+				    	}
 			    	}
 			    }
 		    }
@@ -134,6 +139,9 @@
 			font-size: 12px;
 			margin-right: 8px;
 			color: #D4D4D4;
+		}
+		label{
+			margin-bottom: 0;
 		}
 	}
 
@@ -197,4 +205,10 @@
 }
 .delete-check{
 	display: none;
+}
+
+.asteriskField {
+    color: #dc3545 !important;
+    margin-left: 2px;
+    font-size: 13px;
 }

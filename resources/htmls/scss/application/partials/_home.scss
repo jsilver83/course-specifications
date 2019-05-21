@@ -135,6 +135,9 @@
 			margin-right: 8px;
 			color: #D4D4D4;
 		}
+		label{
+			margin-bottom: 0;
+		}
 	}
 
 	.form-group{
@@ -197,4 +200,10 @@
 }
 .delete-check{
 	display: none;
+}
+
+.asteriskField {
+    color: #dc3545 !important;
+    margin-left: 2px;
+    font-size: 13px;
 }

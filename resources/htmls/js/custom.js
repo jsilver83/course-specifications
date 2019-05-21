@@ -34,4 +34,9 @@ $(document).ready(function($) {
     	}
     });
 
+    if($('.alert-popup').is(':visible')){
+    	var alert_popup_width = $('.alert-popup').width();
+    	$('.alert-popup').css("margin-left",-alert_popup_width/2);
+	}
+
 });

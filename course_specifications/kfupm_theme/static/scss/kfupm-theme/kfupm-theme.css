@@ -1,40 +1,14 @@
 /*
-Error: Undefined mixin 'scale'.
-        on line 28 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss, in `scale'
-        from line 28 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss
-        from line 1 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/kfupm-theme.scss
+Error: Undefined variable: "$theme-colors".
+        on line 69 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss
+        from line 2 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/kfupm-theme/kfupm-theme.scss
 
 Backtrace:
-/Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss:28:in `scale'
-/Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss:28
-/Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/kfupm-theme.scss:1
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:98:in `block in with_mixin'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:98:in `with_mixin'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:350:in `visit_mixin'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `with_base'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `visit'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:433:in `block (2 levels) in visit_rule'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:433:in `map'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:433:in `block in visit_rule'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:432:in `visit_rule'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `with_base'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `visit'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:517:in `block (2 levels) in visit_directive'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:517:in `map'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:517:in `block in visit_directive'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:516:in `visit_directive'
+/Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss:69
+/Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/kfupm-theme/kfupm-theme.scss:2
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/script/tree/variable.rb:49:in `_perform'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/script/tree/node.rb:50:in `perform'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:233:in `visit_each'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
@@ -80,4 +54,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'scale'.\A         on line 28 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss, in `scale'\A         from line 28 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss\A         from line 1 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/kfupm-theme/kfupm-theme.scss"; }
+  content: "Error: Undefined variable: \"$theme-colors\".\A         on line 69 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/kfupm-theme/partials/_bootstrap-KFUPM.scss\A         from line 2 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/kfupm-theme/kfupm-theme.scss"; }

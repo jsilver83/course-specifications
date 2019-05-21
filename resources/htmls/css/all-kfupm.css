@@ -9741,8 +9741,9 @@ small, .small {
 .alert-popup {
   position: absolute;
   top: 16px;
-  width: 100%;
+  width: auto;
   z-index: 9999;
+  left: 50%;
 }
 .alert-popup.with-shadow .alert {
   -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) ;
@@ -9887,6 +9888,9 @@ small, .small {
   margin-right: 8px;
   color: #D4D4D4;
 }
+.form-accordian .card-header label {
+  margin-bottom: 0;
+}
 .form-accordian .form-group lable {
   font-size: 0.8rem;
   margin-bottom: 5px;
@@ -9933,6 +9937,12 @@ small, .small {
 
 .delete-check {
   display: none;
+}
+
+.asteriskField {
+  color: #dc3545 !important;
+  margin-left: 2px;
+  font-size: 13px;
 }
 
 .arabic .flt-left {
