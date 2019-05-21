@@ -19,13 +19,17 @@ class CoursesList(ListView):
 class NewCourse(SuccessMessageMixin, CreateView):
     form_class = CourseIdentificationForm
     template_name = 'main_app/course-identification.html'
-    success_url = reverse_lazy('main_app:index')
     success_message = _('Course created successfully')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['step1_state'] = 'active'
         return context
+
+    def form_valid(self, form):
+        new_course = form.save()
+        messages.success(self.request, self.success_message)
+        return redirect(reverse_lazy('main_app:course_description', args=(new_course.pk, )))
 
 
 class UpdateCourse(SuccessMessageMixin, UpdateView):
@@ -81,7 +85,7 @@ def course_description(request, pk):
                 formset2.save()
 
             messages.success(request, _('Course updated successfully'))
-            return redirect(reverse_lazy('main_app:course_description', args=(course.pk, )))
+            return redirect(reverse_lazy('main_app:course_list', args=(course.pk, )))
 
     return render(request, 'main_app/course-description.html', {
         'form': form, 'model_form': model_form, 'formset': formset, 'model_form2': model_form2, 'formset2': formset2,
