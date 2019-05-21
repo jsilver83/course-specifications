@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block main_content %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card mb-4">
+				<div class="card-body">
+					<div class="card-title mb-0 d-flex align-items-center">
+						<h5 class="mb-0 mr-auto">{% trans 'Courses List' %}</h5>
+						<a href="{% url 'main_app:new_course' %}" class="btn btn-sm btn-primary"><i class="fas fa-plus mr-1"></i>
+							<span>{% trans 'Create Course' %}</span></a>
+					</div>
+				</div>
+				{#				<div class="card-header d-flex align-items-center">#}
+				{#					<form class="form-inline search-group mr-auto">#}
+				{#						<i class="fas fa-search search-icon"></i>#}
+				{#						<input class="form-control form-control-sm search-field" placeholder="Search"/>#}
+				{#					</form>#}
+				{#					<form class="form-inline">#}
+				{#						<small class="mr-2 text-muted">Status</small>#}
+				{#						<select class="form-control form-control-sm search-field" placeholder="Search">#}
+				{#							<option>All</option>#}
+				{#						</select>#}
+				{#					</form>#}
+				{#				</div>#}
+				<div class="card-body p-0">
+					<table class="table clickable">
+						<thead class="thead-light">
+						<tr>
+							<th scope="col" class="align-middle border-top-0 text-muted">
+								<small>{% trans 'Course Code' %}</small>
+							</th>
+							<th scope="col" class="align-middle border-top-0 text-muted">
+								<small>{% trans 'Title' %}</small>
+							</th>
+							<th scope="col" class="status align-middle border-top-0 text-muted">
+								<small>{% trans 'Credit Hours' %}</small>
+							</th>
+							<th scope="col" class="status align-middle border-top-0 text-muted">
+								<small>{% trans 'Last Edit' %}</small>
+							</th>
+							<th scope="col" class="status align-middle border-top-0 text-muted">
+								<small>{% trans 'Status' %}</small>
+							</th>
+							<th scope="col" class="align-middle border-top-0 text-muted">
+
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+						{% for course in courses %}
+							<tr>
+							<td scope="row" class="align-middle">
+								<p class="mb-0">
+									{{ course }}
+								</p>
+							</td>
+							<td class="align-middle">
+								<p class="mb-0">
+									{{ course.title }}
+								</p>
+							<td class="align-middle">
+								<p class="mb-0">
+									{{ course.total_credit_hours }}
+								</p>
+							</td>
+							<td class="align-middle">
+								<p class="mb-0">
+									<small>
+										{{ course.last_edit }}
+									</small>
+								</p>
+							</td>
+							<td class="status align-middle">
+								<span class="badge badge-primary text-badge mr-auto">APPROVED</span>
+							</td>
+							<td class="status align-middle text-right">
+								<a href="{% url 'main_app:update_course' course.pk %}" class="btn btn-sm btn-outline-secondary">{% trans 'New Version' %}</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock main_content %}

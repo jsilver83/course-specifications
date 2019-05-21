@@ -228,6 +228,12 @@ class Course(models.Model):
             release = None
         return release
 
+    def last_edit(self):
+        try:
+            return self.history.last().history_date
+        except:
+            pass
+
 
 class LearningObjective(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
