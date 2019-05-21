@@ -43,12 +43,26 @@ class CourseIdentificationForm(forms.ModelForm):
         mode_of_instruction_in_class = cleaned_data.get('mode_of_instruction_in_class')
         mode_of_instruction_other = cleaned_data.get('mode_of_instruction_other')
 
-        print(mode_of_instruction_in_class + mode_of_instruction_other)
-
-        # matching_courses = Course.objects.filter(program_code=program_code, number=number)
         if mode_of_instruction_other and mode_of_instruction_in_class + mode_of_instruction_other > 100:
             raise forms.ValidationError(
                 _('Mode of Instruction summation of In-Class and Other should NOT exceed 100'),
             )
 
         return cleaned_data
+
+
+class CourseDescriptionForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['catalog_description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # for field in self.fields:
+        #     self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['catalog_description'].widget.attrs.update({
+             'class': 'form-control',
+             'placeholder': _('General description about the course & topics')
+        })
