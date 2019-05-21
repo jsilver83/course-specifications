@@ -230,7 +230,7 @@ class Course(models.Model):
 
     def last_edit(self):
         try:
-            return self.history.last().history_date
+            return self.history.first().history_date
         except:
             pass
 
