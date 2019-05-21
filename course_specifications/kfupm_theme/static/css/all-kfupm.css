@@ -9931,6 +9931,10 @@ small, .small {
   display: none;
 }
 
+.delete-check {
+  display: none;
+}
+
 .arabic .flt-left {
   float: right;
 }
