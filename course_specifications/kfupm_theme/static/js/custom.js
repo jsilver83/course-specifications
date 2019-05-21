@@ -27,10 +27,10 @@ $(document).ready(function($) {
         var delete_this = $(this).parents('.delete-this');
         delete_this.hide();
         if(!delete_this.is(":visible")){
-            $(this).find('.delete-check').prop( "checked", true );
+            $(this).find('input[type=checkbox]').prop( "checked", true );
         }
         else{
-            $(this).find('.delete-check').prop( "checked", false );
+            $(this).find('input[type=checkbox]').prop( "checked", false );
         }
     });
 
