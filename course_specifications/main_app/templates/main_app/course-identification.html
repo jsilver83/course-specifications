@@ -98,14 +98,6 @@
 					<div class="col-md-4 col-12">
 						<div class="form-group bg-light p-3">
 							{{ form.mode_of_instruction_in_class|as_crispy_field }}
-{#							<label class="pt-2 pb-2">In class (face to face) <sup class="text-danger">*</sup>#}
-{#							</label>#}
-{#							<div class="input-group mt-3">#}
-{#								<input type="text" class="form-control" placeholder="Percentage (%)" aria-label="" aria-describedby="mode-inclass">#}
-{#								<div class="input-group-append">#}
-{#									<span class="input-group-text pl-2 pr-2 text-muted" id="mode-inclass">Max 100%</span>#}
-{#								</div>#}
-{#							</div>#}
 						</div>
 					</div>
 					<div class="col-md-4 col-12">
@@ -115,7 +107,6 @@
 							<div class="input-group mt-3">
 								{{ form.mode_of_instruction_other }}
 								{{ form.mode_of_instruction_other.errors }}
-{#								<input type="text" class="form-control" placeholder="Percentage (%)" aria-label="" aria-describedby="mode-others">#}
 								<div class="input-group-append">
 									<span class="input-group-text pl-2 pr-2 text-muted" id="mode-others">{% trans 'Max 100%' %}</span>
 								</div>
@@ -125,8 +116,6 @@
 					<div class="col-12">
 						<div class="form-group">
 							{{ form.mode_of_instruction_comments|as_crispy_field }}
-{#							<label>Comments</label>#}
-{#							<textarea class="form-control" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. " rows="3"></textarea>#}
 						</div>
 					</div>
 				</div>
