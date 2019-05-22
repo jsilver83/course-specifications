@@ -19,7 +19,7 @@ class CourseIdentificationForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
-        self.fields['number'].widget.attrs.update({'placeholder': _('000')})
+        # self.fields['number'].widget.attrs.update({'placeholder': _('000')})
         self.fields['mode_of_instruction_in_class'].widget.attrs.update({'placeholder': _('Percentage (%)')})
         self.fields['mode_of_instruction_other'].widget.attrs.update({'placeholder': _('Percentage (%)')})
         self.fields['mode_of_instruction_other_desc'].widget.attrs.update({'placeholder': _('Other')})
