@@ -12,7 +12,7 @@
 						<h6 class="mb-0 mr-auto">{% if form.instance.pk %}{{ form.instance }}{% else %}{% trans 'New Course' %}{% endif %}</h6>
 						<div class="d-flex align-items-center">
 							<small class="text-danger mr-3">* {% trans 'Mandatory' %}</small>
-							<button class="btn btn-sm btn-warning">{% trans 'Save' %}</button>
+							<button class="btn btn-sm btn-warning delete-adding-content">{% trans 'Save' %}</button>
 						</div>
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 				<div class="col-sm-6 col-12">
 				</div>
 				<div class="col-sm-6 col-12 text-right">
-					<button class="btn btn-primary">{% trans 'Save & Continue' %}
+					<button class="btn btn-primary delete-adding-content">{% trans 'Save & Continue' %}
 						<small class="fas fa-chevron-right ml-1"></small>
 					</button>
 				</div>

@@ -34,6 +34,11 @@ $(document).ready(function($) {
         }
     });
 
+    //Delete adding content for submitting form
+    $('body').on( "click", ".delete-adding-content", function() {
+        $('.add-this').remove();
+    });
+
     if($('.alert-popup').is(':visible')){
         var alert_popup_width = $('.alert-popup').width();
         $('.alert-popup').css("margin-left",-alert_popup_width/2);

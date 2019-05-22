@@ -28,6 +28,7 @@
 					<table class="table clickable">
 						<thead class="thead-light">
 						<tr>
+							<th class="p-0"></th>
 							<th scope="col" class="align-middle border-top-0 text-muted">
 								<small>{% trans 'Course Code' %}</small>
 							</th>
@@ -51,6 +52,7 @@
 						<tbody>
 						{% for course in courses %}
 							<tr>
+							<td class="align-middle pr-0"><small class="text-muted"><i class="fas fa-caret-right mr-2"></i><b>V2</b></small></td>
 							<td scope="row" class="align-middle">
 								<p class="mb-0">
 									{{ course }}
@@ -62,7 +64,7 @@
 								</p>
 							<td class="align-middle">
 								<p class="mb-0">
-									{{ course.total_credit_hours }}
+									{{ course.total_credit_hours }} {% trans 'hrs' %}
 								</p>
 							</td>
 							<td class="align-middle">
