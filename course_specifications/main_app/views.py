@@ -60,18 +60,20 @@ def course_description(request, pk):
     form = CourseDescriptionForm(request.POST or None, instance=course)
 
     model_form = LearningObjectiveForm()
-    formset = LearningObjectiveFormSet(request.POST or None, queryset=course.learning_objectives.all())
+    formset = LearningObjectiveFormSet(request.POST or None, queryset=course.learning_objectives.all(),
+                                       prefix='objectives')
 
     model_form2 = CourseLearningOutcomeForm()
-    formset2 = CourseLearningOutcomeFormSet(request.POST or None, queryset=course.learning_outcomes.all())
+    formset2 = CourseLearningOutcomeFormSet(request.POST or None, queryset=course.learning_outcomes.all(),
+                                            prefix='outcomes')
 
     if request.method == 'POST':
         if form.is_valid():
             saved_course = form.save()
 
             if formset.is_valid():
-                for form in formset.forms:
-                    obj = form.save(commit=False)
+                for form1 in formset.forms:
+                    obj = form1.save(commit=False)
                     obj.course = course
                 formset.save()
 
@@ -81,8 +83,9 @@ def course_description(request, pk):
                     obj2.course = course
                 formset2.save()
 
-            messages.success(request, _('Course updated successfully'))
-            return redirect(reverse_lazy('main_app:course_list'))
+            if formset.is_valid() and formset2.is_valid():
+                messages.success(request, _('Course updated successfully'))
+                return redirect(reverse_lazy('main_app:course_list'))
 
     return render(request, 'main_app/course-description.html', {
         'form': form, 'model_form': model_form, 'formset': formset, 'model_form2': model_form2, 'formset2': formset2,
