@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render_to_response, render, get_object_or
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
 
 from .forms import *
 from .models import *
@@ -59,11 +59,9 @@ def course_description(request, pk):
 
     form = CourseDescriptionForm(request.POST or None, instance=course)
 
-    model_form = LearningObjectiveForm()
     formset = LearningObjectiveFormSet(request.POST or None, queryset=course.learning_objectives.all(),
                                        prefix='objectives')
 
-    model_form2 = CourseLearningOutcomeForm()
     formset2 = CourseLearningOutcomeFormSet(request.POST or None, queryset=course.learning_outcomes.all(),
                                             prefix='outcomes')
 
@@ -88,6 +86,10 @@ def course_description(request, pk):
                 return redirect(reverse_lazy('main_app:course_list'))
 
     return render(request, 'main_app/course-description.html', {
-        'form': form, 'model_form': model_form, 'formset': formset, 'model_form2': model_form2, 'formset2': formset2,
+        'form': form, 'formset': formset, 'formset2': formset2,
         'step1_state': 'completed', 'step2_state': 'active',
     })
+
+
+class CourseContents(SuccessMessageMixin, FormView):
+    pass

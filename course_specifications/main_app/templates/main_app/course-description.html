@@ -40,9 +40,11 @@
                         <div class="add-this">
                             <li class="form-group delete-this">
                                 <div class="d-flex">
-	                                {% comment %}Note to faraj: i cannot add the below model form for your script to work since it
-	                                creates actual form fields that gets validated on client-side{% endcomment %}
-	                                {{ model_form.id }}{{ model_form.learning_objective }}{{ model_form.learning_objective.errors }}
+	                                {% for form in formset %}
+	                                {% if forloop.last %}
+	                                {{ form.id }}{{ form.learning_objective }}{{ form.learning_objective.errors }}
+	                                {% endif %}
+	                                {% endfor %}
                                     <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ model_form.DELETE }}</span></i></button>
                                 </div>
                             </li>
@@ -82,47 +84,37 @@
                 <!-- Default for adding -->
                 <div class="add-this">
                     <div class="delete-this">
-	                    {% comment %}Note to faraj: i cannot add the below model form for your script to work since it
-	                                creates actual form fields that gets validated on client-side{% endcomment %}
-{#                        <div class="d-flex">#}
-{#                            <div class="row">#}
-{#                                <div class="col-sm-2 col-12 pr-sm-1">#}
-{#                                    <div class="form-group">#}
-{#                                        <lable>CLO Category</lable>#}
-{#                                        <select class="form-control">#}
-{#                                            <option>Knowledge</option>#}
-{#                                        </select>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-sm-3 col-12 pr-sm-1">#}
-{#                                    <div class="form-group">#}
-{#                                        <lable>Outcome</lable>#}
-{#                                        <input type="text" class="form-control" placeholder="Enter the outcomes" />#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-sm-2 col-12 pr-sm-1">#}
-{#                                    <div class="form-group">#}
-{#                                        <lable>PLO’s code</lable>#}
-{#                                        <select class="form-control">#}
-{#                                            <option>Select</option>#}
-{#                                        </select>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-sm-2 col-12 pr-sm-1">#}
-{#                                    <div class="form-group">#}
-{#                                        <lable>Teaching strategy</lable>#}
-{#                                        <input type="text" class="form-control" placeholder="Enter strategy" />#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="col-sm-3 col-12">#}
-{#                                    <div class="form-group">#}
-{#                                        <lable>Assessment method</lable>#}
-{#                                        <input type="text" class="form-control" placeholder="Enter method" />#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <button class="btn btn-sm btn-link delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>#}
-{#                        </div>#}
+                        <div class="d-flex">
+                            {% for form in formset2 %}
+                            {% if forloop.last %}
+                            <div class="row">
+                                <div class="col-sm-2 col-12 pr-sm-1">
+                                    <div class="form-group">
+                                        {{ form.id }}
+                                        {{ form.clo_category|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-12 pr-sm-1">
+                                    <div class="form-group">
+                                        {{ form.learning_outcome|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-12 pr-sm-1">
+                                    <div class="form-group">
+                                        {{ form.teaching_strategy|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-12">
+                                    <div class="form-group">
+                                        {{ form.assessment_method|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
+                            {% endif %}
+                            {% endfor %}
+                            <button class="btn btn-sm btn-link delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>
+                        </div>
                     </div>
                 </div>
                 <!-- /Default for adding -->
