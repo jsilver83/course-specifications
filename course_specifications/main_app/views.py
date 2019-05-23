@@ -71,14 +71,16 @@ def course_description(request, pk):
 
             if formset.is_valid():
                 for form1 in formset.forms:
-                    obj = form1.save(commit=False)
-                    obj.course = course
+                    if form1.is_valid():
+                        obj = form1.save(commit=False)
+                        obj.course = course
                 formset.save()
 
             if formset2.is_valid():
                 for form2 in formset2.forms:
-                    obj2 = form2.save(commit=False)
-                    obj2.course = course
+                    if form2.is_valid():
+                        obj2 = form2.save(commit=False)
+                        obj2.course = course
                 formset2.save()
 
             if formset.is_valid() and formset2.is_valid():
