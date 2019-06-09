@@ -66,6 +66,30 @@ class Course(models.Model):
                                                       max_length=100, null=True, blank=True)
     mode_of_instruction_comments = models.TextField(_('Mode Of Instruction Comments'), null=True, blank=True)
 
+    tutorial_contact_hours = models.DecimalField(
+        _('Tutorial Contact Hours'),
+        null=True,
+        blank=True,
+        max_digits=settings.MAX_DIGITS,
+        decimal_places=settings.MAX_DECIMAL_POINT
+    )
+    practical_contact_hours = models.DecimalField(
+        _('Practical Contact Hours'),
+        null=True,
+        blank=True,
+        max_digits=settings.MAX_DIGITS,
+        decimal_places=settings.MAX_DECIMAL_POINT
+    )
+    other_contact_hours = models.DecimalField(
+        _('Other Contact Hours'),
+        null=True,
+        blank=True,
+        max_digits=settings.MAX_DIGITS,
+        decimal_places=settings.MAX_DECIMAL_POINT
+    )
+    other_contact_hours_description = models.CharField(_('Other Contact Hours Description'), null=True, blank=True,
+                                                       max_length=200)
+
     self_study_lecture = models.DecimalField(
         _('Self-Study Lecture Hours'),
         null=True,
