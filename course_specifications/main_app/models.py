@@ -258,6 +258,18 @@ class Course(models.Model):
         except:
             pass
 
+    def get_min_lecture_contact_hours_for_topics(self):
+        return self.lecture_credit_hours * 15
+
+    def get_max_lecture_contact_hours_for_topics(self):
+        return self.lecture_credit_hours * 15
+
+    def get_min_lab_contact_hours_for_topics(self):
+        return (self.lab_contact_hours * 15) / 2
+
+    def get_max_lab_contact_hours_for_topics(self):
+        return self.lab_contact_hours * 15
+
 
 class LearningObjective(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),

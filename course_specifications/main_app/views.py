@@ -85,7 +85,7 @@ def course_description(request, pk):
 
             if formset.is_valid() and formset2.is_valid():
                 messages.success(request, _('Course updated successfully'))
-                return redirect(reverse_lazy('main_app:course_list'))
+                return redirect(reverse_lazy('main_app:course_contents', args=(saved_course.pk, )))
 
     return render(request, 'main_app/course-description.html', {
         'form': form, 'formset': formset, 'formset2': formset2,
@@ -93,5 +93,44 @@ def course_description(request, pk):
     })
 
 
-class CourseContents(SuccessMessageMixin, FormView):
-    pass
+def course_contents(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+
+    form = CourseContentForm(request.POST or None, instance=course)
+
+    formset = LectureTopicFormSet(request.POST or None, queryset=course.topics.filter(type=Topic.Types.LECTURE),
+                                  prefix='lec_topics', form_kwargs={'course': course})
+
+    formset2 = None
+    if course.get_min_lab_contact_hours_for_topics():  # only include lab topics if there is a lab in the course
+        formset2 = LabTopicFormSet(request.POST or None, queryset=course.topics.filter(type=Topic.Types.LAB),
+                                   prefix='lab_topics')
+
+    if request.method == 'POST':
+        if form.is_valid():
+            saved_course = form.save()
+
+            if formset.is_valid():
+                for form in formset.forms:
+                    if form.is_valid():
+                        obj = form.save(commit=False)
+                        obj.type = Topic.Types.LECTURE
+                        obj.course = course
+                formset.save()
+
+            if formset2 and formset2.is_valid():
+                for form in formset2.forms:
+                    if form.is_valid():
+                        obj = form.save(commit=False)
+                        obj.type = Topic.Types.LAB
+                        obj.course = course
+                formset2.save()
+
+            if formset.is_valid() and (formset2.is_valid() if formset2 else True):
+                messages.success(request, _('Course updated successfully'))
+                return redirect(reverse_lazy('main_app:course_contents', args=(saved_course.pk, )))
+
+    return render(request, 'main_app/course-contents.html', {
+        'course': course, 'form': form, 'formset': formset, 'formset2': formset2,
+        'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'active',
+    })

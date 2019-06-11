@@ -1,0 +1,354 @@
+{% extends 'main_app/generic_course_form.html' %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block form-fields %}
+
+	<!-- Actual Contact Hours -->
+	<div class="card mb-4 form-accordian completed">
+	    <div class="card-body p-0">
+	        <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#contact-hours" aria-expanded="false" aria-controls="contact-hours">
+	            <i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'Actual Contact Hours' %}</span>
+	            <i class="fas fa-caret-down"></i>
+	        </div>
+	        <div class="collapse show p-3 pt-4 pb-4" id="contact-hours">
+	            <div class="row">
+	                <div class="col-12">
+	                    <nav>
+	                      <div class="nav nav-tabs" id="assessment-tab" role="tablist">
+	                        <a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true"><small>{% trans 'Lecture' %}</small> <p class="h6 mb-0"><b>{{ course.get_max_lecture_contact_hours_for_topics }} {% trans "hrs" %}</b><sup class="text-danger">*</sup></p></a>
+
+	                        {% if max_lab_hrs %}<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="true"><small>{% trans 'Laboratory' %}</small> <p class="h6 mb-0"><b>{{ course.get_max_lab_contact_hours_for_topics }} {% trans "hrs" %}</b><sup class="text-danger">*</sup></p></a>{% endif %}
+
+	                        <a class="nav-item nav-link" id="nav-tutorial-tab" data-toggle="tab" href="#nav-tutorial" role="tab" aria-controls="nav-tutorial" aria-selected="true"><small>{% trans 'Tutorial' %}</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+
+	                        <a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab" href="#nav-practical" role="tab" aria-controls="nav-practical" aria-selected="true"><small>{% trans 'Practical' %}</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+
+	                        <a class="nav-item nav-link" id="nav-other-tab" data-toggle="tab" href="#nav-other" role="tab" aria-controls="nav-other" aria-selected="true"><small>{% trans "Other" %}</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+	                      </div>
+	                    </nav>
+	                    <div class="tab-content" id="nav-tabContent">
+
+		                    <!-- Lecture -->
+	                        <div class="tab-pane fade show active" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
+	                            <table class="table border">
+	                                <thead class="thead-light">
+	                                    <tr>
+	                                        <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1" width="60%">
+	                                            <small>{% trans "List of lecture topics" %}</small>
+	                                        </th>
+	                                        <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1" width="23%">
+	                                            <small>{% trans "Contact hours" %} <b>({% trans "Max" %} {{ max_lec_hrs }})</b></small>
+	                                        </th>
+	                                        <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+	                                            <small>{% trans "Related CLOs" %}</small>
+	                                        </th>
+	                                        <th scope="col"></th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    {{ formset.management_form }}
+                                        {% for form in formset %}
+	                                    <tr>
+	                                        <td scope="row" class="align-middle border-bottom">
+		                                        {{ form.id }}{{ form.topic }}{{ form.topic.errors }}
+	                                        </td>
+	                                        <td class="align-middle border-bottom">
+	                                            {{ form.contact_hours }}{{ form.contact_hours.errors }}
+	                                        </td>
+
+	                                        <td class="align-middle border-bottom">
+	                                            <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-{{ forloop.counter }}">
+		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b>{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
+	                                            </button>
+
+	                                            <!-- Add CLO Modal -->
+	                                            <div class="modal fade" id="lec-clo-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="lec-clo-{{ forloop.counter }}" aria-hidden="true">
+	                                              <div class="modal-dialog" role="document">
+	                                                <div class="modal-content">
+	                                                  <div class="modal-header">
+	                                                    <h5 class="modal-title">{% trans 'Related CLOs' %}</h5>
+	                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                                                      <span aria-hidden="true">&times;</span>
+	                                                    </button>
+	                                                  </div>
+	                                                  <div class="modal-body">
+		                                                  <div class="row">
+			                                                  <div class="col-md-12">
+				                                                  {{ form.related_course_learning_outcomes }}
+				                                                  {{ form.related_course_learning_outcomes.errors }}
+			                                                  </div>
+		                                                  </div>
+	                                                  </div>
+	                                                  <div class="modal-footer">
+	                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Update" %}</button>
+	                                                  </div>
+	                                                </div>
+	                                              </div>
+	                                            </div>
+	                                            <!-- /Add CLO Modal -->
+	                                        </td>
+	                                        <td></td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                            <div class="text-right d-flex align-items-center">
+	                                <p class="text-muted mr-auto mb-0"><small>{% trans "Total semester hours = Weekly hours  X  Number of weeks per semester" %}</small></p>
+	                                <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>
+		                                {% trans "Add topic" %}</button>
+	                            </div>
+	                        </div>
+	                        <!-- /Lecture -->
+
+	                        <!-- Laboratory -->
+	                        <div class="tab-pane fade" id="nav-laboratory" role="tabpanel" aria-labelledby="nav-laboratory-tab">
+	                            <table class="table border">
+	                                <thead class="thead-light">
+	                                    <tr>
+	                                        <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1" width="60%">
+	                                            <small>{% trans "List of laboratory topics" %}</small>
+	                                        </th>
+	                                        <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1" width="23%">
+	                                            <small>{% trans "Contact hours" %} <b>({% trans "Max" %} {{ max_lab_hrs }})</b></small>
+	                                        </th>
+	                                        <th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+	                                            <small>{% trans "Related CLOs" %}</small>
+	                                        </th>
+	                                        <th scope="col"></th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    {{ tutorial_formset.management_form }}
+	                                    {{ practical_formset.management_form }}
+	                                    {{ other_formset.management_form }}
+
+	                                    {{ formset2.management_form }}
+                                        {% for form in formset2 %}
+	                                    <tr>
+	                                        <td scope="row" class="align-middle border-bottom">
+		                                        {{ form.id }}{{ form.topic }}{{ form.topic.errors }}
+	                                        </td>
+	                                        <td class="align-middle border-bottom">
+	                                            {{ form.contact_hours }}{{ form.contact_hours.errors }}
+	                                        </td>
+
+	                                        <td class="align-middle border-bottom">
+	                                            <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-{{ forloop.counter }}">
+		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b>{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
+	                                            </button>
+
+	                                            <!-- Add CLO Modal -->
+	                                            <div class="modal fade" id="lec-clo-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="lec-clo-{{ forloop.counter }}" aria-hidden="true">
+	                                              <div class="modal-dialog" role="document">
+	                                                <div class="modal-content">
+	                                                  <div class="modal-header">
+	                                                    <h5 class="modal-title">{% trans 'Related CLOs' %}</h5>
+	                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                                                      <span aria-hidden="true">&times;</span>
+	                                                    </button>
+	                                                  </div>
+	                                                  <div class="modal-body">
+		                                                  <div class="row">
+			                                                  <div class="col-md-12">
+				                                                  {{ form.related_course_learning_outcomes }}
+				                                                  {{ form.related_course_learning_outcomes.errors }}
+			                                                  </div>
+		                                                  </div>
+	                                                  </div>
+	                                                  <div class="modal-footer">
+	                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Update" %}</button>
+	                                                  </div>
+	                                                </div>
+	                                              </div>
+	                                            </div>
+	                                            <!-- /Add CLO Modal -->
+	                                        </td>
+	                                        <td></td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                            <div class="text-right d-flex align-items-center">
+	                                <p class="text-muted mr-auto mb-0"><small>{% trans "Total semester hours = Weekly hours  X  Number of weeks per semester" %}</small></p>
+	                                <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>
+		                                {% trans "Add topic" %}</button>
+	                            </div>
+	                        </div>
+	                        <!-- /Laboratory -->
+
+	                        <!-- Tutorial -->
+	                        <div class="tab-pane fade" id="nav-tutorial" role="tabpanel" aria-labelledby="nav-tutorial-tab">
+	                            <div class="border p-3">
+	                                <div class="row">
+	                                    <div class="col-md-4">
+	                                        <div class="form-group">
+	                                            {{ form.tutorial_contact_hours|as_crispy_field }}
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!-- /Tutorial -->
+
+	                        <!-- Practical -->
+	                        <div class="tab-pane fade" id="nav-practical" role="tabpanel" aria-labelledby="nav-practical-tab">
+	                            <div class="border p-3">
+	                                <div class="row">
+	                                    <div class="col-md-4">
+	                                        <div class="form-group">
+	                                            {{ form.practical_contact_hours|as_crispy_field }}
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!-- /Practical -->
+
+	                        <!-- Other -->
+	                        <div class="tab-pane fade" id="nav-other" role="tabpanel" aria-labelledby="nav-other-tab">
+	                            <div class="border p-3">
+	                                <div class="row">
+	                                    <div class="col-md-8">
+	                                        <div class="form-group">
+	                                            {{ form.other_contact_hours_description|as_crispy_field }}
+	                                        </div>
+	                                    </div>
+		                                <div class="col-md-4">
+	                                        <div class="form-group">
+	                                            {{ form.other_contact_hours|as_crispy_field }}
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="text-right d-flex align-items-center mt-3">
+	                                <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
+	                            </div>
+	                        </div>
+	                        <!-- /Other -->
+
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- /Actual Contact Hours -->
+
+	<!-- Other self-study hours -->
+	<div class="card mb-4 form-accordian completed">
+	    <div class="card-body p-0">
+	        <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#self-study" aria-expanded="false" aria-controls="course-level-outcomes">
+	            <i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'Self-Study Hours' %}</span>
+	            <i class="fas fa-caret-down"></i>
+	        </div>
+	        <div class="collapse show p-3 pt-4 pb-4" id="self-study">
+	            <div class="row">
+	                <div class="col-sm-2 col-12">
+	                    <div class="form-group">
+	                        {{ form.self_study_lecture|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-2 col-12">
+	                    <div class="form-group">
+	                        {{ form.self_study_lab|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-2 col-12">
+	                    <div class="form-group">
+	                        {{ form.self_study_tutorial|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-2 col-12">
+	                    <div class="form-group">
+	                        {{ form.self_study_practical|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-2 col-12">
+	                    <div class="form-group">
+	                        {{ form.self_study_other|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-2 col-12">
+	                    <div class="form-group bg-light p-2 text-center">
+	                        <small class="d-block mb-2"><b>{% trans 'Total Hours' %}</b></small>
+	                        <h5 class="mb-0">{{ self_study_hours }}</h5>
+	                    </div>
+	                </div>
+	            </div>
+	            <p class="text-muted mb-0">
+	                <small>{% trans 'Typically for each credit hour the student is expected to spend one hour per week for self-study.' %}</small>
+	            </p>
+	        </div>
+	    </div>
+	</div>
+	<!-- /Other self-study hours -->
+
+	<!-- Subject area credit hours -->
+	<div class="card mb-4 form-accordian completed">
+	    <div class="card-body p-0">
+	        <div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#subject-area" aria-expanded="false" aria-controls="subject-area">
+	            <i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans "Subject Area Credit Hours" %}</span>
+	            <i class="fas fa-caret-down"></i>
+	        </div>
+	        <div class="collapse show p-3 pt-4 pb-4" id="subject-area">
+	            <div class="row">
+	                <div class="col-sm-3 col-12">
+	                    <div class="form-group">
+	                        {{ form.engineering_credit_hours|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-3 col-12">
+	                    <div class="form-group">
+	                        {{ form.math_science_credit_hours|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-3 col-12">
+	                    <div class="form-group">
+	                        {{ form.math_science_credit_hours|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-3 col-12">
+	                    <div class="form-group">
+	                        {{ form.humanities_credit_hours|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-3 col-12">
+	                    <div class="form-group">
+	                        {{ form.social_sciences_credit_hours|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-3 col-12">
+	                    <div class="form-group">
+	                        {{ form.general_education_credit_hours|as_crispy_field }}
+	                    </div>
+	                </div>
+	                <div class="col-sm-3 col-12">
+	                    <div class="form-group">
+	                        {{ form.other_subject_areas_credit_hours|as_crispy_field }}
+	                    </div>
+	                </div>
+	            </div>
+	            <p class="text-muted mb-0">
+	                <small>{% trans 'Typically for each credit hour the student is expected to spend one hour per week for self-study.' %}</small>
+	            </p>
+	        </div>
+	    </div>
+	</div>
+	<!-- /Other self-study hours -->
+
+{% endblock form-fields %}
+
+{% block css %}
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+{% endblock css %}
+
+{% block js %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+	<script type="application/javascript">
+		$(document).ready(function() {
+		    $('.select2').select2();
+		});
+	</script>
+{% endblock js %}

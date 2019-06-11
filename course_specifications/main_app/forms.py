@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import modelformset_factory
+from django.forms import modelformset_factory, BaseModelFormSet
 from django.utils.translation import ugettext_lazy as _
 
 from .models import *
@@ -81,7 +81,7 @@ class LearningObjectiveForm(forms.ModelForm):
 
 
 LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
-                                                extra=3, can_delete=True)
+                                                extra=3, can_delete=True, min_num=1, validate_min=True)
 
 
 class CourseLearningOutcomeForm(forms.ModelForm):
@@ -91,4 +91,105 @@ class CourseLearningOutcomeForm(forms.ModelForm):
 
 
 CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
-                                                    extra=3, can_delete=True)
+                                                    extra=3, can_delete=True, min_num=1, validate_min=True)
+
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ['topic', 'contact_hours', 'related_course_learning_outcomes', ]
+
+    def __init__(self, course, *args, **kwargs):
+        self.course = course
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['topic'].widget.attrs.update({'placeholder': _('Enter topic')})
+        self.fields['contact_hours'].widget.attrs.update({'placeholder': _('e.g. 3 hrs')})
+        self.fields['related_course_learning_outcomes'].widget.attrs.update({'class': 'select2 form-control',
+                                                                             'style': 'width:100%'})
+
+        self.fields['related_course_learning_outcomes'].queryset = CourseLearningOutcome.objects.filter(
+            course=self.course
+        )
+
+
+class LectureTopicBaseFormSet(BaseModelFormSet):
+
+    def clean(self):
+        if any(self.errors):
+            # Don't bother validating the formset unless each form is valid on its own
+            return
+
+        total = Decimal('0.00')
+        for form in self.forms:
+            if self.can_delete and self._should_delete_form(form):
+                continue
+            contact_hours = form.cleaned_data.get('contact_hours', 0)
+            if contact_hours:
+                total += contact_hours
+
+        course = self.get_form_kwargs(0).get('course')
+
+        if total != course.get_min_lecture_contact_hours_for_topics():
+            raise forms.ValidationError(_('Total contact hours for lecture should be equal to {}'.format(
+                course.get_min_lecture_contact_hours_for_topics())))
+
+
+class LabTopicBaseFormSet(BaseModelFormSet):
+
+    def clean(self):
+        if any(self.errors):
+            # Don't bother validating the formset unless each form is valid on its own
+            return
+
+        total = Decimal('0.00')
+        for form in self.forms:
+            if self.can_delete and self._should_delete_form(form):
+                continue
+            contact_hours = form.cleaned_data.get('contact_hours', 0)
+            if contact_hours:
+                total += contact_hours
+
+        course = self.get_form_kwargs(0).get('course')
+
+        if total > course.get_max_lab_contact_hours_for_topics() or total < course.get_min_lab_contact_hours_for_topics():
+            raise forms.ValidationError(_('Total contact hours for lab should be between {} and {}'.format(
+                course.get_min_lab_contact_hours_for_topics(),
+                course.get_min_lecture_contact_hours_for_topics(),
+            )))
+
+
+LectureTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LectureTopicBaseFormSet,
+                                           extra=3, can_delete=True, min_num=1, validate_min=True)
+
+
+LabTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LabTopicBaseFormSet, extra=3,
+                                       can_delete=True, min_num=1, validate_min=True)
+
+
+class CourseContentForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['self_study_lecture', 'self_study_lab', 'self_study_tutorial', 'self_study_practical',
+                  'self_study_other', 'engineering_credit_hours', 'math_science_credit_hours',
+                  'humanities_credit_hours', 'social_sciences_credit_hours', 'general_education_credit_hours',
+                  'other_subject_areas_credit_hours', 'tutorial_contact_hours', 'practical_contact_hours',
+                  'other_contact_hours', 'other_contact_hours_description', ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            if field not in ['other_contact_hours_description']:
+                self.fields[field].widget.attrs.update({'placeholder': _('e.g. 3 hrs')})
+
+            if field not in ['tutorial_contact_hours', 'practical_contact_hours', 'other_contact_hours',
+                             'other_contact_hours_description']:
+                self.fields[field].label = self.fields[field].label.replace('Hours', '').replace(
+                    'Self-Study', '').replace('Credit', '')
+
+        self.fields['other_contact_hours_description'].label = _('Description')
+        self.fields['other_contact_hours'].label = _('Contact Hours')
