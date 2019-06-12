@@ -96,6 +96,8 @@ def course_description(request, pk):
 def course_contents(request, pk):
     course = get_object_or_404(Course, pk=pk)
 
+    total_self_study_hours = course.self_study_lecture + course.self_study_lab + course.self_study_other + course.self_study_practical + course.self_study_tutorial
+
     form = CourseContentForm(request.POST or None, instance=course)
 
     formset = LectureTopicFormSet(request.POST or None, queryset=course.topics.filter(type=Topic.Types.LECTURE),
@@ -111,17 +113,17 @@ def course_contents(request, pk):
             saved_course = form.save()
 
             if formset.is_valid():
-                for form in formset.forms:
-                    if form.is_valid():
-                        obj = form.save(commit=False)
+                for form1 in formset.forms:
+                    if form1.is_valid():
+                        obj = form1.save(commit=False)
                         obj.type = Topic.Types.LECTURE
                         obj.course = course
                 formset.save()
 
             if formset2 and formset2.is_valid():
-                for form in formset2.forms:
-                    if form.is_valid():
-                        obj = form.save(commit=False)
+                for form2 in formset2.forms:
+                    if form2.is_valid():
+                        obj = form2.save(commit=False)
                         obj.type = Topic.Types.LAB
                         obj.course = course
                 formset2.save()
@@ -133,4 +135,5 @@ def course_contents(request, pk):
     return render(request, 'main_app/course-contents.html', {
         'course': course, 'form': form, 'formset': formset, 'formset2': formset2,
         'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'active',
+        'total_self_study_hours': total_self_study_hours,
     })

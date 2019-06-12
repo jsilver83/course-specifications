@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load humanize %}
 
 {% block form-fields %}
 
@@ -19,7 +20,7 @@
 	                      <div class="nav nav-tabs" id="assessment-tab" role="tablist">
 	                        <a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true"><small>{% trans 'Lecture' %}</small> <p class="h6 mb-0"><b>{{ course.get_max_lecture_contact_hours_for_topics }} {% trans "hrs" %}</b><sup class="text-danger">*</sup></p></a>
 
-	                        {% if max_lab_hrs %}<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="true"><small>{% trans 'Laboratory' %}</small> <p class="h6 mb-0"><b>{{ course.get_max_lab_contact_hours_for_topics }} {% trans "hrs" %}</b><sup class="text-danger">*</sup></p></a>{% endif %}
+	                        {% if course.get_min_lab_contact_hours_for_topics %}<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="true"><small>{% trans 'Laboratory' %}</small> <p class="h6 mb-0"><b>{{ course.get_max_lab_contact_hours_for_topics }} {% trans "hrs" %}</b><sup class="text-danger">*</sup></p></a>{% endif %}
 
 	                        <a class="nav-item nav-link" id="nav-tutorial-tab" data-toggle="tab" href="#nav-tutorial" role="tab" aria-controls="nav-tutorial" aria-selected="true"><small>{% trans 'Tutorial' %}</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
 
@@ -135,12 +136,12 @@
 	                                        </td>
 
 	                                        <td class="align-middle border-bottom">
-	                                            <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-{{ forloop.counter }}">
+	                                            <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lab-clo-{{ forloop.counter }}">
 		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b>{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
 	                                            </button>
 
 	                                            <!-- Add CLO Modal -->
-	                                            <div class="modal fade" id="lec-clo-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="lec-clo-{{ forloop.counter }}" aria-hidden="true">
+	                                            <div class="modal fade" id="lab-clo-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="lab-clo-{{ forloop.counter }}" aria-hidden="true">
 	                                              <div class="modal-dialog" role="document">
 	                                                <div class="modal-content">
 	                                                  <div class="modal-header">
@@ -223,7 +224,7 @@
 	                                </div>
 	                            </div>
 	                            <div class="text-right d-flex align-items-center mt-3">
-	                                <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
+	                                <p class="text-muted mr-auto mb-0"><small>{% trans "Total semester hours = Weekly hours  X  Number of weeks per semester" %}</small></p>
 	                            </div>
 	                        </div>
 	                        <!-- /Other -->
@@ -273,7 +274,7 @@
 	                <div class="col-sm-2 col-12">
 	                    <div class="form-group bg-light p-2 text-center">
 	                        <small class="d-block mb-2"><b>{% trans 'Total Hours' %}</b></small>
-	                        <h5 class="mb-0">{{ self_study_hours }}</h5>
+	                        <h5 class="mb-0 tot_ssh">{{ total_self_study_hours|intcomma }}</h5>
 	                    </div>
 	                </div>
 	            </div>
@@ -293,6 +294,9 @@
 	            <i class="fas fa-caret-down"></i>
 	        </div>
 	        <div class="collapse show p-3 pt-4 pb-4" id="subject-area">
+		        <p class="text-muted mb-0">
+	                {% trans 'Indicate the number of credit hours against the classifications below' %}
+	            </p>
 	            <div class="row">
 	                <div class="col-sm-3 col-12">
 	                    <div class="form-group">
@@ -330,9 +334,6 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <p class="text-muted mb-0">
-	                <small>{% trans 'Typically for each credit hour the student is expected to spend one hour per week for self-study.' %}</small>
-	            </p>
 	        </div>
 	    </div>
 	</div>

@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django import forms
 from django.forms import modelformset_factory, BaseModelFormSet
 from django.utils.translation import ugettext_lazy as _
@@ -127,9 +129,7 @@ class LectureTopicBaseFormSet(BaseModelFormSet):
         for form in self.forms:
             if self.can_delete and self._should_delete_form(form):
                 continue
-            contact_hours = form.cleaned_data.get('contact_hours', 0)
-            if contact_hours:
-                total += contact_hours
+            total += form.cleaned_data.get('contact_hours', Decimal('0.00'))
 
         course = self.get_form_kwargs(0).get('course')
 
@@ -149,16 +149,14 @@ class LabTopicBaseFormSet(BaseModelFormSet):
         for form in self.forms:
             if self.can_delete and self._should_delete_form(form):
                 continue
-            contact_hours = form.cleaned_data.get('contact_hours', 0)
-            if contact_hours:
-                total += contact_hours
+            total += form.cleaned_data.get('contact_hours', Decimal('0.00'))
 
         course = self.get_form_kwargs(0).get('course')
 
         if total > course.get_max_lab_contact_hours_for_topics() or total < course.get_min_lab_contact_hours_for_topics():
             raise forms.ValidationError(_('Total contact hours for lab should be between {} and {}'.format(
                 course.get_min_lab_contact_hours_for_topics(),
-                course.get_min_lecture_contact_hours_for_topics(),
+                course.get_max_lab_contact_hours_for_topics(),
             )))
 
 
@@ -166,8 +164,8 @@ LectureTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=
                                            extra=3, can_delete=True, min_num=1, validate_min=True)
 
 
-LabTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LabTopicBaseFormSet, extra=3,
-                                       can_delete=True, min_num=1, validate_min=True)
+LabTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LabTopicBaseFormSet,
+                                       extra=3, can_delete=True, min_num=1, validate_min=True)
 
 
 class CourseContentForm(forms.ModelForm):
@@ -193,3 +191,13 @@ class CourseContentForm(forms.ModelForm):
 
         self.fields['other_contact_hours_description'].label = _('Description')
         self.fields['other_contact_hours'].label = _('Contact Hours')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if not any([cleaned_data.get('engineering_credit_hours'), cleaned_data.get('math_science_credit_hours'),
+                    cleaned_data.get('humanities_credit_hours'), cleaned_data.get('social_sciences_credit_hours'),
+                    cleaned_data.get('general_education_credit_hours'),
+                    cleaned_data.get('other_subject_areas_credit_hours'), ]):
+            raise forms.ValidationError(_('You need to specify credit hours in one classification at least'))
+
+        return cleaned_data
