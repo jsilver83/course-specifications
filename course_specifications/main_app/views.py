@@ -104,7 +104,7 @@ def course_contents(request, pk):
     formset2 = None
     if course.get_min_lab_contact_hours_for_topics():  # only include lab topics if there is a lab in the course
         formset2 = LabTopicFormSet(request.POST or None, queryset=course.topics.filter(type=Topic.Types.LAB),
-                                   prefix='lab_topics')
+                                   prefix='lab_topics', form_kwargs={'course': course})
 
     if request.method == 'POST':
         if form.is_valid():
