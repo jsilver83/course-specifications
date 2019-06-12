@@ -134,7 +134,7 @@ STATIC_URL = '/static/'
 
 # Decimal max digits
 MAX_DIGITS = 10  # 10000000.00
-MAX_DECIMAL_POINT = 4  # .0000
+MAX_DECIMAL_POINT = 2  # .00
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

@@ -93,35 +93,35 @@ class Course(models.Model):
     self_study_lecture = models.DecimalField(
         _('Self-Study Lecture Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     self_study_lab = models.DecimalField(
         _('Self-Study Laboratory Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     self_study_tutorial = models.DecimalField(
         _('Self-Study Tutorial Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     self_study_practical = models.DecimalField(
         _('Self-Study Practical Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     self_study_other = models.DecimalField(
         _('Self-Study Other Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
@@ -129,42 +129,42 @@ class Course(models.Model):
     engineering_credit_hours = models.DecimalField(
         _('Engineering Credit Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     math_science_credit_hours = models.DecimalField(
         _('Mathematics/Science Credit Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     humanities_credit_hours = models.DecimalField(
         _('Humanities Credit Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     social_sciences_credit_hours = models.DecimalField(
         _('Social Sciences Credit Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     general_education_credit_hours = models.DecimalField(
         _('General Education Credit Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     other_subject_areas_credit_hours = models.DecimalField(
         _('Other Subject Areas Credit Hours'),
         null=True,
-        blank=False,
+        blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
