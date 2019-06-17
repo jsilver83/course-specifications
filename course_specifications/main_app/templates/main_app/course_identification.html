@@ -70,12 +70,12 @@
 			</div>
 			<div class="collapse show p-3 pt-4 pb-4" id="requisites">
 				<div class="row">
-					<div class="col-md-4 col-12">
+					<div class="col-md-6 col-12">
 						<div class="form-group">
 							{{ form.prerequisite_courses|as_crispy_field }}
 						</div>
 					</div>
-					<div class="col-md-4 col-12">
+					<div class="col-md-6 col-12">
 						<div class="form-group">
 							{{ form.corequisite_courses|as_crispy_field }}
 						</div>
@@ -153,3 +153,16 @@
 	<!-- /Office hours -->
 
 {% endblock form-fields %}
+
+{% block css %}
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet"/>
+{% endblock css %}
+
+{% block js %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+	<script type="application/javascript">
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+	</script>
+{% endblock js %}

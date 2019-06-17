@@ -36,6 +36,9 @@ class CourseIdentificationForm(forms.ModelForm):
         self.fields['total_credit_hours'].label = _('Total')
         self.fields['mode_of_instruction_in_class'].label = _('In class (face to face)')
 
+        self.fields['prerequisite_courses'].widget.attrs.update({'class': 'select2'})
+        self.fields['corequisite_courses'].widget.attrs.update({'class': 'select2'})
+
         courses = Course.objects.exclude(pk=self.instance.pk)
         self.fields['prerequisite_courses'].queryset = courses
         self.fields['corequisite_courses'].queryset = courses
