@@ -24,16 +24,22 @@ class FacilitiesRequiredInlineAdmin(admin.TabularInline):
     model = FacilitiesRequired
 
 
-# class LearningObjectiveAdmin(SimpleHistoryAdmin):
-#     pass
-
-
 class CourseAdmin(SimpleHistoryAdmin):
     inlines = [LearningObjectiveInlineAdmin, CourseLearningOutcomeInlineAdmin, TopicInlineAdmin,
                AssessmentTaskInlineAdmin, FacilitiesRequiredInlineAdmin]
 
 
-#admin.site.register(LearningObjective, LearningObjectiveInlineAdmin)
-# admin.site.register(LearningObjective, LearningObjectiveAdmin)
+class LearningObjectiveAdmin(SimpleHistoryAdmin):
+    list_display = ('course', 'learning_objective')
+
+
+class CourseLearningOutcomeAdmin(SimpleHistoryAdmin):
+    list_display = ('course', 'learning_outcome')
+
+
+# admin.site.register(LearningObjective, LearningObjectiveInlineAdmin)
+admin.site.register(LearningObjective, LearningObjectiveAdmin)
+admin.site.register(CourseLearningOutcome, CourseLearningOutcomeAdmin)
+admin.site.register(Topic)
 admin.site.register(CourseRelease)
 admin.site.register(Course, CourseAdmin)
