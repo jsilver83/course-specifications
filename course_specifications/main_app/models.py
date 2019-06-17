@@ -199,7 +199,10 @@ class Course(models.Model):
     other_course_evaluation_methods = models.TextField(_('Other Course Evaluation Methods'), null=True, blank=True,
                                                        help_text=_('e.g. by faculty, program leaders, peer reviewer'))
 
-    faculty_staff_availability = models.TextField(_('Faculty and Teaching Staff Availability'), null=True, blank=True)
+    faculty_staff_availability = models.TextField(_('Faculty and Teaching Staff Availability'), null=True, blank=True,
+                                                  help_text=_('Arrangements for availability of faculty and teaching '
+                                                              'staff for individual student consultations and academic '
+                                                              'advice'))
 
     history = HistoricalRecords()
 
