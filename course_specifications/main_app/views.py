@@ -160,9 +160,28 @@ def assessment_tasks(request, pk):
             formset2.save()
 
             messages.success(request, _('Course updated successfully'))
-            return redirect(reverse_lazy('main_app:assessment_tasks', args=(course.pk, )))
+            return redirect(reverse_lazy('main_app:learning_resources', args=(course.pk, )))
 
     return render(request, 'main_app/assessment_tasks.html', {
         'course': course, 'formset': formset, 'formset2': formset2,
         'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'completed', 'step4_state': 'active',
     })
+
+
+class LearningResourcesView(SuccessMessageMixin, UpdateView):
+    model = Course
+    form_class = LearningResourcesForm
+    template_name = 'main_app/learning-resources.html'
+    success_message = _('Course updated successfully')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['step1_state'] = 'completed'
+        context['step2_state'] = 'completed'
+        context['step3_state'] = 'completed'
+        context['step4_state'] = 'completed'
+        context['step5_state'] = 'active'
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('main_app:learning_resources', args=(self.object.pk, ))

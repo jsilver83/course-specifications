@@ -63,8 +63,8 @@ class CourseDescriptionForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['catalog_description'].widget.attrs.update({
-             'class': 'form-control',
-             'placeholder': _('General description about the course & topics')
+            'class': 'form-control',
+            'placeholder': _('General description about the course & topics')
         })
 
 
@@ -77,8 +77,8 @@ class LearningObjectiveForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['learning_objective'].widget.attrs.update({
-             'class': 'form-control',
-             'placeholder': _('Enter objective')
+            'class': 'form-control',
+            'placeholder': _('Enter objective')
         })
 
 
@@ -163,7 +163,6 @@ class LabTopicBaseFormSet(BaseModelFormSet):
 LectureTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LectureTopicBaseFormSet,
                                            extra=3, can_delete=True, min_num=1, validate_min=True)
 
-
 LabTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LabTopicBaseFormSet,
                                        extra=3, can_delete=True, min_num=1, validate_min=True)
 
@@ -204,7 +203,6 @@ class CourseContentForm(forms.ModelForm):
 
 
 class AssessmentTaskForm(forms.ModelForm):
-
     class Meta:
         model = AssessmentTask
         fields = ['type', 'assessment_task', 'week_due', 'weight_percentage', ]
@@ -229,3 +227,31 @@ class AssessmentTaskForm(forms.ModelForm):
 
 AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
                                              extra=3, can_delete=True, min_num=1, validate_min=True)
+
+
+class LearningResourcesForm(forms.ModelForm):
+    # TODO: fetch real textbooks from sierra
+    CHOICES = (
+        ('ISBN01', 'Test Textbook 1'),
+        ('ISBN02', 'Test Textbook 2'),
+        ('ISBN03', 'Test Textbook 3'),
+        ('ISBN04', 'Test Textbook 4'),
+        ('ISBN05', 'Test Textbook 5'),
+    )
+
+    required_textbooks_from_sierra = forms.MultipleChoiceField(widget=forms.SelectMultiple(attrs={'class': 'select2'}),
+                                                               choices=CHOICES)
+
+    class Meta:
+        model = Course
+        fields = ['required_textbooks_from_sierra', 'other_required_textbooks', 'essential_reference_materials',
+                  'recommended_textbooks_reference_materials', 'electronic_materials', 'other_materials', ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # TODO: fix to show selected textbooks properly
+        if self.instance.required_textbooks_from_sierra:
+            self.fields['required_textbooks_from_sierra'].help_text = _('Currently selected: {}'.format(
+                self.instance.required_textbooks_from_sierra)
+            )
