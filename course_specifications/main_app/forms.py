@@ -255,3 +255,9 @@ class LearningResourcesForm(forms.ModelForm):
             self.fields['required_textbooks_from_sierra'].help_text = _('Currently selected: {}'.format(
                 self.instance.required_textbooks_from_sierra)
             )
+
+
+class EvaluationForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['strategies_of_student_feedback_and_evaluation', ]

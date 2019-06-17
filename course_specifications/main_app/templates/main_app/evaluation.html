@@ -1,0 +1,26 @@
+{% extends 'main_app/generic_course_form.html' %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block form-fields %}
+
+	<!-- Learning resources -->
+	<div class="card mb-4 form-accordian completed">
+		<div class="card-body p-0">
+			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#learning-resources" aria-expanded="false" aria-controls="learning-resources">
+				<i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans "Course Evaluation" %}</span>
+				<i class="fas fa-caret-down"></i>
+			</div>
+			<div class="collapse show p-3 pt-4 pb-4" id="learning-resources">
+				<div class="row">
+					<div class="col-12">
+						{% crispy form %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Learning resources -->
+
+{% endblock form-fields %}

@@ -184,4 +184,24 @@ class LearningResourcesView(SuccessMessageMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('main_app:learning_resources', args=(self.object.pk, ))
+        return reverse_lazy('main_app:evaluation', args=(self.object.pk, ))
+
+
+class EvaluationView(SuccessMessageMixin, UpdateView):
+    model = Course
+    form_class = EvaluationForm
+    template_name = 'main_app/evaluation.html'
+    success_message = _('Course updated successfully')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['step1_state'] = 'completed'
+        context['step2_state'] = 'completed'
+        context['step3_state'] = 'completed'
+        context['step4_state'] = 'completed'
+        context['step5_state'] = 'completed'
+        context['step6_state'] = 'active'
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('main_app:evaluation', args=(self.object.pk, ))
