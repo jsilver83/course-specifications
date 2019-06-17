@@ -1,0 +1,99 @@
+{% extends 'main_app/generic_course_form.html' %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block form-fields %}
+
+	<!-- Course evaluation -->
+	<div class="card mb-4 form-accordian completed">
+		<div class="card-body p-0">
+			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#learning-resources" aria-expanded="false" aria-controls="learning-resources">
+				<i class="fas fa-check check-icon"></i>
+				<span class="mr-auto">{% trans "Accreditation Requirements" %} ({% trans "Optional" %})</span>
+				<i class="fas fa-caret-down"></i>
+			</div>
+			<div class="collapse show p-3 pt-4 pb-4" id="learning-resources">
+				<div class="row">
+					<div class="col-12">
+						<div class="form-group">
+							{{ form.faculty_staff_availability|as_crispy_field }}
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-12">
+						<div class="form-group has-add-content">
+							<label>2. Facilities Required </label>
+
+							<!-- Default for adding -->
+							<div class="add-this">
+								{% for form in formset %}
+									{% if forloop.last %}
+											<div class="row mb-2 delete-this">
+												<div class="col-sm-3 col-12">
+													{{ form.type|as_crispy_field }}
+												</div>
+												<div class="col-sm-8 col-12">
+													{{ form.facility_required|as_crispy_field }}
+												</div>
+												<div class="col-sm-1 col-12">
+													<br><br>
+													<button class="btn btn-sm delete-btn" type="button">
+														<input type="checkbox" class="delete-check"/><i class="fas fa-trash-alt text-danger"></i>
+													</button>
+												</div>
+											</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+							<!-- /Default for adding -->
+
+							<div class="add-here">
+								{{ formset.management_form }}
+								{% for form in formset %}
+									<div class="row mb-2 delete-this">
+										<div class="col-sm-3 col-12">
+											{{ form.type|as_crispy_field }}
+										</div>
+										<div class="col-sm-8 col-12">
+											{{ form.facility_required|as_crispy_field }}
+										</div>
+										<div class="col-sm-1 col-12">
+											<br><br>
+											<button class="btn btn-sm delete-btn" type="button">
+												<input type="checkbox" class="delete-check"/><i class="fas fa-trash-alt text-danger"></i>
+											</button>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+
+							<div class="row">
+								<div class="col-12 text-right mt-2">
+									<button class="btn btn-sm btn-link bg-light add-button" type="button">
+										<small class="fas fa-plus mr-1"></small>
+										{% trans "Add facility" %}
+									</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-12">
+						<div class="form-group">
+							{{ form.other_course_evaluation_methods|as_crispy_field }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Course evaluation -->
+
+
+{% endblock form-fields %}

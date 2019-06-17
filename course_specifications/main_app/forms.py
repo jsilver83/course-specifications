@@ -261,3 +261,19 @@ class EvaluationForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ['strategies_of_student_feedback_and_evaluation', ]
+
+
+class AccreditationRequirementsForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['faculty_staff_availability', 'other_course_evaluation_methods', ]
+
+
+class FacilitiesRequiredForm(forms.ModelForm):
+    class Meta:
+        model = FacilitiesRequired
+        fields = ['type', 'facility_required', ]
+
+
+FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=FacilitiesRequiredForm,
+                                                 extra=3, can_delete=True, min_num=1, validate_min=True)

@@ -13,4 +13,5 @@ urlpatterns = [
     path('assessment-tasks/<int:pk>/', assessment_tasks, name='assessment_tasks'),
     path('learning-resources/<int:pk>/', LearningResourcesView.as_view(), name='learning_resources'),
     path('evaluation/<int:pk>/', EvaluationView.as_view(), name='evaluation'),
+    path('accreditation-requirements/<int:pk>/', accreditation_requirements, name='accreditation_requirements'),
 ]

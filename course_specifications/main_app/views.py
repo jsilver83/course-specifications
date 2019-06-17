@@ -204,4 +204,31 @@ class EvaluationView(SuccessMessageMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('main_app:evaluation', args=(self.object.pk, ))
+        return reverse_lazy('main_app:accreditation_requirements', args=(self.object.pk, ))
+
+
+def accreditation_requirements(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+
+    form = AccreditationRequirementsForm(request.POST or None, instance=course)
+
+    formset = FacilitiesRequiredFormSet(request.POST or None, queryset=course.facilities_required.all())
+
+    if request.method == 'POST':
+        if form.is_valid() and formset.is_valid():
+            saved_course = form.save()
+
+            for form1 in formset.forms:
+                if form1.is_valid():
+                    obj = form1.save(commit=False)
+                    obj.course = course
+            formset.save()
+
+            messages.success(request, _('Course updated successfully'))
+            return redirect(reverse_lazy('main_app:course_list'))
+
+    return render(request, 'main_app/accreditation_requirements.html', {
+        'form': form, 'formset': formset,
+        'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'completed', 'step4_state': 'completed',
+        'step5_state': 'completed', 'step6_state': 'completed', 'step7_state': 'active',
+    })
