@@ -10,4 +10,5 @@ urlpatterns = [
     path('update-course/<int:pk>/', UpdateCourse.as_view(), name='update_course'),
     path('course-description/<int:pk>/', course_description, name='course_description'),
     path('course-contents/<int:pk>/', course_contents, name='course_contents'),
+    path('assessment-tasks/<int:pk>/', assessment_tasks, name='assessment_tasks'),
 ]

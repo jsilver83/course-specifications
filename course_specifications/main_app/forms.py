@@ -201,3 +201,31 @@ class CourseContentForm(forms.ModelForm):
             raise forms.ValidationError(_('You need to specify credit hours in one classification at least'))
 
         return cleaned_data
+
+
+class AssessmentTaskForm(forms.ModelForm):
+
+    class Meta:
+        model = AssessmentTask
+        fields = ['type', 'assessment_task', 'week_due', 'weight_percentage', ]
+        widgets = {
+            'type': forms.HiddenInput,
+        }
+
+    def __init__(self, task_type, *args, **kwargs):
+        self.task_type = task_type
+        super().__init__(*args, **kwargs)
+
+        self.initial['type'] = self.task_type
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['assessment_task'].widget.attrs.update({'placeholder':
+                                                                _('e.g. essay, test, group project, speech, etc.')})
+        self.fields['week_due'].widget.attrs.update({'placeholder': _('e.g. 3')})
+        self.fields['weight_percentage'].widget.attrs.update({'placeholder': _('e.g. 20'), 'step': '0.5'})
+
+
+AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
+                                             extra=3, can_delete=True, min_num=1, validate_min=True)

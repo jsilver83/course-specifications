@@ -270,6 +270,12 @@ class Course(models.Model):
     def get_max_lab_contact_hours_for_topics(self):
         return self.lab_contact_hours * 15
 
+    def get_total_self_study_hours(self):
+        self_studies = [self.self_study_lecture, self.self_study_lab, self.self_study_other,
+                        self.self_study_practical, self.self_study_tutorial]
+
+        return sum(filter(None, self_studies))
+
 
 class LearningObjective(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
@@ -361,7 +367,7 @@ class AssessmentTask(models.Model):
     type = models.CharField(_('Type'), max_length=50, null=True, blank=False, choices=Types.choices())
     assessment_task = models.CharField(_('Assessment Task'), max_length=2000, null=True, blank=False,
                                        help_text=_('e.g essay, test, group project, examination, speech, etc...'))
-    week_due = models.PositiveSmallIntegerField(_('Week Due'), null=True, blank=True)
+    week_due = models.PositiveSmallIntegerField(_('Week Due'), null=True, blank=False)
     weight_percentage = models.DecimalField(
         _('Weight Percentage'),
         null=True,
@@ -375,6 +381,9 @@ class AssessmentTask(models.Model):
     )
 
     history = HistoricalRecords()
+
+    class Meta:
+        ordering = ('course', 'type', 'week_due')
 
     def __str__(self):
         return '{} - {}'.format(self.get_type_display(), self.assessment_task)

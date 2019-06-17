@@ -18,7 +18,7 @@ class CoursesList(ListView):
 
 class NewCourse(SuccessMessageMixin, CreateView):
     form_class = CourseIdentificationForm
-    template_name = 'main_app/course-identification.html'
+    template_name = 'main_app/course_identification.html'
     success_message = _('Course created successfully')
 
     def get_context_data(self, **kwargs):
@@ -35,7 +35,7 @@ class NewCourse(SuccessMessageMixin, CreateView):
 class UpdateCourse(SuccessMessageMixin, UpdateView):
     model = Course
     form_class = CourseIdentificationForm
-    template_name = 'main_app/course-identification.html'
+    template_name = 'main_app/course_identification.html'
     success_message = _('Course updated successfully')
 
     def get_context_data(self, **kwargs):
@@ -66,28 +66,25 @@ def course_description(request, pk):
                                             prefix='outcomes')
 
     if request.method == 'POST':
-        if form.is_valid():
+        if form.is_valid() and formset.is_valid() and formset2.is_valid():
             saved_course = form.save()
 
-            if formset.is_valid():
-                for form1 in formset.forms:
-                    if form1.is_valid():
-                        obj = form1.save(commit=False)
-                        obj.course = course
-                formset.save()
+            for form1 in formset.forms:
+                if form1.is_valid():
+                    obj = form1.save(commit=False)
+                    obj.course = course
+            formset.save()
 
-            if formset2.is_valid():
-                for form2 in formset2.forms:
-                    if form2.is_valid():
-                        obj2 = form2.save(commit=False)
-                        obj2.course = course
-                formset2.save()
+            for form2 in formset2.forms:
+                if form2.is_valid():
+                    obj2 = form2.save(commit=False)
+                    obj2.course = course
+            formset2.save()
 
-            if formset.is_valid() and formset2.is_valid():
-                messages.success(request, _('Course updated successfully'))
-                return redirect(reverse_lazy('main_app:course_contents', args=(saved_course.pk, )))
+            messages.success(request, _('Course updated successfully'))
+            return redirect(reverse_lazy('main_app:course_contents', args=(saved_course.pk, )))
 
-    return render(request, 'main_app/course-description.html', {
+    return render(request, 'main_app/course_description.html', {
         'form': form, 'formset': formset, 'formset2': formset2,
         'step1_state': 'completed', 'step2_state': 'active',
     })
@@ -96,7 +93,7 @@ def course_description(request, pk):
 def course_contents(request, pk):
     course = get_object_or_404(Course, pk=pk)
 
-    total_self_study_hours = course.self_study_lecture + course.self_study_lab + course.self_study_other + course.self_study_practical + course.self_study_tutorial
+    total_self_study_hours = course.get_total_self_study_hours()
 
     form = CourseContentForm(request.POST or None, instance=course)
 
@@ -109,18 +106,17 @@ def course_contents(request, pk):
                                    prefix='lab_topics', form_kwargs={'course': course})
 
     if request.method == 'POST':
-        if form.is_valid():
+        if form.is_valid() and formset.is_valid() and (formset2.is_valid() if formset2 else True):
             saved_course = form.save()
 
-            if formset.is_valid():
-                for form1 in formset.forms:
-                    if form1.is_valid():
-                        obj = form1.save(commit=False)
-                        obj.type = Topic.Types.LECTURE
-                        obj.course = course
-                formset.save()
+            for form1 in formset.forms:
+                if form1.is_valid():
+                    obj = form1.save(commit=False)
+                    obj.type = Topic.Types.LECTURE
+                    obj.course = course
+            formset.save()
 
-            if formset2 and formset2.is_valid():
+            if formset2:
                 for form2 in formset2.forms:
                     if form2.is_valid():
                         obj = form2.save(commit=False)
@@ -128,12 +124,45 @@ def course_contents(request, pk):
                         obj.course = course
                 formset2.save()
 
-            if formset.is_valid() and (formset2.is_valid() if formset2 else True):
-                messages.success(request, _('Course updated successfully'))
-                return redirect(reverse_lazy('main_app:course_contents', args=(saved_course.pk, )))
+            messages.success(request, _('Course updated successfully'))
+            return redirect(reverse_lazy('main_app:assessment_tasks', args=(saved_course.pk, )))
 
-    return render(request, 'main_app/course-contents.html', {
+    return render(request, 'main_app/course_contents.html', {
         'course': course, 'form': form, 'formset': formset, 'formset2': formset2,
         'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'active',
         'total_self_study_hours': total_self_study_hours,
+    })
+
+
+def assessment_tasks(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+
+    formset = AssessmentTaskFormSet(request.POST or None,
+                                    queryset=course.assessment_tasks.filter(type=AssessmentTask.Types.LECTURE),
+                                    prefix='lecture', form_kwargs={'task_type': AssessmentTask.Types.LECTURE})
+
+    formset2 = AssessmentTaskFormSet(request.POST or None,
+                                     queryset=course.assessment_tasks.filter(type=AssessmentTask.Types.LAB),
+                                     prefix='lab', form_kwargs={'task_type': AssessmentTask.Types.LAB})
+
+    if request.method == 'POST':
+        if formset.is_valid() and formset2.is_valid():
+            for form1 in formset.forms:
+                if form1.is_valid():
+                    obj = form1.save(commit=False)
+                    obj.course = course
+            formset.save()
+
+            for form2 in formset2.forms:
+                if form2.is_valid():
+                    obj2 = form2.save(commit=False)
+                    obj2.course = course
+            formset2.save()
+
+            messages.success(request, _('Course updated successfully'))
+            return redirect(reverse_lazy('main_app:assessment_tasks', args=(course.pk, )))
+
+    return render(request, 'main_app/assessment_tasks.html', {
+        'course': course, 'formset': formset, 'formset2': formset2,
+        'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'completed', 'step4_state': 'active',
     })
