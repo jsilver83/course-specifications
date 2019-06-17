@@ -10,13 +10,13 @@ from .forms import *
 from .models import *
 
 
-class CoursesList(ListView):
+class CoursesListView(ListView):
     model = Course
     template_name = 'main_app/courses_list.html'
     context_object_name = 'courses'
 
 
-class NewCourse(SuccessMessageMixin, CreateView):
+class NewCourseView(SuccessMessageMixin, CreateView):
     form_class = CourseIdentificationForm
     template_name = 'main_app/course_identification.html'
     success_message = _('Course created successfully')
@@ -32,7 +32,7 @@ class NewCourse(SuccessMessageMixin, CreateView):
         return redirect(reverse_lazy('main_app:course_description', args=(new_course.pk, )))
 
 
-class UpdateCourse(SuccessMessageMixin, UpdateView):
+class UpdateCourseView(SuccessMessageMixin, UpdateView):
     model = Course
     form_class = CourseIdentificationForm
     template_name = 'main_app/course_identification.html'
@@ -47,7 +47,7 @@ class UpdateCourse(SuccessMessageMixin, UpdateView):
         return reverse_lazy('main_app:course_description', args=(self.object.pk, ))
 
 
-class Release(View):
+class ReleaseCourseView(View):
     def get(self, request, *args, **kwargs):
         course = Course.objects.get(id=kwargs['course_id'])
         course.release()
