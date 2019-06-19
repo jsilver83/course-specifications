@@ -1,6 +1,6 @@
+from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
@@ -29,9 +29,21 @@ class Course(models.Model):
     catalog_description = models.TextField(_('Catalog Description'), null=True, blank=False,
                                            help_text=_('General description about the course and topics covered'))
     location = models.CharField(_('Location'), max_length=50, null=True, blank=False, choices=Locations.choices())
-    lecture_credit_hours = models.PositiveSmallIntegerField(_('Lecture Credit Hours'), null=True, blank=False)
-    lab_contact_hours = models.PositiveSmallIntegerField(_('Lab Contact Hours'), null=True, blank=True)
-    total_credit_hours = models.PositiveSmallIntegerField(_('Total Credit Hours'), null=True, blank=False)
+    lecture_credit_hours = models.PositiveSmallIntegerField(_('Lecture Credit Hours'), null=True, blank=False,
+                                                            validators=[
+                                                                MinValueValidator(1),
+                                                                MaxValueValidator(12),
+                                                            ], )
+    lab_contact_hours = models.PositiveSmallIntegerField(_('Lab Contact Hours'), null=True, blank=True,
+                                                         validators=[
+                                                             MinValueValidator(1),
+                                                             MaxValueValidator(12),
+                                                         ], )
+    total_credit_hours = models.PositiveSmallIntegerField(_('Total Credit Hours'), null=True, blank=False,
+                                                          validators=[
+                                                              MinValueValidator(1),
+                                                              MaxValueValidator(12),
+                                                          ], )
     weekly_office_hours = models.PositiveSmallIntegerField(_('Weekly Office Hours'), null=True, blank=True,
                                                            validators=[
                                                                MinValueValidator(3),
