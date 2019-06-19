@@ -85,7 +85,12 @@ class LearningObjectiveForm(forms.ModelForm):
         })
 
 
+class LearningObjectiveBaseFormSet(BaseModelFormSet):
+    verbose_name = _('Learning Objective')
+
+
 LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
+                                                formset=LearningObjectiveBaseFormSet,
                                                 extra=1, can_delete=True, min_num=1, validate_min=True)
 
 
@@ -95,7 +100,12 @@ class CourseLearningOutcomeForm(forms.ModelForm):
         fields = ['clo_category', 'learning_outcome', 'teaching_strategy', 'assessment_method', ]
 
 
+class CourseLearningOutcomeBaseFormSet(BaseModelFormSet):
+    verbose_name = _('Course Learning Outcome')
+
+
 CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
+                                                    formset=CourseLearningOutcomeBaseFormSet,
                                                     extra=1, can_delete=True, min_num=1, validate_min=True)
 
 
@@ -122,6 +132,7 @@ class TopicForm(forms.ModelForm):
 
 
 class LectureTopicBaseFormSet(BaseModelFormSet):
+    verbose_name = _('Lecture Topics')
 
     def clean(self):
         if any(self.errors):
@@ -142,6 +153,7 @@ class LectureTopicBaseFormSet(BaseModelFormSet):
 
 
 class LabTopicBaseFormSet(BaseModelFormSet):
+    verbose_name = _('Laboratory Topics')
 
     def clean(self):
         if any(self.errors):
@@ -228,7 +240,19 @@ class AssessmentTaskForm(forms.ModelForm):
         self.fields['weight_percentage'].widget.attrs.update({'placeholder': _('e.g. 20'), 'step': '0.5'})
 
 
+class AssessmentTaskBaseFormSet(BaseModelFormSet):
+
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, queryset=None, **kwargs):
+        super().__init__(data, files, auto_id, prefix, queryset, **kwargs)
+        assessment_type = kwargs.get('form_kwargs').get('task_type')
+        if assessment_type == AssessmentTask.Types.LECTURE:
+            self.verbose_name = _('Lecture Assessment Tasks')
+        else:
+            self.verbose_name = _('Laboratory Assessment Tasks')
+
+
 AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
+                                             formset=AssessmentTaskBaseFormSet,
                                              extra=1, can_delete=True, min_num=1, validate_min=True)
 
 
@@ -278,5 +302,10 @@ class FacilitiesRequiredForm(forms.ModelForm):
         fields = ['type', 'facility_required', ]
 
 
+class FacilitiesRequiredBaseFormSet(BaseModelFormSet):
+    verbose_name = _('Facilities Required')
+
+
 FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=FacilitiesRequiredForm,
+                                                 formset=FacilitiesRequiredBaseFormSet,
                                                  extra=1, can_delete=True, min_num=1, validate_min=True)
