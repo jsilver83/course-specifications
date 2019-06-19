@@ -86,7 +86,7 @@ class LearningObjectiveForm(forms.ModelForm):
 
 
 LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
-                                                extra=3, can_delete=True, min_num=1, validate_min=True)
+                                                extra=1, can_delete=True, min_num=1, validate_min=True)
 
 
 class CourseLearningOutcomeForm(forms.ModelForm):
@@ -96,7 +96,7 @@ class CourseLearningOutcomeForm(forms.ModelForm):
 
 
 CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
-                                                    extra=3, can_delete=True, min_num=1, validate_min=True)
+                                                    extra=1, can_delete=True, min_num=1, validate_min=True)
 
 
 class TopicForm(forms.ModelForm):
@@ -164,10 +164,10 @@ class LabTopicBaseFormSet(BaseModelFormSet):
 
 
 LectureTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LectureTopicBaseFormSet,
-                                           extra=3, can_delete=True, min_num=1, validate_min=True)
+                                           extra=1, can_delete=True, min_num=1, validate_min=True)
 
 LabTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LabTopicBaseFormSet,
-                                       extra=3, can_delete=True, min_num=1, validate_min=True)
+                                       extra=1, can_delete=True, min_num=1, validate_min=True)
 
 
 class CourseContentForm(forms.ModelForm):
@@ -229,7 +229,7 @@ class AssessmentTaskForm(forms.ModelForm):
 
 
 AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
-                                             extra=3, can_delete=True, min_num=1, validate_min=True)
+                                             extra=1, can_delete=True, min_num=1, validate_min=True)
 
 
 class LearningResourcesForm(forms.ModelForm):
@@ -279,4 +279,4 @@ class FacilitiesRequiredForm(forms.ModelForm):
 
 
 FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=FacilitiesRequiredForm,
-                                                 extra=3, can_delete=True, min_num=1, validate_min=True)
+                                                 extra=1, can_delete=True, min_num=1, validate_min=True)
