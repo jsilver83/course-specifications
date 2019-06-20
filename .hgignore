@@ -28,3 +28,13 @@ course_specifications/course_specifications/settings/local.py
 .pytest_cache
 
 
+*/target/
+*/.settings/
+*/.classpath
+*/.project
+
+config.properties
+
+*.iml
+
+
