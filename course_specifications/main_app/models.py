@@ -31,17 +31,17 @@ class Course(models.Model):
     location = models.CharField(_('Location'), max_length=50, null=True, blank=False, choices=Locations.choices())
     lecture_credit_hours = models.PositiveSmallIntegerField(_('Lecture Credit Hours'), null=True, blank=False,
                                                             validators=[
-                                                                MinValueValidator(1),
+                                                                MinValueValidator(0),
                                                                 MaxValueValidator(12),
                                                             ], )
     lab_contact_hours = models.PositiveSmallIntegerField(_('Lab Contact Hours'), null=True, blank=True,
                                                          validators=[
-                                                             MinValueValidator(1),
+                                                             MinValueValidator(0),
                                                              MaxValueValidator(12),
                                                          ], )
     total_credit_hours = models.PositiveSmallIntegerField(_('Total Credit Hours'), null=True, blank=False,
                                                           validators=[
-                                                              MinValueValidator(1),
+                                                              MinValueValidator(0),
                                                               MaxValueValidator(12),
                                                           ], )
     weekly_office_hours = models.PositiveSmallIntegerField(_('Weekly Office Hours'), null=True, blank=True,
@@ -274,16 +274,28 @@ class Course(models.Model):
             pass
 
     def get_min_lecture_contact_hours_for_topics(self):
-        return self.lecture_credit_hours * 15
+        try:
+            return self.lecture_credit_hours * 15
+        except TypeError:
+            pass
 
     def get_max_lecture_contact_hours_for_topics(self):
-        return self.lecture_credit_hours * 15
+        try:
+            return self.lecture_credit_hours * 15
+        except TypeError:
+            pass
 
     def get_min_lab_contact_hours_for_topics(self):
-        return (self.lab_contact_hours * 15) / 2
+        try:
+            return (self.lab_contact_hours * 15) / 2
+        except TypeError:
+            pass
 
     def get_max_lab_contact_hours_for_topics(self):
-        return self.lab_contact_hours * 15
+        try:
+            return self.lab_contact_hours * 15
+        except TypeError:
+            pass
 
     def get_total_self_study_hours(self):
         self_studies = [self.self_study_lecture, self.self_study_lab, self.self_study_other,
