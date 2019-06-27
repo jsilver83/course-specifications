@@ -303,6 +303,29 @@ class Course(models.Model):
 
         return sum(filter(None, self_studies))
 
+    def can_navigate_to_step1(self):
+        return self.title
+
+    def can_navigate_to_step2(self):
+        return self.catalog_description
+
+    def can_navigate_to_step3(self):
+        return (self.engineering_credit_hours or self.math_science_credit_hours or self.humanities_credit_hours
+                or self.social_sciences_credit_hours or self.general_education_credit_hours
+                or self.other_subject_areas_credit_hours)
+
+    def can_navigate_to_step4(self):
+        return self.assessment_tasks.all().count()
+
+    def can_navigate_to_step5(self):
+        return self.required_textbooks_from_sierra
+
+    def can_navigate_to_step6(self):
+        return self.strategies_of_student_feedback_and_evaluation
+
+    def can_navigate_to_step7(self):
+        return self.facilities_required.all().count()
+
 
 class LearningObjective(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),

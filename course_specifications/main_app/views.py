@@ -23,7 +23,7 @@ class NewCourseView(SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['step1_state'] = 'active'
+        context['active_step'] = '1'
         return context
 
     def form_valid(self, form):
@@ -40,7 +40,7 @@ class UpdateCourseView(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['step1_state'] = 'active'
+        context['active_step'] = '1'
         return context
 
     def get_success_url(self):
@@ -85,8 +85,8 @@ def course_description(request, pk):
             return redirect(reverse_lazy('main_app:course_contents', args=(saved_course.pk, )))
 
     return render(request, 'main_app/course_description.html', {
-        'form': form, 'formset': formset, 'formset2': formset2,
-        'step1_state': 'completed', 'step2_state': 'active',
+        'course': course, 'form': form, 'formset': formset, 'formset2': formset2,
+        'active_step': '2',
     })
 
 
@@ -129,7 +129,7 @@ def course_contents(request, pk):
 
     return render(request, 'main_app/course_contents.html', {
         'course': course, 'form': form, 'formset': formset, 'formset2': formset2,
-        'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'active',
+        'active_step': '3',
         'total_self_study_hours': total_self_study_hours,
     })
 
@@ -164,7 +164,7 @@ def assessment_tasks(request, pk):
 
     return render(request, 'main_app/assessment_tasks.html', {
         'course': course, 'formset': formset, 'formset2': formset2,
-        'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'completed', 'step4_state': 'active',
+        'active_step': '4',
     })
 
 
@@ -176,11 +176,7 @@ class LearningResourcesView(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['step1_state'] = 'completed'
-        context['step2_state'] = 'completed'
-        context['step3_state'] = 'completed'
-        context['step4_state'] = 'completed'
-        context['step5_state'] = 'active'
+        context['active_step'] = '5'
         return context
 
     def get_success_url(self):
@@ -195,12 +191,7 @@ class EvaluationView(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['step1_state'] = 'completed'
-        context['step2_state'] = 'completed'
-        context['step3_state'] = 'completed'
-        context['step4_state'] = 'completed'
-        context['step5_state'] = 'completed'
-        context['step6_state'] = 'active'
+        context['active_step'] = '6'
         return context
 
     def get_success_url(self):
@@ -228,7 +219,6 @@ def accreditation_requirements(request, pk):
             return redirect(reverse_lazy('main_app:course_list'))
 
     return render(request, 'main_app/accreditation_requirements.html', {
-        'form': form, 'formset': formset,
-        'step1_state': 'completed', 'step2_state': 'completed', 'step3_state': 'completed', 'step4_state': 'completed',
-        'step5_state': 'completed', 'step6_state': 'completed', 'step7_state': 'active',
+        'course': course, 'form': form, 'formset': formset,
+        'active_step': '7',
     })
