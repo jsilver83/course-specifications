@@ -1,0 +1,705 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-23 15:30+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: course_specifications/settings.py:127
+msgid "Arabic"
+msgstr ""
+
+#: course_specifications/settings.py:128
+msgid "English"
+msgstr ""
+
+#: main_app/forms.py:25 main_app/forms.py:26
+msgid "Percentage (%)"
+msgstr ""
+
+#: main_app/forms.py:27 main_app/models.py:19 main_app/models.py:347
+#: main_app/models.py:418 main_app/templates/main_app/course_contents.html:29
+msgid "Other"
+msgstr ""
+
+#: main_app/forms.py:28 main_app/forms.py:30
+msgid "Credit Hrs"
+msgstr ""
+
+#: main_app/forms.py:29
+msgid "Contact Hrs"
+msgstr ""
+
+#: main_app/forms.py:32
+msgid "Comments"
+msgstr ""
+
+#: main_app/forms.py:34 main_app/models.py:343 main_app/models.py:377
+#: main_app/templates/main_app/assessment_tasks.html:22
+#: main_app/templates/main_app/course_contents.html:21
+msgid "Lecture"
+msgstr ""
+
+#: main_app/forms.py:35
+msgid "Lab"
+msgstr ""
+
+#: main_app/forms.py:36
+msgid "Total"
+msgstr ""
+
+#: main_app/forms.py:37
+msgid "In class (face to face)"
+msgstr ""
+
+#: main_app/forms.py:54
+msgid ""
+"Mode of Instruction summation of In-Class and Other should NOT exceed 100"
+msgstr ""
+
+#: main_app/forms.py:70
+msgid "General description about the course & topics"
+msgstr ""
+
+#: main_app/forms.py:84
+msgid "Enter objective"
+msgstr ""
+
+#: main_app/forms.py:89 main_app/models.py:298
+msgid "Learning Objective"
+msgstr ""
+
+#: main_app/forms.py:104
+msgid "Course Learning Outcome"
+msgstr ""
+
+#: main_app/forms.py:124
+msgid "Enter topic"
+msgstr ""
+
+#: main_app/forms.py:125 main_app/forms.py:199
+msgid "e.g. 3 hrs"
+msgstr ""
+
+#: main_app/forms.py:135
+msgid "Lecture Topics"
+msgstr ""
+
+#: main_app/forms.py:151
+msgid "Total contact hours for lecture should be equal to {}"
+msgstr ""
+
+#: main_app/forms.py:156
+msgid "Laboratory Topics"
+msgstr ""
+
+#: main_app/forms.py:172
+msgid "Total contact hours for lab should be between {} and {}"
+msgstr ""
+
+#: main_app/forms.py:206
+msgid "Description"
+msgstr ""
+
+#: main_app/forms.py:207 main_app/models.py:354
+msgid "Contact Hours"
+msgstr ""
+
+#: main_app/forms.py:215
+msgid "You need to specify credit hours in one classification at least"
+msgstr ""
+
+#: main_app/forms.py:238
+msgid "e.g. essay, test, group project, speech, etc."
+msgstr ""
+
+#: main_app/forms.py:239
+msgid "e.g. 3"
+msgstr ""
+
+#: main_app/forms.py:240
+msgid "e.g. 20"
+msgstr ""
+
+#: main_app/forms.py:249
+msgid "Lecture Assessment Tasks"
+msgstr ""
+
+#: main_app/forms.py:251
+msgid "Laboratory Assessment Tasks"
+msgstr ""
+
+#: main_app/forms.py:282
+msgid "Currently selected: {}"
+msgstr ""
+
+#: main_app/forms.py:306
+msgid "Facilities Required"
+msgstr ""
+
+#: main_app/models.py:17
+msgid "Main Campus"
+msgstr ""
+
+#: main_app/models.py:18
+msgid "Dammam Community College (DCC)"
+msgstr ""
+
+#: main_app/models.py:22
+msgid "Mother Department"
+msgstr ""
+
+#: main_app/models.py:23
+msgid "Program Code"
+msgstr ""
+
+#: main_app/models.py:24
+msgid "Number"
+msgstr ""
+
+#: main_app/models.py:28 main_app/templates/main_app/courses_list.html:36
+msgid "Title"
+msgstr ""
+
+#: main_app/models.py:29
+msgid "Catalog Description"
+msgstr ""
+
+#: main_app/models.py:30
+msgid "General description about the course and topics covered"
+msgstr ""
+
+#: main_app/models.py:31
+msgid "Location"
+msgstr ""
+
+#: main_app/models.py:32
+msgid "Lecture Credit Hours"
+msgstr ""
+
+#: main_app/models.py:37
+msgid "Lab Contact Hours"
+msgstr ""
+
+#: main_app/models.py:42
+msgid "Total Credit Hours"
+msgstr ""
+
+#: main_app/models.py:47
+msgid "Weekly Office Hours"
+msgstr ""
+
+#: main_app/models.py:56
+msgid "Mode Of Instruction (In-Class) %"
+msgstr ""
+
+#: main_app/models.py:67
+msgid "Mode Of Instruction (Other) %"
+msgstr ""
+
+#: main_app/models.py:77
+msgid "Mode Of Instruction (Other) Description"
+msgstr ""
+
+#: main_app/models.py:79
+msgid "Mode Of Instruction Comments"
+msgstr ""
+
+#: main_app/models.py:82
+msgid "Tutorial Contact Hours"
+msgstr ""
+
+#: main_app/models.py:89
+msgid "Practical Contact Hours"
+msgstr ""
+
+#: main_app/models.py:96
+msgid "Other Contact Hours"
+msgstr ""
+
+#: main_app/models.py:102
+msgid "Other Contact Hours Description"
+msgstr ""
+
+#: main_app/models.py:106
+msgid "Self-Study Lecture Hours"
+msgstr ""
+
+#: main_app/models.py:113
+msgid "Self-Study Laboratory Hours"
+msgstr ""
+
+#: main_app/models.py:120
+msgid "Self-Study Tutorial Hours"
+msgstr ""
+
+#: main_app/models.py:127
+msgid "Self-Study Practical Hours"
+msgstr ""
+
+#: main_app/models.py:134
+msgid "Self-Study Other Hours"
+msgstr ""
+
+#: main_app/models.py:142
+msgid "Engineering Credit Hours"
+msgstr ""
+
+#: main_app/models.py:149
+msgid "Mathematics/Science Credit Hours"
+msgstr ""
+
+#: main_app/models.py:156
+msgid "Humanities Credit Hours"
+msgstr ""
+
+#: main_app/models.py:163
+msgid "Social Sciences Credit Hours"
+msgstr ""
+
+#: main_app/models.py:170
+msgid "General Education Credit Hours"
+msgstr ""
+
+#: main_app/models.py:177
+msgid "Other Subject Areas Credit Hours"
+msgstr ""
+
+#: main_app/models.py:185
+msgid "required_textbooks"
+msgstr ""
+
+#: main_app/models.py:186
+msgid "List of required textbooks from Sierra system"
+msgstr ""
+
+#: main_app/models.py:190
+msgid "Other Required Textbooks"
+msgstr ""
+
+#: main_app/models.py:191
+msgid ""
+"List other required textbooks that are not available in Sierra system. You "
+"should mention the book title, ISBN, edition and publisher"
+msgstr ""
+
+#: main_app/models.py:195
+msgid "Essential Reference Materials"
+msgstr ""
+
+#: main_app/models.py:196 main_app/models.py:199
+msgid "journals, reports, etc..."
+msgstr ""
+
+#: main_app/models.py:197
+msgid "Recommended Textbooks and Reference Materials"
+msgstr ""
+
+#: main_app/models.py:200
+msgid "Electronic Materials"
+msgstr ""
+
+#: main_app/models.py:201
+msgid "websites, facebook, twitter, etc..."
+msgstr ""
+
+#: main_app/models.py:203
+msgid "Other Learning Materials"
+msgstr ""
+
+#: main_app/models.py:204
+msgid ""
+"Computer-based programs/CD, professional standards or regulations and "
+"software"
+msgstr ""
+
+#: main_app/models.py:208
+msgid "Strategies for obtaining Students Feedback and Evaluation"
+msgstr ""
+
+#: main_app/models.py:209
+msgid ""
+"e.g. face-to-face meetings, student in-class evaluation, student survey, "
+"focus groups, etc..."
+msgstr ""
+
+#: main_app/models.py:211
+msgid "Other Course Evaluation Methods"
+msgstr ""
+
+#: main_app/models.py:212
+msgid "e.g. by faculty, program leaders, peer reviewer"
+msgstr ""
+
+#: main_app/models.py:214
+msgid "Faculty and Teaching Staff Availability"
+msgstr ""
+
+#: main_app/models.py:215
+msgid ""
+"Arrangements for availability of faculty and teaching staff for individual "
+"student consultations and academic advice"
+msgstr ""
+
+#: main_app/models.py:296 main_app/models.py:319 main_app/models.py:349
+#: main_app/models.py:380 main_app/models.py:420
+msgid "Course"
+msgstr ""
+
+#: main_app/models.py:315
+msgid "Knowledge"
+msgstr ""
+
+#: main_app/models.py:316
+msgid "Skills"
+msgstr ""
+
+#: main_app/models.py:317
+msgid "Competence"
+msgstr ""
+
+#: main_app/models.py:321
+msgid "Category"
+msgstr ""
+
+#: main_app/models.py:322
+msgid "Learning Outcome"
+msgstr ""
+
+#: main_app/models.py:323
+msgid "Teaching Strategy"
+msgstr ""
+
+#: main_app/models.py:324
+msgid "Assessment Method"
+msgstr ""
+
+#: main_app/models.py:344 main_app/models.py:378
+#: main_app/templates/main_app/assessment_tasks.html:24
+#: main_app/templates/main_app/course_contents.html:23
+msgid "Laboratory"
+msgstr ""
+
+#: main_app/models.py:345 main_app/templates/main_app/course_contents.html:25
+msgid "Tutorial"
+msgstr ""
+
+#: main_app/models.py:346 main_app/templates/main_app/course_contents.html:27
+msgid "Practical"
+msgstr ""
+
+#: main_app/models.py:351 main_app/models.py:382 main_app/models.py:422
+msgid "Type"
+msgstr ""
+
+#: main_app/models.py:352
+msgid "Topic"
+msgstr ""
+
+#: main_app/models.py:383
+msgid "Assessment Task"
+msgstr ""
+
+#: main_app/models.py:384
+msgid "e.g essay, test, group project, examination, speech, etc..."
+msgstr ""
+
+#: main_app/models.py:385
+msgid "Week Due"
+msgstr ""
+
+#: main_app/models.py:387
+msgid "Weight Percentage"
+msgstr ""
+
+#: main_app/models.py:416
+msgid "Accommodation"
+msgstr ""
+
+#: main_app/models.py:417
+msgid "Technology Resources"
+msgstr ""
+
+#: main_app/models.py:423
+msgid "Facility Required"
+msgstr ""
+
+#: main_app/models.py:424
+msgid "e.g. classrooms and laboratories"
+msgstr ""
+
+#: main_app/models.py:433
+msgid "version"
+msgstr ""
+
+#: main_app/models.py:435
+msgid "course"
+msgstr ""
+
+#: main_app/templates/base.html:37
+#: main_app/templates/main_app/courses_list.html:10
+msgid "Courses List"
+msgstr ""
+
+#: main_app/templates/base.html:73 main_app/templates/base.html:82
+#: main_app/templates/base.html:91
+msgid "Formset"
+msgstr ""
+
+#: main_app/templates/base.html:73 main_app/templates/base.html:82
+#: main_app/templates/base.html:91
+msgid "Erorrs"
+msgstr ""
+
+#: main_app/templates/base_with_sidebar.html:7
+msgid "Checklist"
+msgstr ""
+
+#: main_app/templates/base_with_sidebar.html:12
+msgid "Course Identification And General Information"
+msgstr ""
+
+#: main_app/templates/base_with_sidebar.html:15
+msgid "Course Description, Objectives And Learning Outcomes"
+msgstr ""
+
+#: main_app/templates/base_with_sidebar.html:18
+msgid "Course Contents"
+msgstr ""
+
+#: main_app/templates/base_with_sidebar.html:21
+msgid "Assessment Tasks"
+msgstr ""
+
+#: main_app/templates/base_with_sidebar.html:24
+msgid "Learning Resources"
+msgstr ""
+
+#: main_app/templates/base_with_sidebar.html:27
+#: main_app/templates/main_app/evaluation.html:12
+msgid "Course Evaluation"
+msgstr ""
+
+#: main_app/templates/base_with_sidebar.html:30
+#: main_app/templates/main_app/accreditation_requirements.html:13
+msgid "Accreditation Requirements"
+msgstr ""
+
+#: main_app/templates/main_app/accreditation_requirements.html:13
+msgid "Optional"
+msgstr ""
+
+#: main_app/templates/main_app/accreditation_requirements.html:77
+msgid "Add facility"
+msgstr ""
+
+#: main_app/templates/main_app/assessment_tasks.html:14
+msgid "Schedule of assessment tasks for students during the semester"
+msgstr ""
+
+#: main_app/templates/main_app/assessment_tasks.html:50
+#: main_app/templates/main_app/assessment_tasks.html:96
+#: main_app/templates/main_app/assessment_tasks.html:137
+#: main_app/templates/main_app/assessment_tasks.html:183
+#: main_app/templates/main_app/course_identification.html:111
+#, python-format
+msgid "Max 100%%"
+msgstr ""
+
+#: main_app/templates/main_app/assessment_tasks.html:70
+#: main_app/templates/main_app/assessment_tasks.html:157
+msgid "Assessment task"
+msgstr ""
+
+#: main_app/templates/main_app/assessment_tasks.html:73
+#: main_app/templates/main_app/assessment_tasks.html:160
+msgid "Week due"
+msgstr ""
+
+#: main_app/templates/main_app/assessment_tasks.html:76
+#: main_app/templates/main_app/assessment_tasks.html:163
+msgid "Proportion of Total Assessment"
+msgstr ""
+
+#: main_app/templates/main_app/assessment_tasks.html:112
+#: main_app/templates/main_app/assessment_tasks.html:199
+msgid "Add assessment"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:13
+msgid "Actual Contact Hours"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:21
+#: main_app/templates/main_app/course_contents.html:23
+#: main_app/templates/main_app/courses_list.html:67
+msgid "hrs"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:40
+msgid "List of lecture topics"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:43
+#: main_app/templates/main_app/course_contents.html:115
+msgid "Contact hours"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:43
+#: main_app/templates/main_app/course_contents.html:115
+msgid "Max"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:46
+#: main_app/templates/main_app/course_contents.html:72
+#: main_app/templates/main_app/course_contents.html:118
+#: main_app/templates/main_app/course_contents.html:148
+msgid "Related CLOs"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:64
+#: main_app/templates/main_app/course_contents.html:140
+msgid "Added"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:64
+#: main_app/templates/main_app/course_contents.html:140
+msgid "Add"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:86
+#: main_app/templates/main_app/course_contents.html:162
+msgid "Update"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:99
+#: main_app/templates/main_app/course_contents.html:175
+#: main_app/templates/main_app/course_contents.html:227
+msgid "Total semester hours = Weekly hours  X  Number of weeks per semester"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:101
+#: main_app/templates/main_app/course_contents.html:177
+msgid "Add topic"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:112
+msgid "List of laboratory topics"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:244
+msgid "Self-Study Hours"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:276
+msgid "Total Hours"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:282
+msgid ""
+"Typically for each credit hour the student is expected to spend one hour per "
+"week for self-study."
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:293
+msgid "Subject Area Credit Hours"
+msgstr ""
+
+#: main_app/templates/main_app/course_contents.html:298
+msgid "Indicate the number of credit hours against the classifications below"
+msgstr ""
+
+#: main_app/templates/main_app/course_description.html:33
+msgid "List the main objectives of this course"
+msgstr ""
+
+#: main_app/templates/main_app/course_description.html:66
+msgid "Add objective"
+msgstr ""
+
+#: main_app/templates/main_app/course_description.html:80
+msgid "Course-level Student Learning Outcomes"
+msgstr ""
+
+#: main_app/templates/main_app/course_identification.html:14
+msgid "Course Identification"
+msgstr ""
+
+#: main_app/templates/main_app/course_identification.html:68
+msgid "Requisites For This Course"
+msgstr ""
+
+#: main_app/templates/main_app/course_identification.html:93
+msgid "Mode Of Instruction"
+msgstr ""
+
+#: main_app/templates/main_app/course_identification.html:132
+msgid "Office Hours"
+msgstr ""
+
+#: main_app/templates/main_app/course_identification.html:144
+msgid "Min 3 hrs"
+msgstr ""
+
+#: main_app/templates/main_app/courses_list.html:12
+msgid "Create Course"
+msgstr ""
+
+#: main_app/templates/main_app/courses_list.html:33
+msgid "Course Code"
+msgstr ""
+
+#: main_app/templates/main_app/courses_list.html:39
+msgid "Credit Hours"
+msgstr ""
+
+#: main_app/templates/main_app/courses_list.html:42
+msgid "Last Edit"
+msgstr ""
+
+#: main_app/templates/main_app/courses_list.html:45
+msgid "Status"
+msgstr ""
+
+#: main_app/templates/main_app/generic_course_form.html:12
+msgid "New Course"
+msgstr ""
+
+#: main_app/templates/main_app/generic_course_form.html:14
+msgid "Mandatory"
+msgstr ""
+
+#: main_app/templates/main_app/generic_course_form.html:15
+msgid "Save"
+msgstr ""
+
+#: main_app/templates/main_app/generic_course_form.html:29
+msgid "Save & Continue"
+msgstr ""
+
+#: main_app/templates/main_app/learning-resources.html:12
+msgid "Learning resources"
+msgstr ""
+
+#: main_app/views.py:22
+msgid "Course created successfully"
+msgstr ""
+
+#: main_app/views.py:39 main_app/views.py:84 main_app/views.py:127
+#: main_app/views.py:162 main_app/views.py:175 main_app/views.py:194
+#: main_app/views.py:227
+msgid "Course updated successfully"
+msgstr ""
