@@ -1,0 +1,175 @@
+
+
+<form class="form-horizontal" style="padding: 0 5em 0 5em">
+
+    <br/><br/>
+    <div class="row">
+        <div class="col-md-10">
+            <h1>Request History</h1>
+            <table id="HistoryTable" class="info_table">
+                <thead>
+                <th>Task</th>
+                <th>Decision Time</th>
+                <th>Decision</th>
+                <th>Comment</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="FormDecision">
+                    Decision
+                </label>
+                <select class="form-control" cam-variable-type="String" cam-variable-name="FormDecision" id="FormDecision">
+                    <!-- This gonna be filled by js -->
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="comment">
+                    Write a Comment
+                </label>
+                <textarea class="form-control" cam-variable-type="String" cam-variable-name="comment" id="comment" rows="5" ></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script cam-script type="text/form-script"><!-- application/javascript -->
+        // custom JavaScript goes here
+        var variableManager = camForm.variableManager;
+        var decision_history;
+
+        camForm.on('form-loaded', function() {
+            // fetch student info
+            //variableManager.fetchVariable('decision_history');
+
+            variableManager.fetchVariable('options');
+        });
+
+        camForm.on('variables-fetched', function() {
+            // value has been fetched from the backend
+            // write the student info to the form table
+
+            addOptions(variableManager.variableValue('options'))
+
+            //display the history in html table
+            /*var decision_history_string= variableManager.variableValue('decision_history');
+            try{
+
+                displayHistory(decision_history_string);
+            }
+            catch(err) {
+                console.log('error')
+                console.log(err.message)
+            }*/
+        });
+
+
+     </script>
+
+    <script type="application/javascript">
+        function addOptions(options) {
+            if(options){
+                options = JSON.parse(options);
+                for (var key in options) {
+                    $('#FormDecision').append('<option value="' + key + '">' + options[key] + '</option>');
+                }
+            }
+            else {
+                $('#FormDecisionDiv').hide();
+            }
+        }
+
+        function displayHistory(decision_history_string){
+
+            if(decision_history_string === undefined){
+                $('#HistoryTable tbody').append("<tr><td colspan='4' style='text-align: center;font-weight: bold'>The History is Empty</td></tr>");
+                return;
+            }
+
+            var decision_history = JSON.parse(decision_history_string);
+            var sorted_decision_history = sortHistory(decision_history);
+
+            sorted_decision_history.forEach(function (e) {
+                var endDateTimeformated;
+                if (e.DecisionDateTime !== undefined) {
+                    var EndDateTime = new Date(e.DecisionDateTime);
+                    endDateTimeformated = EndDateTime.getFullYear() + "/" + EndDateTime.getMonth() + "/" + EndDateTime.getDate() + " " + EndDateTime.getHours() + ":" + EndDateTime.getMinutes()
+                }
+                else {
+                    endDateTimeformated = ""
+                }
+
+
+                $('#HistoryTable tbody').append("<tr><td>" + e.TaskName + "</td><td>" + endDateTimeformated + "</td><td>" + e.Decision + "</td><td>" + e.Comment + "</td></tr>");
+            });
+        }
+
+        function sortHistory(data) {
+            function compare(a, b) {
+                if (a.DecisionDateTime < b.DecisionDateTime)
+                    return -1;
+                if (a.DecisionDateTime > b.DecisionDateTime)
+                    return 1;
+                return 0;
+            }
+            return data.sort(compare);
+        }
+
+
+    </script>
+
+    <style type="text/css">
+        #request_info{
+            display: none;
+        }
+
+        .info_table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .info_table td, .info_table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .info_table tr:nth-child(even){background-color: #f2f2f2;}
+
+        .info_table tr:hover {background-color: #ddd;}
+
+        .info_table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #808182;
+            color: white;
+        }
+
+        .row.vdivide [class*='col-']:not(:last-child):after {
+            background: #e0e0e0;
+            width: 3px;
+            content: "";
+            display:block;
+            position: absolute;
+            top:0;
+            bottom: 0;
+            right: 0;
+            min-height: 70px;
+        }
+    </style>
+
+
+</form>
+      

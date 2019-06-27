@@ -1,0 +1,82 @@
+base usrl :http://<DNS_name>/engine-rest/task
+on post request header add: Content-Type=application/json
+
+-- create new process instance:
+https://docs.camunda.org/manual/7.9/reference/rest/process-definition/post-start-process-instance/
+
+POST /engine-rest/process-definition/key/course_spicification_process/start
+
+Body
+{
+  "variables": {
+    "CourseCode": {
+      "value": "ics102",
+      "type": "String"
+    },
+    "MaintainerTaskAssignee": {
+      "value": "shaheed.alhelal",
+      "type": "String"
+    },
+    "ReviewerTaskAssignee": {
+      "value": "malnajdi",
+      "type": "String"
+    },
+    "ChairmanTaskAssignee": {
+      "value": "hassan.almunawes",
+      "type": "String"
+    },
+    "AACTaskAssignee": {
+      "value": "hali",
+      "type": "String"
+    }
+  }
+}
+
+
+==================================================================
+-- get current tasks of a process instance
+https://docs.camunda.org/manual/7.9/reference/rest/task/get-query/
+
+GET /task
+	processInstanceId={process_instance_id}
+	
+
+==================================================================
+-- get all workflow instances that are "CourseCode == ics102"
+https://docs.camunda.org/manual/7.9/reference/rest/process-instance/get-query/
+
+GET /process-instance
+	processDefinitionKey=course_spicification_process
+	variables=CourseCode_eq_ics102
+
+
+==================================================================
+-- get task local variables
+https://docs.camunda.org/manual/7.9/reference/rest/task/local-variables/get-local-task-variables/
+
+GET /task/{task_id}/localVariables
+
+
+==================================================================
+-- get task local variable
+https://docs.camunda.org/manual/7.9/reference/rest/task/local-variables/get-local-task-variable/
+
+GET /task/{task_id}/localVariables/<variable_name>
+
+==================================================================
+-- complete the task
+https://docs.camunda.org/manual/7.9/reference/rest/task/post-complete/
+POST /task/{task_id}/complete
+Body
+{
+	"variables":
+    {
+    	"coment": {
+    		"value": "aStringValue"
+    	},
+    	"FormDecision": {
+    		"value": "yes"
+    	}
+	}
+}
+
