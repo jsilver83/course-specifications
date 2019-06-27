@@ -139,7 +139,7 @@ class Course(models.Model):
     )
 
     engineering_credit_hours = models.DecimalField(
-        _('Engineering Credit Hours'),
+        _('Engineering / Computer Science Credit Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
@@ -389,6 +389,7 @@ class AssessmentTask(models.Model):
                 (cls.LECTURE, _('Lecture')),
                 (cls.LAB, _('Laboratory')),
             )
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
                                related_name='assessment_tasks')
     type = models.CharField(_('Type'), max_length=50, null=True, blank=False, choices=Types.choices())
