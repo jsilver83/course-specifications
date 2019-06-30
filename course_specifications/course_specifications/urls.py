@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
+from django.contrib.auth import logout, login
 from django.urls import path, include
 
 urlpatterns = i18n_patterns(
     path('', include('main_app.urls', namespace='main_app')),
     path('admin/', admin.site.urls),
+    path('login/', login, name='login'),  # The base django login view
+    path('logout/', logout, name='logout'),  # The base django logout view
 )

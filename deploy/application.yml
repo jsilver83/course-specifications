@@ -12,11 +12,20 @@
     django_project_admin_username: joud
     django_project_admin_email: joud@kfupm.edu.sa
     django_project_package_name: course_specifications
-    #apache_authn: cas
-    #apache_auth:
-    #  - path: /admin/
-    #    authn_type: cas
-    #    authz_type: none
+    apache_authn: cas
+    apache_auth:
+      - path: /en/
+        authn_type: cas
+        authz_type: none
+      - path: /ar/
+        authn_type: cas
+        authz_type: none
+      - path: /ar/logout/
+        authn_type: cas
+        authz_type: none
+      - path: /en/logout/
+        authn_type: cas
+        authz_type: no
     admins:
       - name: Abdullah Joud
         email: joud@kfupm.edu.sa
