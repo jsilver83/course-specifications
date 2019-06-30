@@ -86,8 +86,49 @@
                                           </div>
                                         </nav>
                                         <div class="tab-content" id="nav-tabContent">
+
                                             <!-- Lecture -->
-                                            <div class="tab-pane fade show active" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
+                                            <div class="tab-pane fade show active has-add-content" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
+
+                                                <table class="d-none">
+                                                    <tbody class="add-this">
+                                                        <tr class="delete-this">
+                                                            <td scope="row" class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="Enter lecture topic title" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                            </td>
+                                                            <td class="align-middle border-bottom">
+                                                                <button class="small btn btn-sm btn-light has-increment-val" type="button" data-toggle="modal" data-target="#lec-clo-increment_num">Add</button>
+                                                                <!-- Add CLO Modal -->
+                                                                <div class="modal fade has-increment-val" id="lec-clo-increment_num" tabindex="-1" role="dialog" aria-labelledby="lec-clo-increment_num" aria-hidden="true">
+                                                                  <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title">Related CLOs</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                          <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                      </div>
+                                                                      <div class="modal-body has-add-content">
+                                                                        <!-- Default for adding -->
+                                                                        
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                                        <button type="button" class="btn btn-primary">Update</button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <!-- /Add CLO Modal -->
+                                                            </td>
+                                                            <td><button class="btn btn-sm delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
                                                 <table class="table border">
                                                     <thead class="thead-light">
                                                         <tr>
@@ -103,8 +144,9 @@
                                                             <th scope="col"></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
+                                                    <tbody class="add-here">
+                                                        <input type="hidden" name="asdf-TOTAL_FORMS" value="3" />
+                                                        <tr class="delete-this">
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="text" class="form-control" placeholder="Enter lecture topic title" />
                                                             </td>
@@ -123,33 +165,7 @@
                                                                           <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                       </div>
-                                                                      <div class="modal-body has-add-content">
-                                                                        <!-- Default for adding -->
-                                                                        <div class="add-this">
-                                                                            <li class="form-group delete-this">
-                                                                                <div class="d-flex">
-                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
-                                                                                    <button class="btn btn-sm btn-link delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>
-                                                                                </div>
-                                                                            </li>
-                                                                        </div>
-                                                                        <!-- /Default for adding -->
-                                                                        <ol class="pl-3 add-here">
-                                                                            <li class="form-group">
-                                                                                <div class="d-flex">
-                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
-                                                                                </div>
-                                                                            </li>
-                                                                            <li class="form-group delete-this">
-                                                                                <div class="d-flex">
-                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
-                                                                                    <button class="btn btn-sm delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>
-                                                                                </div>
-                                                                            </li>
-                                                                        </ol>
-                                                                        <div class="text-right">
-                                                                            <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add CLO</button>
-                                                                        </div>
+                                                                      <div class="modal-body">
                                                                       </div>
                                                                       <div class="modal-footer">
                                                                         <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
@@ -160,9 +176,9 @@
                                                                 </div>
                                                                 <!-- /Add CLO Modal -->
                                                             </td>
-                                                            <td></td>
+                                                            <td><button class="btn btn-sm delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button></td>
                                                         </tr>
-                                                        <tr>
+                                                        <tr class="delete-this">
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="text" class="form-control" placeholder="Enter lecture topic title" />
                                                             </td>
@@ -181,33 +197,7 @@
                                                                           <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                       </div>
-                                                                      <div class="modal-body has-add-content">
-                                                                        <!-- Default for adding -->
-                                                                        <div class="add-this">
-                                                                            <li class="form-group delete-this">
-                                                                                <div class="d-flex">
-                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
-                                                                                    <button class="btn btn-sm btn-link delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>
-                                                                                </div>
-                                                                            </li>
-                                                                        </div>
-                                                                        <!-- /Default for adding -->
-                                                                        <ol class="pl-3 add-here">
-                                                                            <li class="form-group">
-                                                                                <div class="d-flex">
-                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
-                                                                                </div>
-                                                                            </li>
-                                                                            <li class="form-group delete-this">
-                                                                                <div class="d-flex">
-                                                                                    <input class="form-control" type="text" placeholder="Enter related CLO" />
-                                                                                    <button class="btn btn-sm delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button>
-                                                                                </div>
-                                                                            </li>
-                                                                        </ol>
-                                                                        <div class="text-right">
-                                                                            <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add CLO</button>
-                                                                        </div>
+                                                                      <div class="modal-body">
                                                                       </div>
                                                                       <div class="modal-footer">
                                                                         <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
@@ -218,7 +208,7 @@
                                                                 </div>
                                                                 <!-- /Add CLO Modal -->
                                                             </td>
-                                                            <td></td>
+                                                            <td><button class="btn btn-sm delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
