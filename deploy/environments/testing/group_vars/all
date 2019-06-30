@@ -11,7 +11,7 @@ apache_server_names:
 uwsgi_http_port: 5566
 
 # required for proper SSL termination on load-balancer while using CAS
-apache_public_url: https://course-specification.test.kfupm.edu.sa
+apache_public_url: https://courses.test.kfupm.edu.sa
 apache_load_balancer_ips: ["10.180.24.1"]
 apache_proxy:
   - path: /
