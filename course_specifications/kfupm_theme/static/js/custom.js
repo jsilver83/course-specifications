@@ -49,4 +49,22 @@ $(document).ready(function($) {
         $(this).parents('.clo-sec').find('.clo-count').html(clo_count);
     });
 
+
+    //Increment attribute numbers while clicking add button
+    $('body').on( "click", "#nav-lecture .add-button", function(){
+        var total_forms_count = $("input[name*='-TOTAL_FORMS']");
+        var current_form_count = parseInt(total_forms_count.val()) + 1;
+        total_forms_count.val(current_form_count);
+        $('.add-here .delete-this:last-child .has-increment-val').each(function() {
+            $.each(this.attributes, function() {
+                if(this.specified && this.value.indexOf("increment_num") > -1) {
+                    var selected_attr_name = this.name;
+                    var selected_attr_val = this.value.replace('increment_num', '');
+                    this.value = selected_attr_val+current_form_count;
+                    //console.log(this.name, this.value);
+                }
+            });
+        });
+    });
+
 });
