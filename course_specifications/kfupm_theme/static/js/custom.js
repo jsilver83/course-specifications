@@ -44,4 +44,9 @@ $(document).ready(function($) {
         $('.alert-popup').css("margin-left",-alert_popup_width/2);
     }
 
+    $('body').on( "click", ".update-clo", function() {
+        var clo_count = $(this).parents('.modal-footer').siblings('.modal-body').find('.select2-selection__choice').length;
+        $(this).parents('.clo-sec').find('.clo-count').html(clo_count);
+    });
+
 });

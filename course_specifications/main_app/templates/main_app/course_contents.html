@@ -59,9 +59,9 @@
 	                                            {{ form.contact_hours }}{{ form.contact_hours.errors }}
 	                                        </td>
 
-	                                        <td class="align-middle border-bottom">
+	                                        <td class="align-middle border-bottom clo-sec">
 	                                            <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-{{ forloop.counter }}">
-		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b>{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
+		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b class="clo-count">{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
 	                                            </button>
 
 	                                            <!-- Add CLO Modal -->
@@ -83,7 +83,7 @@
 		                                                  </div>
 	                                                  </div>
 	                                                  <div class="modal-footer">
-	                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Update" %}</button>
+	                                                    <button type="button" class="btn btn-primary update-clo" data-dismiss="modal">{% trans "Update" %}</button>
 	                                                  </div>
 	                                                </div>
 	                                              </div>
@@ -135,9 +135,9 @@
 	                                            {{ form.contact_hours }}{{ form.contact_hours.errors }}
 	                                        </td>
 
-	                                        <td class="align-middle border-bottom">
+	                                        <td class="align-middle border-bottom clo-sec">
 	                                            <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lab-clo-{{ forloop.counter }}">
-		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b>{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
+		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b class="clo-count">{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
 	                                            </button>
 
 	                                            <!-- Add CLO Modal -->
