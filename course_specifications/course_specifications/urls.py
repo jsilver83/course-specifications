@@ -24,3 +24,7 @@ urlpatterns = i18n_patterns(
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
 )
+
+urlpatterns += [
+    path('impersonate/', include('impersonate.urls')),
+]
