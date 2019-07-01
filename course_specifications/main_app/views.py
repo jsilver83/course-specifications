@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
 
+from course_specifications.utils import UserType
 from .forms import *
 from .models import *
 
@@ -27,7 +28,10 @@ class NewCourseView(SuccessMessageMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        new_course = form.save()
+        new_course = form.save(commit=False)
+        new_course.mother_department = UserType.get_department_id(self.request)
+        new_course.save()
+
         messages.success(self.request, self.success_message)
         return redirect(reverse_lazy('main_app:course_description', args=(new_course.pk, )))
 

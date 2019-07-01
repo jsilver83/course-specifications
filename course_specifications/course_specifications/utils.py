@@ -16,7 +16,7 @@ class UserType:
         return request.session.get('type', cls.NONE)
 
     @classmethod
-    def get_user_department(cls, request):
+    def get_department_id(cls, request):
         return request.session.get('department_id', 0)
 
     @classmethod
