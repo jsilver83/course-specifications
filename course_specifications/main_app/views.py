@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render_to_response, render, get_object_or_404
 from django.urls import reverse_lazy
@@ -11,16 +12,41 @@ from .forms import *
 from .models import *
 
 
-class CoursesListView(ListView):
+class AllowedUserTypesMixin(LoginRequiredMixin, UserPassesTestMixin):
+    allowed_user_types = []
+
+    def test_func(self):
+        if self.allowed_user_types == '__all__':
+            return True
+        else:
+            return UserType.get_user_type(self.request) in self.allowed_user_types
+
+
+class CoursesListView(AllowedUserTypesMixin, ListView):
     model = Course
     template_name = 'main_app/courses_list.html'
     context_object_name = 'courses'
+    allowed_user_types = '__all__'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['can_create_course'] = bool(UserType.get_user_type(self.request) in (UserType.CHAIRMAN, UserType.ADMIN))
+        return context
+
+    def get_queryset(self):
+        if UserType.get_user_type(self.request) in (UserType.CHAIRMAN, UserType.FACULTY):
+            return self.model.objects.filter(mother_department=UserType.get_department_id(self.request))
+        elif UserType.get_user_type(self.request) == UserType.ADMIN:
+            return self.model.objects.all()
+        else:
+            return self.model.objects.none()
 
 
-class NewCourseView(SuccessMessageMixin, CreateView):
+class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):
     form_class = CourseIdentificationForm
     template_name = 'main_app/course_identification.html'
     success_message = _('Course created successfully')
+    allowed_user_types = [UserType.CHAIRMAN, UserType.ADMIN]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
