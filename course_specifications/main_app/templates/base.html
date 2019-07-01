@@ -1,4 +1,5 @@
 {% load staticfiles i18n %}
+{% load user_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,9 +36,9 @@
 		</div>
 		<div class="controls-section text-white d-flex align-items-center">
 			<a href="{% url 'main_app:course_list' %}" class="btn btn-sm btn-outline-warning mb-1 mr-4">{% trans "Courses List" %}</a>
-			<small class="text-light login-name mr-3">Mohammed</small>
-			<a href="#" class="logout-btn"><i class="fas fa-power-off mr-1"></i>
-				<small>Logout</small>
+			<small class="text-light login-name mr-3">{% show_user_and_type %}</small>
+			<a href="{% url 'logout' %}" class="logout-btn"><i class="fas fa-power-off mr-1"></i>
+				<small>{% trans "Logout" %}</small>
 			</a>
 		</div>
 	</div>
