@@ -16,6 +16,10 @@ class UserType:
         return request.session.get('type', cls.NONE)
 
     @classmethod
+    def get_user_department(cls, request):
+        return request.session.get('department_id', 0)
+
+    @classmethod
     def set_user_type(cls, request):
         response = get_chairman_details(request.user)
 
@@ -32,6 +36,9 @@ class UserType:
                 else:
                     request.session['type'] = UserType.EMPLOYEE
                 return
+            elif request.user.is_superuser:
+                request.session['type'] = UserType.ADMIN
+                return
             else:
                 request.session['type'] = UserType.NONE
                 return
@@ -45,18 +52,21 @@ class APIType:
 def call_web_service(url, parameters=None, basic_auth=True, api=APIType.BANNER):
     try:
         if api == APIType.BANNER:
+            base_url = settings.BANNER_WEBSERVICE_BASE_URL
             user = settings.BANNER_WEBSERVICE_USERNAME
             password = settings.BANNER_WEBSERVICE_PASSWORD
         else:  # api == APIType.STAFF':
+            base_url = settings.STAFF_WEBSERVICE_BASE_URL
             user = settings.STAFF_WEBSERVICE_USERNAME
             password = settings.STAFF_WEBSERVICE_PASSWORD
 
         auth = HTTPBasicAuth(username=user, password=password) if basic_auth else None
+        full_url = '{}/{}'.format(base_url, url)
         """ calling webservice """
         if settings.DEBUG:
-            data = requests.get(url, params=parameters, auth=auth, verify=False)
+            data = requests.get(full_url, params=parameters, auth=auth, verify=False)
         else:
-            data = requests.get(url, params=parameters, auth=auth)
+            data = requests.get(full_url, params=parameters, auth=auth)
         response = data.json()['data']
         return response
     except:
@@ -64,24 +74,29 @@ def call_web_service(url, parameters=None, basic_auth=True, api=APIType.BANNER):
 
 
 def get_chairman_details(chairman):
-    return call_web_service(url='%s/chairman/%s' % (settings.STAFF_WEBSERVICE_BASE_URL, chairman),
-                            api=APIType.STAFF)
+    return call_web_service(url='chairman/{}'.format(chairman), api=APIType.STAFF)
 
 
 def get_employee_details(employee):
-    return call_web_service(url='%s/employee/%s' % (settings.STAFF_WEBSERVICE_BASE_URL, employee),
-                            api=APIType.STAFF)
+    return call_web_service(url='employee/{}'.format(employee), api=APIType.STAFF)
+
+
+def get_api_cached_value(cache_suffix, param, api_attribute, url, api_type):
+    cache_key = param + cache_suffix
+    if cache.get(cache_key) is None:
+        response = call_web_service(url=url, api=api_type)
+
+        if response and response != 'ERROR':
+            cache.set(cache_key, response.get(api_attribute, 'N/A'), 24 * 60 * 60)
+        else:
+            cache.set(cache_key, 'N/A', 24 * 60 * 60)
+    else:
+        return cache.get(cache_key)
 
 
 def get_full_name(user):
-    user = str(user)
-    if cache.get(user + '_name') is None:
-        response = call_web_service(url='%s/employee/%s' % (settings.STAFF_WEBSERVICE_BASE_URL, user),
-                                    api=APIType.STAFF)
+    return get_api_cached_value('_name', str(user), 'name_en', 'employee/{}'.format(user), APIType.STAFF)
 
-        if response and response != 'ERROR':
-            cache.set(user + '_name', response.get('name_en', user), 24 * 60 * 60)
-        else:
-            cache.set(user + '_name', user, 24 * 60 * 60)
-    else:
-        return cache.get(user + '_name')
+
+def get_department_name(department_id):
+    return get_api_cached_value('_dept', department_id, 'name', 'department/{}'.format(department_id), APIType.STAFF)

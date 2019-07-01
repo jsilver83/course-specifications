@@ -4,6 +4,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
+from course_specifications.utils import get_department_name
+
 
 class Course(models.Model):
     class Locations:
@@ -325,6 +327,9 @@ class Course(models.Model):
 
     def can_navigate_to_step7(self):
         return self.facilities_required.all().count()
+
+    def get_department_name(self):
+        return get_department_name(self.mother_department)
 
 
 class LearningObjective(models.Model):
