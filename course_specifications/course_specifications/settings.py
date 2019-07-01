@@ -120,6 +120,8 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+LOGIN_REDIRECT_URL = reverse_lazy('main_app:course_list')
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
