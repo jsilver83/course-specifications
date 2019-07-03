@@ -488,6 +488,7 @@ class CourseRelease(models.Model):
     topics = models.ManyToManyField('HistoricalTopic', related_name='releases')
     assessment_tasks = models.ManyToManyField('HistoricalAssessmentTask', related_name='releases')
     facilities_required = models.ManyToManyField('HistoricalFacilitiesRequired', related_name='releases')
+    approved = models.NullBooleanField(_('Approved'), null=True, blank=True)
     approved_on = models.DateTimeField(_('Approved On'), null=True, blank=True)
     approved_by = models.CharField(_('Approved By'), max_length=200, null=True, blank=True)
 
