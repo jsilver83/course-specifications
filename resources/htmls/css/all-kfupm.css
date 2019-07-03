@@ -9842,6 +9842,10 @@ small, .small {
 .side-nav-layout .side-checklist .checklist-menu li.completed .check-icon {
   color: #007d40;
 }
+.side-nav-layout .side-checklist .checklist-menu li.completed .check-icon:before {
+  font-weight: 900;
+  content: "\f058";
+}
 .side-nav-layout .content-section {
   padding-left: calc(220px + 24px);
 }
@@ -9929,6 +9933,45 @@ small, .small {
 .form-accordian .table .thead-light th {
   background-color: #F7F7F7;
   border-color: #EBEBEB;
+}
+
+/*.courses-list{
+	width: auto;
+
+	td{
+		width: 10%;
+	}
+	.version{
+		width: 10%;
+	}
+	.course-code{
+		width: 15%;
+	}
+	.course-title{
+		width: 25%;
+	}
+	.credit-hrs{
+		width: 10%;		
+	}
+	.last-update{
+		width: 15%;
+	}
+	.status{
+		width: 15%;
+	}
+}
+*/
+.accordion-toggle {
+  cursor: pointer;
+}
+
+.version-row {
+  background-color: #F4F4F4;
+}
+.version-row td {
+  border-top: none;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
 }
 
 .add-this {

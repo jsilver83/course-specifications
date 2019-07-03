@@ -1,13 +1,17 @@
 /*
 Error: Undefined mixin 'Opacity'.
-        on line 76 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/partials/_base.scss, in `Opacity'
-        from line 76 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/partials/_base.scss
-        from line 1 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/application.scss
+        on line 2 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/partials/_home.scss, in `Opacity'
+        from line 2 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/partials/_home.scss
+        from line 1 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/application.scss
+
+1: @import "partials/_home.scss";
+2: @import "partials/_arabic.scss";
+3: @import "partials/_responsive.scss";
 
 Backtrace:
-/Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/partials/_base.scss:76:in `Opacity'
-/Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/partials/_base.scss:76
-/Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/application.scss:1
+/Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/partials/_home.scss:2:in `Opacity'
+/Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/partials/_home.scss:2
+/Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/application.scss:1
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:98:in `block in with_mixin'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
@@ -69,4 +73,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'Opacity'.\A         on line 76 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/partials/_base.scss, in `Opacity'\A         from line 76 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/partials/_base.scss\A         from line 1 of /Users/mohamedfaraj/KFUPM/course-specification/resources/htmls/scss/application/application.scss"; }
+  content: "Error: Undefined mixin 'Opacity'.\A         on line 2 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/partials/_home.scss, in `Opacity'\A         from line 2 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/partials/_home.scss\A         from line 1 of /Users/mohamedfaraj/KFUPM/course-specification/course_specifications/kfupm_theme/static/scss/application/application.scss\A \A 1: @import \"partials/_home.scss\";\A 2: @import \"partials/_arabic.scss\";\A 3: @import \"partials/_responsive.scss\";"; }

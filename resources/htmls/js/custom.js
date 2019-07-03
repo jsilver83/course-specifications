@@ -15,11 +15,23 @@ $(document).ready(function($) {
 
 
     //Add multiple
+    // $('body').on( "click", ".add-button", function() {
+    //     var this_has_add_content = $(this).parents('.has-add-content');
+    //     var this_add_this = this_has_add_content.find('.add-this').html();
+    //     var this_add_here = this_has_add_content.find('.add-here');
+    //     this_add_here.append(this_add_this);
+    // });
+
     $('body').on( "click", ".add-button", function() {
         var this_has_add_content = $(this).parents('.has-add-content');
-        var this_add_this = this_has_add_content.find('.add-this').html();
         var this_add_here = this_has_add_content.find('.add-here');
-        this_add_here.append(this_add_this);
+        var this_last_content = this_has_add_content.find('.add-here .delete-this:visible').last().clone();
+        //alert(this_last_content);
+        //var new_num = 1;
+        var this_cloned_forms = this_last_content.find("input, textarea");
+        this_cloned_forms.val("");
+        alert(this_cloned_forms.attr('name'));
+        this_add_here.append(this_last_content);
     });
 
     //Delete this
@@ -54,7 +66,7 @@ $(document).ready(function($) {
         var total_forms_count = $("input[name*='-TOTAL_FORMS']");
         var current_form_count = parseInt(total_forms_count.val()) + 1;
         total_forms_count.val(current_form_count);
-        $('.add-here .delete-this:last-child .has-increment-val').each(function() {
+        $('.add-here .delete-this:visible').last().find('.has-increment-val').each(function() {
             $.each(this.attributes, function() {
                 if(this.specified && this.value.indexOf("increment_num") > -1) {
                     var selected_attr_name = this.name;

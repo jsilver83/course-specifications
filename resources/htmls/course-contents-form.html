@@ -148,15 +148,16 @@
                                                         <input type="hidden" name="asdf-TOTAL_FORMS" value="3" />
                                                         <tr class="delete-this">
                                                             <td scope="row" class="align-middle border-bottom">
-                                                                <input type="text" class="form-control" placeholder="Enter lecture topic title" />
+                                                                <input type="hidden" name="lec_topics-0-id" id="id_lec_topics-0-id" />
+                                                                <input type="text" name="lec_topics-0-topic" id="id_lec_topics-0-topic" class="form-control" placeholder="Enter lecture topic title" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
-                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                                <input type="text" name="lec_topics-0-contact_hours" id="id_lec_topics-0-contact_hours" class="form-control" placeholder="e.g., 3" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
-                                                                <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-1">Add</button>
+                                                                <button class="small btn btn-sm btn-light has-increment-val" type="button" data-toggle="modal" data-target="#lec-clo-1">Add</button>
                                                                 <!-- Add CLO Modal -->
-                                                                <div class="modal fade" id="lec-clo-1" tabindex="-1" role="dialog" aria-labelledby="lec-clo-1" aria-hidden="true">
+                                                                <div class="modal fade has-increment-val" id="lec-clo-1" tabindex="-1" role="dialog" aria-labelledby="lec-clo-1" aria-hidden="true">
                                                                   <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                       <div class="modal-header">
@@ -186,9 +187,9 @@
                                                                 <input type="text" class="form-control" placeholder="e.g., 3" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
-                                                                <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-2"><b>3</b> Added</button>
+                                                                <button class="small btn btn-sm btn-light has-increment-val" type="button" data-toggle="modal" data-target="#lec-clo-2"><b>3</b> Added</button>
                                                                 <!-- Add CLO Modal -->
-                                                                <div class="modal fade" id="lec-clo-2" tabindex="-1" role="dialog" aria-labelledby="lec-clo-2" aria-hidden="true">
+                                                                <div class="modal fade has-increment-val" id="lec-clo-2" tabindex="-1" role="dialog" aria-labelledby="lec-clo-2" aria-hidden="true">
                                                                   <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                       <div class="modal-header">
@@ -316,7 +317,7 @@
                                                 </table>
                                                 <div class="text-right d-flex align-items-center">
                                                     <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
-                                                    <button class="btn btn-sm btn-link bg-light"><small class="fas fa-plus mr-1"></small>Add topic</button>
+                                                    <button class="btn btn-sm btn-link bg-light" type="button"><small class="fas fa-plus mr-1"></small>Add topic</button>
                                                 </div>
                                             </div>
                                             <!-- /Laboratory -->

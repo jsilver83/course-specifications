@@ -78,6 +78,11 @@
 			    	}
 			    	.check-icon {
 				    	color: #007d40;
+
+				    	&:before{
+				    		font-weight: 900;
+    						content: "\f058";
+				    	}
 			    	}
 			    }
 		    }
@@ -194,6 +199,46 @@
 
 }
 
+/*.courses-list{
+	width: auto;
+
+	td{
+		width: 10%;
+	}
+	.version{
+		width: 10%;
+	}
+	.course-code{
+		width: 15%;
+	}
+	.course-title{
+		width: 25%;
+	}
+	.credit-hrs{
+		width: 10%;		
+	}
+	.last-update{
+		width: 15%;
+	}
+	.status{
+		width: 15%;
+	}
+}
+*/
+
+
+.accordion-toggle{
+	cursor: pointer;
+}
+.version-row{
+	background-color: #F4F4F4;
+
+	td{
+		border-top: none;
+		padding-top: 4px !important;
+		padding-bottom: 4px !important;
+	}
+}
 
 .add-this{
 	display: none;
