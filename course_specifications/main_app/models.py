@@ -21,6 +21,7 @@ class Course(models.Model):
                 (cls.OTHER, _('Other')),
             )
 
+    # region model-fields
     mother_department = models.CharField(_('Mother Department'), max_length=500, null=True, blank=False)
     program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False)
     number = models.CharField(_('Number'), max_length=10, null=True, blank=False,
@@ -217,6 +218,7 @@ class Course(models.Model):
                                                   help_text=_('Arrangements for availability of faculty and teaching '
                                                               'staff for individual student consultations and academic '
                                                               'advice'))
+    # endregion
 
     history = HistoricalRecords()
 
@@ -486,6 +488,8 @@ class CourseRelease(models.Model):
     topics = models.ManyToManyField('HistoricalTopic', related_name='releases')
     assessment_tasks = models.ManyToManyField('HistoricalAssessmentTask', related_name='releases')
     facilities_required = models.ManyToManyField('HistoricalFacilitiesRequired', related_name='releases')
+    approved_on = models.DateTimeField(_('Approved On'), null=True, blank=True)
+    approved_by = models.CharField(_('Approved By'), max_length=200, null=True, blank=True)
 
     class Meta:
         unique_together = ('version', 'course')
