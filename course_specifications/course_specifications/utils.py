@@ -37,8 +37,12 @@ class UserType:
         else:
             response = get_employee_details(user)
             if response and response != 'ERROR':
-                request.session['department_id'] = response.get('department_id', 0)
                 if response.get('type', 0) == 'Faculty':
+                    """if the faculty is_manager, then his real academic dept is the secondary_department_id"""
+                    if response.get('is_manager', 0):
+                        request.session['department_id'] = response.get('department_id', 0)
+                    else:
+                        request.session['department_id'] = response.get('secondary_department_id', 0)
                     request.session['type'] = UserType.FACULTY
                 else:
                     request.session['type'] = UserType.EMPLOYEE
