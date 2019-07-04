@@ -124,6 +124,7 @@ IMPERSONATE = {
     'REQUIRE_SUPERUSER': True,
 }
 
+LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('main_app:course_list')
 
 # Internationalization
@@ -143,8 +144,6 @@ LANGUAGES = (
     ('ar', _('Arabic')),
     ('en', _('English')),
 )
-
-LOGIN_URL = reverse_lazy('login')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
