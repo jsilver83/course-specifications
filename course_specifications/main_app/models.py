@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
@@ -21,6 +22,7 @@ class Course(models.Model):
                 (cls.OTHER, _('Other')),
             )
 
+    # region model-fields
     mother_department = models.CharField(_('Mother Department'), max_length=500, null=True, blank=False)
     program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False)
     number = models.CharField(_('Number'), max_length=10, null=True, blank=False,
@@ -217,6 +219,7 @@ class Course(models.Model):
                                                   help_text=_('Arrangements for availability of faculty and teaching '
                                                               'staff for individual student consultations and academic '
                                                               'advice'))
+    # endregion
 
     history = HistoricalRecords()
 
@@ -231,7 +234,7 @@ class Course(models.Model):
         return self.code
 
     def release(self):
-        """Creates a new release"""
+        """Creates a new release that will be reviewed"""
         self.save()
         release = self.current_release()
         if release is None:
@@ -262,9 +265,17 @@ class Course(models.Model):
             new_release.facilities_required.add(facility_required.history.latest())
 
     def current_release(self):
-        """Gets the current release"""
+        """Gets the current APPROVED release"""
         try:
-            release = CourseRelease.objects.filter(course__id=self.id).latest('version')
+            release = CourseRelease.objects.filter(course__id=self.id, approved=True).latest()
+        except CourseRelease.DoesNotExist:
+            release = None
+        return release
+
+    def latest_release(self):
+        """Gets the latest release whether it is approved or not"""
+        try:
+            release = CourseRelease.objects.filter(course__id=self.id).latest()
         except CourseRelease.DoesNotExist:
             release = None
         return release
@@ -330,6 +341,17 @@ class Course(models.Model):
 
     def get_department_name(self):
         return get_department_name(self.mother_department)
+
+    # TODO: use Hassan's API from Adwar
+    def is_a_maintainer(self, user):
+        return True
+
+    def can_be_re_released(self):
+        """A course can NOT be edited if the latest release is still being reviewed; i.e. approved is None"""
+        return not CourseRelease.objects.filter(course__id=self.id, approved__isnull=True).exists()
+
+    def can_be_edited(self, user):
+        return self.can_be_re_released() and self.is_a_maintainer(user)
 
 
 class LearningObjective(models.Model):
@@ -486,12 +508,23 @@ class CourseRelease(models.Model):
     topics = models.ManyToManyField('HistoricalTopic', related_name='releases')
     assessment_tasks = models.ManyToManyField('HistoricalAssessmentTask', related_name='releases')
     facilities_required = models.ManyToManyField('HistoricalFacilitiesRequired', related_name='releases')
+    approved = models.NullBooleanField(_('Approved'), null=True, blank=True)
+    approved_on = models.DateTimeField(_('Approved On'), null=True, blank=True)
+    approved_by = models.CharField(_('Approved By'), max_length=200, null=True, blank=True)
 
     class Meta:
         unique_together = ('version', 'course')
+        get_latest_by = ['course__history_date', 'version']
 
     def __str__(self):
         return '{} - {}'.format(self.version, self.course)
+
+    def approve(self, user, approval_state):
+        self.approved = approval_state
+        self.approved_by = user
+        self.approved_on = timezone.now()
+        self.save()
+
 
 # May need the explicit 'through' model below to better control on_delete behavior
 # class CourseReleaseLearningObjective(models.Model):

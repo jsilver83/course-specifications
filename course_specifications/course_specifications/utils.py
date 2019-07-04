@@ -90,13 +90,26 @@ def get_api_cached_value(cache_suffix, param, api_attribute, url, api_type):
             cache.set(cache_key, response.get(api_attribute, 'N/A'), 24 * 60 * 60)
         else:
             cache.set(cache_key, 'N/A', 24 * 60 * 60)
-    else:
-        return cache.get(cache_key)
+
+    return cache.get(cache_key)
 
 
 def get_full_name(user):
-    return get_api_cached_value('_name', str(user), 'name_en', 'employee/{}'.format(user), APIType.STAFF)
+    f_name = get_api_cached_value('_name', str(user), 'name_en', 'employee/{}'.format(user), APIType.STAFF)
+
+    if f_name and f_name != 'N/A':
+        return return_first_and_last_name(f_name)
+    else:
+        return str(user)
 
 
 def get_department_name(department_id):
     return get_api_cached_value('_dept', department_id, 'name', 'department/{}'.format(department_id), APIType.STAFF)
+
+
+def return_first_and_last_name(full_name):
+    try:
+        first, *middle, last = full_name.split()
+        return '{} {}'.format(first, last)
+    except ValueError:
+        return full_name

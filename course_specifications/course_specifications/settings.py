@@ -120,6 +120,10 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+IMPERSONATE = {
+    'REQUIRE_SUPERUSER': True,
+}
+
 LOGIN_REDIRECT_URL = reverse_lazy('main_app:course_list')
 
 # Internationalization
