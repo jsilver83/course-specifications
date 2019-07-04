@@ -20,15 +20,22 @@ class UserType:
         return request.session.get('department_id', 0)
 
     @classmethod
-    def set_user_type(cls, request):
-        response = get_chairman_details(request.user)
+    def set_user_type(cls, request, user=None):
+        """the user param will have a value if it is an impersonation, otherwise it will be None"""
+        if user is None:
+            if request.user.is_impersonate:
+                user = request.impersonator
+            else:
+                user = request.user
+
+        response = get_chairman_details(user)
 
         if response and response != 'ERROR':
             request.session['department_id'] = response.get('department_id', 0)
             request.session['type'] = UserType.CHAIRMAN
             return
         else:
-            response = get_employee_details(request.user)
+            response = get_employee_details(user)
             if response and response != 'ERROR':
                 request.session['department_id'] = response.get('department_id', 0)
                 if response.get('type', 0) == 'Faculty':
@@ -36,7 +43,7 @@ class UserType:
                 else:
                     request.session['type'] = UserType.EMPLOYEE
                 return
-            elif request.user.is_superuser:
+            elif user.is_superuser:
                 request.session['type'] = UserType.ADMIN
                 return
             else:

@@ -12,7 +12,7 @@
     django_project_admin_username: joud
     django_project_admin_email: joud@kfupm.edu.sa
     django_project_package_name: course_specifications
-    
+
     apache_authn: cas
     apache_auth:
       - path: /
