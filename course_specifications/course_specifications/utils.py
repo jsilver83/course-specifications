@@ -23,7 +23,7 @@ class UserType:
     def set_user_type(cls, request, user=None):
         """the user param will have a value if it is an impersonation, otherwise it will be None"""
         if user is None:
-            if request.user.is_impersonate:
+            if getattr(request.user, 'is_impersonate', False):
                 user = request.impersonator
             else:
                 user = request.user
