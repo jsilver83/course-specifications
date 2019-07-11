@@ -69,7 +69,9 @@
 
 	                                        <td class="align-middle border-bottom clo-sec">
 	                                            <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lec-clo-{{ forloop.counter }}">
-		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b class="clo-count">{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
+		                                            <!-- {% if form.instance.pk and form.instance.related_course_learning_outcomes %} -->
+		                                            <span class="add_clo added"><b class="clo-count">{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}</span><!-- {% else %} -->
+		                                            <span class="add_clo add">{% trans "Add" %}</span><!-- {% endif %} -->
 	                                            </button>
 
 	                                            <!-- Add CLO Modal -->
