@@ -97,45 +97,6 @@
                                             <!-- Lecture -->
                                             <div class="tab-pane fade show active has-add-content" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
 
-                                                <!-- <table class="d-none">
-                                                    <tbody class="add-this">
-                                                        <tr class="delete-this">
-                                                            <td scope="row" class="align-middle border-bottom">
-                                                                <input type="text" class="form-control" placeholder="Enter lecture topic title" />
-                                                            </td>
-                                                            <td class="align-middle border-bottom">
-                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
-                                                            </td>
-                                                            <td class="align-middle border-bottom">
-                                                                <button class="small btn btn-sm btn-light has-increment-val" type="button" data-toggle="modal" data-target="#lec-clo-increment_num">Add</button>
-                                                                Add CLO Modal
-                                                                <div class="modal fade has-increment-val" id="lec-clo-increment_num" tabindex="-1" role="dialog" aria-labelledby="lec-clo-increment_num" aria-hidden="true">
-                                                                  <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                      <div class="modal-header">
-                                                                        <h5 class="modal-title">Related CLOs</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                          <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                      </div>
-                                                                      <div class="modal-body has-add-content">
-                                                                        Default for adding
-                                                                        
-                                                                      </div>
-                                                                      <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                                                                        <button type="button" class="btn btn-primary">Update</button>
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                                /Add CLO Modal
-                                                            </td>
-                                                            <td><button class="btn btn-sm delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table> -->
-
                                                 <table class="table border">
                                                     <thead class="thead-light">
                                                         <tr>
@@ -153,13 +114,13 @@
                                                     </thead>
                                                     <tbody class="add-here">
                                                         <input type="hidden" name="asdf-TOTAL_FORMS" value="3" />
-                                                        <tr class="delete-this">
+                                                        <tr class="delete-this hours-val">
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="hidden" name="lec_topics-0-id" id="id_lec_topics-0-id" />
                                                                 <input type="text" name="lec_topics-0-topic" id="id_lec_topics-0-topic" class="form-control" placeholder="Enter lecture topic title" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
-                                                                <input type="text" name="lec_topics-0-contact_hours" id="id_lec_topics-0-contact_hours" class="form-control" placeholder="e.g., 3" />
+                                                                <input type="text" name="lec_topics-0-contact_hours" id="id_lec_topics-0-contact_hours" class="form-control  contact_hrs lec" placeholder="e.g., 3" value="3" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
                                                                 <button class="small btn btn-sm btn-light has-increment-val" type="button" data-toggle="modal" data-target="#lec-clo-1">Add</button>
@@ -174,6 +135,11 @@
                                                                         </button>
                                                                       </div>
                                                                       <div class="modal-body">
+                                                                          <div class="row">
+                                                                              <div class="col-md-12">
+                                                                                
+                                                                              </div>
+                                                                          </div>
                                                                       </div>
                                                                       <div class="modal-footer">
                                                                         <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
@@ -211,13 +177,14 @@
                                                             <th scope="col"></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
+                                                    <tbody class="add-here">
+                                                        <input type="hidden" name="asdf-TOTAL_FORMS" value="3" />
+                                                        <tr class="delete-this hours-val">
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="text" class="form-control" placeholder="Enter Laboratory topic title" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
-                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                                <input type="text" class="form-control contact_hrs lab" placeholder="e.g., 3" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
                                                                 <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lab-clo-2"><b>3</b> Added</button>
@@ -250,7 +217,7 @@
                                                             </td>
                                                             <td></td>
                                                         </tr>
-                                                        <tr>
+                                                        <tr class="delete-this hours-val">
                                                             <td scope="row" class="align-middle border-bottom">
                                                                 <input type="text" class="form-control" placeholder="Enter Laboratory topic title" />
                                                             </td>
@@ -292,7 +259,7 @@
                                                 </table>
                                                 <div class="text-right d-flex align-items-center">
                                                     <p class="text-muted mr-auto mb-0"><small>Total semester hours = Weekly hours  X  Number of weeks per semester</small></p>
-                                                    <button class="btn btn-sm btn-link bg-light" type="button"><small class="fas fa-plus mr-1"></small>Add topic</button>
+                                                    <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add topic</button>
                                                 </div>
                                             </div>
                                             <!-- /Laboratory -->
@@ -300,7 +267,7 @@
                                             <!-- Tutorial -->
                                             <div class="tab-pane fade" id="nav-tutorial" role="tabpanel" aria-labelledby="nav-tutorial-tab">
                                                 <div class="border p-3">
-                                                    <div class="row">
+                                                    <div class="row hours-val">
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label>Tutorial hours</label>
@@ -318,7 +285,7 @@
                                             <!-- Practical -->
                                             <div class="tab-pane fade" id="nav-practical" role="tabpanel" aria-labelledby="nav-practical-tab">
                                                 <div class="border p-3">
-                                                    <div class="row">
+                                                    <div class="row hours-val">
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label>Practical hours</label>
@@ -336,7 +303,7 @@
                                             <!-- Other -->
                                             <div class="tab-pane fade" id="nav-other" role="tabpanel" aria-labelledby="nav-other-tab">
                                                 <div class="border p-3">
-                                                    <div class="row">
+                                                    <div class="row hours-val">
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label>Other hours</label>
