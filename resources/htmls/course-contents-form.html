@@ -74,15 +74,22 @@
                                     <div class="col-12">
                                         <nav>
                                           <div class="nav nav-tabs" id="assessment-tab" role="tablist">
-                                            <a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true"><small>Lecture</small> <p class="h6 mb-0"><b>25 hrs</b><sup class="text-danger">*</sup></p></a>
+                                            <a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true"><small>Lecture</small><sup class="text-danger">*</sup> <p class="mb-0 text-muted"><small class="total_lec_contact_hrs">Please enter</small></p></a>
                                             
-                                            <a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="true"><small>Laboratory</small> <p class="h6 mb-0"><b>25 hrs</b><sup class="text-danger">*</sup></p></a>
+                                            <a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="true"><small>Laboratory</small><sup class="text-danger">*</sup> <p class="mb-0 text-muted"><small class="total_lab_contact_hrs">Please enter</small></p></a>
 
-                                            <a class="nav-item nav-link" id="nav-tutorial-tab" data-toggle="tab" href="#nav-tutorial" role="tab" aria-controls="nav-tutorial" aria-selected="true"><small>Tutorial</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+                                            <a class="nav-item nav-link" id="nav-tutorial-tab" data-toggle="tab" href="#nav-tutorial" role="tab" aria-controls="nav-tutorial" aria-selected="true"><small>Tutorial</small> <p class="mb-0 text-muted"><small class="total_tutorial_contact_hrs">Please enter</small></p></a>
 
-                                            <a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab" href="#nav-practical" role="tab" aria-controls="nav-practical" aria-selected="true"><small>Practical</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+                                            <a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab" href="#nav-practical" role="tab" aria-controls="nav-practical" aria-selected="true"><small>Practical</small> <p class="mb-0 text-muted"><small class="total_practical_contact_hrs">Please enter</small></p></a>
 
-                                            <a class="nav-item nav-link" id="nav-other-tab" data-toggle="tab" href="#nav-other" role="tab" aria-controls="nav-other" aria-selected="true"><small>Other</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+                                            <a class="nav-item nav-link mr-auto" id="nav-other-tab" data-toggle="tab" href="#nav-other" role="tab" aria-controls="nav-other" aria-selected="true"><small>Other</small> <p class="mb-0 text-muted"><small class="total_other_contact_hrs">Please enter</small></p></a>
+
+                                            <!-- Total contact hrs -->
+                                            <div class="float-right text-right align-self-center">
+                                                <p class="small mb-0 text-muted">Total contact hrs: <small class="total_contact_hrs">Please enter</small></p>
+                                            </div>
+                                            <!-- /Total contact hrs -->
+
                                           </div>
                                         </nav>
                                         <div class="tab-content" id="nav-tabContent">
@@ -248,7 +255,7 @@
                                                                 <input type="text" class="form-control" placeholder="Enter Laboratory topic title" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
-                                                                <input type="text" class="form-control" placeholder="e.g., 3" />
+                                                                <input type="text" class="form-control contact_hrs lab" placeholder="e.g., 3" />
                                                             </td>
                                                             <td class="align-middle border-bottom">
                                                                 <button class="small btn btn-sm btn-light" type="button" data-toggle="modal" data-target="#lab-clo-2"><b>2</b> Added</button>
@@ -297,7 +304,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label>Tutorial hours</label>
-                                                                <input type="text" class="form-control" placeholder="e.g., 3 hrs" />
+                                                                <input type="text" class="form-control contact_hrs tutorial" placeholder="e.g., 3 hrs" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -315,7 +322,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label>Practical hours</label>
-                                                                <input type="text" class="form-control" placeholder="e.g., 3 hrs" />
+                                                                <input type="text" class="form-control contact_hrs practical" placeholder="e.g., 3 hrs" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -333,7 +340,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label>Other hours</label>
-                                                                <input type="text" class="form-control" placeholder="e.g., 3 hrs" />
+                                                                <input type="text" class="form-control contact_hrs other" placeholder="e.g., 3 hrs" />
                                                             </div>
                                                         </div>
                                                     </div>

@@ -18,15 +18,22 @@
 	                <div class="col-12">
 	                    <nav>
 	                      <div class="nav nav-tabs" id="assessment-tab" role="tablist">
-	                        <a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true"><small>{% trans 'Lecture' %}</small> <p class="h6 mb-0"><b>{{ course.get_max_lecture_contact_hours_for_topics }} {% trans "hrs" %}</b><sup class="text-danger">*</sup></p></a>
+	                        <a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true"><small>{% trans 'Lecture' %}</small><sup class="text-danger">*</sup> <p class="mb-0 text-muted"><!-- <b>{{ course.get_max_lecture_contact_hours_for_topics }} {% trans "hrs" %}</b> --><small class="total_lec_contact_hrs">{% trans 'Please enter' %}</small></p></a>
 
-	                        {% if course.get_min_lab_contact_hours_for_topics %}<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="true"><small>{% trans 'Laboratory' %}</small> <p class="h6 mb-0"><b>{{ course.get_max_lab_contact_hours_for_topics }} {% trans "hrs" %}</b><sup class="text-danger">*</sup></p></a>{% endif %}
+	                        {% if course.get_min_lab_contact_hours_for_topics %}<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="true"><small>{% trans 'Laboratory' %}</small> <sup class="text-danger">*</sup><p class="mb-0 text-muted"><!-- <b>{{ course.get_max_lab_contact_hours_for_topics }} {% trans "hrs" %}</b> --><small class="total_lab_contact_hrs">{% trans 'Please enter' %}</small></p></a>{% endif %}
 
-	                        <a class="nav-item nav-link" id="nav-tutorial-tab" data-toggle="tab" href="#nav-tutorial" role="tab" aria-controls="nav-tutorial" aria-selected="true"><small>{% trans 'Tutorial' %}</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+	                        <a class="nav-item nav-link" id="nav-tutorial-tab" data-toggle="tab" href="#nav-tutorial" role="tab" aria-controls="nav-tutorial" aria-selected="true"><small>{% trans 'Tutorial' %}</small> <p class="mb-0 text-muted"><small class="total_tutorial_contact_hrs">{% trans 'Please enter' %}</small></p></a>
 
-	                        <a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab" href="#nav-practical" role="tab" aria-controls="nav-practical" aria-selected="true"><small>{% trans 'Practical' %}</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+	                        <a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab" href="#nav-practical" role="tab" aria-controls="nav-practical" aria-selected="true"><small>{% trans 'Practical' %}</small> <p class="mb-0 text-muted"><small class="total_practical_contact_hrs">{% trans 'Please enter' %}</small></p></a>
 
-	                        <a class="nav-item nav-link" id="nav-other-tab" data-toggle="tab" href="#nav-other" role="tab" aria-controls="nav-other" aria-selected="true"><small>{% trans "Other" %}</small> <p class="mb-0 text-muted"><small>Please enter</small></p></a>
+	                        <a class="nav-item nav-link" id="nav-other-tab" data-toggle="tab" href="#nav-other" role="tab" aria-controls="nav-other" aria-selected="true"><small>{% trans 'Other' %}</small> <p class="mb-0 text-muted"><small class="total_other_contact_hrs">{% trans 'Please enter' %}</small></p></a>
+
+	                        <!-- Total contact hrs -->
+	                        <div class="align-right text-right">
+	                        	<b>Total contact hrs:</b><h6 class="total_contact_hrs">{% trans 'Please enter' %}</h6>
+	                        </div>
+	                        <!-- /Total contact hrs -->
+
 	                      </div>
 	                    </nav>
 	                    <div class="tab-content" id="nav-tabContent">
@@ -58,6 +65,7 @@
 	                                        </td>
 	                                        <td class="align-middle border-bottom">
 	                                            {{ form.contact_hours }}{{ form.contact_hours.errors }}
+	                                            <!--Add classes 'contact_hrs lec'-->
 	                                        </td>
 
 	                                        <td class="align-middle border-bottom clo-sec">
@@ -107,54 +115,6 @@
 	                        <!-- Laboratory -->
 	                        <div class="tab-pane fade has-add-content" id="nav-laboratory" role="tabpanel" aria-labelledby="nav-laboratory-tab">
 
-				                <!-- Default for adding -->
-				                <table class="d-none">
-					                <tbody class="add-this">
-	                                    <tr class="delete-this">
-	                                        <td scope="row" class="align-middle border-bottom">
-		                                        {{ form.id }}{{ form.topic }}{{ form.topic.errors }}
-	                                        </td>
-	                                        <td class="align-middle border-bottom">
-	                                            {{ form.contact_hours }}{{ form.contact_hours.errors }}
-	                                        </td>
-
-	                                        <td class="align-middle border-bottom clo-sec">
-	                                            <button class="small btn btn-sm btn-light has-increment-val" type="button" data-toggle="modal" data-target="#lab-clo-increment_num">
-		                                            {% if form.instance.pk and form.instance.related_course_learning_outcomes %}<b class="clo-count">{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}{% else %}{% trans "Add" %}{% endif %}
-	                                            </button>
-
-	                                            <!-- Add CLO Modal -->
-	                                            <div class="modal fade has-increment-val" id="lab-clo-increment_num" tabindex="-1" role="dialog" aria-labelledby="lab-clo-increment_num" aria-hidden="true">
-	                                              <div class="modal-dialog" role="document">
-	                                                <div class="modal-content">
-	                                                  <div class="modal-header">
-	                                                    <h5 class="modal-title">{% trans 'Related CLOs' %}</h5>
-	                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                                                      <span aria-hidden="true">&times;</span>
-	                                                    </button>
-	                                                  </div>
-	                                                  <div class="modal-body">
-		                                                  <div class="row">
-			                                                  <div class="col-md-12">
-				                                                  {{ form.related_course_learning_outcomes }}
-				                                                  {{ form.related_course_learning_outcomes.errors }}
-			                                                  </div>
-		                                                  </div>
-	                                                  </div>
-	                                                  <div class="modal-footer">
-	                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Update" %}</button>
-	                                                  </div>
-	                                                </div>
-	                                              </div>
-	                                            </div>
-	                                            <!-- /Add CLO Modal -->
-	                                        </td>
-	                                        <td><button class="btn btn-sm delete-btn" type="button"><input type="checkbox" class="delete-check" /><i class="fas fa-trash-alt text-danger"></i></button></td>
-	                                    </tr>
-					                </tbody>
-				                </table>
-				                <!-- /Default for adding -->
-
 	                            <table class="table border">
 	                                <thead class="thead-light">
 	                                    <tr>
@@ -183,6 +143,7 @@
 	                                        </td>
 	                                        <td class="align-middle border-bottom">
 	                                            {{ form.contact_hours }}{{ form.contact_hours.errors }}
+	                                            <!--Add classes 'contact_hrs lab'-->
 	                                        </td>
 
 	                                        <td class="align-middle border-bottom clo-sec">
@@ -236,6 +197,7 @@
 	                                    <div class="col-md-4">
 	                                        <div class="form-group">
 	                                            {{ form.tutorial_contact_hours|as_crispy_field }}
+	                                            <!--Add classes 'contact_hrs tutorial'-->
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -250,6 +212,7 @@
 	                                    <div class="col-md-4">
 	                                        <div class="form-group">
 	                                            {{ form.practical_contact_hours|as_crispy_field }}
+	                                            <!--Add classes 'contact_hrs practical'-->
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -269,6 +232,7 @@
 		                                <div class="col-md-4">
 	                                        <div class="form-group">
 	                                            {{ form.other_contact_hours|as_crispy_field }}
+	                                            <!--Add classes 'contact_hrs other'-->
 	                                        </div>
 	                                    </div>
 	                                </div>
