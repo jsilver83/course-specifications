@@ -93,16 +93,17 @@ def get_employee_details(employee):
 
 
 def get_api_cached_value(cache_suffix, param, api_attribute, url, api_type):
-    cache_key = param + cache_suffix
-    if cache.get(cache_key) is None:
-        response = call_web_service(url=url, api=api_type)
+    if param:
+        cache_key = param + cache_suffix
+        if cache.get(cache_key) is None:
+            response = call_web_service(url=url, api=api_type)
 
-        if response and response != 'ERROR':
-            cache.set(cache_key, response.get(api_attribute, 'N/A'), 24 * 60 * 60)
-        else:
-            cache.set(cache_key, 'N/A', 24 * 60 * 60)
+            if response and response != 'ERROR':
+                cache.set(cache_key, response.get(api_attribute, 'N/A'), 24 * 60 * 60)
+            else:
+                cache.set(cache_key, 'N/A', 24 * 60 * 60)
 
-    return cache.get(cache_key)
+        return cache.get(cache_key)
 
 
 def get_full_name(user):
