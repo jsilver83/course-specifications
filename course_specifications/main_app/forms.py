@@ -114,15 +114,21 @@ class TopicForm(forms.ModelForm):
         model = Topic
         fields = ['topic', 'contact_hours', 'related_course_learning_outcomes', ]
 
-    def __init__(self, course, *args, **kwargs):
+    def __init__(self, course, topic_type, *args, **kwargs):
         self.course = course
+        self.topic_type = topic_type
         super().__init__(*args, **kwargs)
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
         self.fields['topic'].widget.attrs.update({'placeholder': _('Enter topic')})
-        self.fields['contact_hours'].widget.attrs.update({'placeholder': _('e.g. 3 hrs')})
+        self.fields['contact_hours'].widget.attrs.update(
+            {
+                'placeholder': _('e.g. 3 hrs'),
+                'class': 'form-control contact_hrs {}'.format(self.topic_type)
+            }
+        )
         self.fields['related_course_learning_outcomes'].widget.attrs.update({'class': 'select2 form-control',
                                                                              'style': 'width:100%'})
 
@@ -202,6 +208,13 @@ class CourseContentForm(forms.ModelForm):
                              'other_contact_hours_description']:
                 self.fields[field].label = self.fields[field].label.replace('Hours', '').replace(
                     'Self-Study', '').replace('Credit', '')
+
+            if field in ['tutorial_contact_hours', 'practical_contact_hours', 'other_contact_hours']:
+                self.fields[field].widget.attrs.update(
+                    {
+                        'class': 'contact_hrs {}'.format(field.replace('_contact_hours', ''))
+                    }
+                )
 
         self.fields['other_contact_hours_description'].label = _('Description')
         self.fields['other_contact_hours'].label = _('Contact Hours')

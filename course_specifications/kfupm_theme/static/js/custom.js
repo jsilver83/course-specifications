@@ -33,12 +33,43 @@ $(document).ready(function($) {
         total_forms_count.val(current_form_count);
         var name_number = this_cloned_forms.attr('name').match(/\d+/);
         var id_number = this_cloned_forms.attr('id').match(/\d+/);
+
+        //alert(data_target_num);
         var name_attr = this_cloned_forms.attr('name').replace(id_number, current_form_count);
         var id_attr = this_cloned_forms.attr('id').replace(id_number, current_form_count);
+
+
         this_cloned_forms.attr('name', name_attr);
         this_cloned_forms.attr('id', id_attr);
-        //});
+
+        //alert(data_target_attr);
+
+        //Clone last content with replaced numbers
         this_add_here.append(this_last_content);
+
+        //has-increment-val
+        //var has_incerement_val = this_add_here.find('.has-increment-val');
+
+        this_last_content.find('.has-increment-val').each(function (){
+
+            if($(this).attr('data-target')){
+                var data_target_num = $(this).attr('data-target').match(/\d+/);
+                var data_target_attr = $(this).attr('data-target').replace(data_target_num, current_form_count);
+                $(this).attr('data-target', data_target_attr);
+            }
+            if($(this).attr('id')){
+                var id_modal_num = $(this).attr('id').match(/\d+/);
+                var id_modal_attr = $(this).attr('id').replace(id_modal_num, current_form_count);
+                $(this).attr('id', id_modal_attr);
+            }
+            if($(this).attr('aria-labelledby')){
+                var aria_labelledby_num = $(this).attr('aria-labelledby').match(/\d+/);
+                var aria_labelledby_attr = $(this).attr('aria-labelledby').replace(aria_labelledby_num, current_form_count);
+                $(this).attr('aria-labelledby', aria_labelledby_attr);
+            }
+
+        });
+
     });
 
     //Delete this
@@ -84,5 +115,58 @@ $(document).ready(function($) {
     //         });
     //     });
     // });
+
+    //Actual Contact hours calculation
+    $('body').on('keyup', '.form-accordian input.contact_hrs', function(){
+        if($(this).hasClass('lec')){
+            var lec_hrs = 0;
+            $('.contact_hrs.lec').each(function(){
+                if($(this).val()){
+                    lec_hrs += parseInt($(this).val());
+                }
+            });
+            $('.total_lec_contact_hrs').addClass('text-dark h6 font-weight-bold').html(lec_hrs +' hrs');
+        }
+        if($(this).hasClass('lab')){
+            var lab_hrs = 0;
+            $('.contact_hrs.lab').each(function(){
+                if($(this).val()){
+                    lab_hrs += parseInt($(this).val());
+                }
+            });
+            $('.total_lab_contact_hrs').addClass('text-dark h6 font-weight-bold').html(lab_hrs +' hrs');
+        }
+        if($(this).hasClass('tutorial')){
+            var tutorial_hrs = 0;
+            $('.contact_hrs.tutorial').each(function(){
+                if($(this).val()){
+                    tutorial_hrs += parseInt($(this).val());
+                }
+            });
+            $('.total_tutorial_contact_hrs').addClass('text-dark h6 font-weight-bold').html(tutorial_hrs +' hrs');
+        }
+        if($(this).hasClass('practical')){
+            var practical_hrs = 0;
+            $('.contact_hrs.practical').each(function(){
+                if($(this).val()){
+                    practical_hrs += parseInt($(this).val());
+                }
+            });
+            $('.total_practical_contact_hrs').addClass('text-dark h6 font-weight-bold').html(practical_hrs +' hrs');
+        }
+        if($(this).hasClass('other')){
+            var other_hrs = 0;
+            $('.contact_hrs.other').each(function(){
+                if($(this).val()){
+                    other_hrs += parseInt($(this).val());
+                }
+            });
+            $('.total_other_contact_hrs').addClass('text-dark h6 font-weight-bold').html(other_hrs +' hrs');
+        }
+
+        var total_contact_hrs = lec_hrs+lab_hrs+tutorial_hrs+practical_hrs+other_hrs;
+        $('.total_contact_hrs').addClass('text-dark h6 font-weight-bold').html(total_contact_hrs +' hrs');
+
+    });
 
 });

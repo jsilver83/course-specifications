@@ -128,12 +128,12 @@ def course_contents(request, pk):
     form = CourseContentForm(request.POST or None, instance=course)
 
     formset = LectureTopicFormSet(request.POST or None, queryset=course.topics.filter(type=Topic.Types.LECTURE),
-                                  prefix='lec_topics', form_kwargs={'course': course})
+                                  prefix='lec_topics', form_kwargs={'course': course, 'topic_type': 'lec'})
 
     formset2 = None
     if course.get_min_lab_contact_hours_for_topics():  # only include lab topics if there is a lab in the course
         formset2 = LabTopicFormSet(request.POST or None, queryset=course.topics.filter(type=Topic.Types.LAB),
-                                   prefix='lab_topics', form_kwargs={'course': course})
+                                   prefix='lab_topics', form_kwargs={'course': course, 'topic_type': 'lab'})
 
     if request.method == 'POST':
         if form.is_valid() and formset.is_valid() and (formset2.is_valid() if formset2 else True):
