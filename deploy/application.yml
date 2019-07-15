@@ -14,6 +14,8 @@
     django_project_package_name: course_specifications
     buildbot_autobuild: false
     ssl_cert_path: "/etc/ssl/certs"
+    django_project_env_vars:
+      REQUESTS_CA_BUNDLE: "/etc/ssl/certs"
 
     apache_authn: cas
     apache_auth:
@@ -73,14 +75,14 @@
         email_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/email/apps/course-specifications/email_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
       connection: local
 
-    - name: Retrieve banner api password from vault
+    - name: Retrieve banner webservice password from vault
       set_fact:
-        banner_api_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/banner_api_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
+        banner_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/banner_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
       connection: local
 
     - name: Retrieve ebs api password from vault
       set_fact:
-        banner_api_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/ebs_api_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
+        staff_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/staff_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
       connection: local
 
     - name: Generate local settings
