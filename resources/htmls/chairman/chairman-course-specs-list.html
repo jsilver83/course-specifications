@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mohamed Faraj">
+    <title>Course Specification - King Fahd University of Petroleum and Minerals</title>
+    <link rel="icon" href="../images/favicon.png">
+    <!-- <link href="../css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- Main CSS -->
+    <link href="../css/all-kfupm.css" rel="stylesheet">
+    <!--JS-->
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.bundle-4.1.3.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-select-1.13.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-tagsinput.js"></script>
+    <script type="text/javascript" src="../js/custom.js"></script>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-primary border-header  align-items-start flex-column">
+    <div class="container d-flex">
+        <div class="logo-section mr-auto d-flex align-items-center">
+            <a class="navbar-brand kfupm-logo" href="#"><b>KFUPM</b></a>
+            <a class="navbar-brand" href="/">
+                <span class="en-title title">Course Specification</span>
+            </a>
+        </div>
+        <div class="controls-section text-white d-flex align-items-center">
+            <a href="#" class="btn btn-sm btn-outline-warning mb-1 mr-4">Courses list</a>
+            <small class="text-light login-name mr-3">Mohammed</small>
+            <a href="#" class="logout-btn"><i class="fas fa-power-off mr-1"></i> <small>Logout</small></a>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="container pt-4 pb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title mb-0 d-flex align-items-center">
+                            <h5 class="mb-0 mr-auto">Course specifications lists</h5>
+                            <a href="chairman-create-course.html" class="btn btn-sm btn-primary"><i class="fas fa-plus mr-1"></i> <span>Create course</span></a>
+                        </div>
+                    </div>
+                    <div class="card-header d-flex align-items-center">
+                        <form class="form-inline search-group mr-auto">
+                            <i class="fas fa-search search-icon"></i>
+                            <input class="form-control form-control-sm search-field" placeholder="Search" />
+                        </form>
+                        <form class="form-inline">
+                            <small class="mr-2 text-muted">Status</small>
+                            <select class="form-control form-control-sm search-field" placeholder="Search">
+                                <option>All</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="courses-list table clickable table-condensed">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th></th>
+                                    <th scope="col" class="align-middle border-top-0 text-muted">
+                                        <small>Course code</small>
+                                    </th>
+                                    <th scope="col" class="align-middle border-top-0 text-muted">
+                                        <small>Course title</small>
+                                    </th>
+                                    <th scope="col" class="status align-middle border-top-0 text-muted">
+                                        <small>Maintainer</small>
+                                    </th>
+                                    <th scope="col" class="status align-middle border-top-0 text-muted">
+                                        <small>Reviewer</small>
+                                    </th>
+                                    <th scope="col" class="status align-middle border-top-0 text-muted">
+                                        <small>Status</small>
+                                    </th>
+                                    <th scope="col" class="align-middle border-top-0 text-muted">
+                                        
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr class="">
+                                    <td class="align-middle text-right accordion-toggle" data-toggle="collapse" data-target="#demo1"><small class="text-muted"><i class="fas fa-caret-right mr-2"></i><b>V3</b></small></td>
+                                    <td scope="row" class="align-middle">
+                                        <p class="mb-0">
+                                            ACCT110
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Intro. to Financial Accounting
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Dr. Mohammed
+                                            <br>
+                                            <small class="text-muted">Last update: 20-06-2018</small>
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Dr. Abdullah
+                                            <br>
+                                            <small class="text-muted">Last update: 20-06-2018</small>
+                                        </p>
+                                    </td>
+                                    <td class="status align-middle">
+                                        <span class="badge badge-warning text-badge mr-auto p-0">WITH MAINTAINER</span>
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <a href="#" class="btn btn-sm text-muted"><i class="far fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="hiddenRow accordian-body collapse version-row" id="demo1">
+                                    <td class="align-middle text-right"><small class="text-muted"><b>V2</b></small></td>
+                                    <td scope="row" class="align-middle course-code">
+                                        <p class="mb-0">
+                                            ACCT110
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Intro. to Financial Accounting
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Dr. Mohammed
+                                            <br>
+                                            <small class="text-muted">Last update: 20-06-2018</small>
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Dr. Abdullah
+                                            <br>
+                                            <small class="text-muted">Last update: 20-06-2018</small>
+                                        </p>
+                                    </td>
+                                    <td class="status align-middle">
+                                        <span class="badge badge-primary text-badge mr-auto p-0">APPROVED</span>
+                                        <br>
+                                        <small class="text-muted">On: 20-06-2018</small>
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <a href="#" class="btn btn-sm text-muted"><i class="far fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="hiddenRow accordian-body collapse version-row" id="demo1">
+                                    <td class="align-middle text-right"><small class="text-muted"><b>V1</b></small></td>
+                                    <td scope="row" class="align-middle course-code">
+                                        <p class="mb-0">
+                                            ACCT110
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Intro. to Financial Accounting
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Dr. Mohammed
+                                            <br>
+                                            <small class="text-muted">Last update: 20-06-2018</small>
+                                        </p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0">
+                                            Dr. Abdullah
+                                            <br>
+                                            <small class="text-muted">Last update: 20-06-2018</small>
+                                        </p>
+                                    </td>
+                                    <td class="status align-middle">
+                                        <span class="badge badge-primary text-badge mr-auto p-0">APPROVED</span>
+                                        <br>
+                                        <small class="text-muted">On: 20-06-2018</small>
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <a href="#" class="btn btn-sm text-muted"><i class="far fa-eye"></i></a>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
