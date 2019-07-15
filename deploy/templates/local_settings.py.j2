@@ -1,11 +1,11 @@
-SECRET_KEY = '{{ secret_key.json.data.value }}'
+SECRET_KEY = '{{ secret_key }}'
 
 DATABASES = {
     'default': {
         'ENGINE': '{{ database_engine }}',
         'NAME': '{{ database_name }}',
         'USER': '{{ database_user }}',
-        'PASSWORD': '{{ database_password.json.data.value }}',
+        'PASSWORD': '{{ database_password }}',
         'HOST': '{{ database_host }}',
         'PORT': '{{ database_port }}',
     }
@@ -33,7 +33,7 @@ EMAIL_HOST = '{{ email_host }}'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = '{{ email_user }}'
-EMAIL_HOST_PASSWORD = '{{ email_password.json.data.value }}'
+EMAIL_HOST_PASSWORD = '{{ email_password }}'
 SERVER_EMAIL = '{{ email_user }}'
 DEFAULT_FROM_EMAIL = 'Course Specification <{{ email_user }}>'
 
