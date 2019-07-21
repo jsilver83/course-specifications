@@ -47,7 +47,7 @@ small, .small{
 .side-nav-layout{
     display: block;
     position: relative;
-    min-height: 100vh;
+    min-height: calc(100vh - 64px);
 	
 	.side-nav{
 		width: 240px;

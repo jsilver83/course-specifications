@@ -149,4 +149,119 @@ $(document).ready(function($) {
         clo_counts();
     });
 
+
+    $(function() {
+        $("#touchScroller").smoothTouchScroll({ continuousScrolling: false });
+    });
+
+    //Checklist submenu dropdown
+    $('body').on( "click", '.checklist-menu > .has-sub-menu .drop-btn', function() {
+        $(this).parents('.has-sub-menu').toggleClass('open');
+    });
+
+    function touchscroll_height(){
+        var h_window = $(window).outerHeight(true);
+        var h_course_title = $('.course-title').outerHeight(true);
+        var h_navbar = $('.navbar').outerHeight(true);
+        var h_btn_row = $('.btn-row').outerHeight(true) + 24;
+        // alert(h_btn_row + "px");
+        $('.chariman-view-layout').css('height', h_window - h_navbar + "px");
+        var h_chariman_view_layout = $('.chariman-view-layout').outerHeight() - 32;
+        $('#touchScroller').css('height', h_chariman_view_layout - h_course_title - h_btn_row + "px");
+    }
+    touchscroll_height();
+    $( window ).resize(function() {
+        touchscroll_height();
+    });
+    $('#touchScroller .card-body').css('overflow-y', 'auto');
+
+
+    //Completed main menu
+    function menu_completed_check(){
+        $('.checklist-menu .sub-menu').each(function (){
+            if ($(this).find("a.completed").length == $(this).find("a").length) {
+                $(this).parents('li').addClass('completed');
+            }
+            else{
+                $(this).parents('li').removeClass('completed');
+            }
+        });
+    }
+
+    //Card ID
+    function card_id(thisObj){
+        if(thisObj.hasClass('comment-btn')){
+            var this_id = thisObj.parents('.card').attr('id');
+            $('.checklist-menu').find('.'+this_id).addClass('completed with-comments');
+        }
+        if(thisObj.hasClass('check-btn')){
+            var this_id = thisObj.parents('.card').attr('id');
+            $('.checklist-menu').find('.'+this_id).addClass('completed');
+        }
+        if(thisObj.hasClass('undo-btn')){
+            var this_id = thisObj.parents('.card').attr('id');
+            $('.checklist-menu').find('.'+this_id).removeClass('completed with-comments');  
+        }
+    }
+
+    //Action button
+    $('body').on( "click", '.comment-btn', function(){
+        var this_parent = $(this).parents('.action-section');
+        this_parent.parents('.card').addClass('commented');
+        card_id($(this));
+        menu_completed_check();
+    });
+    $('body').on( "click", '.check-btn', function(){
+        var this_parent = $(this).parents('.action-section');
+        this_parent.parents('.card').addClass('checked');
+        card_id($(this));
+        menu_completed_check();
+    });
+    $('body').on( "click", '.undo-btn', function(){
+        $('.action-section').find('input[type="checkbox"]').prop('checked', false);
+        $(this).parents('.card').removeClass('checked commented');
+        card_id($(this));
+        if($('.check-all').hasClass('active')){
+            $('.check-all').removeClass('active');
+        }
+        menu_completed_check();
+    });
+
+
+    $('body').on( "click", '.check-all', function(){
+        if($(this).hasClass('active')){
+            $('.action-section').find('input[type="checkbox"]').prop('checked', false);
+            $('#touchScroller .card').removeClass('commented checked');
+            $('.checklist-menu').find('a').removeClass('completed with-comments'); 
+            $(this).removeClass('active');
+        }
+        else{
+            $('.action-section').find('input[type="checkbox"]').prop('checked', false);
+            $('.action-section .check-btn input[type="checkbox"]').prop('checked', true);
+            $('#touchScroller .card').removeClass('commented').addClass('checked');
+            $(this).addClass('active');
+            $('.checklist-menu .active').find('a').addClass('completed').removeClass('with-comments');   
+        }
+        menu_completed_check();
+    });
+
+    $('.action-section input[type="checkbox"]').each(function (){
+        if($(this).prop('checked')){
+            $(this).parents('.card').removeClass('commented checked');
+            var this_p_btn = $(this).parent('.btn');
+            if(this_p_btn.hasClass('comment-btn')){
+                $(this).parents('.card').addClass('commented');
+                var this_id = this_p_btn.parents('.card').attr('id');
+                $('.checklist-menu').find('.'+this_id).addClass('completed with-comments');                
+            }
+            else if(this_p_btn.hasClass('check-btn')){
+                $(this).parents('.card').addClass('checked');
+                var this_id = this_p_btn.parents('.card').attr('id');
+                $('.checklist-menu').find('.'+this_id).addClass('completed');                
+            }
+        }
+    });
+
+    menu_completed_check();
+
 });
