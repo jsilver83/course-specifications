@@ -727,6 +727,62 @@
 	}
 }
 
+.chairman-review-checklist{
+	overflow: inherit;
+	height: auto !important;
+	
+	.side-nav-layout{
+
+		.side-checklist{
+			width: auto !important;
+			max-width: 480px;
+			margin: auto;
+			overflow: inherit;
+
+			.checklist-menu {
+			    border-top: solid 1px #EDEDED;
+			    margin-top: 16px;
+
+			    li{
+
+			    	&:last-child{
+			    		border-bottom: none;
+			    	}
+				    a{
+				    	padding-right: 12px;
+				    }
+
+			    }
+
+			    .sub-menu{
+			    	max-width: 320px;
+
+			    	li{
+				    	a{
+				    		border-bottom: solid 1px #EDEDED;
+				    		padding-top: 8px;
+	    					padding-bottom: 8px;
+
+	    					&:before{
+    						    top: 8px;
+	    					}
+				    	}
+
+    					&:last-child a{
+    						border-bottom: none;
+    					}
+			    	}
+			    }
+			}
+		}
+	}
+	.btn-row{
+		max-width: 480px;
+		margin-left: auto;
+    	margin-right: auto;
+    	margin-top: 32px;
+	}
+}
 
 .add-this{
 	display: none;

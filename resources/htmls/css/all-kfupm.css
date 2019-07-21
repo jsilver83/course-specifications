@@ -10347,6 +10347,47 @@ small, .small {
   display: inline-block !important;
 }
 
+.chairman-review-checklist {
+  overflow: inherit;
+  height: auto !important;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist {
+  width: auto !important;
+  max-width: 480px;
+  margin: auto;
+  overflow: inherit;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu {
+  border-top: solid 1px #EDEDED;
+  margin-top: 16px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu li:last-child {
+  border-bottom: none;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu li a {
+  padding-right: 12px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu {
+  max-width: 320px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu li a {
+  border-bottom: solid 1px #EDEDED;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu li a:before {
+  top: 8px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu li:last-child a {
+  border-bottom: none;
+}
+.chairman-review-checklist .btn-row {
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 32px;
+}
+
 .add-this {
   display: none;
 }
