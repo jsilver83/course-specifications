@@ -10097,8 +10097,11 @@ small, .small {
   margin-bottom: 16px;
 }
 .view-list li {
-  border-bottom: solid 1px #D4D4D4;
+  border-bottom: solid 1px #E5E5E5;
   padding: 8px 0;
+}
+.view-list li:last-child {
+  border-bottom: none;
 }
 
 #touchScroller {
@@ -10177,6 +10180,9 @@ small, .small {
   font-size: 20px;
   margin: 0 16px;
 }
+#touchScroller .scrollableArea .card .card-footer .action-section {
+  position: relative;
+}
 #touchScroller .scrollableArea .card .card-footer .comment-section span, #touchScroller .scrollableArea .card .card-footer .comment-section .comments {
   display: none;
 }
@@ -10185,22 +10191,25 @@ small, .small {
   font-size: 14px;
   min-height: 68px;
 }
+#touchScroller .scrollableArea .card .card-footer .cap-btn {
+  background-color: transparent;
+  padding: 0;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #747474;
+  font-weight: 600;
+  border: none;
+}
+#touchScroller .scrollableArea .card .card-footer .cap-btn:hover {
+  text-decoration: underline;
+  color: #333333;
+}
 #touchScroller .scrollableArea .card .card-footer .undo-btn {
   display: none;
   position: absolute;
-  text-transform: uppercase;
-  font-size: 12px;
-  right: 20px;
-  top: 24px;
-  background: no-repeat;
-  padding: 0;
-  color: #747474;
-  font-weight: 600;
+  right: 0;
+  top: 0;
   z-index: 1000;
-}
-#touchScroller .scrollableArea .card .card-footer .undo-btn:hover {
-  text-decoration: underline;
-  color: #333333;
 }
 #touchScroller .scrollableArea .card.checked {
   background-color: #EAF2ED;
@@ -10334,6 +10343,37 @@ small, .small {
   border-color: rgba(0, 0, 0, 0.05) !important;
 }
 
+.comments-histroy-section {
+  margin-bottom: -16px;
+  position: relative;
+  z-index: 999;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+.comments-histroy-section .comments-history-btn {
+  font-size: 13px;
+  text-transform: none;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 400;
+  background-color: transparent !important;
+  padding: 0;
+  border: none;
+}
+.comments-histroy-section .comments-history-btn:hover {
+  text-decoration: underline;
+}
+
+.comments-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.comments-list li {
+  border-bottom: solid 1px #E5E5E5;
+}
+.comments-list li:last-child {
+  border-bottom: none;
+}
+
 .check-all.active {
   color: #747474;
 }
@@ -10345,6 +10385,47 @@ small, .small {
 }
 .check-all.active span.d-none {
   display: inline-block !important;
+}
+
+.chairman-review-checklist {
+  overflow: inherit;
+  height: auto !important;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist {
+  width: auto !important;
+  max-width: 480px;
+  margin: auto;
+  overflow: inherit;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu {
+  border-top: solid 1px #EDEDED;
+  margin-top: 16px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu li:last-child {
+  border-bottom: none;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu li a {
+  padding-right: 12px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu {
+  max-width: 320px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu li a {
+  border-bottom: solid 1px #EDEDED;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu li a:before {
+  top: 8px;
+}
+.chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu li:last-child a {
+  border-bottom: none;
+}
+.chairman-review-checklist .btn-row {
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 32px;
 }
 
 .add-this {
