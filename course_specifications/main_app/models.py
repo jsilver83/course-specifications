@@ -8,6 +8,9 @@ from simple_history.models import HistoricalRecords
 from course_specifications.utils import get_department_name
 
 
+User = settings.AUTH_USER_MODEL
+
+
 class Course(models.Model):
     class Locations:
         MAIN_CAMPUS = 'main_campus'
@@ -238,7 +241,7 @@ class Course(models.Model):
         self.save()
         release = self.current_release()
         if release is None:
-            new_version = 1
+            new_version = 0
         else:
             new_version = release.version + 1
         new_release = CourseRelease.objects.create(version=new_version, course=self.history.latest())
@@ -264,6 +267,9 @@ class Course(models.Model):
         for facility_required in self.facilities_required.all():
             new_release.facilities_required.add(facility_required.history.latest())
 
+    def all_releases(self):
+        return CourseRelease.objects.filter(course__id=self.id)
+
     def current_release(self):
         """Gets the current APPROVED release"""
         try:
@@ -271,6 +277,14 @@ class Course(models.Model):
         except CourseRelease.DoesNotExist:
             release = None
         return release
+
+    def current_version(self):
+        if self.current_release():
+            v = self.current_release().version
+        else:
+            v = 0
+
+        return 'V{}'.format(v)
 
     def latest_release(self):
         """Gets the latest release whether it is approved or not"""
@@ -508,9 +522,21 @@ class CourseRelease(models.Model):
     topics = models.ManyToManyField('HistoricalTopic', related_name='releases')
     assessment_tasks = models.ManyToManyField('HistoricalAssessmentTask', related_name='releases')
     facilities_required = models.ManyToManyField('HistoricalFacilitiesRequired', related_name='releases')
+    _workflow_status = models.CharField(_('Workflow Status (Cached)'), max_length=200, null=True, blank=True)
+    workflow_instance_id = models.CharField(_('Workflow Instance ID'), max_length=200, null=True, blank=True)
     approved = models.NullBooleanField(_('Approved'), null=True, blank=True)
     approved_on = models.DateTimeField(_('Approved On'), null=True, blank=True)
-    approved_by = models.CharField(_('Approved By'), max_length=200, null=True, blank=True)
+    approved_by = models.ForeignKey(User, on_delete=models.PROTECT,
+                                    null=True, blank=True, verbose_name=_('Approved By'),
+                                    related_name='approved_courses', )
+    # TODO: meaningful names plz
+    # flag_1 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
+    # flag_2 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
+    # flag_3 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
+    # flag_4 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
+    # flag_5 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
+    # flag_6 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
+    # flag_7 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
 
     class Meta:
         unique_together = ('version', 'course')
@@ -525,6 +551,16 @@ class CourseRelease(models.Model):
         self.approved_on = timezone.now()
         self.save()
 
+    @property
+    def workflow_status(self):
+        # TODO: to be implemented by shaheed to fetch from Camunda API
+        return self._workflow_status or _('Pending')
+
+    @workflow_status.setter
+    def workflow_status(self, value):
+        # TODO: to be implemented by shaheed to fetch from Camunda API
+        self._workflow_status = value
+
 
 # May need the explicit 'through' model below to better control on_delete behavior
 # class CourseReleaseLearningObjective(models.Model):
@@ -533,3 +569,25 @@ class CourseRelease(models.Model):
 #                                        null=False, related_name='learning_objectives')
 #     learning_objective = models.ForeignKey(HistoricalLearningObjective, on_delete=models.PROTECT,
 #                                            null=False, related_name='releases')
+
+
+class ApprovalComments(models.Model):
+    class Sections:
+        # TODO: add the real sections
+        SECTION_1 = 'sec 1'
+
+        @classmethod
+        def choices(cls):
+            return (
+                (cls.SECTION_1, _('Section# 1'))
+            )
+
+    course_release = models.ForeignKey('CourseRelease', on_delete=models.CASCADE,
+                                       null=False, blank=False, verbose_name=_('course_release'),
+                                       related_name='approval_comments')
+    section = models.CharField(max_length=200)
+    comment = models.CharField(max_length=1000)
+    commented_by = models.ForeignKey(User, on_delete=models.PROTECT,
+                                     null=True, blank=True, verbose_name=_('Commenter'),
+                                     related_name='approval_comments', )
+    comment_date = models.DateTimeField(auto_now_add=True)

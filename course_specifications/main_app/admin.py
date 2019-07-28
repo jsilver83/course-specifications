@@ -45,8 +45,6 @@ class NewUserAdmin(UserAdminImpersonateMixin, UserAdmin):
     pass
 
 
-admin.site.unregister(User)
-admin.site.register(User, NewUserAdmin)
 # admin.site.register(LearningObjective, LearningObjectiveInlineAdmin)
 admin.site.register(LearningObjective, LearningObjectiveAdmin)
 admin.site.register(CourseLearningOutcome, CourseLearningOutcomeAdmin)

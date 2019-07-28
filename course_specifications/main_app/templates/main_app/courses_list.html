@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load course_filters %}
 
 {% block main_content %}
 	<div class="row">
@@ -8,8 +9,9 @@
 				<div class="card-body">
 					<div class="card-title mb-0 d-flex align-items-center">
 						<h5 class="mb-0 mr-auto">{% trans 'Courses List' %}</h5>
-						{% if can_create_course %}<a href="{% url 'main_app:new_course' %}" class="btn btn-sm btn-primary"><i class="fas fa-plus mr-1"></i>
-							<span>{% trans 'Create Course' %}</span></a>{% endif %}
+						{% if can_create_course %}
+							<a href="{% url 'main_app:new_course' %}" class="btn btn-sm btn-primary"><i class="fas fa-plus mr-1"></i>
+								<span>{% trans 'Create Course' %}</span></a>{% endif %}
 					</div>
 				</div>
 				{#				<div class="card-header d-flex align-items-center">#}
@@ -51,36 +53,84 @@
 						</thead>
 						<tbody>
 						{% for course in courses %}
-							<tr>
-							<td class="align-middle pr-0"><small class="text-muted"><i class="fas fa-caret-right mr-2"></i><b>V2</b></small></td>
-							<td scope="row" class="align-middle">
-								<p class="mb-0">
-									{{ course }}
-								</p>
-							</td>
-							<td class="align-middle">
-								<p class="mb-0">
-									{{ course.title }}
-								</p>
-							<td class="align-middle">
-								<p class="mb-0">
-									{{ course.total_credit_hours }} {% trans 'hrs' %}
-								</p>
-							</td>
-							<td class="align-middle">
-								<p class="mb-0">
-									<small>
-										{{ course.last_edit }}
-									</small>
-								</p>
-							</td>
-							<td class="status align-middle">
-								<span class="badge badge-primary text-badge mr-auto">APPROVED</span>
-							</td>
-							<td class="status align-middle text-right">
-								<a href="{% url 'main_app:update_course' course.pk %}" class="btn btn-sm"><i class="far fa-edit"></i></a>
-							</td>
-						</tr>
+							<tr class="">
+								<td class="align-middle text-right accordion-toggle" data-toggle="collapse" data-target="#demo{{ course.pk }}">
+									<small class="text-muted"><i class="fas fa-caret-right mr-2"></i><b>{{ course.current_version }}</b></small>
+								</td>
+								<td scope="row" class="align-middle">
+									<p class="mb-0">
+										{{ course }}
+									</p>
+								</td>
+								<td class="align-middle">
+									<p class="mb-0">
+										{{ course.title }}
+									</p>
+								</td>
+								<td class="align-middle">
+									<p class="mb-0">
+										{{ course.total_credit_hours }} {% trans 'hrs' %}
+									</p>
+								</td>
+								<td class="align-middle">
+									<p class="mb-0">
+										<small>
+											{{ course.last_edit }}
+										</small>
+									</p>
+								</td>
+								<td class="status align-middle">
+									<span class="badge badge-primary text-badge mr-auto">--</span>
+								</td>
+								<td class="align-middle text-right">
+									{% if course|can_be_edited:request.user %}<a href="{% url 'main_app:update_course' course.pk %}" class="btn btn-sm btn-outline-secondary"><i class="far fa-edit"></i> {% trans "Edit" %}</a>{% endif %} {% if course.current_release %}<a href="{% url 'main_app:view_course_release' course.current_release.pk %}" class="btn btn-sm btn-outline-secondary"><i class="fa fa-search-plus"></i> {% trans "View" %}</a>{% endif %}
+								</td>
+							</tr>
+							{% for release in course.all_releases %}
+								<tr class="hiddenRow accordian-body collapse version-row" id="demo{{ course.pk }}">
+									<td class="align-middle text-right">
+										<small class="text-muted"><b>V{{ release.version }}</b></small>
+									</td>
+									<td scope="row" class="align-middle course-code">
+										<p class="mb-0">
+											{{ release.course.instance }}
+										</p>
+									</td>
+									<td class="align-middle">
+										<p class="mb-0">
+											{{ release.course.title }}
+										</p>
+									</td>
+									<td class="align-middle">
+										<p class="mb-0">
+											{{ release.course.total_credit_hours }} {% trans 'hrs' %}
+										</p>
+									</td>
+									<td class="align-middle">
+										<p class="mb-0">
+											<small>
+												{{ release.course.history_date }}
+											</small>
+										</p>
+									</td>
+									{% if release.approved is not None %}
+										<td class="status align-middle">
+											<span class="badge badge-{% if release.approved %}primary{% else %}danger{% endif %} text-badge mr-auto">{{ release.approved|yesno:"Approved,Rejected,Pending" }}</span>
+										</td>
+										<td class="align-middle text-right">
+											<span class="badge badge-{% if release.approved %}primary{% else %}danger{% endif %} text-badge mr-auto"><small>{{ release.approved_on }}</small><br>{% trans "by" %} {{ release.approved_by }}</span>
+										</td>
+									{% else %}
+										<td class="status align-middle">
+											<span class="badge badge-warning text-badge mr-auto">{{ release.workflow_status }}</span>
+										</td>
+										<td class="align-middle text-right">
+											<span class="badge badge-warning text-badge mr-auto">{{ release.pending_with }}</span>
+										</td>
+									{% endif %}
+
+								</tr>
+							{% endfor %}
 						{% endfor %}
 					</table>
 				</div>
