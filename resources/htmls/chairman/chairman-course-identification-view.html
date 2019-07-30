@@ -148,187 +148,251 @@
 
                         <!-- Course identification -->
                         <div class="card" id="course-identification">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Course identification</h6>
-                                <div class="card-text">
-                                    <div class="">
-                                        <table class="view-table">
-                                            <tr>
-                                                <td><small class="text-muted">Course code</small></td>
-                                                <td>ARC 101</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Course title</small></td>
-                                                <td>Theory of Architecture I</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Location</small></td>
-                                                <td>Main campus</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Credit hours</small></td>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <p class="mb-0 mr-3">Lecture</p>
-                                                            <p class="mb-0 font-weight-bold">3</p>
-                                                        </div>
-                                                        <div>
-                                                            <p class="mb-0 mr-3">Lab</p>
-                                                            <p class="mb-0 font-weight-bold">4</p>
-                                                        </div>
-                                                        <div>
-                                                            <p class="mb-0 mr-3">Total</p>
-                                                            <p class="mb-0 font-weight-bold">4</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
+                            <div class="row align-items-stretch">
+                                <div class="col-md-7 col-12 pr-md-0">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Course identification</h6>
+                                        <div class="card-text">
+                                            <div class="">
+                                                <table class="view-table">
+                                                    <tr>
+                                                        <td><small class="text-muted">Course code</small></td>
+                                                        <td>ARC 101</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Course title</small></td>
+                                                        <td>Theory of Architecture I</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Location</small></td>
+                                                        <td>Main campus</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Credit hours</small></td>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <div>
+                                                                    <p class="mb-0 mr-3">Lecture</p>
+                                                                    <p class="mb-0 font-weight-bold">3</p>
+                                                                </div>
+                                                                <div>
+                                                                    <p class="mb-0 mr-3">Lab</p>
+                                                                    <p class="mb-0 font-weight-bold">4</p>
+                                                                </div>
+                                                                <div>
+                                                                    <p class="mb-0 mr-3">Total</p>
+                                                                    <p class="mb-0 font-weight-bold">4</p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Action section -->
-                            <div class="card-footer action-section d-flex justify-content-center text-center">
-                                <div class="comment-section">
-                                    <label class="btn btn-outline-danger comment-btn">
-                                        <input type="checkbox" name="checkbox" class="d-none"/>
-                                        <i class="fas fa-comment-dots"></i><span>Return with Comments</span>
-                                    </label>
-                                    <div class="comments">
-                                        <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                <!-- Action section -->
+                                <div class="col-md-5 col-12 pl-md-0">
+                                    <div class="card-footer action-section p-3 h-100">
+                                        <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+                                            <span class="mr-auto">Comments if any</span>
+                                            <a href="#" class="small text-muted">View all</a>
+                                        </h6>
+                                        <div class="chat-view">
+                                            <div class="chat-badge">
+                                                <span>No Comments</span>
+                                            </div>
+                                            <div class="chat">
+                                                <h6>You</h6>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                <div class="d-flex chat-footer text-muted">
+                                                    <div class="time mr-auto">Committee</div>
+                                                    <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat-textarea">
+                                            <div class="d-flex">
+                                                <div class="mr-auto"></div>
+                                                <div class="send-btn">
+                                                    <button class="btn btn-sm">Send</button>
+                                                </div>
+                                            </div>
+                                            <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="check-section">
-                                    <label class="btn btn-outline-primary check-btn">
-                                        <input type="checkbox" name="checkbox" checked="" class="d-none" />
-                                        <i class="fas fa-check"></i>
-                                    </label>
-                                </div>
-                                <button class="btn btn-sm undo-btn" type="button">Undo</button>
+                                <!-- /Action section -->
                             </div>
-                            <!-- /Action section -->
                         </div>
                         <!-- /Course identification -->
 
                         <!-- Requisites for this course -->
                         <div class="card" id="requisites-course">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Requisites for this course</h6>
-                                <div class="card-text">
-                                    <div class="">
-                                        <table class="view-table">
-                                            <tr>
-                                                <td><small class="text-muted">Pre-requisites for this course</small></td>
-                                                <td>ARC 101</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Co-requisites for this course</small></td>
-                                                <td>ARC 101</td>
-                                            </tr>
-                                        </table>
+                            <div class="row align-items-stretch">
+                                <div class="col-md-7 col-12 pr-md-0">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Requisites for this course</h6>
+                                        <div class="card-text">
+                                            <div class="">
+                                                <table class="view-table">
+                                                    <tr>
+                                                        <td><small class="text-muted">Pre-requisites for this course</small></td>
+                                                        <td>ARC 101</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Co-requisites for this course</small></td>
+                                                        <td>ARC 101</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             <!-- Action section -->
-                            <div class="card-footer action-section d-flex justify-content-center text-center">
-                                <div class="comment-section">
-                                    <label class="btn btn-outline-danger comment-btn">
-                                        <input type="checkbox" name="checkbox" checked="" class="d-none" />
-                                        <i class="fas fa-comment-dots"></i><span>Return with Comments</span>
-                                    </label>
-                                    <div class="comments">
-                                        <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                <div class="col-md-5 col-12 pl-md-0">
+                                    <div class="card-footer action-section p-3 h-100">
+                                        <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+                                            <span class="mr-auto">Comments if any</span>
+                                            <a href="#" class="small text-muted">View all</a>
+                                        </h6>
+                                        <div class="chat-view">
+                                            <div class="chat-badge new-chat">
+                                                <i class="fas fa-comment mr-1 icon"></i><span>Your comment(s)</span>
+                                            </div>
+                                            <div class="chat">
+                                                <h6>You</h6>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                <div class="d-flex chat-footer text-muted">
+                                                    <div class="time mr-auto">Committee</div>
+                                                    <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat-textarea">
+                                            <div class="d-flex">
+                                                <div class="mr-auto"></div>
+                                                <div class="send-btn">
+                                                    <button class="btn btn-sm">Send</button>
+                                                </div>
+                                            </div>
+                                            <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="check-section">
-                                    <label class="btn btn-outline-primary check-btn">
-                                        <input type="checkbox" name="checkbox" class="d-none" />
-                                        <i class="fas fa-check"></i>
-                                    </label>
-                                </div>
-                                <button class="btn btn-sm undo-btn" type="button">Undo</button>
-                            </div>
                             <!-- /Action section -->
+                            </div>
                         </div>
                         <!-- /Course identification -->
 
                         <!-- Mode of instruction -->
                         <div class="card" id="mode-instruction">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Mode of instruction</h6>
-                                <div class="card-text">
-                                    <div class="">
-                                        <table class="view-table">
-                                            <tr>
-                                                <td><small class="text-muted">In class <br>(face to face)</small></td>
-                                                <td>50% <span class="text-muted">/ 100%</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <small class="text-muted">Comments</small>
-                                                    <br>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                                                </td>
-                                            </tr>
-                                        </table>
+                            <div class="row align-items-stretch">
+                                <div class="col-md-7 col-12 pr-md-0">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Mode of instruction</h6>
+                                        <div class="card-text">
+                                            <div class="">
+                                                <table class="view-table">
+                                                    <tr>
+                                                        <td><small class="text-muted">In class <br>(face to face)</small></td>
+                                                        <td>50% <span class="text-muted">/ 100%</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <small class="text-muted">Comments</small>
+                                                            <br>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             <!-- Action section -->
-                            <div class="card-footer action-section d-flex justify-content-center text-center">
-                                <div class="comment-section">
-                                    <label class="btn btn-outline-danger comment-btn">
-                                        <input type="checkbox" name="checkbox" checked="" class="d-none" />
-                                        <i class="fas fa-comment-dots"></i><span>Return with Comments</span>
-                                    </label>
-                                    <div class="comments">
-                                        <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                <div class="col-md-5 col-12 pl-md-0">
+                                    <div class="card-footer action-section p-3 h-100">
+                                        <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+                                            <span class="mr-auto">Comments if any</span>
+                                            <a href="#" class="small text-muted">View all</a>
+                                        </h6>
+                                        <div class="chat-view">
+                                            <div class="chat-badge new-chat">
+                                                <i class="fas fa-comment mr-1 icon"></i><span>Your comment(s)</span>
+                                            </div>
+                                            <div class="chat friend">
+                                                <h6>Mohammed Abdullah</h6>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                <div class="d-flex chat-footer text-muted">
+                                                    <div class="time mr-auto">Reviewer</div>
+                                                    <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat-textarea">
+                                            <div class="d-flex">
+                                                <div class="mr-auto"></div>
+                                                <div class="send-btn">
+                                                    <button class="btn btn-sm">Send</button>
+                                                </div>
+                                            </div>
+                                            <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="check-section">
-                                    <label class="btn btn-outline-primary check-btn">
-                                        <input type="checkbox" name="checkbox" class="d-none" />
-                                        <i class="fas fa-check"></i>
-                                    </label>
-                                </div>
-                                <button class="btn btn-sm undo-btn" type="button">Undo</button>
-                            </div>
                             <!-- /Action section -->
+                            </div>
                         </div>
                         <!-- /Course identification -->
 
 
                         <!-- Office hours -->
                         <div class="card" id="office-hours">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Office hours</h6>
-                                <div class="card-text">
-                                    <div class="">
-                                        <p class="h5 plain-content">3 hrs</p>
+                            <div class="row align-items-stretch">
+                                <div class="col-md-7 col-12 pr-md-0">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Office hours</h6>
+                                        <div class="card-text">
+                                            <div class="">
+                                                <p class="h5 plain-content">3 hrs</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             <!-- Action section -->
-                            <div class="card-footer action-section d-flex justify-content-center text-center">
-                                <div class="comment-section">
-                                    <label class="btn btn-outline-danger comment-btn">
-                                        <input type="checkbox" name="checkbox" class="d-none" />
-                                        <i class="fas fa-comment-dots"></i><span>Return with Comments</span>
-                                    </label>
-                                    <div class="comments">
-                                        <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                <div class="col-md-5 col-12 pl-md-0">
+                                    <div class="card-footer action-section p-3 h-100">
+                                        <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+                                            <span class="mr-auto">Comments if any</span>
+                                            <a href="#" class="small text-muted">View all</a>
+                                        </h6>
+                                        <div class="chat-view">
+                                            <div class="chat-badge unread-chat">
+                                                <i class="fas fa-comment mr-1 icon"></i><span>Unread comment(s)</span>
+                                            </div>
+                                            <div class="chat friend">
+                                                <h6>Mohammed Abdullah</h6>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                <div class="d-flex chat-footer text-muted">
+                                                    <div class="time mr-auto">Reviewer</div>
+                                                    <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat-textarea">
+                                            <div class="d-flex">
+                                                <div class="mr-auto"></div>
+                                                <div class="send-btn">
+                                                    <button class="btn btn-sm">Send</button>
+                                                </div>
+                                            </div>
+                                            <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="check-section">
-                                    <label class="btn btn-outline-primary check-btn">
-                                        <input type="checkbox" name="checkbox" checked="" class="d-none" />
-                                        <i class="fas fa-check"></i>
-                                    </label>
-                                </div>
-                                <button class="btn btn-sm undo-btn" type="button">Undo</button>
-                            </div>
                             <!-- /Action section -->
+                            </div>
                         </div>
                         <!-- /Course identification -->
 
@@ -337,9 +401,9 @@
                     
                     
                     <script>
-                        $(function() {
-                            $("#touchScroller").smoothTouchScroll({ continuousScrolling: false });
-                        });
+                        // $(function() {
+                        //     $("#touchScroller").smoothTouchScroll({ continuousScrolling: false });
+                        // });
                     </script>
 
 

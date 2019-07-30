@@ -150,9 +150,9 @@ $(document).ready(function($) {
     });
 
 
-    $(function() {
-        $("#touchScroller").smoothTouchScroll({ continuousScrolling: false });
-    });
+    // $(function() {
+    //     $("#touchScroller").smoothTouchScroll({ continuousScrolling: false });
+    // });
 
     //Checklist submenu dropdown
     $('body').on( "click", '.checklist-menu > .has-sub-menu .drop-btn', function() {

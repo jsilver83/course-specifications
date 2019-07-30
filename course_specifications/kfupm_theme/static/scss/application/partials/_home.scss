@@ -416,12 +416,13 @@
     position: relative;
     font-size: 14px;
     line-height: 22px;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    display: inline-block;
 
-    .scrollableArea .card{
+    .card{
 	    position: relative;
 	    float: left;
-	    margin: 0 24px 0 0;
+	    margin-bottom: 32px;
 	    border: none;
 	    border-radius: 12px;
 	    -webkit-user-select: none;
@@ -431,8 +432,9 @@
 	    user-select: none;
 	    @include box-shadow(0, 8px, 12px, rgba(0, 0, 0, 0.04));
 	    overflow: hidden;
-	    width: 26em;
-	    height: calc(100% - 32px);
+	    width: 100%;
+	    /*height: calc(100% - 32px);*/
+        min-height: 280px;
 
 	    &.large-card{
     	    width: 55em;
@@ -442,14 +444,14 @@
     	    margin:0;
 	    }
 
+		.card-subtitle{
+			font-size: 14px;
+		    font-weight: 600 !important;
+		    color: #000000;
+		}
 	    .card-body{
     	    /*height: auto;*/
 
-    		.card-subtitle{
-    			font-size: 14px;
-			    font-weight: 600 !important;
-			    color: #000000;
-    		}
 
 	    	.card-text {
 			    /*height: calc(100% - 32px);*/
@@ -468,7 +470,7 @@
 
 	    .card-footer{
 	    	border: none;
-	    	background-color: rgba(237,237,237,0.3);
+	    	background-color: rgba(237,237,237,0.45);
 	    	margin-top: 0;
     	    padding-top: 24px;
     		padding-bottom: 24px;
@@ -772,6 +774,164 @@
 		display: inline-block !important;
 	}
 }
+
+.chat-view {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+	.chat-badge {
+	    width: 100%;
+	    margin: 4px 0;
+	    padding: 3px;
+	    font-size: 12px;
+	    font-weight: 400;
+	    text-transform: initial;
+	    text-align: center;
+	    background-color: rgba(0,0,0,0.04);
+	    border-radius: 4px;
+        font-style: italic;
+    	color: #a0a0a0;
+
+    		.icon{
+			    font-size: 13px;
+			    margin-right: 6px;
+    		}
+
+		&.new-chat, &.unread-chat{
+    		font-style: normal;
+    		font-weight: 400;
+		}
+    	&.new-chat{
+    		background-color: rgba(220, 196, 143, 0.15);
+    		color: rgba(129, 109, 65 ,0.5);
+
+    		.icon{
+			    color: #DCC48F;
+    		}
+    	}
+    	&.unread-chat{
+    		background-color: rgba(202, 82, 86, 0.05);
+    		color: rgba(202, 82, 86 ,0.5);
+
+    		.icon{
+			    color: rgba(202, 82, 86 ,0.5);
+
+			    &:before{
+			    	content:"\f086";
+			    }
+    		}
+    	}
+	}
+
+	.chat{
+		font-size: 13px;
+	    line-height: 20px;
+	    padding: 8px 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+	    background-color: rgba(0, 0, 0, 0.04);
+	    border: solid 1px rgba(0,0,0,0.02);
+	    border-radius: 12px 12px 0 12px;
+	    max-width: 280px;
+	    margin: 8px 0;
+	    position: relative;
+	    float: right;
+
+	    &:after {
+	    	width: 0;
+		    height: 0;
+		    border-top: 15px solid transparent;
+		    border-left: 10px solid #ededed;
+		    content: "";
+		    position: absolute;
+		    right: -10px;
+		    bottom: -1px;
+		}
+
+	    h6{
+	    	font-size: 14px;
+	    	font-weight: 600;
+		    line-height: 24px;
+	    	margin: 0;
+	    }
+	    p{
+	    	margin-bottom: 4px;
+	    }
+		.chat-footer {
+		    font-size: 11px;
+		}
+
+		&.friend{
+			float: left;
+	    	border-color: #FFFFFF;
+	    	background-color: #FDFDFD;
+    		border-radius: 12px 12px 12px 0;
+
+	    	&:after{
+	    		right: auto;
+	    		left: -10px;
+	    		border-left: none;
+	    		border-right: solid 10px #FDFDFD;
+	    	}
+		}
+	}
+
+}
+
+.chat-textarea {
+    padding: 0px 15px 12px 15px;
+    border-top: solid 1px rgba(255, 255, 255, 1);
+    margin: 16px -15px -15px -15px;
+    background-color: rgba(255, 255, 255, 0.3);
+
+    textarea{
+		font-size: 13px;
+		min-height: 70px;
+	    border-color: #f3f3f3;
+	}
+	.send-btn {
+		position: relative;
+		opacity: 0.3;
+
+		&:before {
+		    content: "";
+		    position: absolute;
+		    left: 0;
+		    right: 0;
+		    top: 0;
+		    bottom: 0;
+		    z-index: 999;
+	        background-color: transparent;
+		}
+
+		button{
+		    background-color: transparent;
+		    margin: 0;
+		    font-size: 13px;
+		    line-height: 20px;
+		    text-transform: uppercase;
+		    font-weight: 600;
+    		padding: 4px 0;
+	    }
+
+	    &.active{
+	    	opacity: 1;
+
+	    	button{
+	    		color: #DCC48F;
+
+	    		&:hover{
+	    			color: #AD935A;
+	    		}
+	    	}
+
+	    	&:before{
+	    		display: none;
+	    	}
+	    }
+	}
+}
+
 
 .chairman-review-checklist{
 	overflow: inherit;
