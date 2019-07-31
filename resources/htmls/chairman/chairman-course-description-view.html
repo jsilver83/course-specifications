@@ -48,7 +48,7 @@
         <div class="side-checklist side-nav">
             <h6>Checklist</h6>
             <ul class="checklist-menu nav flex-column">
-                <li class="has-sub-menu">
+                <li class="has-sub-menu open">
                     <span class="d-flex">
                         <a href="course-identification-form.html" class="mr-auto"><i class="far fa-circle check-icon"></i> <span>Course identification and general information</span></a>
                         <i class="fas fa-sort-down drop-btn"></i>
@@ -95,7 +95,7 @@
                     </ul>
 
                 </li>
-                <li class="has-sub-menu">
+                <li class="has-sub-menu open">
                     <span class="d-flex">
                         <a href="course-contents-form.html" class="mr-auto"><i class="far fa-circle check-icon"></i> <span>Course contents</span></a>
                         <i class="fas fa-sort-down drop-btn"></i>
@@ -120,7 +120,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="assessment-tasks-form.html" class="completed with-comments"><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
+                <li><a href="assessment-tasks-form.html" class="completed"><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
                 <li><a href="learning-resources-form.html"><i class="far fa-circle check-icon"></i> <span>Learning resources</span></a></li>
                 <li><a href="course-evaluation-form.html"><i class="far fa-circle check-icon"></i> <span>Course evaluation</span></a></li>
                 <li class="completed"><a href="accreditation-requirements-form.html"><i class="fas fa-check-circle check-icon"></i> <span>Accreditation requirements</span></a></li>
@@ -136,7 +136,6 @@
                             </div>
                             <div class="pt-2 border-top d-flex align-items-center">
                                 <h5 class="mb-0 mr-auto">Course Description, Objectives & Learning Outcomes</h6>
-                                <button class="btn btn-link d-flex align-items-center text-decoration-none check-all" type="button"><i class="far fa-check-circle mr-1 h5 mb-0"></i> <span>Check all</span><span class="d-none">Uncheck all</span></button>
                             </div>
                         </div>
                     </div>
@@ -147,268 +146,256 @@
 
                         <!-- Catalog course description -->
                         <div class="card" id="catalog-course-description">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Catalog course description</h6>
-                                <div class="card-text">
-                                    <div class="">
-                                        <p class="plain-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                            <div class="row">
+                                <div class="col-md-7 col-12 pr-md-0">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Catalog course description</h6>
+                                        <div class="card-text">
+                                            <div class="">
+                                                <p class="plain-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Action section -->
-                            <div class="card-footer text-center">
-                                <div class="d-flex action-section justify-content-center">
-                                    <div class="comment-section">
-                                        <label class="btn btn-outline-danger comment-btn">
-                                            <input type="checkbox" name="checkbox" class="d-none"/>
-                                            <i class="fas fa-comment-dots"></i><span>Return with Comments</span>
-                                        </label>
-                                        <div class="comments">
+                                <!-- Action section -->
+                                <div class="col-md-5 col-12 pl-md-0">
+                                    <div class="card-footer action-section p-3 h-100 d-flex flex-column">
+                                        <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+                                            <span class="mr-auto">Comments if any</span>
+                                            <button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal" data-target="#catalog-course-description-comments">View all</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="catalog-course-description-comments" tabindex="-1" role="dialog" aria-labelledby="catalog-course-description-comments" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title">All Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body bg-light">
+                                                        <div class="chat-view">
+                                                            <div class="chat-badge">
+                                                                <span>No Comments</span>
+                                                            </div>
+                                                        </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- /Modal -->
+                                        </h6>
+                                        <div class="chat-view">
+                                            <div class="chat-badge">
+                                                <span>No Comments</span>
+                                            </div>
+                                        </div>
+                                        <div class="chat-textarea mt-auto">
+                                            <div class="d-flex">
+                                                <div class="mr-auto"></div>
+                                                <div class="send-btn">
+                                                    <button class="btn btn-sm">Send</button>
+                                                </div>
+                                            </div>
                                             <textarea class="form-control" placeholder="Enter your comments"></textarea>
                                         </div>
                                     </div>
-                                    <div class="check-section">
-                                        <label class="btn btn-outline-primary check-btn">
-                                            <input type="checkbox" name="checkbox" checked="" class="d-none" />
-                                            <i class="fas fa-check"></i>
-                                        </label>
-                                    </div>
-                                    <button class="btn btn-sm cap-btn undo-btn" type="button">Undo</button>
                                 </div>
-                                <div class="d-block border-top pt-2 mt-3 text-center comments-histroy-section">
-                                    <button class="btn btn-sm comments-history-btn btn-light" type="button" data-toggle="modal" data-target="#catalog-course-description-comments">Comments histroy</button>
-                                </div>
-                                <!-- Add CLO Modal -->
-                                <div class="modal fade has-increment-val" id="catalog-course-description-comments" tabindex="-1" role="dialog" aria-labelledby="catalog-course-description-comments" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title">Comments history</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-12 text-left">
-                                                    <ul class="comments-list">
-                                                        <li class="pb-2 mb-3">
-                                                            <h6><small>26-08-2019 | 08:00 PM</small></h6>
-                                                            <p class="mb-0">Dolar sit amend ipsum. Lorem ipsum dolar sit amend. </p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- /Add CLO Modal -->
+                                <!-- /Action section -->
                             </div>
-                            <!-- /Action section -->
                         </div>
                         <!-- /Catalog course description -->
 
                         <!-- Main objectives of this course -->
                         <div class="card" id="main-objectives">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Main objectives of this course</h6>
-                                <div class="card-text">
-                                    <div class="">
-                                        <ol class="view-list numbered">
-                                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                            <li>Ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                        </ol>
+                            <div class="row">
+                                <div class="col-md-7 col-12 pr-md-0">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Main objectives of this course</h6>
+                                        <div class="card-text">
+                                            <div class="">
+                                                <ol class="view-list numbered">
+                                                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                                    <li>Ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                                </ol>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Action section -->
-                            <div class="card-footer text-center">
-                                <div class="d-flex action-section justify-content-center">
-                                    <div class="comment-section">
-                                        <label class="btn btn-outline-danger comment-btn">
-                                            <input type="checkbox" name="checkbox" checked="" class="d-none" />
-                                            <i class="fas fa-comment-dots"></i><span>Return with Comments</span>
-                                        </label>
-                                        <div class="comments">
+                                <!-- Action section -->
+                                <div class="col-md-5 col-12 pl-md-0">
+                                    <div class="card-footer action-section p-3 h-100 d-flex flex-column">
+                                        <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+                                            <span class="mr-auto">Comments if any</span>
+                                            <button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal" data-target="#catalog-course-description-comments">View all</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="main-objectives-comments" tabindex="-1" role="dialog" aria-labelledby="main-objectives-comments" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title">All Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body bg-light">
+                                                        <div class="chat-view">
+                                                            <div class="chat-badge">
+                                                                <span>No Comments</span>
+                                                            </div>
+                                                        </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- /Modal -->
+                                        </h6>
+                                        <div class="chat-view">
+                                            <div class="chat-badge">
+                                                <span>No Comments</span>
+                                            </div>
+                                        </div>
+                                        <div class="chat-textarea mt-auto">
+                                            <div class="d-flex">
+                                                <div class="mr-auto"></div>
+                                                <div class="send-btn">
+                                                    <button class="btn btn-sm">Send</button>
+                                                </div>
+                                            </div>
                                             <textarea class="form-control" placeholder="Enter your comments"></textarea>
                                         </div>
                                     </div>
-                                    <div class="check-section">
-                                        <label class="btn btn-outline-primary check-btn">
-                                            <input type="checkbox" name="checkbox" class="d-none" />
-                                            <i class="fas fa-check"></i>
-                                        </label>
-                                    </div>
-                                    <button class="btn btn-sm  cap-btn undo-btn" type="button">Undo</button>
                                 </div>
-                                <div class="d-block border-top pt-2 mt-3 text-center comments-histroy-section">
-                                    <button class="btn btn-sm comments-history-btn btn-light" type="button" data-toggle="modal" data-target="#main-objectives-comments">Comments histroy</button>
-                                </div>
-                                <!-- Add CLO Modal -->
-                                <div class="modal fade has-increment-val" id="main-objectives-comments" tabindex="-1" role="dialog" aria-labelledby="main-objectives-comments" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title">Comments history</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-12 text-left">
-                                                    <ul class="comments-list">
-                                                        <li class="pb-2 mb-3">
-                                                            <h6><small>26-08-2019 | 08:00 PM</small></h6>
-                                                            <p class="mb-0">Lorem ipsum dolar sit amend. ipsum dolar sit amend.</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- /Add CLO Modal -->
+                                <!-- /Action section -->
                             </div>
-                            <!-- /Action section -->
                         </div>
                         <!-- /Main objectives of this course -->
 
                         <!-- Course-level Student Learning Outcomes -->
                         <div class="card" id="learning-outcomes">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Course-level Student Learning Outcomes</h6>
-                                <div class="card-text">
-                                    <div class="">
-                                        <table class="view-table group-table numbered">
-                                            <tr class="header">
-                                                <td><small class="text-muted">CLO Category</small></td>
-                                                <td>Knowledge</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Outcome</small></td>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">PLO’s code</small></td>
-                                                <td>123342</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Teaching strategy</small></td>
-                                                <td>consectetur adipiscing elit.</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Assessment method</small></td>
-                                                <td>Lorem ipsum dolor sit amet.</td>
-                                            </tr>
-                                        </table>
-                                        <table class="view-table group-table numbered">
-                                            <tr class="header">
-                                                <td><small class="text-muted">CLO Category</small></td>
-                                                <td>Knowledge</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Outcome</small></td>
-                                                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">PLO’s code</small></td>
-                                                <td>123342</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Teaching strategy</small></td>
-                                                <td>consectetur adipiscing elit.</td>
-                                            </tr>
-                                            <tr>
-                                                <td><small class="text-muted">Assessment method</small></td>
-                                                <td>Lorem ipsum dolor sit amet.</td>
-                                            </tr>
-                                        </table>
+                            <div class="row">
+                                <div class="col-md-7 col-12 pr-md-0">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Course-level Student Learning Outcomes</h6>
+                                        <div class="card-text">
+                                            <div class="">
+                                                <table class="view-table group-table numbered">
+                                                    <tr class="header">
+                                                        <td><small class="text-muted">CLO Category</small></td>
+                                                        <td>Knowledge</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Outcome</small></td>
+                                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">PLO’s code</small></td>
+                                                        <td>123342</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Teaching strategy</small></td>
+                                                        <td>consectetur adipiscing elit.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Assessment method</small></td>
+                                                        <td>Lorem ipsum dolor sit amet.</td>
+                                                    </tr>
+                                                </table>
+                                                <table class="view-table group-table numbered">
+                                                    <tr class="header">
+                                                        <td><small class="text-muted">CLO Category</small></td>
+                                                        <td>Knowledge</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Outcome</small></td>
+                                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">PLO’s code</small></td>
+                                                        <td>123342</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Teaching strategy</small></td>
+                                                        <td>consectetur adipiscing elit.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><small class="text-muted">Assessment method</small></td>
+                                                        <td>Lorem ipsum dolor sit amet.</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Action section -->
-                            <div class="card-footer text-center">
-                                <div class="d-flex action-section justify-content-center">
-                                    <div class="comment-section">
-                                        <label class="btn btn-outline-danger comment-btn">
-                                            <input type="checkbox" name="checkbox" checked="" class="d-none" />
-                                            <i class="fas fa-comment-dots"></i><span>Return with Comments</span>
-                                        </label>
-                                        <div class="comments">
+                                <!-- Action section -->
+                                <div class="col-md-5 col-12 pl-md-0">
+                                    <div class="card-footer action-section p-3 h-100 d-flex flex-column">
+                                        <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+                                            <span class="mr-auto">Comments if any</span>
+                                            <button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal" data-target="#learning-outcomes-comments">View all</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="learning-outcomes-comments" tabindex="-1" role="dialog" aria-labelledby="learning-outcomes-comments" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title">All Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body bg-light">
+                                                        <div class="chat-view">
+                                                            <div class="chat-badge">
+                                                                <span>No Comments</span>
+                                                            </div>
+                                                        </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- /Modal -->
+                                        </h6>
+                                        <div class="chat-view">
+                                            <div class="chat-badge">
+                                                <span>No Comments</span>
+                                            </div>
+                                        </div>
+                                        <div class="chat-textarea mt-auto">
+                                            <div class="d-flex">
+                                                <div class="mr-auto"></div>
+                                                <div class="send-btn">
+                                                    <button class="btn btn-sm">Send</button>
+                                                </div>
+                                            </div>
                                             <textarea class="form-control" placeholder="Enter your comments"></textarea>
                                         </div>
                                     </div>
-                                    <div class="check-section">
-                                        <label class="btn btn-outline-primary check-btn">
-                                            <input type="checkbox" name="checkbox" class="d-none" />
-                                            <i class="fas fa-check"></i>
-                                        </label>
-                                    </div>
-                                    <button class="btn btn-sm  cap-btn undo-btn" type="button">Undo</button>
                                 </div>
-                                <div class="d-block border-top pt-2 mt-3 text-center comments-histroy-section">
-                                    <button class="btn btn-sm comments-history-btn btn-light" type="button" data-toggle="modal" data-target="#learning-outcomes-comments">Comments histroy</button>
-                                </div>
-                                <!-- Add CLO Modal -->
-                                <div class="modal fade has-increment-val" id="learning-outcomes-comments" tabindex="-1" role="dialog" aria-labelledby="learning-outcomes-comments" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title">Comments history</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-12 text-left">
-                                                    <ul class="comments-list">
-                                                        <li class="pb-2 mb-3">
-                                                            <h6><small>26-08-2019 | 08:00 PM</small></h6>
-                                                            <p class="mb-0">Ipsum dolar sit amend. Lorem ipsum dolar sit amend. </p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- /Add CLO Modal -->
+                                <!-- /Action section -->
                             </div>
-                            <!-- /Action section -->
                         </div>
                         <!-- /Course identification -->
 
                     </div>
-                    
-                    
-                    <script>
-                        $(function() {
-                            $("#touchScroller").smoothTouchScroll({ continuousScrolling: false });
-                        });
-                    </script>
-
 
                     <!--Form Button -->
                     <div class="btn-row row">
                         <div class="col-sm-6 col-12">
                         </div>
                         <div class="col-sm-6 col-12 text-right">
-                            <button class="btn btn-warning mr-3">Save</button>
-                            <button class="btn btn-primary">Save & Continue <small class="fas fa-chevron-right ml-1"></small></button>
+                            <button class="btn btn-warning">Save & Continue <small class="fas fa-chevron-right ml-1"></small></button>
                         </div>
                     </div>
                     <!--/Form Button -->

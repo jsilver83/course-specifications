@@ -9884,18 +9884,18 @@ small, .small {
 }
 .side-nav-layout .side-checklist .checklist-menu .sub-menu > li a {
   position: relative;
-  padding: 4px 8px 4px 24px;
+  padding: 4px 8px 4px 18px;
   color: #545454;
   font-weight: 400;
 }
 .side-nav-layout .side-checklist .checklist-menu .sub-menu > li a:before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
-  content: "\f00c";
+  content: "\f061";
   position: absolute;
-  left: 4px;
+  left: 2px;
   top: 6px;
-  font-size: 12px;
+  font-size: 10px;
   color: #D4D4D4;
 }
 .side-nav-layout .side-checklist .checklist-menu .sub-menu > li a.completed:before {
@@ -9909,6 +9909,32 @@ small, .small {
 }
 .side-nav-layout .side-checklist .checklist-menu .has-sub-menu.open .sub-menu {
   display: block;
+}
+.side-nav-layout .side-checklist .checklist-menu .new-comment {
+  padding-right: 24px !important;
+}
+.side-nav-layout .side-checklist .checklist-menu .new-comment:after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: "\f075";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  margin-top: -10px;
+  color: #DCC48F;
+}
+.side-nav-layout .side-checklist .checklist-menu .unread-comment {
+  padding-right: 24px !important;
+}
+.side-nav-layout .side-checklist .checklist-menu .unread-comment:after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: "\f086";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  margin-top: -10px;
+  color: rgba(202, 82, 86, 0.7);
 }
 .side-nav-layout .content-section {
   padding-left: calc(220px + 24px);
@@ -10130,8 +10156,8 @@ small, .small {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.04) ;
   overflow: hidden;
   width: 100%;
-  /*height: calc(100% - 32px);*/
-  min-height: 280px;
+  	    /*height: calc(100% - 32px);
+          min-height: 280px;*/
 }
 #touchScroller .card.large-card {
   width: 55em;
@@ -10144,6 +10170,7 @@ small, .small {
   font-size: 14px;
   font-weight: 600 !important;
   color: #000000;
+  line-height: 22px;
 }
 #touchScroller .card .card-body {
   /*height: auto;*/
@@ -10396,16 +10423,17 @@ small, .small {
 }
 .chat-view .chat-badge {
   width: 100%;
-  margin: 4px 0;
+  margin: 8px 0 4px 0;
   padding: 3px;
   font-size: 12px;
   font-weight: 400;
   text-transform: initial;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: rgba(0, 0, 0, 0.03);
   border-radius: 4px;
   font-style: italic;
   color: #a0a0a0;
+  clear: both;
 }
 .chat-view .chat-badge .icon {
   font-size: 13px;
@@ -10433,6 +10461,11 @@ small, .small {
   content: "\f086";
 }
 .chat-view .chat {
+  margin: 8px 0 4px 0;
+  display: inline-block;
+  width: 100%;
+}
+.chat-view .chat .chat-card {
   font-size: 13px;
   line-height: 20px;
   padding: 8px 12px;
@@ -10441,11 +10474,11 @@ small, .small {
   border: solid 1px rgba(0, 0, 0, 0.02);
   border-radius: 12px 12px 0 12px;
   max-width: 280px;
-  margin: 8px 0;
   position: relative;
   float: right;
+  clear: both;
 }
-.chat-view .chat:after {
+.chat-view .chat .chat-card:after {
   width: 0;
   height: 0;
   border-top: 15px solid transparent;
@@ -10454,6 +10487,18 @@ small, .small {
   position: absolute;
   right: -10px;
   bottom: -1px;
+}
+.chat-view .chat .chat-card.friend {
+  float: left;
+  border-color: #FFFFFF;
+  background-color: #FDFDFD;
+  border-radius: 12px 12px 12px 0;
+}
+.chat-view .chat .chat-card.friend:after {
+  right: auto;
+  left: -10px;
+  border-left: none;
+  border-right: solid 10px #FDFDFD;
 }
 .chat-view .chat h6 {
   font-size: 14px;
@@ -10466,18 +10511,6 @@ small, .small {
 }
 .chat-view .chat .chat-footer {
   font-size: 11px;
-}
-.chat-view .chat.friend {
-  float: left;
-  border-color: #FFFFFF;
-  background-color: #FDFDFD;
-  border-radius: 12px 12px 12px 0;
-}
-.chat-view .chat.friend:after {
-  right: auto;
-  left: -10px;
-  border-left: none;
-  border-right: solid 10px #FDFDFD;
 }
 
 .chat-textarea {

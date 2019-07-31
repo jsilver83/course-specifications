@@ -150,9 +150,9 @@ $(document).ready(function($) {
     });
 
 
-    $(function() {
-        $("#touchScroller").smoothTouchScroll({ continuousScrolling: false });
-    });
+    // $(function() {
+    //     $("#touchScroller").smoothTouchScroll({ continuousScrolling: false });
+    // });
 
     //Checklist submenu dropdown
     $('body').on( "click", '.checklist-menu > .has-sub-menu .drop-btn', function() {
@@ -169,9 +169,9 @@ $(document).ready(function($) {
         var h_chariman_view_layout = $('.chariman-view-layout').outerHeight() - 32;
         $('#touchScroller').css('height', h_chariman_view_layout - h_course_title - h_btn_row + "px");
     }
-    touchscroll_height();
+    //touchscroll_height();
     $( window ).resize(function() {
-        touchscroll_height();
+        //touchscroll_height();
     });
     $('#touchScroller .card-body').css('overflow-y', 'auto');
 
@@ -262,6 +262,6 @@ $(document).ready(function($) {
         }
     });
 
-    menu_completed_check();
+    //menu_completed_check();
 
 });

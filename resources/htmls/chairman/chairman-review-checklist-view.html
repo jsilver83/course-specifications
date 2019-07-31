@@ -47,87 +47,100 @@
         <div class="side-checklist">
             <h6>ARC 101    Theory of Architecture I</h6>
             <ul class="checklist-menu nav flex-column">
-                <li class="has-sub-menu open">
+                <li class="has-sub-menu open completed">
                     <span class="d-block">
-                        <a href="course-identification-form.html"><i class="far fa-circle check-icon"></i> <span>Course identification and general information</span></a>
+                        <a href="course-identification-form.html" class=""><i class="far fa-circle check-icon"></i> <span>Course identification and general information</span></a>
                     </span>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#course-identification" class="d-flex align-items-center course-identification completed with-comments">
+                            <a href="#course-identification" class="d-flex align-items-center course-identification new-comment">
                                 <span>Course identification</span>
                             </a>
                         </li>
-                        <li><a href="#requisites-course" class="d-flex align-items-center requisites-course completed">
+                        <li><a href="#requisites-course" class="d-flex align-items-center requisites-course">
                                 <span>Requisites for this course</span>
                             </a>
                         </li>
-                        <li><a href="#mode-of-instruction" class="d-flex align-items-center mode-instruction completed with-comments">
+                        <li><a href="#mode-of-instruction" class="d-flex align-items-center mode-instruction unread-comment">
                                 <span>Mode of instruction</span>
                             </a>
                         </li>
-                        <li><a href="#office-hours" class="d-flex align-items-center office-hours completed">
+                        <li><a href="#office-hours" class="d-flex align-items-center office-hours">
                                 <span>Office hours</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="has-sub-menu open">
+                <li class="has-sub-menu open completed">
                     <span class="d-block">
                         <a href="course-description-form.html"><i class="far fa-circle check-icon"></i> <span>Course Description, Objectives & Learning Outcomes</span></a>
                     </span>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#catalog-course-description" class="d-flex align-items-center catalog-course-description completed">
+                            <a href="#catalog-course-description" class="d-flex align-items-center catalog-course-description">
                                 <span>Catalog course description</span>
                             </a>
                         </li>
-                        <li><a href="#main-objectives" class="d-flex align-items-center main-objectives completed">
+                        <li><a href="#main-objectives" class="d-flex align-items-center main-objectives">
                                 <span>Main objectives of this course</span>
                             </a>
                         </li>
-                        <li><a href="#learning-outcomes" class="d-flex align-items-center learning-outcomes completed">
+                        <li><a href="#learning-outcomes" class="d-flex align-items-center learning-outcomes">
                                 <span>Course-level Student Learning Outcomes</span>
                             </a>
                         </li>
                     </ul>
 
                 </li>
-                <li class="has-sub-menu open">
+                <li class="has-sub-menu open completed">
                     <span class="d-block">
                         <a href="course-contents-form.html"><i class="far fa-circle check-icon"></i> <span>Course contents</span></a>
                     </span>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#actual-contact-hours" class="d-flex align-items-center actual-contact-hours completed">
+                            <a href="#actual-contact-hours" class="d-flex align-items-center actual-contact-hours">
                                 <span>Actual contact hours</span>
                             </a>
                         </li>
-                        <li><a href="#self-learning-hours" class="d-flex align-items-center self-learning-hours completed with-comments">
+                        <li><a href="#self-learning-hours" class="d-flex align-items-center self-learning-hours">
                                 <span>Self-Learning Hours</span>
                             </a>
                         </li>
-                        <li><a href="#subject-credit-hours" class="d-flex align-items-center subject-credit-hours completed">
+                        <li><a href="#subject-credit-hours" class="d-flex align-items-center subject-credit-hours">
                                 <span>Subject area credit hours</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="assessment-tasks completed"><a href="assessment-tasks-form.html" class=""><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
-                <li class="learning-resources completed with-comments"><a href="learning-resources-form.html"><i class="far fa-circle check-icon"></i> <span>Learning resources</span></a></li>
+                <li class="assessment-tasks unread-comment completed"><a href="assessment-tasks-form.html" class=""><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
+                <li class="learning-resources completed"><a href="learning-resources-form.html"><i class="far fa-circle check-icon"></i> <span>Learning resources</span></a></li>
                 <li class="course-evaluation completed"><a href="course-evaluation-form.html"><i class="far fa-circle check-icon"></i> <span>Course evaluation</span></a></li>
                 <li class="accreditation-requirements completed"><a href="accreditation-requirements-form.html"><i class="far fa-circle check-icon"></i> <span>Accreditation requirements</span></a></li>
             </ul>
-        </div>
-        <!--Form Button -->
-        <div class="btn-row row">
-            <div class="col-sm-6 col-12">
-                <button class="btn btn-secondary"> <small class="fas fa-chevron-left mr-1"></small> Previous</button>
+
+
+            <!--Form Button -->
+            <div class="btn-row border-top pt-3">
+                <div class="row">
+                    <div class="col-sm-6 col-12">
+                        <button class="btn btn-secondary">Return to reviewer</button>
+                    </div>
+                    <div class="col-sm-6 col-12 text-right">
+                        <button class="btn btn-warning">Submit to Committee</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-6 col-12 text-right">
-                <button class="btn btn-primary">Submit</button>
+            <!--/Form Button -->
+        </div>
+        <div class="btn-row d-flex">
+            <label for="confirmation" class="d-flex pr-3">
+                <input type="checkbox" id="confirmation" class="mt-1 mr-2" />
+                <span>I confirm that this course is reviewed and is ready to be released.</span>
+            </label>
+            <div class="pl-3">
+                <button type="submit" class="btn btn-primary" disabled="">Approve</button>
             </div>
         </div>
-        <!--/Form Button -->
     </div>
 
 </main>

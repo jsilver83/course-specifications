@@ -48,7 +48,7 @@
         <div class="side-checklist side-nav">
             <h6>Checklist</h6>
             <ul class="checklist-menu nav flex-column">
-                <li class="has-sub-menu">
+                <li class="has-sub-menu open">
                     <span class="d-flex">
                         <a href="course-identification-form.html" class="mr-auto"><i class="far fa-circle check-icon"></i> <span>Course identification and general information</span></a>
                         <i class="fas fa-sort-down drop-btn"></i>
@@ -73,7 +73,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="has-sub-menu">
+                <li class="has-sub-menu open">
                     <span class="d-flex">
                         <a href="course-description-form.html" class="mr-auto"><i class="far fa-circle check-icon"></i> <span>Course Description, Objectives & Learning Outcomes</span></a>
                         <i class="fas fa-sort-down drop-btn"></i>
@@ -95,7 +95,7 @@
                     </ul>
 
                 </li>
-                <li class="has-sub-menu">
+                <li class="has-sub-menu open">
                     <span class="d-flex">
                         <a href="course-contents-form.html" class="mr-auto"><i class="far fa-circle check-icon"></i> <span>Course contents</span></a>
                         <i class="fas fa-sort-down drop-btn"></i>
@@ -132,7 +132,6 @@
                             </div>
                             <div class="pt-2 border-top d-flex align-items-center">
                                 <h5 class="mb-0 mr-auto">Accreditation requirements</h6>
-                                <button class="btn btn-link d-flex align-items-center text-decoration-none check-all" type="button"><i class="far fa-check-circle mr-1 h5 mb-0"></i> <span>Check all</span><span class="d-none">Uncheck all</span></button>
                             </div>
                         </div>
                     </div>
@@ -142,60 +141,93 @@
                     <div id="touchScroller">
 
                         <!-- Learning resources -->
-                        <div class="card full-card" id="accreditation-requirements">
-                            <div class="card-body">
-                                <div class="card-text">
-                                    <div class="">
-                                        <ol>
-                                            <li class="plain-content border-bottom mb-3 pt-2 pl-2">
-                                                <h6 class="card-subtitle mb-2">Arrangements for availability of faculty and teaching staff for individual student consultations and academic advice</h6>
-                                                <p>Sed non risus vitae libero bibendum vehicula. Aliquam erat volutpat.</p>
-                                            </li>
-                                            <li class="plain-content border-bottom mb-3 pt-2 pl-2">
-                                                <h6 class="card-subtitle mb-2">Facilities Required </h6>
-                                                <table class="mb-3">
-                                                    <tr>
-                                                        <td class="pt-2 pb-2 pr-3 border-bottom">Accommodation</td>
-                                                        <td class="pt-2 pb-2 border-bottom">Libero bibendum vehicula. Aliquam erat volutpat.</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-2 pb-2 pr-3 border-bottom">Technology Resources</td>
-                                                        <td class="pt-2 pb-2 pr-3 border-bottom">Bibendum vehicula. Aliquam erat volutpat.</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-2 pb-2 pr-3">Other resources</td>
-                                                        <td class="pt-2 pb-2 pr-3">Vitae libero bibendum vehicula. Aliquam erat volutpat.</td>
-                                                    </tr>
-                                                </table>
-                                            </li>
-                                            <li class="plain-content border-bottom mb-3 pt-2 pl-2">
-                                                <h6 class="card-subtitle mb-2">Other Course Evaluation Methods</h6>
-                                                <p>Donec eget sem massa. Maecenas et pellentesque nisl.</p>
-                                            </li>
-                                        </ol>
+                        <div class="card" id="accreditation-requirements">
+                            <div class="row">
+                                <div class="col-md-7 col-12 pr-md-0">
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            <div class="">
+                                                <ol>
+                                                    <li class="plain-content border-bottom mb-3 pt-2 pl-2">
+                                                        <h6 class="card-subtitle mb-2">Arrangements for availability of faculty and teaching staff for individual student consultations and academic advice</h6>
+                                                        <p>Sed non risus vitae libero bibendum vehicula. Aliquam erat volutpat.</p>
+                                                    </li>
+                                                    <li class="plain-content border-bottom mb-3 pt-2 pl-2">
+                                                        <h6 class="card-subtitle mb-2">Facilities Required </h6>
+                                                        <table class="mb-3">
+                                                            <tr>
+                                                                <td class="pt-2 pb-2 pr-3 border-bottom"><b>Accommodation</b>
+                                                                <p>Libero bibendum vehicula. Aliquam erat volutpat.</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pt-2 pb-2 pr-3 border-bottom"><b>Technology Resources</b>
+                                                                <p>Bibendum vehicula. Aliquam erat volutpat.</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pt-2 pb-2 pr-3"><b>Other resources</b>
+                                                                <p>Vitae libero bibendum vehicula. Aliquam erat volutpat.</p></td>
+                                                            </tr>
+                                                        </table>
+                                                    </li>
+                                                    <li class="plain-content border-bottom mb-3 pt-2 pl-2">
+                                                        <h6 class="card-subtitle mb-2">Other Course Evaluation Methods</h6>
+                                                        <p>Donec eget sem massa. Maecenas et pellentesque nisl.</p>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Action section -->
-                            <div class="card-footer action-section d-flex justify-content-center text-center">
-                                <div class="comment-section">
-                                    <label class="btn btn-outline-danger comment-btn">
-                                        <input type="checkbox" name="checkbox" class="d-none"/>
-                                        <i class="fas fa-comment-dots"></i><span>Return with Comments</span>
-                                    </label>
-                                    <div class="comments">
-                                        <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                <!-- Action section -->
+                                <div class="col-md-5 col-12 pl-md-0">
+                                    <div class="card-footer action-section p-3 h-100 d-flex flex-column">
+                                        <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+                                            <span class="mr-auto">Comments if any</span>
+                                            <button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal" data-target="#assessment-tasks-comments">View all</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="assessment-tasks-comments" tabindex="-1" role="dialog" aria-labelledby="assessment-tasks-comments" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title">All Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body bg-light">
+                                                        <div class="chat-view">
+                                                            <div class="chat-badge">
+                                                                <span>No Comments</span>
+                                                            </div>
+                                                        </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- /Modal -->
+                                        </h6>
+                                        <div class="chat-view">
+                                            <div class="chat-badge">
+                                                <span>No Comments</span>
+                                            </div>
+                                        </div>
+                                        <div class="chat-textarea mt-auto">
+                                            <div class="d-flex">
+                                                <div class="mr-auto"></div>
+                                                <div class="send-btn">
+                                                    <button class="btn btn-sm">Send</button>
+                                                </div>
+                                            </div>
+                                            <textarea class="form-control" placeholder="Enter your comments"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="check-section">
-                                    <label class="btn btn-outline-primary check-btn">
-                                        <input type="checkbox" name="checkbox" class="d-none" />
-                                        <i class="fas fa-check"></i>
-                                    </label>
-                                </div>
-                                <button class="btn btn-sm undo-btn" type="button">Undo</button>
+                                <!-- /Action section -->
                             </div>
-                            <!-- /Action section -->
                         </div>
                         <!-- /Learning resources -->
 
@@ -206,8 +238,7 @@
                         <div class="col-sm-6 col-12">
                         </div>
                         <div class="col-sm-6 col-12 text-right">
-                            <button class="btn btn-warning mr-3">Save</button>
-                            <button class="btn btn-primary">Save & Review</button>
+                            <button class="btn btn-warning">Save & Review</button>
                         </div>
                     </div>
                     <!--/Form Button -->

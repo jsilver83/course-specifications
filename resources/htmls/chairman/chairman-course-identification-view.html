@@ -56,11 +56,11 @@
                     </span>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#course-identification" class="d-flex align-items-center course-identification">
+                            <a href="#course-identification" class="d-flex align-items-center course-identification new-comment">
                                 <span>Course identification</span>
                             </a>
                         </li>
-                        <li><a href="#requisites-course" class="d-flex align-items-center requisites-course">
+                        <li><a href="#requisites-course" class="d-flex align-items-center requisites-course unread-comment">
                                 <span>Requisites for this course</span>
                             </a>
                         </li>
@@ -74,14 +74,14 @@
                         </li>
                     </ul>
                 </li>
-                <li class="has-sub-menu">
+                <li class="has-sub-menu open">
                     <span class="d-flex">
                         <a href="course-description-form.html" class="mr-auto"><i class="far fa-circle check-icon"></i> <span>Course Description, Objectives & Learning Outcomes</span></a>
                         <i class="fas fa-sort-down drop-btn"></i>
                     </span>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#catalog-course-description" class="d-flex align-items-center completed catalog-course-description">
+                            <a href="#catalog-course-description" class="d-flex align-items-center catalog-course-description">
                                 <span>Catalog course description</span>
                             </a>
                         </li>
@@ -96,14 +96,14 @@
                     </ul>
 
                 </li>
-                <li class="has-sub-menu">
+                <li class="has-sub-menu open">
                     <span class="d-flex">
                         <a href="course-contents-form.html" class="mr-auto"><i class="far fa-circle check-icon"></i> <span>Course contents</span></a>
                         <i class="fas fa-sort-down drop-btn"></i>
                     </span>
                     <ul class="sub-menu">
                         <li>
-                            <a href="#course-identification" class="d-flex align-items-center completed">
+                            <a href="#course-identification" class="d-flex align-items-center">
                                 <span>Course identification</span>
                             </a>
                         </li>
@@ -121,7 +121,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="assessment-tasks-form.html" class="completed with-comments"><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
+                <li><a href="assessment-tasks-form.html" class="unread-comment"><i class="far fa-circle check-icon"></i> <span>Assessment tasks</span></a></li>
                 <li><a href="learning-resources-form.html"><i class="far fa-circle check-icon"></i> <span>Learning resources</span></a></li>
                 <li><a href="course-evaluation-form.html"><i class="far fa-circle check-icon"></i> <span>Course evaluation</span></a></li>
                 <li class="completed"><a href="accreditation-requirements-form.html"><i class="fas fa-check-circle check-icon"></i> <span>Accreditation requirements</span></a></li>
@@ -137,7 +137,6 @@
                             </div>
                             <div class="pt-2 border-top d-flex align-items-center">
                                 <h5 class="mb-0 mr-auto">Course identification and general information</h6>
-                                <button class="btn btn-link d-flex align-items-center text-decoration-none check-all" type="button"><i class="far fa-check-circle mr-1 h5 mb-0"></i> <span>Check all</span><span class="d-none">Uncheck all</span></button>
                             </div>
                         </div>
                     </div>
@@ -148,7 +147,7 @@
 
                         <!-- Course identification -->
                         <div class="card" id="course-identification">
-                            <div class="row align-items-stretch">
+                            <div class="row">
                                 <div class="col-md-7 col-12 pr-md-0">
                                     <div class="card-body">
                                         <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Course identification</h6>
@@ -193,25 +192,43 @@
                                 </div>
                                 <!-- Action section -->
                                 <div class="col-md-5 col-12 pl-md-0">
-                                    <div class="card-footer action-section p-3 h-100">
+                                    <div class="card-footer action-section p-3 h-100 d-flex flex-column">
                                         <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
                                             <span class="mr-auto">Comments if any</span>
-                                            <a href="#" class="small text-muted">View all</a>
+                                            <button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal" data-target="#course-identification-comments">View all</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="course-identification-comments" tabindex="-1" role="dialog" aria-labelledby="course-identification-comments" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title">All Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body bg-light">
+                                                        <div class="chat-view">
+                                                            <div class="chat-badge">
+                                                                <span>No Comments</span>
+                                                            </div>
+                                                        </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- /Modal -->
+
                                         </h6>
                                         <div class="chat-view">
                                             <div class="chat-badge">
                                                 <span>No Comments</span>
                                             </div>
-                                            <div class="chat">
-                                                <h6>You</h6>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
-                                                <div class="d-flex chat-footer text-muted">
-                                                    <div class="time mr-auto">Committee</div>
-                                                    <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
-                                                </div>
-                                            </div>
                                         </div>
-                                        <div class="chat-textarea">
+                                        <div class="chat-textarea mt-auto">
                                             <div class="d-flex">
                                                 <div class="mr-auto"></div>
                                                 <div class="send-btn">
@@ -229,7 +246,7 @@
 
                         <!-- Requisites for this course -->
                         <div class="card" id="requisites-course">
-                            <div class="row align-items-stretch">
+                            <div class="row">
                                 <div class="col-md-7 col-12 pr-md-0">
                                     <div class="card-body">
                                         <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Requisites for this course</h6>
@@ -251,25 +268,103 @@
                                 </div>
                             <!-- Action section -->
                                 <div class="col-md-5 col-12 pl-md-0">
-                                    <div class="card-footer action-section p-3 h-100">
+                                    <div class="card-footer action-section p-3 h-100 d-flex flex-column">
                                         <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
                                             <span class="mr-auto">Comments if any</span>
-                                            <a href="#" class="small text-muted">View all</a>
+                                            <button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal" data-target="#requisites-course-comments">View all</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="requisites-course-comments" tabindex="-1" role="dialog" aria-labelledby="requisites-course-comments" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title">All Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body bg-light">
+                                                        <div class="chat-view">
+                                                            <div class="chat">
+                                                                <div class="chat-card friend">
+                                                                    <h6>Dr. Mohammed Abdullah</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Committee</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="chat">
+                                                                <div class="chat-card">
+                                                                    <h6>You</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Chairman</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="chat">
+                                                                <div class="chat-card">
+                                                                    <h6>You</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Chairman</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="chat">
+                                                                <div class="chat-card friend">
+                                                                    <h6>Dr. Mohammed Abdullah</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Committee</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="chat-badge new-chat">
+                                                                <i class="fas fa-comment mr-1 icon"></i><span>Your new comment(s)</span>
+                                                            </div>
+                                                            <div class="chat">
+                                                                <div class="chat-card">
+                                                                    <h6>You</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Chairman</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- /Modal -->
+
                                         </h6>
                                         <div class="chat-view">
                                             <div class="chat-badge new-chat">
-                                                <i class="fas fa-comment mr-1 icon"></i><span>Your comment(s)</span>
+                                                <i class="fas fa-comment mr-1 icon"></i><span>Your new comment(s)</span>
                                             </div>
                                             <div class="chat">
-                                                <h6>You</h6>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
-                                                <div class="d-flex chat-footer text-muted">
-                                                    <div class="time mr-auto">Committee</div>
-                                                    <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                <div class="chat-card">
+                                                    <h6>You</h6>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                    <div class="d-flex chat-footer text-muted">
+                                                        <div class="time mr-auto">Chairman</div>
+                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="chat-textarea">
+                                        <div class="chat-textarea mt-auto">
                                             <div class="d-flex">
                                                 <div class="mr-auto"></div>
                                                 <div class="send-btn">
@@ -287,7 +382,7 @@
 
                         <!-- Mode of instruction -->
                         <div class="card" id="mode-instruction">
-                            <div class="row align-items-stretch">
+                            <div class="row">
                                 <div class="col-md-7 col-12 pr-md-0">
                                     <div class="card-body">
                                         <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Mode of instruction</h6>
@@ -312,25 +407,90 @@
                                 </div>
                             <!-- Action section -->
                                 <div class="col-md-5 col-12 pl-md-0">
-                                    <div class="card-footer action-section p-3 h-100">
+                                    <div class="card-footer action-section p-3 h-100 d-flex flex-column">
                                         <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
                                             <span class="mr-auto">Comments if any</span>
-                                            <a href="#" class="small text-muted">View all</a>
+                                            <button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal" data-target="#mode-instruction-comments">View all</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="mode-instruction-comments" tabindex="-1" role="dialog" aria-labelledby="mode-instruction-comments" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title">All Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body bg-light">
+                                                        <div class="chat-view">
+                                                            <div class="chat">
+                                                                <div class="chat-card">
+                                                                    <h6>You</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Chairman</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="chat">
+                                                                <div class="chat-card">
+                                                                    <h6>You</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Chairman</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="chat">
+                                                                <div class="chat-card friend">
+                                                                    <h6>Dr. Mohammed Abdullah</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Committee</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="chat-badge new-chat">
+                                                                <i class="fas fa-comment mr-1 icon"></i><span>Your new comment(s)</span>
+                                                            </div>
+                                                            <div class="chat">
+                                                                <div class="chat-card">
+                                                                    <h6>You</h6>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                                    <div class="d-flex chat-footer text-muted">
+                                                                        <div class="time mr-auto">Chairman</div>
+                                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- /Modal -->
+
                                         </h6>
                                         <div class="chat-view">
-                                            <div class="chat-badge new-chat">
-                                                <i class="fas fa-comment mr-1 icon"></i><span>Your comment(s)</span>
-                                            </div>
-                                            <div class="chat friend">
-                                                <h6>Mohammed Abdullah</h6>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
-                                                <div class="d-flex chat-footer text-muted">
-                                                    <div class="time mr-auto">Reviewer</div>
-                                                    <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                            <div class="chat">
+                                                <div class="chat-card friend">
+                                                    <h6>Mohammed Abdullah</h6>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                    <div class="d-flex chat-footer text-muted">
+                                                        <div class="time mr-auto">Reviewer</div>
+                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="chat-textarea">
+                                        <div class="chat-textarea mt-auto">
                                             <div class="d-flex">
                                                 <div class="mr-auto"></div>
                                                 <div class="send-btn">
@@ -349,7 +509,7 @@
 
                         <!-- Office hours -->
                         <div class="card" id="office-hours">
-                            <div class="row align-items-stretch">
+                            <div class="row">
                                 <div class="col-md-7 col-12 pr-md-0">
                                     <div class="card-body">
                                         <h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Office hours</h6>
@@ -362,7 +522,7 @@
                                 </div>
                             <!-- Action section -->
                                 <div class="col-md-5 col-12 pl-md-0">
-                                    <div class="card-footer action-section p-3 h-100">
+                                    <div class="card-footer action-section p-3 h-100 d-flex flex-column">
                                         <h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
                                             <span class="mr-auto">Comments if any</span>
                                             <a href="#" class="small text-muted">View all</a>
@@ -371,16 +531,18 @@
                                             <div class="chat-badge unread-chat">
                                                 <i class="fas fa-comment mr-1 icon"></i><span>Unread comment(s)</span>
                                             </div>
-                                            <div class="chat friend">
-                                                <h6>Mohammed Abdullah</h6>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
-                                                <div class="d-flex chat-footer text-muted">
-                                                    <div class="time mr-auto">Reviewer</div>
-                                                    <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                            <div class="chat">
+                                                <div class="chat-card friend">
+                                                    <h6>Mohammed Abdullah</h6>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor sit amet.</p>
+                                                    <div class="d-flex chat-footer text-muted">
+                                                        <div class="time mr-auto">Reviewer</div>
+                                                        <div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="chat-textarea">
+                                        <div class="chat-textarea mt-auto">
                                             <div class="d-flex">
                                                 <div class="mr-auto"></div>
                                                 <div class="send-btn">
@@ -412,8 +574,7 @@
                         <div class="col-sm-6 col-12">
                         </div>
                         <div class="col-sm-6 col-12 text-right">
-                            <button class="btn btn-warning mr-3">Save</button>
-                            <button class="btn btn-primary">Save & Continue <small class="fas fa-chevron-right ml-1"></small></button>
+                            <button class="btn btn-warning">Save & Continue <small class="fas fa-chevron-right ml-1"></small></button>
                         </div>
                     </div>
                     <!--/Form Button -->

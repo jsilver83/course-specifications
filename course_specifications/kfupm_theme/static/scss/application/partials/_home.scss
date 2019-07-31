@@ -133,19 +133,19 @@
 
 		    		a{
 				    	position: relative;
-					    padding: 4px 8px 4px 24px;
+					    padding: 4px 8px 4px 18px;
 					    color: #545454;
 					    font-weight: 400;
 
 					    &:before{
 					        font-family: 'Font Awesome 5 Free';
 						    font-weight: 900;
-						    content: "\f00c";
+						    content: "\f061";
 						    position: absolute;
-						    left: 4px;
+						    left: 2px;
 						    top: 6px;
-						    font-size: 12px;
-					    	color: #D4D4D4;
+						    font-size: 10px;
+						    color: #D4D4D4;
 					    }
 					    &.completed:before{
 			    			color: #007d40;
@@ -166,6 +166,35 @@
 				
 				.sub-menu{
 					display: block;
+				}
+			}
+
+	    	.new-comment{
+				padding-right: 24px !important;
+				
+		    	&:after{
+		    		font-family: 'Font Awesome 5 Free';
+				    font-weight: 900;
+				    content: "\f075";
+				    position: absolute;
+				    right: 12px;
+				    top: 50%;
+				    margin-top: -10px;
+				    color: #DCC48F;
+			    }
+			}
+			.unread-comment{
+				padding-right: 24px !important;
+
+				&:after{
+		    		font-family: 'Font Awesome 5 Free';
+				    font-weight: 900;
+				    content: "\f086";
+				    position: absolute;
+				    right: 12px;
+				    top: 50%;
+				    margin-top: -10px;
+				    color: rgba(202, 82, 86, 0.7);				
 				}
 			}
 		}
@@ -433,8 +462,8 @@
 	    @include box-shadow(0, 8px, 12px, rgba(0, 0, 0, 0.04));
 	    overflow: hidden;
 	    width: 100%;
-	    /*height: calc(100% - 32px);*/
-        min-height: 280px;
+	    /*height: calc(100% - 32px);
+        min-height: 280px;*/
 
 	    &.large-card{
     	    width: 55em;
@@ -448,6 +477,7 @@
 			font-size: 14px;
 		    font-weight: 600 !important;
 		    color: #000000;
+	        line-height: 22px;
 		}
 	    .card-body{
     	    /*height: auto;*/
@@ -782,16 +812,17 @@
 
 	.chat-badge {
 	    width: 100%;
-	    margin: 4px 0;
+	    margin: 8px 0 4px 0;
 	    padding: 3px;
 	    font-size: 12px;
 	    font-weight: 400;
 	    text-transform: initial;
 	    text-align: center;
-	    background-color: rgba(0,0,0,0.04);
+	    background-color: rgba(0,0,0,0.03);
 	    border-radius: 4px;
         font-style: italic;
     	color: #a0a0a0;
+    	clear: both;
 
     		.icon{
 			    font-size: 13px;
@@ -825,28 +856,48 @@
 	}
 
 	.chat{
-		font-size: 13px;
-	    line-height: 20px;
-	    padding: 8px 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-	    background-color: rgba(0, 0, 0, 0.04);
-	    border: solid 1px rgba(0,0,0,0.02);
-	    border-radius: 12px 12px 0 12px;
-	    max-width: 280px;
-	    margin: 8px 0;
-	    position: relative;
-	    float: right;
+	    margin: 8px 0 4px 0;
+	    display: inline-block;
+	    width: 100%;
 
-	    &:after {
-	    	width: 0;
-		    height: 0;
-		    border-top: 15px solid transparent;
-		    border-left: 10px solid #ededed;
-		    content: "";
-		    position: absolute;
-		    right: -10px;
-		    bottom: -1px;
-		}
+		.chat-card{
+			font-size: 13px;
+		    line-height: 20px;
+		    padding: 8px 12px;
+	        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+		    background-color: rgba(0, 0, 0, 0.04);
+		    border: solid 1px rgba(0,0,0,0.02);
+		    border-radius: 12px 12px 0 12px;
+		    max-width: 280px;
+		    position: relative;
+		    float: right;
+		    clear: both;
+
+		    &:after {
+		    	width: 0;
+			    height: 0;
+			    border-top: 15px solid transparent;
+			    border-left: 10px solid #ededed;
+			    content: "";
+			    position: absolute;
+			    right: -10px;
+			    bottom: -1px;
+			}
+
+			&.friend{
+				float: left;
+		    	border-color: #FFFFFF;
+		    	background-color: #FDFDFD;
+	    		border-radius: 12px 12px 12px 0;
+
+		    	&:after{
+		    		right: auto;
+		    		left: -10px;
+		    		border-left: none;
+		    		border-right: solid 10px #FDFDFD;
+		    	}
+			}
+	    }
 
 	    h6{
 	    	font-size: 14px;
@@ -861,19 +912,6 @@
 		    font-size: 11px;
 		}
 
-		&.friend{
-			float: left;
-	    	border-color: #FFFFFF;
-	    	background-color: #FDFDFD;
-    		border-radius: 12px 12px 12px 0;
-
-	    	&:after{
-	    		right: auto;
-	    		left: -10px;
-	    		border-left: none;
-	    		border-right: solid 10px #FDFDFD;
-	    	}
-		}
 	}
 
 }
