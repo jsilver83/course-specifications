@@ -4,7 +4,28 @@ from django import forms
 from django.forms import modelformset_factory, BaseModelFormSet
 from django.utils.translation import ugettext_lazy as _
 
+from course_specifications.utils import get_subordinates_choices
 from .models import *
+
+
+class NewCourseForm(forms.ModelForm):
+    maintainer = forms.ChoiceField(label=_('Maintainer'))
+    reviewer = forms.ChoiceField(label=_('Reviewer'))
+
+    class Meta:
+        model = Course
+        fields = ['program_code', 'number', 'title', 'total_credit_hours', ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['total_credit_hours'].widget.attrs.update({'placeholder': _('Credit Hrs')})
+
+        self.fields['maintainer'].choices = get_subordinates_choices('howsawi')
+        self.fields['reviewer'].choices = get_subordinates_choices('howsawi')
 
 
 class CourseIdentificationForm(forms.ModelForm):

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block main_content %}
+	<div class="card mb-4 course-title">
+		<div class="card-body">
+			<div class="d-flex align-items-center">
+				<h6 class="mb-0 mr-auto">{% trans "Create New Course" %}</h6>
+				<div class="d-flex align-items-center">
+					<small class="text-danger mr-3">* {% trans "Mandatory" %}</small>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card mb-4 form-accordian completed">
+		<div class="card-body p-0">
+			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse"
+			     data-target="#courseidentification" aria-expanded="false" aria-controls="courseidentification">
+				<i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'Course Details' %}</span>
+				<i class="fas fa-caret-down"></i>
+			</div>
+			<div class="collapse show p-3 pt-4 pb-4" id="courseidentification">
+				<div class="row">
+					<div class="col-12">
+						<div class="form-group">
+							{{ form.title|as_crispy_field }}
+						</div>
+					</div>
+					<div class="col-md-5 col-12">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-7 pr-1">
+									{{ form.program_code|as_crispy_field }}
+								</div>
+								<div class="col-md-5 pl-1">
+									{{ form.number|as_crispy_field }}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-12">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-12 pl-1">
+									{{ form.total_credit_hours|as_crispy_field }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Assign maintainer & reviewer -->
+	<div class="card mb-4 form-accordian completed">
+		<div class="card-body p-0">
+			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse"
+			     data-target="#coursedescription" aria-expanded="false" aria-controls="coursedescription">
+				<span class="mr-auto">{% trans "Assign Maintainer & Reviewer" %}</span>
+				<i class="fas fa-caret-down"></i>
+			</div>
+			<div class="collapse show p-3 pt-4 pb-4" id="coursedescription">
+				<div class="row">
+					<div class="col-sm-4 col-12 pr-sm-1">
+						<div class="form-group">
+							{{ form.maintainer|as_crispy_field }}
+						</div>
+					</div>
+					<div class="col-sm-4 col-12">
+						<div class="form-group">
+							{{ form.reviewer|as_crispy_field }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Assign maintainer & reviewer -->
+
+	<!--Form Button -->
+	<div class="row">
+		<div class="col-sm-6 col-12">
+		</div>
+		<div class="col-sm-6 col-12 text-right">
+			<button class="btn btn-primary">{% trans "Create" %}</button>
+		</div>
+	</div>
+	<!--/Form Button -->
+{% endblock main_content %}
