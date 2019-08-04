@@ -125,3 +125,24 @@ def return_first_and_last_name(full_name):
         return '{} {}'.format(first, last)
     except ValueError:
         return full_name
+
+
+def get_subordinates(supervisor):
+    response = call_web_service(url='employee/{}/employee'.format(supervisor), api=APIType.STAFF)
+
+    if response != 'ERROR':
+        return sorted(response, key=lambda x: x['name_en'])
+
+
+def get_subordinates_choices(supervisor):
+    subordinates = get_subordinates(supervisor)
+
+    if subordinates:
+        return (
+            (
+                employee.get('username'),
+                employee.get('name_en')
+            ) for employee in subordinates)
+    else:
+        return [{'username': 'N/A', 'name_en': '', }, ]
+

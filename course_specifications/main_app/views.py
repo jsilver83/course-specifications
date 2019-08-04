@@ -43,9 +43,10 @@ class CoursesListView(AllowedUserTypesMixin, ListView):
 
 
 class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):
-    form_class = CourseIdentificationForm
-    template_name = 'main_app/course_identification.html'
+    form_class = NewCourseForm
+    template_name = 'main_app/new_course.html'
     success_message = _('Course created successfully')
+    success_url = reverse_lazy('main_app:course_list')
     allowed_user_types = [UserType.CHAIRMAN, UserType.ADMIN]
 
     def get_context_data(self, **kwargs):
@@ -59,7 +60,7 @@ class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):
         new_course.save()
 
         messages.success(self.request, self.success_message)
-        return redirect(reverse_lazy('main_app:course_description', args=(new_course.pk, )))
+        return super().form_valid(form) #redirect(reverse_lazy('main_app:course_description', args=(new_course.pk, )))
 
 
 class UpdateCourseView(SuccessMessageMixin, UpdateView):
