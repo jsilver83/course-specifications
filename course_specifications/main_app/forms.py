@@ -16,7 +16,7 @@ class NewCourseForm(forms.ModelForm):
         model = Course
         fields = ['program_code', 'number', 'title', 'total_credit_hours', ]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         for field in self.fields:
@@ -24,8 +24,8 @@ class NewCourseForm(forms.ModelForm):
 
         self.fields['total_credit_hours'].widget.attrs.update({'placeholder': _('Credit Hrs')})
 
-        self.fields['maintainer'].choices = get_subordinates_choices('howsawi')
-        self.fields['reviewer'].choices = get_subordinates_choices('howsawi')
+        self.fields['maintainer'].choices = get_subordinates_choices(user)
+        self.fields['reviewer'].choices = get_subordinates_choices(user)
 
         self.fields['maintainer'].widget.attrs.update({'class': 'select2'})
         self.fields['reviewer'].widget.attrs.update({'class': 'select2'})
