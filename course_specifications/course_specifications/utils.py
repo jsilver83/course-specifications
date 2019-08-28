@@ -58,26 +58,32 @@ class UserType:
 class APIType:
     BANNER = 'BANNER'
     STAFF = 'STAFF'
+    ADWAR = 'ADWAR'
 
 
-def call_web_service(url, parameters=None, basic_auth=True, api=APIType.BANNER):
+def call_web_service(url, method='get', parameters=None, basic_auth=True, api=APIType.BANNER):
     try:
         if api == APIType.BANNER:
             base_url = settings.BANNER_WEBSERVICE_BASE_URL
             user = settings.BANNER_WEBSERVICE_USERNAME
             password = settings.BANNER_WEBSERVICE_PASSWORD
-        else:  # api == APIType.STAFF':
+        elif api == APIType.STAFF:
             base_url = settings.STAFF_WEBSERVICE_BASE_URL
             user = settings.STAFF_WEBSERVICE_USERNAME
             password = settings.STAFF_WEBSERVICE_PASSWORD
+        else:
+            base_url = settings.ADWAR_WEBSERVICE_BASE_URL
+            user = settings.ADWAR_WEBSERVICE_USERNAME
+            password = settings.ADWAR_WEBSERVICE_PASSWORD
 
         auth = HTTPBasicAuth(username=user, password=password) if basic_auth else None
         full_url = '{}/{}'.format(base_url, url)
+
         """ calling webservice """
         if settings.DEBUG:
-            data = requests.get(full_url, params=parameters, auth=auth, verify=False)
+            data = requests.request(method=method, url=full_url, params=parameters, auth=auth, verify=False)
         else:
-            data = requests.get(full_url, params=parameters, auth=auth)
+            data = requests.request(method=method, url=full_url, params=parameters, auth=auth)
         response = data.json()['data']
         return response
     except:
