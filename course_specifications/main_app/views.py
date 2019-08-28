@@ -43,23 +43,19 @@ class CoursesListView(AllowedUserTypesMixin, ListView):
 
 
 class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):
-    form_class = CourseIdentificationForm
-    template_name = 'main_app/course_identification.html'
+    form_class = NewCourseForm
+    template_name = 'main_app/new_course.html'
     success_message = _('Course created successfully')
+    success_url = reverse_lazy('main_app:course_list')
     allowed_user_types = [UserType.CHAIRMAN, UserType.ADMIN]
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['active_step'] = '1'
-        return context
 
     def form_valid(self, form):
         new_course = form.save(commit=False)
         new_course.mother_department = UserType.get_department_id(self.request)
         new_course.save()
-
+        # TODO: use API to assign maintainer and reviewer
         messages.success(self.request, self.success_message)
-        return redirect(reverse_lazy('main_app:course_description', args=(new_course.pk, )))
+        return super().form_valid(form)
 
 
 class UpdateCourseView(SuccessMessageMixin, UpdateView):
