@@ -27,6 +27,15 @@ class NewCourseForm(forms.ModelForm):
         self.fields['maintainer'].choices = get_subordinates_choices('howsawi')
         self.fields['reviewer'].choices = get_subordinates_choices('howsawi')
 
+        self.fields['maintainer'].widget.attrs.update({'class': 'select2'})
+        self.fields['reviewer'].widget.attrs.update({'class': 'select2'})
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data['maintainer'] == cleaned_data['reviewer']:
+            raise forms.ValidationError(_('Maintainer and reviewer can NOT be the same person'))
+        return cleaned_data
+
 
 class CourseIdentificationForm(forms.ModelForm):
     class Meta:
