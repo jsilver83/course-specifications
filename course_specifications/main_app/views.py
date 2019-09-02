@@ -1,15 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect, render_to_response, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from course_specifications.utils import UserType
 from .forms import *
 from .models import *
+from .utils import *
 
 
 class AllowedUserTypesMixin(LoginRequiredMixin, UserPassesTestMixin):
@@ -57,8 +58,18 @@ class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         new_course = form.save(commit=False)
         new_course.mother_department = UserType.get_department_id(self.request)
-        new_course.save()
-        # TODO: use API to assign maintainer and reviewer
+        assign_new_maintainer(
+            course=str(new_course),
+            assigner=str(self.request.user),
+            assignee=form.cleaned_data.get('maintainer'),
+            department=new_course.mother_department,
+        )
+        assign_new_reviewer(
+            course=str(new_course),
+            assigner=str(self.request.user),
+            assignee=form.cleaned_data.get('reviewer'),
+            department=new_course.mother_department,
+        )
         return super().form_valid(form)
 
 
