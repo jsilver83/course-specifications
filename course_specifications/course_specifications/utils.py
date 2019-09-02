@@ -61,7 +61,7 @@ class APIType:
     ADWAR = 'ADWAR'
 
 
-def call_web_service(url, method='get', parameters=None, basic_auth=True, api=APIType.BANNER):
+def call_web_service(url, method='get', parameters=None, data=None, basic_auth=True, api=APIType.BANNER):
     try:
         if api == APIType.BANNER:
             base_url = settings.BANNER_WEBSERVICE_BASE_URL
@@ -80,13 +80,17 @@ def call_web_service(url, method='get', parameters=None, basic_auth=True, api=AP
         full_url = '{}/{}'.format(base_url, url)
 
         """ calling webservice """
-        if settings.DEBUG:
-            data = requests.request(method=method, url=full_url, params=parameters, auth=auth, verify=False)
-        else:
-            data = requests.request(method=method, url=full_url, params=parameters, auth=auth)
-        response = data.json()['data']
-        return response
-    except:
+        arguments = {
+            'auth': auth,
+            'verify': not settings.DEBUG,
+            'params': parameters,
+            'data': data,
+        }
+        response = requests.request(method=method, url=full_url, **arguments)
+        response_data = response.json().get('data')
+        return response_data
+    except Exception as e:
+        print(e)
         return 'ERROR'
 
 
