@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, FormView
 
 from course_specifications.utils import UserType
 from .forms import *
@@ -47,8 +47,44 @@ class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):
     form_class = NewCourseForm
     template_name = 'main_app/new_course.html'
     success_message = _('Course created successfully')
+    allowed_user_types = [UserType.CHAIRMAN]
+
+    def form_valid(self, form):
+        new_course = form.save(commit=False)
+        new_course.mother_department = UserType.get_department_id(self.request)
+        new_course.save()
+        return redirect(reverse_lazy('main_app:assign_caretakers', args=(new_course.pk, )))
+
+
+class AssignCaretakersView(AllowedUserTypesMixin, SuccessMessageMixin, FormView):
+    form_class = AssignCaretakersForm
+    template_name = 'main_app/plain_form.html'
+    success_message = _('Roles assigned successfully')
     success_url = reverse_lazy('main_app:course_list')
-    allowed_user_types = [UserType.CHAIRMAN, UserType.ADMIN]
+    allowed_user_types = [UserType.CHAIRMAN]
+
+    course = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Assign Caretakers for Course {course}').format(course=str(self.course))
+        context['sub_title'] = _('Assign Course Maintainer and Reviewer')
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if UserType.get_user_type(request) == UserType.CHAIRMAN:
+            self.course = get_object_or_404(
+                Course,
+                pk=kwargs.get('pk', 0),
+                mother_department=UserType.get_department_id(request),
+            )
+        else:
+            self.course = get_object_or_404(
+                Course,
+                pk=kwargs.get('pk', 0),
+            )
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -56,19 +92,17 @@ class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):
         return kwargs
 
     def form_valid(self, form):
-        new_course = form.save(commit=False)
-        new_course.mother_department = UserType.get_department_id(self.request)
         assign_new_maintainer(
-            course=str(new_course),
+            course=str(self.course),
             assigner=str(self.request.user),
             assignee=form.cleaned_data.get('maintainer'),
-            department=new_course.mother_department,
+            department=self.course.mother_department,
         )
         assign_new_reviewer(
-            course=str(new_course),
+            course=str(self.course),
             assigner=str(self.request.user),
             assignee=form.cleaned_data.get('reviewer'),
-            department=new_course.mother_department,
+            department=self.course.mother_department,
         )
         return super().form_valid(form)
 

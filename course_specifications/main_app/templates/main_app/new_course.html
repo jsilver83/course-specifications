@@ -56,32 +56,6 @@
 			</div>
 		</div>
 
-		<!-- Assign maintainer & reviewer -->
-		<div class="card mb-4 form-accordian completed">
-			<div class="card-body p-0">
-				<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse"
-				     data-target="#coursedescription" aria-expanded="false" aria-controls="coursedescription">
-					<span class="mr-auto">{% trans "Assign Maintainer & Reviewer" %}</span>
-					<i class="fas fa-caret-down"></i>
-				</div>
-				<div class="collapse show p-3 pt-4 pb-4" id="coursedescription">
-					<div class="row">
-						<div class="col-sm-4 col-12 pr-sm-1">
-							<div class="form-group">
-								{{ form.maintainer|as_crispy_field }}
-							</div>
-						</div>
-						<div class="col-sm-4 col-12">
-							<div class="form-group">
-								{{ form.reviewer|as_crispy_field }}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Assign maintainer & reviewer -->
-
 		<!--Form Button -->
 		<div class="row">
 			<div class="col-sm-6 col-12">
