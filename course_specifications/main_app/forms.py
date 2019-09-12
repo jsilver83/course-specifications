@@ -267,6 +267,21 @@ class CourseContentForm(forms.ModelForm):
                     cleaned_data.get('other_subject_areas_credit_hours'), ]):
             raise forms.ValidationError(_('You need to specify credit hours in one classification at least'))
 
+        hours_sum = sum(filter(None, [cleaned_data.get('engineering_credit_hours', 0),
+                                      cleaned_data.get('math_science_credit_hours', 0),
+                                      cleaned_data.get('humanities_credit_hours', 0),
+                                      cleaned_data.get('social_sciences_credit_hours', 0),
+                                      cleaned_data.get('general_education_credit_hours', 0),
+                                      cleaned_data.get('other_subject_areas_credit_hours', 0), ]))
+
+        if hours_sum != self.instance.total_credit_hours:
+            raise forms.ValidationError(
+                _('Total classifications'' credit hours you entered [{hours_sum}] should be equal to [{total}]'.format(
+                    hours_sum=hours_sum,
+                    total=self.instance.total_credit_hours,
+                ))
+            )
+
         return cleaned_data
 
 
