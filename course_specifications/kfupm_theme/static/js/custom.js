@@ -6,20 +6,19 @@ $(document).ready(function($) {
         var this_has_add_content = $(this).parents('.has-add-content');
         var this_add_here = this_has_add_content.find('.add-here');
         var this_last_content = this_has_add_content.find('.add-here .delete-this:visible').last().clone();
-        var this_cloned_forms = this_last_content.find("input, textarea");
-        this_cloned_forms.val("");
+
         var total_forms_count = this_add_here.find("input[name*='-TOTAL_FORMS']");
         var current_form_count = parseInt(total_forms_count.val()) + 1;
         total_forms_count.val(current_form_count);
-        var name_number = this_cloned_forms.attr('name').match(/\d+/);
-        var id_number = this_cloned_forms.attr('id').match(/\d+/);
 
-        var name_attr = this_cloned_forms.attr('name').replace(id_number, current_form_count);
-        var id_attr = this_cloned_forms.attr('id').replace(id_number, current_form_count);
-        
-        this_cloned_forms.attr('name', name_attr);
-        this_cloned_forms.attr('id', id_attr);
-
+        this_last_content.find("input, textarea, select").each(function () {
+            $(this).val("");
+            let id_number = $(this).attr('id').match(/\d+/);
+            console.log($(this).attr('name'));
+            $(this).attr('name', $(this).attr('name').replace(id_number, current_form_count-1));
+            console.log($(this).attr('name'));
+            $(this).attr('id', $(this).attr('id').replace(id_number, current_form_count-1));
+        });
 
         //Clone last content with replaced numbers
         this_add_here.append(this_last_content);
@@ -105,7 +104,7 @@ $(document).ready(function($) {
 
     //Delete this
     $('body').on( "click", ".delete-btn", function() {
-        var delete_this = $(this).parents('.delete-this');
+        let delete_this = $(this).parents('.delete-this');
         delete_this.removeClass('active').hide();
         contact_hrs_calc();
         if(!delete_this.is(":visible")){
