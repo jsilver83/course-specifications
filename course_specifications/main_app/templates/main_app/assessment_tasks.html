@@ -21,8 +21,10 @@
 							<div class="nav nav-tabs" id="assessment-tab" role="tablist">
 								<a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true">{% trans "Lecture" %}
 									<sup class="text-danger">*</sup></a>
+								{% if formset2 %}
 								<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="false">{% trans "Laboratory" %}
 									<sup class="text-danger">*</sup></a>
+								{% endif %}
 							</div>
 						</nav>
 
@@ -87,7 +89,6 @@
 											</td>
 											<td class="align-middle border-bottom">
 												{{ form.week_due }}{{ form.week_due.errors }}
-												{{ form.type }}{{ form.type.errors }}
 											</td>
 											<td class="align-middle border-bottom">
 												<div class="input-group">
@@ -115,6 +116,7 @@
 							</div>
 							<!-- /Lecture -->
 
+							{% if formset2 %}
 							<!-- Laboratory -->
 							<div class="tab-pane fade has-add-content" id="nav-laboratory" role="tabpanel" aria-labelledby="nav-laboratory-tab">
 								<!-- Default for adding -->
@@ -174,7 +176,6 @@
 											</td>
 											<td class="align-middle border-bottom">
 												{{ form.week_due }}{{ form.week_due.errors }}
-												{{ form.type }}{{ form.type.errors }}
 											</td>
 											<td class="align-middle border-bottom">
 												<div class="input-group">
@@ -201,6 +202,7 @@
 								</div>
 							</div>
 							<!-- /Laboratory -->
+							{% endif %}
 						</div>
 
 					</div>

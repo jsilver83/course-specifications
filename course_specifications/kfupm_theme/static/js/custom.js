@@ -14,9 +14,7 @@ $(document).ready(function($) {
         this_last_content.find("input, textarea, select").each(function () {
             $(this).val("");
             let id_number = $(this).attr('id').match(/\d+/);
-            console.log($(this).attr('name'));
             $(this).attr('name', $(this).attr('name').replace(id_number, current_form_count-1));
-            console.log($(this).attr('name'));
             $(this).attr('id', $(this).attr('id').replace(id_number, current_form_count-1));
         });
 

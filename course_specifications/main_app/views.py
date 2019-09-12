@@ -216,23 +216,26 @@ def assessment_tasks(request, pk):
                                     queryset=course.assessment_tasks.filter(type=AssessmentTask.Types.LECTURE),
                                     prefix='lecture', form_kwargs={'task_type': AssessmentTask.Types.LECTURE})
 
-    formset2 = AssessmentTaskFormSet(request.POST or None,
-                                     queryset=course.assessment_tasks.filter(type=AssessmentTask.Types.LAB),
-                                     prefix='lab', form_kwargs={'task_type': AssessmentTask.Types.LAB})
+    formset2 = None
+    if course.lab_contact_hours:
+        formset2 = AssessmentTaskFormSet(request.POST or None,
+                                         queryset=course.assessment_tasks.filter(type=AssessmentTask.Types.LAB),
+                                         prefix='lab', form_kwargs={'task_type': AssessmentTask.Types.LAB})
 
     if request.method == 'POST':
-        if formset.is_valid() and formset2.is_valid():
+        if formset.is_valid() and (formset2.is_valid() if formset2 else True):
             for form1 in formset.forms:
                 if form1.is_valid():
                     obj = form1.save(commit=False)
                     obj.course = course
             formset.save()
 
-            for form2 in formset2.forms:
-                if form2.is_valid():
-                    obj2 = form2.save(commit=False)
-                    obj2.course = course
-            formset2.save()
+            if formset2:
+                for form2 in formset2.forms:
+                    if form2.is_valid():
+                        obj2 = form2.save(commit=False)
+                        obj2.course = course
+                formset2.save()
 
             messages.success(request, _('Course updated successfully'))
             return redirect(reverse_lazy('main_app:learning_resources', args=(course.pk, )))

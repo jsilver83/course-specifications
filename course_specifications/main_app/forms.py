@@ -288,16 +288,11 @@ class CourseContentForm(forms.ModelForm):
 class AssessmentTaskForm(forms.ModelForm):
     class Meta:
         model = AssessmentTask
-        fields = ['type', 'assessment_task', 'week_due', 'weight_percentage', ]
-        widgets = {
-            'type': forms.HiddenInput,
-        }
+        fields = ['assessment_task', 'week_due', 'weight_percentage', ]
 
     def __init__(self, task_type, *args, **kwargs):
         self.task_type = task_type
         super().__init__(*args, **kwargs)
-
-        self.initial['type'] = self.task_type
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
@@ -306,6 +301,13 @@ class AssessmentTaskForm(forms.ModelForm):
                                                                 _('e.g. essay, test, group project, speech, etc.')})
         self.fields['week_due'].widget.attrs.update({'placeholder': _('e.g. 3')})
         self.fields['weight_percentage'].widget.attrs.update({'placeholder': _('e.g. 20'), 'step': '0.5'})
+
+    def save(self, commit=True):
+        assessment_task = super().save(commit=False)
+        assessment_task.type = self.task_type
+        if commit:
+            assessment_task.save()
+        return assessment_task
 
 
 class AssessmentTaskBaseFormSet(BaseModelFormSet):
@@ -317,6 +319,21 @@ class AssessmentTaskBaseFormSet(BaseModelFormSet):
             self.verbose_name = _('Lecture Assessment Tasks')
         else:
             self.verbose_name = _('Laboratory Assessment Tasks')
+
+    def clean(self):
+        if any(self.errors):
+            # Don't bother validating the formset unless each form is valid on its own
+            return
+
+        total = Decimal('0.00')
+        for form in self.forms:
+            if self.can_delete and self._should_delete_form(form):
+                continue
+            total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
+
+        if total > 100:
+            raise forms.ValidationError(_('Total weights of ALL assessment tasks for lecture/lab '
+                                          'should NOT exceed 100'))
 
 
 AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
