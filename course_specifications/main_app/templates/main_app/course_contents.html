@@ -29,8 +29,8 @@
 	                        <a class="nav-item nav-link" id="nav-other-tab" data-toggle="tab" href="#nav-other" role="tab" aria-controls="nav-other" aria-selected="true"><small>{% trans 'Other' %}</small> <p class="mb-0 text-muted"><small class="total_other_contact_hrs">{% trans 'Please enter' %}</small></p></a>
 
 	                        <!-- Total contact hrs -->
-	                        <div class="align-right text-right">
-	                        	<b>Total contact hrs:</b><h6 class="total_contact_hrs">{% trans 'Please enter' %}</h6>
+	                        <div class="align-right text-right ml-auto">
+	                        	<span>Total contact hrs:</span><h6 class="total_contact_hrs">{% trans 'Please enter' %}</h6>
 	                        </div>
 	                        <!-- /Total contact hrs -->
 
@@ -59,7 +59,7 @@
 	                                <tbody class="add-here">
 	                                    {{ formset.management_form }}
                                         {% for form in formset %}
-	                                    <tr class="delete-this">
+	                                    <tr class="delete-this hours-val">
 	                                        <td scope="row" class="align-middle border-bottom">
 		                                        {{ form.id }}{{ form.topic }}{{ form.topic.errors }}
 	                                        </td>
@@ -138,7 +138,7 @@
 
 	                                    {{ formset2.management_form }}
                                         {% for form in formset2 %}
-	                                    <tr class="delete-this">
+	                                    <tr class="delete-this hours-val">
 	                                        <td scope="row" class="align-middle border-bottom">
 		                                        {{ form.id }}{{ form.topic }}{{ form.topic.errors }}
 	                                        </td>
@@ -193,7 +193,7 @@
 	                        <!-- Tutorial -->
 	                        <div class="tab-pane fade" id="nav-tutorial" role="tabpanel" aria-labelledby="nav-tutorial-tab">
 	                            <div class="border p-3">
-	                                <div class="row">
+	                                <div class="row hours-val active">
 	                                    <div class="col-md-4">
 	                                        <div class="form-group">
 	                                            {{ form.tutorial_contact_hours|as_crispy_field }}
@@ -207,7 +207,7 @@
 	                        <!-- Practical -->
 	                        <div class="tab-pane fade" id="nav-practical" role="tabpanel" aria-labelledby="nav-practical-tab">
 	                            <div class="border p-3">
-	                                <div class="row">
+	                                <div class="row hours-val active">
 	                                    <div class="col-md-4">
 	                                        <div class="form-group">
 	                                            {{ form.practical_contact_hours|as_crispy_field }}
@@ -221,7 +221,7 @@
 	                        <!-- Other -->
 	                        <div class="tab-pane fade" id="nav-other" role="tabpanel" aria-labelledby="nav-other-tab">
 	                            <div class="border p-3">
-	                                <div class="row">
+	                                <div class="row hours-val active">
 	                                    <div class="col-md-8">
 	                                        <div class="form-group">
 	                                            {{ form.other_contact_hours_description|as_crispy_field }}

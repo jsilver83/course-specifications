@@ -83,7 +83,7 @@
 									<span class="badge badge-primary text-badge mr-auto">--</span>
 								</td>
 								<td class="align-middle text-right">
-									{% if course|can_be_edited:request.user %}<a href="{% url 'main_app:update_course' course.pk %}" class="btn btn-sm btn-outline-secondary"><i class="far fa-edit"></i> {% trans "Edit" %}</a>{% endif %} {% if course.current_release %}<a href="{% url 'main_app:view_course_release' course.current_release.pk %}" class="btn btn-sm btn-outline-secondary"><i class="fa fa-search-plus"></i> {% trans "View" %}</a>{% endif %}
+									{% if course|can_be_edited:request.user %}<a href="{% url 'main_app:update_course' course.pk %}" class="btn btn-sm btn-text"><i class="far fa-edit"></i> {% trans "Edit" %}</a>{% endif %} {% if course.current_release %}<a href="{% url 'main_app:view_course_release' course.current_release.pk %}" class="btn btn-sm btn-outline-secondary"><i class="fa fa-search-plus"></i> {% trans "View" %}</a>{% endif %}
 								</td>
 							</tr>
 							{% for release in course.all_releases %}
