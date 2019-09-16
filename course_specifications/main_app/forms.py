@@ -96,12 +96,14 @@ class CourseIdentificationForm(forms.ModelForm):
         if total_credit_hours < lab_contact_hours:
             raise forms.ValidationError(_('Total credit hours can NOT ne less than lab credit hours'))
 
-        mode_of_instruction_in_class = cleaned_data.get('mode_of_instruction_in_class')
-        mode_of_instruction_other = cleaned_data.get('mode_of_instruction_other')
+        mode_of_instruction_in_class = \
+            cleaned_data.get('mode_of_instruction_in_class') if cleaned_data.get('mode_of_instruction_in_class') else 0
+        mode_of_instruction_other = \
+            cleaned_data.get('mode_of_instruction_other') if cleaned_data.get('mode_of_instruction_other') else 0
 
-        if mode_of_instruction_other and mode_of_instruction_in_class + mode_of_instruction_other > 100:
+        if mode_of_instruction_in_class + mode_of_instruction_other != 100:
             raise forms.ValidationError(
-                _('Mode of Instruction summation of In-Class and Other should NOT exceed 100'),
+                _('Mode of Instruction summation of In-Class and Other should be equal to 100'),
             )
 
         return cleaned_data
