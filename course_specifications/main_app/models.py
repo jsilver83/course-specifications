@@ -7,7 +7,6 @@ from simple_history.models import HistoricalRecords
 
 from course_specifications.utils import get_department_name
 
-
 User = settings.AUTH_USER_MODEL
 
 
@@ -27,11 +26,12 @@ class Course(models.Model):
 
     # region model-fields
     mother_department = models.CharField(_('Mother Department'), max_length=500, null=True, blank=False)
-    program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False)
-    number = models.CharField(_('Number'), max_length=10, null=True, blank=False,
-                              validators=[
-                                  RegexValidator(r'\d\d\d'),
-                              ])
+    program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False,
+                                    help_text=_('3 or 4 upper-case letters only'),
+                                    validators=[
+                                        RegexValidator(r'^[A-Z]{3,4}$'),
+                                    ])
+    number = models.CharField(_('Number'), max_length=10, null=True, blank=False)
     title = models.CharField(_('Title'), max_length=500, null=True, blank=False)
     catalog_description = models.TextField(_('Catalog Description'), null=True, blank=False,
                                            help_text=_('General description about the course and topics covered'))
