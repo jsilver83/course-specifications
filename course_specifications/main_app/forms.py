@@ -86,6 +86,16 @@ class CourseIdentificationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
+        total_credit_hours = cleaned_data.get('total_credit_hours', 0)
+        lecture_credit_hours = cleaned_data.get('lecture_credit_hours', 0)
+        lab_contact_hours = cleaned_data.get('lab_contact_hours', 0)
+
+        if total_credit_hours < lecture_credit_hours:
+            raise forms.ValidationError(_('Total credit hours can NOT ne less than lecture credit hours'))
+
+        if total_credit_hours < lab_contact_hours:
+            raise forms.ValidationError(_('Total credit hours can NOT ne less than lab credit hours'))
+
         mode_of_instruction_in_class = cleaned_data.get('mode_of_instruction_in_class')
         mode_of_instruction_other = cleaned_data.get('mode_of_instruction_other')
 
