@@ -161,7 +161,7 @@ $(document).ready(function($) {
         // }
         // else{
         // $(this).find('.add_clo.added').show();
-        $(this).parents('.modal').siblings('.btn').find('.clo-sec').find('.clo-count').html(added_clo_count);
+        $(this).parents('.modal').siblings('.btn').find('.clo-count').html(added_clo_count);
             // }
         // });
     });
