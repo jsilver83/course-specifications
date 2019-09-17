@@ -111,7 +111,7 @@ $(document).ready(function($) {
     }
     self_study_contact_hrs();
 
-    $('body').on('keyup', '#self-study .contact_hrs', function(){
+    $('body').on('keyup', '#self-study .contact_hrs input', function(){
         self_study_contact_hrs();
     });
 
@@ -161,7 +161,7 @@ $(document).ready(function($) {
         // }
         // else{
         // $(this).find('.add_clo.added').show();
-        $(this).parents('.modal').siblings('.btn').find('.clo-sec').find('.clo-count').html(added_clo_count);
+        $(this).parents('.modal').siblings('.btn').find('.clo-count').html(added_clo_count);
             // }
         // });
     });
