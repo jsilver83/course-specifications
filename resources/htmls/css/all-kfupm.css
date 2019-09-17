@@ -10565,10 +10565,9 @@ small, .small {
   height: auto !important;
 }
 .chairman-review-checklist .side-nav-layout .side-checklist {
-  width: auto !important;
-  max-width: 480px;
-  margin: auto;
+  width: 100% !important;
   overflow: inherit;
+  height: auto;
 }
 .chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu {
   border-top: solid 1px #EDEDED;
@@ -10594,11 +10593,18 @@ small, .small {
 .chairman-review-checklist .side-nav-layout .side-checklist .checklist-menu .sub-menu li:last-child a {
   border-bottom: none;
 }
-.chairman-review-checklist .btn-row {
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 32px;
+
+.overall-comments {
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(223, 205, 166, 0.1);
+  border-radius: 12px;
+  padding: 16px 15px;
+}
+.overall-comments .chat-view {
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 0 10px 32px 10px;
 }
 
 .add-this {

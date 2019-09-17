@@ -95,9 +95,25 @@ $(document).ready(function($) {
         });
         console.log(lec_hrs, lab_hrs, tutorial_hrs, practical_hrs, other_hrs);
         var total_contact_hrs = lec_hrs+lab_hrs+tutorial_hrs+practical_hrs+other_hrs;
-        $('.total_contact_hrs').addClass('text-dark h6 font-weight-bold').html(total_contact_hrs +' hrs');
+        $('.total_contact_hrs').addClass('text-dark h6 font-weight-bold').html(total_contact_hrs +' hrs');        
     }
     contact_hrs_calc();
+
+    function self_study_contact_hrs(){
+        var self_study_contact_hrs = 0;
+        $('#self-study .contact_hrs input').each(function(){
+            if($(this).val()){
+                self_study_contact_hrs += parseInt($(this).val());
+                console.log('Self study hrs', self_study_contact_hrs);
+                $('#total_self_study_contact_hrs').html(self_study_contact_hrs);
+            }
+        });
+    }
+    self_study_contact_hrs();
+
+    $('body').on('keyup', '#self-study .contact_hrs', function(){
+        self_study_contact_hrs();
+    });
 
     $('body').on('keyup', '.form-accordian input.contact_hrs', function(){
         contact_hrs_calc($(this));
@@ -264,6 +280,11 @@ $(document).ready(function($) {
     });
 
     //menu_completed_check();
+
+    //Chat view scroll to bottom
+    $('#chat-scroll').animate({
+        scrollTop: $('#chat-scroll').get(0).scrollHeight
+    }, 500);
 
 
 });
