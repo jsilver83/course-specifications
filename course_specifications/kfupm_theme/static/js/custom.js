@@ -1,7 +1,19 @@
 $(document).ready(function($) {
 
     $('.selectpicker').selectpicker();
-
+    function select_two() {
+        try {
+            $('.select2').select2();
+        }
+        catch(e){}
+    }
+    select_two();
+    $('#add_more').click(function() {
+        var form_idx = $('#id_objectives-TOTAL_FORMS').val();
+        var append_form = $(this).parents('.has-add-content').find('.add-this').html();
+        $(this).parents('.has-add-content').find('.add-here').append(append_form.replace(/__prefix__/g, form_idx));
+        $('#id_objectives-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
     $('body').on( "click", ".add-button", function() {
         var this_has_add_content = $(this).parents('.has-add-content');
         var this_add_here = this_has_add_content.find('.add-here');
@@ -43,6 +55,7 @@ $(document).ready(function($) {
             }
 
         });
+        select_two();
 
     });
 
@@ -282,9 +295,11 @@ $(document).ready(function($) {
     //menu_completed_check();
 
     //Chat view scroll to bottom
-    $('#chat-scroll').animate({
-        scrollTop: $('#chat-scroll').get(0).scrollHeight
-    }, 500);
+    if($('#chat-scroll').is(':visible')){
+        $('#chat-scroll').animate({
+            scrollTop: $('#chat-scroll').get(0).scrollHeight
+        }, 500);
+    }
 
 
 });
