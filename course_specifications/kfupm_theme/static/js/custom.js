@@ -8,11 +8,12 @@ $(document).ready(function($) {
         catch(e){}
     }
     select_two();
-    $('#add_more').click(function() {
-        var form_idx = $('#id_objectives-TOTAL_FORMS').val();
-        var append_form = $(this).parents('.has-add-content').find('.add-this').html();
-        $(this).parents('.has-add-content').find('.add-here').append(append_form.replace(/__prefix__/g, form_idx));
-        $('#id_objectives-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    $('.add_more').click(function() {
+        var this_has_add_content = $(this).parents('.has-add-content');
+        var form_idx = this_has_add_content.find("input[name*='-TOTAL_FORMS']").val();
+        var append_form = this_has_add_content.find('.add-this').html();
+        this_has_add_content.find('.add-here').append(append_form.replace(/__prefix__/g, form_idx));
+        this_has_add_content.find("input[name*='-TOTAL_FORMS']").val(parseInt(form_idx) + 1);
     });
     $('body').on( "click", ".add-button", function() {
         var this_has_add_content = $(this).parents('.has-add-content');

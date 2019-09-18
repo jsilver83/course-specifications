@@ -59,7 +59,7 @@
                         </ol>
                         <div class="row">
                             <div class="col-12 text-right">
-                                <button class="btn btn-sm btn-link bg-light" id="add_more" type="button"><small class="fas fa-plus mr-1"></small>{% trans 'Add objective' %}</button>
+                                <button class="btn btn-sm btn-link bg-light add_more" type="button"><small class="fas fa-plus mr-1"></small>{% trans 'Add objective' %}</button>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
             <div class="collapse show p-3 pt-4 pb-4 has-add-content" id="course-level-outcomes">
                 <!-- Default for adding -->
                 <div class="add-this">
-                    <div class="delete-this">
+                    <li class="delete-this">
                         <div class="d-flex">
                             <div class="row">
                                 <div class="col-sm-2 col-12 pr-sm-1">
@@ -106,14 +106,14 @@
                             </div>
                             <button class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
                         </div>
-                    </div>
+                    </li>
                 </div>
                 <!-- /Default for adding -->
                 <div class="row">
-                    <div class="col-12 add-here">
+                    <ol class="col-12 add-here">
                         {{ formset2.management_form }}
                         {% for form in formset2 %}
-                        <div class="delete-this">
+                        <li class="delete-this">
                             <div class="d-flex">
                                 <div class="row">
                                     <div class="col-sm-2 col-12 pr-sm-1">
@@ -140,13 +140,13 @@
                                 </div>
                                 <button class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
                             </div>
-                        </div>
+                        </li>
 	                    {% endfor %}
-                    </div>
+                    </ol>
                 </div>
                 <div class="row">
                     <div class="col-12 text-right">
-                        <button class="btn btn-sm btn-link bg-light add-button" type="button"><small class="fas fa-plus mr-1"></small>Add outcome</button>
+                        <button class="btn btn-sm btn-link bg-light add_more" type="button"><small class="fas fa-plus mr-1"></small>Add outcome</button>
                     </div>
                 </div>
             </div>
