@@ -11,9 +11,11 @@ $(document).ready(function($) {
     $('.add_more').click(function() {
         var this_has_add_content = $(this).parents('.has-add-content');
         var form_idx = this_has_add_content.find("input[name*='-TOTAL_FORMS']").val();
+        console.log('Total Forms:', form_idx);
         var append_form = this_has_add_content.find('.add-this').html();
         this_has_add_content.find('.add-here').append(append_form.replace(/__prefix__/g, form_idx));
         this_has_add_content.find("input[name*='-TOTAL_FORMS']").val(parseInt(form_idx) + 1);
+        select_two();
     });
     $('body').on( "click", ".add-button", function() {
         var this_has_add_content = $(this).parents('.has-add-content');
