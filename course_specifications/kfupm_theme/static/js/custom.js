@@ -1,22 +1,25 @@
 $(document).ready(function($) {
 
     $('.selectpicker').selectpicker();
+
     function select_two() {
         try {
-            $('.select2').select2();
+            $('.select2').not('.add-this .select2').select2();
         }
         catch(e){}
     }
     select_two();
+
     $('.add_more').click(function() {
         var this_has_add_content = $(this).parents('.has-add-content');
         var form_idx = this_has_add_content.find("input[name*='-TOTAL_FORMS']").val();
         console.log('Total Forms:', form_idx);
         var append_form = this_has_add_content.find('.add-this').html();
-        this_has_add_content.find('.add-here').append(append_form.replace(/__prefix__/g, form_idx));
+        this_has_add_content.find('.add-here').append(append_form.replace(/__prefix__/g, form_idx).replace(/__placeholder__/g, form_idx));
         this_has_add_content.find("input[name*='-TOTAL_FORMS']").val(parseInt(form_idx) + 1);
         select_two();
     });
+
     $('body').on( "click", ".add-button", function() {
         var this_has_add_content = $(this).parents('.has-add-content');
         var this_add_here = this_has_add_content.find('.add-here');
@@ -35,12 +38,10 @@ $(document).ready(function($) {
         this_cloned_forms.attr('name', name_attr);
         this_cloned_forms.attr('id', id_attr);
 
-
         //Clone last content with replaced numbers
         this_add_here.append(this_last_content);
 
         this_last_content.find('.has-increment-val').each(function (){
-
             if($(this).attr('data-target')){
                 var data_target_num = $(this).attr('data-target').match(/\d+/);
                 var data_target_attr = $(this).attr('data-target').replace(data_target_num, current_form_count);
@@ -56,10 +57,9 @@ $(document).ready(function($) {
                 var aria_labelledby_attr = $(this).attr('aria-labelledby').replace(aria_labelledby_num, current_form_count);
                 $(this).attr('aria-labelledby', aria_labelledby_attr);
             }
-
         });
-        select_two();
 
+        select_two();
     });
 
 
