@@ -129,15 +129,24 @@ ID: CSR4
 ==== Description
 
 The faculty member should be able to fill in the accreditation details when
-necessary .
+necessary , Hence the Accreditation section won't be visible unless it's required.
 
-
-
-=== Review and Approval Work-flow (assignment and flow)
+=== Creating a new Course Specification
 
 ID: CSR5
 
 ==== Description
+
+The Chairman has the ability to create a initial new course specifications.
+
+
+=== Review and Approval Work-flow.
+
+ID: CSR6
+
+==== Description
+
+NOTE: The current Work-flow  implementation is  up-to the Chairman approval
 
 The current course specification work-flow consists of :
 
@@ -159,13 +168,13 @@ The flow start by the Chairman assigning the maintainer and reviewer.
 
 === Course Specifications Status Change
 
-ID: CSR6
+ID: CSR7
 
 ==== Description
 
 The course specifications process will have the following Statues :
 
-* Draft (by assigned Maintainer)
+* Draft
 * Submitted for Review
 * In Review
 * Submitted for Approval
