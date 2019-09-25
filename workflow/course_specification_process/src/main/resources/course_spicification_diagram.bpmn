@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_11apbq0">
     <bpmn:participant id="Participant_1tn6van" name="Course Spicification" processRef="course_spicification_process" />
   </bpmn:collaboration>
-  <bpmn:process id="course_spicification_process" name="Course Spicification" isExecutable="true">
+  <bpmn:process id="course_spicification_process" name="Course Spicification" isExecutable="false" camunda:isStartableInTasklist="false">
     <bpmn:laneSet id="LaneSet_0quj771">
       <bpmn:lane id="Lane_0emqy9t" name="Reviwer">
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
@@ -90,7 +90,6 @@
     <bpmn:userTask id="Reviewer_Task" name="Review the filled CS" camunda:formKey="embedded:app:forms/UserTaskForm.html" camunda:assignee="${ReviewerTaskAssignee}">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.dgs.listner.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.DecisionListner" event="complete" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0xjtbjp</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1bj5kp0</bpmn:incoming>
@@ -100,7 +99,6 @@
     <bpmn:userTask id="Chairman_Task" name="Review the filled CS" camunda:formKey="embedded:app:forms/UserTaskForm.html" camunda:assignee="${ChairmanTaskAssignee}">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.dgs.listner.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.DecisionListner" event="complete" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0l94f75</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1jv302i</bpmn:incoming>
