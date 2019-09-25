@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import sa.edu.kfupm.ictc.course_specification_process.utils.PropertiesHelper;
 import sa.edu.kfupm.ictc.course_specification_process.utils.api.AdwarApi;
-import sa.edu.kfupm.ictc.course_specification_process.utils.api.BannerApi;
 import sa.edu.kfupm.ictc.course_specification_process.utils.api.StaffApi;
 
 import java.util.Properties;
@@ -23,7 +22,6 @@ public class UserTaskListener implements TaskListener {
 
     private void assignUser(DelegateTask delegateTask) {
         AdwarApi adwarApi = AdwarApi.getInstance();
-        BannerApi bannerApi = BannerApi.getInstance();
         StaffApi staffApi = StaffApi.getInstance();
 
         String courseCode = delegateTask.getVariable("CourseCode") + "";
