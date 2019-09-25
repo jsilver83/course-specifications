@@ -1,3 +1,5 @@
+import json
+
 import requests
 from django.conf import settings
 from django.core.cache import cache
@@ -156,3 +158,125 @@ def get_subordinates_choices(supervisor):
     else:
         return [{'username': 'N/A', 'name_en': '', }, ]
 
+
+class CamundaAPI:
+    process_definition_key = 'course_spicification_process'
+
+    def __init__(self, process_instance_id):
+        self.process_instance_id = process_instance_id
+
+    def get_active_tasks(self):
+        parameters = {
+            'processInstanceId': self.process_instance_id
+        }
+        current_tasks = CamundaAPI.call_camunda_api('task', parameters=parameters)
+        if current_tasks != 'ERROR':
+            if current_tasks and len(current_tasks) != 1:
+                raise Exception("Must be one active task in process id: {}, but {} found".format(self.process_instance_id, len(current_tasks or [])))
+            return current_tasks
+
+    def get_task_options(self, task=None):
+        if not task:
+            task = self.get_active_tasks()
+
+        response = CamundaAPI.call_camunda_api('task/{task_id}/localVariables/options'.format(task_id=task['id']))
+        if response != 'ERROR':
+            return json.loads(response['value'])
+
+    def complete_current_task(self, decision, task=None):
+        if not task:
+            task = self.get_active_tasks()
+
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        body = {
+            "variables":
+                {
+                    "GatewayDecision": {
+                        "value": decision
+                    }
+                }
+        }
+        response = CamundaAPI.post_to_web_service('task/{task_id}/complete'.format(task_id=task['id']), json=body, headers=headers)
+        return response
+
+    @staticmethod
+    def start_process(CourseCode, MaintainerTaskAssignee, ReviewerTaskAssignee, ChairmanTaskAssignee, AACTaskAssignee, isGraguateCourse):
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        body = {
+            "variables": {
+                "CourseCode": {
+                    "value": CourseCode,
+                    "type": "String"
+                },
+                "MaintainerTaskAssignee": {
+                    "value": MaintainerTaskAssignee,
+                    "type": "String"
+                },
+                "ReviewerTaskAssignee": {
+                    "value": ReviewerTaskAssignee,
+                    "type": "String"
+                },
+                "ChairmanTaskAssignee": {
+                    "value": ChairmanTaskAssignee,
+                    "type": "String"
+                },
+                "AACTaskAssignee": {
+                    "value": AACTaskAssignee,
+                    "type": "String"
+                },
+                "GraduateCourse": {
+                    "value": isGraguateCourse,
+                    "type": "boolean"
+                }
+            }
+        }
+
+        url = 'process-definition/key/{}/start'.format(CamundaAPI.process_definition_key)
+        response = CamundaAPI.post_to_web_service(url, json=body, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def call_camunda_api(end_point, parameters=None, basic_auth=True):
+        base_url = settings.CAMUNDA_BASE_URL
+        user = settings.CAMUNDA_USERNAME
+        password = settings.CAMUNDA_PASSWORD
+
+        full_url = '{}/{}'.format(base_url, end_point)
+        """ calling webservice """
+
+        try:
+            auth = HTTPBasicAuth(username=user, password=password) if basic_auth else None
+            if settings.DEBUG:
+                data = requests.get(full_url, params=parameters, auth=auth, verify=False)
+            else:
+                data = requests.get(full_url, params=parameters, auth=auth)
+            response = data.json()
+            return response
+
+        except Exception as err:
+            return 'ERROR'
+
+    @staticmethod
+    def post_to_web_service(url, data=None, json=None, headers=None, basic_auth=True):
+        try:
+
+            base_url = settings.CAMUNDA_BASE_URL
+            user = settings.CAMUNDA_USERNAME
+            password = settings.CAMUNDA_PASSWORD
+
+            auth = HTTPBasicAuth(username=user, password=password) if basic_auth else None
+            full_url = '{}/{}'.format(base_url, url)
+            """ calling webservice """
+            if settings.DEBUG:
+                response = requests.post(full_url, data=data, json=json, headers=headers, auth=auth, verify=False)
+            else:
+                response = requests.post(full_url, data=data, json=json, headers=headers, auth=auth)
+            return response
+        except:
+            return 'ERROR'
