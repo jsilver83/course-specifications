@@ -591,3 +591,19 @@ class ApprovalComments(models.Model):
                                      null=True, blank=True, verbose_name=_('Commenter'),
                                      related_name='approval_comments', )
     comment_date = models.DateTimeField(auto_now_add=True)
+
+
+class CommentViewership(models.Model):
+    comment = models.ForeignKey('ApprovalComments', on_delete=models.CASCADE,
+                                null=True, blank=False, verbose_name=_('Comment'),
+                                related_name='comment_views', )
+    viewer = models.ForeignKey(User, on_delete=models.CASCADE,
+                               null=True, blank=False, verbose_name=_('Viewer'),
+                               related_name='viewed_comments', )
+    is_new = models.BooleanField(
+        _('Is New?'),
+        default=True,
+        help_text=_('If checked, it means this comment is new to this user. The comment will be considered old, '
+                    'if the user moved on in the process to the next step')
+    )
+    viewed_on = models.DateTimeField(_('Viewed On'), auto_now=True)
