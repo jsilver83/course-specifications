@@ -578,8 +578,11 @@ class CourseRelease(models.Model):
 
 class ApprovalComments(models.Model):
     class Sections:
-        # TODO: add the real sections
-        SECTION_1 = 'sec 1'
+        # TODO: add rest of the sections
+        COURSE_IDENTIFICATION = 'COURSE_IDENTIFICATION'
+        REQUISITES = 'REQUISITES'
+        MODE_OF_INSTRUCTION = 'MODE_OF_INSTRUCTION'
+        OFFICE_HOURS = 'OFFICE_HOURS'
 
         @classmethod
         def choices(cls):
