@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load course_filters %}
+
+{% block main_content %}
+	{% create_comment object.pk 'section_0' %}
+	{% create_comment object.pk 'section_1' %}
+	{% create_comment object.pk 'section_2' %}
+	{% create_comment object.pk 'section_3' %}
+{% endblock main_content %}

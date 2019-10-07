@@ -1,0 +1,111 @@
+{% load i18n %}
+
+<div class="card-footer action-section p-3 h-100 d-flex flex-column">
+	<h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+		<span class="mr-auto">{% trans "Comments if any" %}</span>
+		<button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal"
+		        data-target="#{{ prefix }}-comments">{% trans "View all" %}
+		</button>
+		<!-- Modal -->
+		<div class="modal fade" id="{{ prefix }}-comments" tabindex="-1" role="dialog"
+		     aria-labelledby="{{ prefix }}-comments" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">{% trans "All Comments" %}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body bg-light">
+						<div class="chat-view">
+							{% for comment in comments %}
+							<div class="chat">
+								<div class="chat-card {% if comment.commented_by == user %}friend{% endif %}">
+									<h6>{{ comment.commenter_full_name }}</h6>
+									<p>{{ comment.comment }}</p>
+									<div class="d-flex chat-footer text-muted">
+										<div class="time mr-auto">{{ comment.commenter_role }}</div>
+										<div class="time"><span class="mr-2">{{ comment.comment_date.date }}</span><span>{{ comment.comment_date.time }}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+{#							<div class="chat-badge new-chat">#}
+{#								<i class="fas fa-comment mr-1 icon"></i><span>Your new comment(s)</span>#}
+{#							</div>#}
+{#							<div class="chat">#}
+{#								<div class="chat-card">#}
+{#									<h6>You</h6>#}
+{#									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor#}
+{#										sit amet.</p>#}
+{#									<div class="d-flex chat-footer text-muted">#}
+{#										<div class="time mr-auto">Chairman</div>#}
+{#										<div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span>#}
+{#										</div>#}
+{#									</div>#}
+{#								</div>#}
+{#							</div>#}
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Modal -->
+	</h6>
+	<div class="chat-view">
+		<div class="chat">
+			<div class="chat-card  {% if comments.latest.commented_by == user %}friend{% endif %}">
+				<h6>{{ comments.latest.commenter_full_name }}</h6>
+				<p>{{ comments.latest.comment }}</p>
+				<div class="d-flex chat-footer text-muted">
+					<div class="time mr-auto">{{ comments.latest.commenter_role }}</div>
+					<div class="time"><span class="mr-2">{{ comments.latest.comment_date.date }}</span><span>{{ comments.latest.comment_date.time }}</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="chat-textarea mt-auto {{ prefix }}-comment-div">
+		<form class="{{ prefix }}-form" method="post">
+			<div class="d-flex">
+				<div class="{{ prefix }}-error"></div>
+				{% csrf_token %}
+				<div class="mr-auto"></div>
+				{#				<div class="send-btn {{ prefix }}-btn">#}
+				<button class="send-btn btn btn-sm {{ prefix }}-submit">{% trans "Send" %}</button>
+				{#				</div>#}
+			</div>
+			{{ form.course_release }}
+			{{ form.section }}
+			<textarea class="form-control" placeholder="Enter your comments" name="comment" id="id_comment"
+			          required=""></textarea>
+		</form>
+	</div>
+</div>
+
+<script type="application/javascript">
+    $(function () {
+        $('.{{ prefix }}-form').on('submit', function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: '{% url 'main_app:create_comment' %}',
+                type: "POST",
+                data: $(".{{ prefix }}-form").serialize(),
+                success: function (json) {
+                    $('.{{ prefix }}-comment-div').html('<div class="alert alert-success" data-alert>{% trans 'Your comment was submitted successfully...' %}</div>');
+                    console.log(json);
+                    console.log("success");
+                },
+                error: function (xhr, errmsg, err) {
+                    $('{{ prefix }}-error').html("<div class='alert alert-danger' data-alert>Oops! We have encountered an error: " + errmsg +
+                        " <a href='#' class='close'>&times;</a></div>");
+                    console.log(xhr.status + ": " + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>

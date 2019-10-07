@@ -5,8 +5,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView, ListView, UpdateView, FormView
+from django.views.generic import CreateView, ListView, UpdateView, FormView, TemplateView, DetailView
 
+from course_specifications.mixins import AjaxableResponseMixin, JSONResponseMixin
 from course_specifications.utils import UserType
 from .forms import *
 from .models import *
@@ -300,3 +301,24 @@ def accreditation_requirements(request, pk):
         'course': course, 'form': form, 'formset': formset,
         'active_step': '7',
     })
+
+
+class ReviewCourseView(DetailView):
+    template_name = 'main_app/view_course/review_course.html'
+    model = CourseRelease
+
+
+class CreateCommentView(AjaxableResponseMixin, CreateView):
+    template_name = 'main_app/view_course/review_course.html'
+    form_class = CreateCommentForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['section'] = ''  # we are passing null values here that will be overridden by POST data
+        kwargs['course_release'] = ''  # same a s above
+        return kwargs
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.commented_by = self.request.user
+        return super().form_valid(form)

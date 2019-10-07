@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
-from course_specifications.utils import get_department_name
+from course_specifications.utils import get_department_name, get_full_name
 
 User = settings.AUTH_USER_MODEL
 
@@ -222,6 +222,7 @@ class Course(models.Model):
                                                   help_text=_('Arrangements for availability of faculty and teaching '
                                                               'staff for individual student consultations and academic '
                                                               'advice'))
+    # TODO: add grad_flag
     # endregion
 
     history = HistoricalRecords()
@@ -392,6 +393,7 @@ class CourseLearningOutcome(models.Model):
                 (cls.SKILLS, _('Skills')),
                 (cls.COMPETENCE, _('Competence')),
             )
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
                                related_name='learning_outcomes')
     clo_category = models.CharField(_('Category'), max_length=50, null=True, blank=False, choices=Categories.choices())
@@ -422,6 +424,7 @@ class Topic(models.Model):
                 (cls.PRACTICAL, _('Practical')),
                 (cls.OTHER, _('Other')),
             )
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
                                related_name='topics')
     type = models.CharField(_('Type'), max_length=50, null=True, blank=False, choices=Types.choices())
@@ -498,6 +501,7 @@ class FacilitiesRequired(models.Model):
                 (cls.TECHNOLOGY_RESOURCES, _('Technology Resources')),
                 (cls.OTHER, _('Other')),
             )
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
                                related_name='facilities_required')
     type = models.CharField(_('Type'), max_length=50, null=True, blank=False, choices=Types.choices())
@@ -529,6 +533,7 @@ class CourseRelease(models.Model):
     approved_by = models.ForeignKey(User, on_delete=models.PROTECT,
                                     null=True, blank=True, verbose_name=_('Approved By'),
                                     related_name='approved_courses', )
+
     # TODO: meaningful names plz
     # flag_1 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
     # flag_2 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
@@ -591,3 +596,40 @@ class ApprovalComments(models.Model):
                                      null=True, blank=True, verbose_name=_('Commenter'),
                                      related_name='approval_comments', )
     comment_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        get_latest_by = ['comment_date', ]
+
+    def __str__(self):
+        return self.comment
+
+    def commenter_role(self):
+        # TODO: get role from Camunda [Shaheed]
+        return ''
+
+    def create_viewership(self, user):
+        # TODO: implement
+        pass
+
+    def is_new_for_user(self, user):
+        # TODO: implement
+        pass
+
+    def commenter_full_name(self):
+        return get_full_name(self.commented_by)
+
+
+class CommentViewership(models.Model):
+    comment = models.ForeignKey('ApprovalComments', on_delete=models.CASCADE,
+                                null=True, blank=False, verbose_name=_('Comment'),
+                                related_name='comment_views', )
+    viewer = models.ForeignKey(User, on_delete=models.CASCADE,
+                               null=True, blank=False, verbose_name=_('Viewer'),
+                               related_name='viewed_comments', )
+    is_new = models.BooleanField(
+        _('Is New?'),
+        default=True,
+        help_text=_('If checked, it means this comment is new to this user. The comment will be considered old, '
+                    'if the user moved on in the process to the next step')
+    )
+    viewed_on = models.DateTimeField(_('Viewed On'), auto_now=True)
