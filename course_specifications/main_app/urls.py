@@ -16,4 +16,8 @@ urlpatterns = [
     path('learning-resources/<int:pk>/', LearningResourcesView.as_view(), name='learning_resources'),
     path('evaluation/<int:pk>/', EvaluationView.as_view(), name='evaluation'),
     path('accreditation-requirements/<int:pk>/', accreditation_requirements, name='accreditation_requirements'),
+
+
+    path('review/<int:pk>/', ReviewCourseView.as_view(), name='review_course_release'),
+    path('new-comment/', CreateCommentView.as_view(), name='create_comment'),
 ]
