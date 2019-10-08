@@ -576,7 +576,7 @@ class CourseRelease(models.Model):
 #                                            null=False, related_name='releases')
 
 
-class ApprovalComments(models.Model):
+class ApprovalComment(models.Model):
     class Sections:
         # TODO: add rest of the sections
         COURSE_IDENTIFICATION = 'COURSE_IDENTIFICATION'
@@ -623,7 +623,7 @@ class ApprovalComments(models.Model):
 
 
 class CommentViewership(models.Model):
-    comment = models.ForeignKey('ApprovalComments', on_delete=models.CASCADE,
+    comment = models.ForeignKey('ApprovalComment', on_delete=models.CASCADE,
                                 null=True, blank=False, verbose_name=_('Comment'),
                                 related_name='comment_views', )
     viewer = models.ForeignKey(User, on_delete=models.CASCADE,

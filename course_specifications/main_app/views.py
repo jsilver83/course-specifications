@@ -311,10 +311,10 @@ class ReviewCourseView(AllowedUserTypesMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['course'] = self.object.course
-        context['comments_section_1'] = ApprovalComments.Sections.COURSE_IDENTIFICATION
-        context['comments_section_2'] = ApprovalComments.Sections.REQUISITES
-        context['comments_section_3'] = ApprovalComments.Sections.MODE_OF_INSTRUCTION
-        context['comments_section_4'] = ApprovalComments.Sections.OFFICE_HOURS
+        context['comments_section_1'] = ApprovalComment.Sections.COURSE_IDENTIFICATION
+        context['comments_section_2'] = ApprovalComment.Sections.REQUISITES
+        context['comments_section_3'] = ApprovalComment.Sections.MODE_OF_INSTRUCTION
+        context['comments_section_4'] = ApprovalComment.Sections.OFFICE_HOURS
         return context
 
 
