@@ -28,8 +28,17 @@ class FacilitiesRequiredInlineAdmin(admin.TabularInline):
 
 
 class CourseAdmin(SimpleHistoryAdmin):
+    list_display = ('get_department_name', 'program_code', 'number', 'title', 'lecture_credit_hours',
+                    'lab_contact_hours', 'total_credit_hours', )
+    search_fields = ('program_code', 'number', 'title', )
     inlines = [LearningObjectiveInlineAdmin, CourseLearningOutcomeInlineAdmin, TopicInlineAdmin,
                AssessmentTaskInlineAdmin, FacilitiesRequiredInlineAdmin]
+
+
+class CourseReleaseAdmin(admin.ModelAdmin):
+    list_display = ('version', 'course', )
+    search_fields = ('course__program_code', 'course__number', 'course__title', )
+    readonly_fields = ('course', )
 
 
 class LearningObjectiveAdmin(SimpleHistoryAdmin):
@@ -45,9 +54,15 @@ class NewUserAdmin(UserAdminImpersonateMixin, UserAdmin):
     pass
 
 
+class ApprovalCommentsAdmin(admin.ModelAdmin):
+    list_display = ('course_release', 'section', 'comment', 'commented_by', 'comment_date', )
+    autocomplete_fields = ('course_release', )
+
+
 # admin.site.register(LearningObjective, LearningObjectiveInlineAdmin)
 admin.site.register(LearningObjective, LearningObjectiveAdmin)
 admin.site.register(CourseLearningOutcome, CourseLearningOutcomeAdmin)
 admin.site.register(Topic)
-admin.site.register(CourseRelease)
+admin.site.register(CourseRelease, CourseReleaseAdmin)
 admin.site.register(Course, CourseAdmin)
+admin.site.register(ApprovalComments, ApprovalCommentsAdmin)
