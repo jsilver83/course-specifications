@@ -332,6 +332,14 @@ class ReviewCourseView(BaseReviewCourseView):
                          ApprovalComment.Sections.MODE_OF_INSTRUCTION, ApprovalComment.Sections.OFFICE_HOURS]
 
 
+class ReviewCourseStep2View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step2.html'
+    title = _('Course Description, Objectives & Learning Outcomes')
+    next_url_handler = 'review_course_release_step3'
+    comments_sections = [ApprovalComment.Sections.DESCRIPTION, ApprovalComment.Sections.OBJECTIVES,
+                         ApprovalComment.Sections.CLO]
+
+
 class CreateCommentView(AjaxableResponseMixin, CreateView):
     template_name = 'main_app/view_course/review_course.html'
     form_class = CreateCommentForm
