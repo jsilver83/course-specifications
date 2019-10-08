@@ -20,7 +20,7 @@ urlpatterns = [
     path('view-course-release/<int:pk>/', ReviewCourseView.as_view(), name='view_course_release'),
 
     path('review/<int:pk>/', ReviewCourseView.as_view(), name='review_course_release_step1'),
-    path('review/step2/<int:pk>/', ReviewCourseView.as_view(), name='review_course_release_step2'),
+    path('review/step2/<int:pk>/', ReviewCourseStep2View.as_view(), name='review_course_release_step2'),
     path('review/step3/<int:pk>/', ReviewCourseView.as_view(), name='review_course_release_step3'),
     path('review/step4/<int:pk>/', ReviewCourseView.as_view(), name='review_course_release_step4'),
     path('review/step5/<int:pk>/', ReviewCourseView.as_view(), name='review_course_release_step5'),

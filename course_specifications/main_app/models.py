@@ -583,6 +583,9 @@ class ApprovalComment(models.Model):
         REQUISITES = 'REQUISITES'
         MODE_OF_INSTRUCTION = 'MODE_OF_INSTRUCTION'
         OFFICE_HOURS = 'OFFICE_HOURS'
+        DESCRIPTION = 'DESCRIPTION'
+        OBJECTIVES = 'OBJECTIVES'
+        CLO = 'CLO'
 
         @classmethod
         def choices(cls):
