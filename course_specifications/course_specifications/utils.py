@@ -64,6 +64,7 @@ class APIType:
 
 
 def call_web_service(url, method='get', parameters=None, data=None, basic_auth=True, api=APIType.BANNER):
+    # TODO: use https://aiohttp.readthedocs.io/en/stable/ to make async calls
     try:
         if api == APIType.BANNER:
             base_url = settings.BANNER_WEBSERVICE_BASE_URL
