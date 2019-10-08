@@ -311,10 +311,12 @@ class ReviewCourseView(AllowedUserTypesMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['course'] = self.object.course
+        context['title'] = _('Course identification and general information')
         context['comments_section_1'] = ApprovalComment.Sections.COURSE_IDENTIFICATION
         context['comments_section_2'] = ApprovalComment.Sections.REQUISITES
         context['comments_section_3'] = ApprovalComment.Sections.MODE_OF_INSTRUCTION
         context['comments_section_4'] = ApprovalComment.Sections.OFFICE_HOURS
+        context['next_url'] = reverse_lazy('main_app:review_course_release_step2', kwargs={'pk': self.object.pk})
         return context
 
 
