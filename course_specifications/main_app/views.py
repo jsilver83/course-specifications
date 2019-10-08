@@ -303,21 +303,33 @@ def accreditation_requirements(request, pk):
     })
 
 
-class ReviewCourseView(AllowedUserTypesMixin, DetailView):
-    template_name = 'main_app/view_course/review_course.html'
+class BaseReviewCourseView(AllowedUserTypesMixin, DetailView):
+    template_name = ''
     model = CourseRelease
     allowed_user_types = '__all__'
+    title = ''
+    next_url_handler = ''
+    comments_sections = []
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['course'] = self.object.course
-        context['title'] = _('Course identification and general information')
-        context['comments_section_1'] = ApprovalComment.Sections.COURSE_IDENTIFICATION
-        context['comments_section_2'] = ApprovalComment.Sections.REQUISITES
-        context['comments_section_3'] = ApprovalComment.Sections.MODE_OF_INSTRUCTION
-        context['comments_section_4'] = ApprovalComment.Sections.OFFICE_HOURS
-        context['next_url'] = reverse_lazy('main_app:review_course_release_step2', kwargs={'pk': self.object.pk})
+        context['title'] = self.title
+        context['next_url'] = reverse_lazy('main_app:{}'.format(self.next_url_handler), kwargs={'pk': self.object.pk})
+
+        context['can_comment'] = True  # TODO: use camunda to decide on this
+        for counter, comments_section in enumerate(self.comments_sections):
+            context['comments_section_{}'.format(counter+1)] = comments_section
+
         return context
+
+
+class ReviewCourseView(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course.html'
+    title = _('Course identification and general information')
+    next_url_handler = 'review_course_release_step2'
+    comments_sections = [ApprovalComment.Sections.COURSE_IDENTIFICATION, ApprovalComment.Sections.REQUISITES,
+                         ApprovalComment.Sections.MODE_OF_INSTRUCTION, ApprovalComment.Sections.OFFICE_HOURS]
 
 
 class CreateCommentView(AjaxableResponseMixin, CreateView):
