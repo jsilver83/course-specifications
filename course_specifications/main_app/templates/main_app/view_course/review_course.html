@@ -1,9 +1,200 @@
-{% extends 'base.html' %}
+{% extends 'main_app/view_course/review_course_base.html' %}
+{% load i18n %}
 {% load course_filters %}
 
-{% block main_content %}
-	{% create_comment object.pk 'section_0' %}
-	{% create_comment object.pk 'section_1' %}
-	{% create_comment object.pk 'section_2' %}
-	{% create_comment object.pk 'section_3' %}
-{% endblock main_content %}
+{% block content %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card mb-4 course-title">
+				<div class="card-body">
+					<div class="pb-2 d-flex align-items-center">
+						<p class="mb-0 mr-auto text-muted">Theory of Architecture I</p>
+					</div>
+					<div class="pt-2 border-top d-flex align-items-center">
+						<h5 class="mb-0 mr-auto">Course identification and general information</h5>
+					</div>
+				</div>
+			</div>
+
+			<!-- Cards with slide -->
+			<div id="touchScroller">
+
+				<!-- Course identification -->
+				<div class="card" id="course-identification">
+					<div class="row">
+						<div class="col-md-7 col-12 pr-md-0">
+							<div class="card-body">
+								<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Course identification</h6>
+								<div class="card-text">
+									<div class="">
+										<table class="view-table">
+											<tr>
+												<td><small class="text-muted">Course code</small></td>
+												<td>{{ course.history_object.code }}</td>
+											</tr>
+											<tr>
+												<td><small class="text-muted">Course title</small></td>
+												<td>{{ course.title }}</td>
+											</tr>
+											<tr>
+												<td><small class="text-muted">Location</small></td>
+												<td>{{ course.get_location_display }}</td>
+											</tr>
+											<tr>
+												<td><small class="text-muted">Credit hours</small></td>
+												<td>
+													<div class="d-flex">
+														<div>
+															<p class="mb-0 mr-3">Lecture</p>
+															<p class="mb-0 font-weight-bold">{{ course.lecture_credit_hours|default_if_none:"0" }}</p>
+														</div>
+														<div>
+															<p class="mb-0 mr-3">Lab</p>
+															<p class="mb-0 font-weight-bold">{{ course.lab_contact_hours|default_if_none:"0" }}</p>
+														</div>
+														<div>
+															<p class="mb-0 mr-3">Total</p>
+															<p class="mb-0 font-weight-bold">{{ course.total_credit_hours }}</p>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Action section -->
+						<div class="col-md-5 col-12 pl-md-0">
+							{% create_comment object.pk comments_section_1 %}
+						</div>
+						<!-- /Action section -->
+					</div>
+				</div>
+				<!-- /Course identification -->
+
+				<!-- Requisites for this course -->
+				<div class="card" id="requisites-course">
+					<div class="row">
+						<div class="col-md-7 col-12 pr-md-0">
+							<div class="card-body">
+								<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Requisites for this course</h6>
+								<div class="card-text">
+									<div class="">
+										<table class="view-table">
+											<tr>
+												<td><small class="text-muted">Pre-requisites for this course</small>
+												</td>
+												<td>
+													{% if course.prerequisite_courses %}
+														<ul>
+													{% for req in course.prerequisite_courses %}
+														<li>{{ req.code }}</li>
+													{% endfor %}
+														</ul>
+													{% else %}
+													{% trans "None" %}
+													{% endif %}
+												</td>
+											</tr>
+											<tr>
+												<td><small class="text-muted">Co-requisites for this course</small></td>
+												<td>{% if course.corequisite_courses %}
+														<ul>
+													{% for req in course.corequisite_courses %}
+														<li>{{ req.code }}</li>
+													{% endfor %}
+														</ul>
+													{% else %}
+													{% trans "None" %}
+													{% endif %}</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Action section -->
+						<div class="col-md-5 col-12 pl-md-0">
+							{% create_comment object.pk comments_section_2 %}
+						</div>
+						<!-- /Action section -->
+					</div>
+				</div>
+				<!-- /Course identification -->
+
+				<!-- Mode of instruction -->
+				<div class="card" id="mode-instruction">
+					<div class="row">
+						<div class="col-md-7 col-12 pr-md-0">
+							<div class="card-body">
+								<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Mode of instruction</h6>
+								<div class="card-text">
+									<div class="">
+										<table class="view-table">
+											<tr>
+												<td><small class="text-muted">In class <br>(face to face)</small></td>
+												<td>{{ course.mode_of_instruction_in_class }}% <span class="text-muted">/ 100%</span></td>
+											</tr>
+											{% if course.mode_of_instruction_comments %}
+											<tr>
+												<td colspan="2">
+													<small class="text-muted">Comments</small>
+													<br>
+													<p>{{ course.mode_of_instruction_comments }} </p>
+												</td>
+											</tr>
+											{% endif %}
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Action section -->
+						<div class="col-md-5 col-12 pl-md-0">
+							{% create_comment object.pk comments_section_3 %}
+						</div>
+						<!-- /Action section -->
+					</div>
+				</div>
+				<!-- /Course identification -->
+
+				<!-- Office hours -->
+				<div class="card" id="office-hours">
+					<div class="row">
+						<div class="col-md-7 col-12 pr-md-0">
+							<div class="card-body">
+								<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Office hours</h6>
+								<div class="card-text">
+									<div class="">
+										<p class="h5 plain-content">{{ course.weekly_office_hours }} hrs</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Action section -->
+						<div class="col-md-5 col-12 pl-md-0">
+							{% create_comment object.pk comments_section_4 %}
+						</div>
+						<!-- /Action section -->
+					</div>
+				</div>
+				<!-- /Course identification -->
+
+			</div>
+
+			<!--Form Button -->
+			<div class="btn-row row">
+				<div class="col-sm-6 col-12">
+				</div>
+				<div class="col-sm-6 col-12 text-right">
+					<button class="btn btn-warning">Save & Continue <small class="fas fa-chevron-right ml-1"></small>
+					</button>
+				</div>
+			</div>
+			<!--/Form Button -->
+
+		</div>
+	</div>
+
+{% endblock content %}

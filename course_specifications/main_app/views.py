@@ -303,9 +303,19 @@ def accreditation_requirements(request, pk):
     })
 
 
-class ReviewCourseView(DetailView):
+class ReviewCourseView(AllowedUserTypesMixin, DetailView):
     template_name = 'main_app/view_course/review_course.html'
     model = CourseRelease
+    allowed_user_types = '__all__'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['course'] = self.object.course
+        context['comments_section_1'] = ApprovalComments.Sections.COURSE_IDENTIFICATION
+        context['comments_section_2'] = ApprovalComments.Sections.REQUISITES
+        context['comments_section_3'] = ApprovalComments.Sections.MODE_OF_INSTRUCTION
+        context['comments_section_4'] = ApprovalComments.Sections.OFFICE_HOURS
+        return context
 
 
 class CreateCommentView(AjaxableResponseMixin, CreateView):

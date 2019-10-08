@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load course_filters %}
+
+{% block main_content %}
+	<div class="side-checklist side-nav">
+		<h6>Checklist</h6>
+		<ul class="checklist-menu nav flex-column">
+			<li class="active has-sub-menu open completed">
+                    <span class="d-flex">
+                        <a href="course-identification-form.html" class="mr-auto"><i
+		                        class="far fa-circle check-icon"></i> <span>Course identification and general information</span></a>
+                        <i class="fas fa-sort-down drop-btn"></i>
+                    </span>
+				<ul class="sub-menu">
+					<li>
+						<a href="#course-identification"
+						   class="d-flex align-items-center course-identification new-comment">
+							<span>Course identification</span>
+						</a>
+					</li>
+					<li><a href="#requisites-course" class="d-flex align-items-center requisites-course unread-comment">
+						<span>Requisites for this course</span>
+					</a>
+					</li>
+					<li><a href="#mode-of-instruction" class="d-flex align-items-center mode-instruction">
+						<span>Mode of instruction</span>
+					</a>
+					</li>
+					<li><a href="#office-hours" class="d-flex align-items-center office-hours">
+						<span>Office hours</span>
+					</a>
+					</li>
+				</ul>
+			</li>
+			<li class="has-sub-menu open completed">
+                    <span class="d-flex">
+                        <a href="course-description-form.html" class="mr-auto"><i class="far fa-circle check-icon"></i> <span>Course Description, Objectives & Learning Outcomes</span></a>
+                        <i class="fas fa-sort-down drop-btn"></i>
+                    </span>
+				<ul class="sub-menu">
+					<li>
+						<a href="#catalog-course-description"
+						   class="d-flex align-items-center catalog-course-description">
+							<span>Catalog course description</span>
+						</a>
+					</li>
+					<li><a href="#main-objectives" class="d-flex align-items-center main-objectives">
+						<span>Main objectives of this course</span>
+					</a>
+					</li>
+					<li><a href="#learning-outcomes" class="d-flex align-items-center learning-outcomes">
+						<span>Course-level Student Learning Outcomes</span>
+					</a>
+					</li>
+				</ul>
+
+			</li>
+			<li class="has-sub-menu open completed">
+                    <span class="d-flex">
+                        <a href="course-contents-form.html" class="mr-auto"><i
+		                        class="far fa-circle check-icon"></i> <span>Course contents</span></a>
+                        <i class="fas fa-sort-down drop-btn"></i>
+                    </span>
+				<ul class="sub-menu">
+					<li>
+						<a href="#course-identification" class="d-flex align-items-center">
+							<span>Course identification</span>
+						</a>
+					</li>
+					<li><a href="#requisites-course" class="d-flex align-items-center">
+						<span>Requisites for this course</span>
+					</a>
+					</li>
+					<li><a href="#mode-of-instruction" class="d-flex align-items-center">
+						<span>Mode of instruction</span>
+					</a>
+					</li>
+					<li><a href="#office-hours" class="d-flex align-items-center">
+						<span>Office hours</span>
+					</a>
+					</li>
+				</ul>
+			</li>
+			<li class="completed"><a href="assessment-tasks-form.html" class="unread-comment"><i class="far fa-circle check-icon"></i>
+				<span>Assessment tasks</span></a></li>
+			<li class="completed"><a href="learning-resources-form.html"><i class="far fa-circle check-icon"></i>
+				<span>Learning resources</span></a></li>
+			<li class="completed"><a href="course-evaluation-form.html"><i class="far fa-circle check-icon"></i>
+				<span>Course evaluation</span></a></li>
+			<li class="completed"><a href="accreditation-requirements-form.html"><i
+					class="fas fa-check-circle check-icon"></i> <span>Accreditation requirements</span></a></li>
+		</ul>
+	</div>
+
+	<div class="content-section">
+		{% block content %}
+
+		{% endblock content %}
+	</div>
+{% endblock main_content %}
