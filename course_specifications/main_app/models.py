@@ -61,6 +61,7 @@ class Course(models.Model):
 
     prerequisite_courses = models.ManyToManyField('Course', blank=True, related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('Course', blank=True, related_name='corequisite_for')
+    graduate_course_flag = models.BooleanField(_('Is Graduate Course?'), default=False, )
     # endregion desc
 
     # region mode_of_instruction
@@ -579,6 +580,7 @@ class CourseRelease(models.Model):
 
     class Meta:
         unique_together = ('version', 'course')
+        ordering = ['-course__history_date', 'version']
         get_latest_by = ['course__history_date', 'version']
 
     def __str__(self):
