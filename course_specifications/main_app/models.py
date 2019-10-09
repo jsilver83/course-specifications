@@ -61,6 +61,7 @@ class Course(models.Model):
 
     prerequisite_courses = models.ManyToManyField('Course', blank=True, related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('Course', blank=True, related_name='corequisite_for')
+    graduate_course_flag = models.BooleanField(_('Is Graduate Course?'), default=False, )
     # endregion desc
 
     # region mode_of_instruction
@@ -287,6 +288,9 @@ class Course(models.Model):
 
     def all_releases(self):
         return CourseRelease.objects.filter(course__id=self.id)
+
+    def recent_releases(self):
+        return self.all_releases()[:5]
 
     def current_release(self):
         """Gets the current APPROVED release"""
@@ -579,6 +583,7 @@ class CourseRelease(models.Model):
 
     class Meta:
         unique_together = ('version', 'course')
+        ordering = ['-course__history_date', 'version']
         get_latest_by = ['course__history_date', 'version']
 
     def __str__(self):
@@ -611,9 +616,8 @@ class CourseRelease(models.Model):
         task_summery = {
             'name': self._workflow_status,
             'assignee': self._workflow_assignee,
-            'options':task_options or {}
+            'options': task_options or {}
         }
-
 
         return task_summery
 
@@ -640,15 +644,13 @@ class CourseRelease(models.Model):
                 'assignee': self._workflow_assignee,
             }
 
-    # TODO get AAC_task_assignee, is graduate course, and (collage id it may be changed in camunda code)
     def start_camunda_process(self):
         process_instance = CamundaAPI.start_process(
             self.course.code,
             self.id,
-            'AAC_task_assignee',
-            False,
+            'shaheed.alhelal',  # FIXME: add the real 'AAC_task_assignee' from adwar
+            self.course.graduate_course_flag,
             self.course.mother_department,
-            'collage_id'
         )
 
         self.workflow_instance_id = process_instance['id']
