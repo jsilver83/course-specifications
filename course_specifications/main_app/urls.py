@@ -16,7 +16,6 @@ urlpatterns = [
     path('learning-resources/<int:pk>/', LearningResourcesView.as_view(), name='learning_resources'),
     path('evaluation/<int:pk>/', EvaluationView.as_view(), name='evaluation'),
     path('accreditation-requirements/<int:pk>/', accreditation_requirements, name='accreditation_requirements'),
-    path('review-checklist/<int:pk>/', ReviewChecklistFormView.as_view(), name='review_checklist_form'),
 
     path('view-course-release/<int:pk>/', ReviewCourseView.as_view(), name='view_course_release'),
 
@@ -26,7 +25,9 @@ urlpatterns = [
     path('review/step4/<int:pk>/', ReviewCourseStep4View.as_view(), name='review_course_release_step4'),
     path('review/step5/<int:pk>/', ReviewCourseStep5View.as_view(), name='review_course_release_step5'),
     path('review/step6/<int:pk>/', ReviewCourseStep6View.as_view(), name='review_course_release_step6'),
-    path('review/step7/<int:pk>/', ReviewCourseView.as_view(), name='review_course_release_step7'),
+    path('review/step7/<int:pk>/', ReviewCourseStep7View.as_view(), name='review_course_release_step7'),
+
+    path('review-checklist/<int:pk>/', ReviewChecklistFormView.as_view(), name='review_checklist_form'),
 
     path('new-comment/', CreateCommentView.as_view(), name='create_comment'),
 ]

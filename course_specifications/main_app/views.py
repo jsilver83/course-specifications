@@ -369,6 +369,13 @@ class ReviewCourseStep6View(BaseReviewCourseView):
     comments_sections = [ApprovalComment.Sections.COURSE_EVALUATION, ]
 
 
+class ReviewCourseStep7View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step7.html'
+    title = _('Accreditation Requirements')
+    next_url_handler = 'review_checklist_form'
+    comments_sections = [ApprovalComment.Sections.ACCREDITATION_REQUIREMENTS, ]
+
+
 class CreateCommentView(AjaxableResponseMixin, CreateView):
     template_name = 'main_app/view_course/review_course.html'
     form_class = CreateCommentForm
