@@ -421,3 +421,8 @@ class CreateCommentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.initial['course_release'] = course_release
         self.initial['section'] = section
+
+
+class ReviewChecklistForm(forms.Form):
+    pass
+
