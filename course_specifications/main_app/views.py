@@ -463,14 +463,14 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
 
         if 'submit' in self.request.POST:
             response = camunda_api.complete_current_task()
-            if response.status_code in [200, 300]:  # FIXME: shaheed
+            if response.status_code == 204:
                 messages.success(self.request, _('Your Decision has been submitted successfully'))
                 return redirect(reverse_lazy('main_app:course_list'))
         else:
             for key in options:
                 if key in self.request.POST:
                     response = camunda_api.complete_current_task(key)
-                    if response.status_code in [200, 300]:  # FIXME: shaheed
+                    if response.status_code == 204:
                         messages.success(self.request, _('Your Decision has been submitted successfully'))
                         return redirect(reverse_lazy('main_app:course_list'))
 
