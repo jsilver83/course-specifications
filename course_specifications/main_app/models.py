@@ -679,6 +679,7 @@ class ApprovalComment(models.Model):
         ASSESSMENT_TASKS = 'ASSESSMENT_TASKS'
         LEARNING_RESOURCES = 'LEARNING_RESOURCES'
         COURSE_EVALUATION = 'COURSE_EVALUATION'
+        ACCREDITATION_REQUIREMENTS = 'ACCREDITATION_REQUIREMENTS'
 
         @classmethod
         def choices(cls):
