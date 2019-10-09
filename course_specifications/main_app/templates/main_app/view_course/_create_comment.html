@@ -19,34 +19,41 @@
 					</div>
 					<div class="modal-body bg-light">
 						<div class="chat-view">
-							{% for comment in comments %}
-							<div class="chat">
-								<div class="chat-card {% if comment.commented_by == user %}friend{% endif %}">
-									<h6>{{ comment.commenter_full_name }}</h6>
-									<p>{{ comment.comment }}</p>
-									<div class="d-flex chat-footer text-muted">
-										<div class="time mr-auto">{{ comment.commenter_role }}</div>
-										<div class="time"><span class="mr-2">{{ comment.comment_date.date }}</span><span>{{ comment.comment_date.time }}</span>
+							{% if comments %}
+								{% for comment in comments %}
+									<div class="chat">
+										<div class="chat-card {% if comment.commented_by == user %}friend{% endif %}">
+											<h6>{{ comment.commenter_full_name }}</h6>
+											<p>{{ comment.comment|linebreaksbr }}</p>
+											<div class="d-flex chat-footer text-muted">
+												<div class="time mr-auto">{{ comment.commenter_role }}</div>
+												<div class="time"><span
+														class="mr-2">{{ comment.comment_date.date }}</span><span>{{ comment.comment_date.time }}</span>
+												</div>
+											</div>
 										</div>
 									</div>
+								{% endfor %}
+								{#							<div class="chat-badge new-chat">#}
+								{#								<i class="fas fa-comment mr-1 icon"></i><span>Your new comment(s)</span>#}
+								{#							</div>#}
+								{#							<div class="chat">#}
+								{#								<div class="chat-card">#}
+								{#									<h6>You</h6>#}
+								{#									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor#}
+								{#										sit amet.</p>#}
+								{#									<div class="d-flex chat-footer text-muted">#}
+								{#										<div class="time mr-auto">Chairman</div>#}
+								{#										<div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span>#}
+								{#										</div>#}
+								{#									</div>#}
+								{#								</div>#}
+								{#							</div>#}
+							{% else %}
+								<div class="chat-badge">
+									<span>No Comments</span>
 								</div>
-							</div>
-							{% endfor %}
-{#							<div class="chat-badge new-chat">#}
-{#								<i class="fas fa-comment mr-1 icon"></i><span>Your new comment(s)</span>#}
-{#							</div>#}
-{#							<div class="chat">#}
-{#								<div class="chat-card">#}
-{#									<h6>You</h6>#}
-{#									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit ipsum dolor#}
-{#										sit amet.</p>#}
-{#									<div class="d-flex chat-footer text-muted">#}
-{#										<div class="time mr-auto">Chairman</div>#}
-{#										<div class="time"><span class="mr-2">20-02-2019</span><span>03:25 PM</span>#}
-{#										</div>#}
-{#									</div>#}
-{#								</div>#}
-{#							</div>#}
+							{% endif %}
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -58,16 +65,24 @@
 		<!-- /Modal -->
 	</h6>
 	<div class="chat-view">
-		<div class="chat">
-			<div class="chat-card  {% if comments.latest.commented_by == user %}friend{% endif %}">
-				<h6>{{ comments.latest.commenter_full_name }}</h6>
-				<p>{{ comments.latest.comment }}</p>
-				<div class="d-flex chat-footer text-muted">
-					<div class="time mr-auto">{{ comments.latest.commenter_role }}</div>
-					<div class="time"><span class="mr-2">{{ comments.latest.comment_date.date }}</span><span>{{ comments.latest.comment_date.time }}</span></div>
+		{% if comments %}
+			<div class="chat">
+				<div class="chat-card  {% if comments.latest.commented_by == user %}friend{% endif %}">
+					<h6>{{ comments.latest.commenter_full_name }}</h6>
+					<p>{{ comments.latest.comment|linebreaksbr }}</p>
+					<div class="d-flex chat-footer text-muted">
+						<div class="time mr-auto">{{ comments.latest.commenter_role }}</div>
+						<div class="time"><span
+								class="mr-2">{{ comments.latest.comment_date.date }}</span><span>{{ comments.latest.comment_date.time }}</span>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		{% else %}
+			<div class="chat-badge">
+				<span>No Comments</span>
+			</div>
+		{% endif %}
 	</div>
 	<div class="chat-textarea mt-auto {{ prefix }}-comment-div">
 		<form class="{{ prefix }}-form" method="post">

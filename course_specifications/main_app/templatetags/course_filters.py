@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
 
 from main_app.forms import CreateCommentForm
-from main_app.models import CourseRelease, ApprovalComments
+from main_app.models import CourseRelease, ApprovalComment
 
 register = template.Library()
 
@@ -17,7 +17,7 @@ def can_be_edited(course, user):
 def create_comment(context, course_release_pk, comment_section):
     course_release = get_object_or_404(CourseRelease, pk=course_release_pk)
     form = CreateCommentForm(comment_section, course_release, context.request.POST or None)
-    comments = ApprovalComments.objects.filter(section=comment_section)
+    comments = ApprovalComment.objects.filter(section=comment_section)
     return {
         'form': form,
         'course_release': course_release,
