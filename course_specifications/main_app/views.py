@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView, ListView, UpdateView, FormView, TemplateView, DetailView
+from django.views.generic import CreateView, ListView, UpdateView, FormView, DetailView
 
-from course_specifications.mixins import AjaxableResponseMixin, JSONResponseMixin
+from course_specifications.mixins import AjaxableResponseMixin
 from course_specifications.utils import UserType
 from .forms import *
 from .models import *
@@ -301,6 +302,106 @@ def accreditation_requirements(request, pk):
         'course': course, 'form': form, 'formset': formset,
         'active_step': '7',
     })
+
+
+class ReviewChecklistFormView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    template_name = 'main_app/chairman-review-checklist-view.html'
+    form_class = ReviewChecklistForm
+
+    def test_func(self):
+        return True
+        # course_release_id = self.kwargs['pk']
+        # course_release = CourseRelease.objects.filter(id=course_release_id).first()
+        # camunda_api = CamundaAPI(course_release.workflow_instance_id)
+        # task = camunda_api.get_active_task()
+        #
+        # return task and task['assignee'] == self.request.user.username
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        course_release_id = self.kwargs['pk']
+        course_release = CourseRelease.objects.filter(id=course_release_id).first()
+        task_summery = course_release.camunda_task
+        # camunda_api = CamundaAPI(course_release.workflow_instance_id)
+        # task = camunda_api.get_active_task()
+        #
+        # task_options = camunda_api.get_task_options(task)
+
+        options = []
+        for key in task_summery['options']:
+            color, margin, order = self.get_css_values(key)
+            options.append({
+                'key': key,
+                'value': task_summery['options'][key],
+                'color': color,
+                'margin': margin,
+                'order': order
+            })
+
+        if not options:
+            options.append({
+                'key': 'submit',
+                'value': _('Submit'),
+                'color': 'primary',
+                'margin': 'ml-4',
+                'order': 1
+            })
+
+        context['task_options'] = sorted(options, key=lambda option: option['order'])
+
+        return context
+
+    def get_css_values(self, button_key):
+        if button_key.lower().startswith('submit'):
+            return 'warning', 'ml-4', 2
+        elif button_key.lower().startswith('approve'):
+            return 'primary', 'ml-4', 3
+        else:
+            return 'secondary', 'mr-auto ml-4', 1
+
+    # def sort_task_options(self, task_options):
+    #     sorted_options = []
+    #     for option in task_options:
+    #         if not (option['color'] == 'warning' or option['color'] == 'primary'):
+    #             sorted_options.append(option)
+    #
+    #     for option in task_options:
+    #         if option['color'] == 'warning':
+    #             sorted_options.append(option)
+    #
+    #     for option in task_options:
+    #         if option['color'] == 'primary':
+    #             sorted_options.append(option)
+    #
+    #     return sorted_options
+
+    def form_valid(self, form):
+        course_release_id = self.kwargs['pk']
+        course_release = CourseRelease.objects.filter(id=course_release_id).first()
+
+        camunda_api = CamundaAPI(course_release.workflow_instance_id)
+        active_task = camunda_api.get_active_task()
+        options = camunda_api.get_task_options(active_task)
+
+        if 'submit' in self.request.POST:
+            response = camunda_api.complete_current_task()
+            if response.status_code <= 399:
+                messages.success(self.request, _('Your Decision has been submitted successfully'))
+                return HttpResponseRedirect(reverse_lazy('main_app:course_list'))
+        else:
+            for key in options:
+                if key in self.request.POST:
+                    response = camunda_api.complete_current_task(key)
+                    if response.status_code <= 399:
+                        messages.success(self.request, _('Your Decision has been submitted successfully'))
+                        return HttpResponseRedirect(reverse_lazy('main_app:course_list'))
+
+        messages.warning(self.request, _('Opps something wrong happened, your Decision has not been submitted'))
+        return HttpResponseRedirect(reverse_lazy('main_app:review_checklist_form',
+                                                 kwargs={"pk": course_release_id}
+                                                 ))
 
 
 class ReviewCourseView(DetailView):
