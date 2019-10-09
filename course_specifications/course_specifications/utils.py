@@ -165,7 +165,7 @@ class CamundaAPI:
     def __init__(self, process_instance_id):
         self.process_instance_id = process_instance_id
 
-    def get_active_tasks(self):
+    def get_active_task(self):
         parameters = {
             'processInstanceId': self.process_instance_id
         }
@@ -173,37 +173,46 @@ class CamundaAPI:
         if current_tasks != 'ERROR':
             if current_tasks and len(current_tasks) != 1:
                 raise Exception("Must be one active task in process id: {}, but {} found".format(self.process_instance_id, len(current_tasks or [])))
-            return current_tasks
+            return current_tasks[0]
 
     def get_task_options(self, task=None):
         if not task:
-            task = self.get_active_tasks()
+            task = self.get_active_task()
 
         response = CamundaAPI.call_camunda_api('task/{task_id}/localVariables/options'.format(task_id=task['id']))
         if response != 'ERROR':
             return json.loads(response['value'])
 
-    def complete_current_task(self, decision, task=None):
+    def complete_current_task(self, decision=None, task=None):
         if not task:
-            task = self.get_active_tasks()
+            task = self.get_active_task()
 
         headers = {
             'Content-Type': 'application/json',
         }
 
-        body = {
-            "variables":
-                {
-                    "GatewayDecision": {
-                        "value": decision
+        if decision:
+            body = {
+                "variables":
+                    {
+                        "GatewayDecision": {
+                            "value": decision
+                        }
                     }
-                }
-        }
+            }
+        else:
+            body=None
+
         response = CamundaAPI.post_to_web_service('task/{task_id}/complete'.format(task_id=task['id']), json=body, headers=headers)
         return response
 
+    def is_process_completed(self):
+        response = CamundaAPI.call_camunda_api('history/process-instance/{}'.format(self.process_instance_id))
+        if response != 'ERROR':
+            return response['state']=='COMPLETED'
+
     @staticmethod
-    def start_process(CourseCode, MaintainerTaskAssignee, ReviewerTaskAssignee, ChairmanTaskAssignee, AACTaskAssignee, isGraguateCourse):
+    def start_process(course_code, course_history_id, AAC_task_assignee, is_graduate_course, department_id, collage_id):
         headers = {
             'Content-Type': 'application/json',
         }
@@ -211,28 +220,28 @@ class CamundaAPI:
         body = {
             "variables": {
                 "CourseCode": {
-                    "value": CourseCode,
+                    "value": course_code,
                     "type": "String"
                 },
-                "MaintainerTaskAssignee": {
-                    "value": MaintainerTaskAssignee,
-                    "type": "String"
-                },
-                "ReviewerTaskAssignee": {
-                    "value": ReviewerTaskAssignee,
-                    "type": "String"
-                },
-                "ChairmanTaskAssignee": {
-                    "value": ChairmanTaskAssignee,
-                    "type": "String"
+                "CourseHistoryId": {
+                    "value": course_history_id,
+                    "type": "Integer"
                 },
                 "AACTaskAssignee": {
-                    "value": AACTaskAssignee,
+                    "value": AAC_task_assignee,
                     "type": "String"
                 },
                 "GraduateCourse": {
-                    "value": isGraguateCourse,
+                    "value": is_graduate_course,
                     "type": "boolean"
+                },
+                "DepartmentId": {
+                    "value": department_id,
+                    "type": "Integer"
+                },
+                "CollageId": {
+                    "value": collage_id,
+                    "type": "Integer"
                 }
             }
         }
