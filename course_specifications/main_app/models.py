@@ -654,6 +654,7 @@ class CourseRelease(models.Model):
         self.workflow_instance_id = process_instance['id']
         self.save()
 
+
 # May need the explicit 'through' model below to better control on_delete behavior
 # class CourseReleaseLearningObjective(models.Model):
 #     """A many-to-many relationship table linking historical learning objectives to course releases"""
@@ -665,7 +666,7 @@ class CourseRelease(models.Model):
 
 class ApprovalComment(models.Model):
     class Sections:
-        # TODO: add rest of the sections
+        GENERAL = 'GENERAL'
         COURSE_IDENTIFICATION = 'COURSE_IDENTIFICATION'
         REQUISITES = 'REQUISITES'
         MODE_OF_INSTRUCTION = 'MODE_OF_INSTRUCTION'

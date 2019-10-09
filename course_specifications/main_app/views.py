@@ -5,9 +5,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView, ListView, UpdateView, FormView, TemplateView, DetailView
+from django.views.generic import CreateView, ListView, UpdateView, FormView, DetailView
 
-from course_specifications.mixins import AjaxableResponseMixin, JSONResponseMixin
+from course_specifications.mixins import AjaxableResponseMixin
 from course_specifications.utils import UserType
 from .forms import *
 from .models import *
@@ -315,7 +315,8 @@ class BaseReviewCourseView(AllowedUserTypesMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['course'] = self.object.course
         context['title'] = self.title
-        context['next_url'] = reverse_lazy('main_app:{}'.format(self.next_url_handler), kwargs={'pk': self.object.pk})
+        if self.next_url_handler:
+            context['next_url'] = reverse_lazy('main_app:{}'.format(self.next_url_handler), kwargs={'pk': self.object.pk})
 
         context['can_comment'] = True  # TODO: use camunda to decide on this
         for counter, comments_section in enumerate(self.comments_sections):
@@ -392,16 +393,18 @@ class CreateCommentView(AjaxableResponseMixin, CreateView):
         return super().form_valid(form)
 
 
-class ReviewChecklistFormView(LoginRequiredMixin, UserPassesTestMixin, FormView):
-    template_name = 'main_app/chairman-review-checklist-view.html'
+class ReviewChecklistFormView(BaseReviewCourseView, FormView):
+    template_name = 'main_app/view_course/review_course_checklist.html'
     form_class = ReviewChecklistForm
+    comments_sections = [ApprovalComment.Sections.GENERAL, ]
 
     def test_func(self):
+        # FIXME: shaheed
         return True
-        # course_release_id = self.kwargs['pk']
-        # course_release = CourseRelease.objects.filter(id=course_release_id).first()
-        # camunda_api = CamundaAPI(course_release.workflow_instance_id)
-        # task = camunda_api.get_active_task()
+        # # course_release_id = self.kwargs['pk']
+        # # course_release = CourseRelease.objects.filter(id=course_release_id).first()
+        # # camunda_api = CamundaAPI(course_release.workflow_instance_id)
+        # # task = camunda_api.get_active_task()
         #
         # return task and task['assignee'] == self.request.user.username
 
@@ -411,11 +414,6 @@ class ReviewChecklistFormView(LoginRequiredMixin, UserPassesTestMixin, FormView)
         course_release_id = self.kwargs['pk']
         course_release = CourseRelease.objects.filter(id=course_release_id).first()
         task_summery = course_release.camunda_task
-        # camunda_api = CamundaAPI(course_release.workflow_instance_id)
-        # task = camunda_api.get_active_task()
-        #
-        # task_options = camunda_api.get_task_options(task)
-
         options = []
         for key in task_summery['options']:
             color, margin, order = self.get_css_values(key)
@@ -427,10 +425,10 @@ class ReviewChecklistFormView(LoginRequiredMixin, UserPassesTestMixin, FormView)
                 'order': order
             })
 
-        if not options:
+        if not options:    # FIXME: shaheed
             options.append({
                 'key': 'submit',
-                'value': _('Submit'),
+                'value': _('Submit'),  # TODO: come up with aq more meaningfule genric name
                 'color': 'primary',
                 'margin': 'ml-4',
                 'order': 1
@@ -442,27 +440,13 @@ class ReviewChecklistFormView(LoginRequiredMixin, UserPassesTestMixin, FormView)
 
     def get_css_values(self, button_key):
         if button_key.lower().startswith('submit'):
-            return 'warning', 'ml-4', 2
+            return 'warning', 'ml-4', 3
         elif button_key.lower().startswith('approve'):
-            return 'primary', 'ml-4', 3
+            return 'primary', 'ml-4', 4
+        elif button_key.lower().startswith('reject'):
+            return 'danger', 'ml-4', 2
         else:
             return 'secondary', 'mr-auto ml-4', 1
-
-    # def sort_task_options(self, task_options):
-    #     sorted_options = []
-    #     for option in task_options:
-    #         if not (option['color'] == 'warning' or option['color'] == 'primary'):
-    #             sorted_options.append(option)
-    #
-    #     for option in task_options:
-    #         if option['color'] == 'warning':
-    #             sorted_options.append(option)
-    #
-    #     for option in task_options:
-    #         if option['color'] == 'primary':
-    #             sorted_options.append(option)
-    #
-    #     return sorted_options
 
     def form_valid(self, form):
         course_release_id = self.kwargs['pk']
@@ -474,18 +458,18 @@ class ReviewChecklistFormView(LoginRequiredMixin, UserPassesTestMixin, FormView)
 
         if 'submit' in self.request.POST:
             response = camunda_api.complete_current_task()
-            if response.status_code <= 399:
+            if response.status_code in [200, 300]:  # FIXME: shaheed
                 messages.success(self.request, _('Your Decision has been submitted successfully'))
                 return redirect(reverse_lazy('main_app:course_list'))
         else:
             for key in options:
                 if key in self.request.POST:
                     response = camunda_api.complete_current_task(key)
-                    if response.status_code <= 399:
+                    if response.status_code in [200, 300]:  # FIXME: shaheed
                         messages.success(self.request, _('Your Decision has been submitted successfully'))
                         return redirect(reverse_lazy('main_app:course_list'))
 
-        messages.warning(self.request, _('Opps something wrong happened, your Decision has not been submitted'))
-        return redirect(reverse_lazy('main_app:review_checklist_form',
-                                                 kwargs={"pk": course_release_id}
-                                                 ))
+        messages.warning(self.request, _('Oops something wrong happened, your Decision has not been submitted'))
+        return redirect(
+            reverse_lazy('main_app:review_checklist_form', kwargs={"pk": course_release_id})
+        )
