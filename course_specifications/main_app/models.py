@@ -613,7 +613,7 @@ class CourseRelease(models.Model):
         task_summery = {
             'name': self._workflow_status,
             'assignee': self._workflow_assignee,
-            'options':task_options or {}
+            'options': task_options or {}
         }
 
 
@@ -642,15 +642,13 @@ class CourseRelease(models.Model):
                 'assignee': self._workflow_assignee,
             }
 
-    # TODO get AAC_task_assignee, is graduate course, and (collage id it may be changed in camunda code)
     def start_camunda_process(self):
         process_instance = CamundaAPI.start_process(
             self.course.code,
             self.id,
-            'AAC_task_assignee',
-            False,
+            'shaheed.alhelal',  # FIXME: add the real 'AAC_task_assignee' from adwar
+            self.course.graduate_course_flag,
             self.course.mother_department,
-            'collage_id'
         )
 
         self.workflow_instance_id = process_instance['id']
