@@ -355,6 +355,13 @@ class ReviewCourseStep4View(BaseReviewCourseView):
     comments_sections = [ApprovalComment.Sections.ASSESSMENT_TASKS, ]
 
 
+class ReviewCourseStep5View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step5.html'
+    title = _('Assessment Tasks')
+    next_url_handler = 'review_course_release_step6'
+    comments_sections = [ApprovalComment.Sections.LEARNING_RESOURCES, ]
+
+
 class CreateCommentView(AjaxableResponseMixin, CreateView):
     template_name = 'main_app/view_course/review_course.html'
     form_class = CreateCommentForm
