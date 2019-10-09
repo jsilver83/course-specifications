@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models
+from django.db.models import Sum
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
@@ -25,6 +26,8 @@ class Course(models.Model):
             )
 
     # region model-fields
+
+    # region desc
     mother_department = models.CharField(_('Mother Department'), max_length=500, null=True, blank=False)
     program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False,
                                     help_text=_('3 or 4 upper-case letters only'),
@@ -58,7 +61,9 @@ class Course(models.Model):
 
     prerequisite_courses = models.ManyToManyField('Course', blank=True, related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('Course', blank=True, related_name='corequisite_for')
+    # endregion desc
 
+    # region mode_of_instruction
     mode_of_instruction_in_class = models.DecimalField(
         _('Mode Of Instruction (In-Class) %'),
         null=True,
@@ -84,7 +89,9 @@ class Course(models.Model):
     mode_of_instruction_other_desc = models.CharField(_('Mode Of Instruction (Other) Description'),
                                                       max_length=100, null=True, blank=True)
     mode_of_instruction_comments = models.TextField(_('Mode Of Instruction Comments'), null=True, blank=True)
+    # endregion mode_of_instruction
 
+    # region contact-hrs
     tutorial_contact_hours = models.DecimalField(
         _('Tutorial Contact Hours'),
         null=True,
@@ -108,7 +115,9 @@ class Course(models.Model):
     )
     other_contact_hours_description = models.CharField(_('Other Contact Hours Description'), null=True, blank=True,
                                                        max_length=200)
+    # endregion contact-hrs
 
+    # region self-study
     self_study_lecture = models.DecimalField(
         _('Self-Study Lecture Hours'),
         null=True,
@@ -144,7 +153,9 @@ class Course(models.Model):
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
+    # endregion self-study
 
+    # region subject-area
     engineering_credit_hours = models.DecimalField(
         _('Engineering / Computer Science Credit Hours'),
         null=True,
@@ -187,7 +198,9 @@ class Course(models.Model):
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
+    # endregion subject-area
 
+    # region material
     required_textbooks_from_sierra = models.CharField(
         max_length=1000, verbose_name=_('required_textbooks'),
         help_text=_('List of required textbooks from Sierra system'), null=True, blank=False,
@@ -210,7 +223,9 @@ class Course(models.Model):
         _('Other Learning Materials'), null=True, blank=True,
         help_text=_('Computer-based programs/CD, professional standards or regulations and software')
     )
+    # endregion material
 
+    # region misc
     strategies_of_student_feedback_and_evaluation = models.TextField(
         _('Strategies for obtaining Students Feedback and Evaluation'), null=True, blank=False,
         help_text=_('e.g. face-to-face meetings, student in-class evaluation, student survey, focus groups, etc...')
@@ -222,6 +237,8 @@ class Course(models.Model):
                                                   help_text=_('Arrangements for availability of faculty and teaching '
                                                               'staff for individual student consultations and academic '
                                                               'advice'))
+    # endregion misc
+
     # TODO: add grad_flag
     # endregion
 
@@ -324,6 +341,12 @@ class Course(models.Model):
             return self.lab_contact_hours * 15
         except TypeError:
             pass
+
+    def total_lecture_topic_contact_hours(self):
+        return self.topics.filter(type=Topic.Types.LECTURE).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+
+    def total_lab_topic_contact_hours(self):
+        return self.topics.filter(type=Topic.Types.LAB).aggregate(Sum('contact_hours')).get('contact_hours__sum')
 
     def get_total_self_study_hours(self):
         self_studies = [self.self_study_lecture, self.self_study_lab, self.self_study_other,
@@ -630,10 +653,19 @@ class CourseRelease(models.Model):
 #                                            null=False, related_name='releases')
 
 
-class ApprovalComments(models.Model):
+class ApprovalComment(models.Model):
     class Sections:
-        # TODO: add the real sections
-        SECTION_1 = 'sec 1'
+        # TODO: add rest of the sections
+        COURSE_IDENTIFICATION = 'COURSE_IDENTIFICATION'
+        REQUISITES = 'REQUISITES'
+        MODE_OF_INSTRUCTION = 'MODE_OF_INSTRUCTION'
+        OFFICE_HOURS = 'OFFICE_HOURS'
+        DESCRIPTION = 'DESCRIPTION'
+        OBJECTIVES = 'OBJECTIVES'
+        CLO = 'CLO'
+        TOPICS = 'TOPICS'
+        SELF_LEARNING = 'SELF_LEARNING'
+        SUBJECT_AREA_HRS = 'SUBJECT_AREA_HRS'
 
         @classmethod
         def choices(cls):
@@ -674,7 +706,7 @@ class ApprovalComments(models.Model):
 
 
 class CommentViewership(models.Model):
-    comment = models.ForeignKey('ApprovalComments', on_delete=models.CASCADE,
+    comment = models.ForeignKey('ApprovalComment', on_delete=models.CASCADE,
                                 null=True, blank=False, verbose_name=_('Comment'),
                                 related_name='comment_views', )
     viewer = models.ForeignKey(User, on_delete=models.CASCADE,

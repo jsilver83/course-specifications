@@ -1,0 +1,41 @@
+{% extends 'main_app/view_course/review_course_base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+	<form class="row" method="post">
+		{% csrf_token %}
+		<div class="col-12">
+			<div class="card mb-4 course-title">
+				<div class="card-body">
+					<div class="pb-2 d-flex align-items-center">
+						<p class="mb-0 mr-auto text-muted">{{ course.history_object.code }} ({{ course.history_object.get_department_name }})</p>
+					</div>
+					<div class="pt-2 border-top d-flex align-items-center">
+						<h6 class="mb-0 mr-auto">{{ title }}</h6>
+					</div>
+				</div>
+			</div>
+
+			<!-- Cards with slide -->
+			<div id="touchScroller">
+			{% block course-review-sections %}
+			{% endblock course-review-sections %}
+			</div>
+
+			<!--Form Button -->
+			<div class="row">
+				<div class="col-sm-6 col-12">
+				</div>
+				<div class="col-sm-6 col-12 text-right">
+					<a href="{{ next_url }}" class="btn btn-primary delete-adding-content">{% trans 'Next' %}
+						<small class="fas fa-chevron-right ml-1"></small>
+					</a>
+				</div>
+			</div>
+			<!--/Form Button -->
+
+		</div>
+	</form>
+
+{% endblock content %}

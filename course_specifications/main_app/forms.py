@@ -410,7 +410,7 @@ FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=
 
 class CreateCommentForm(forms.ModelForm):
     class Meta:
-        model = ApprovalComments
+        model = ApprovalComment
         fields = ['section', 'comment', 'course_release', ]
         widgets = {
             'course_release': forms.HiddenInput,

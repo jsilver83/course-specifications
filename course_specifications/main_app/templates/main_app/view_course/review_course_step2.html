@@ -1,0 +1,100 @@
+{% extends 'main_app/view_course/generic_course_review_form.html' %}
+{% load i18n %}
+{% load course_filters %}
+
+{% block course-review-sections %}
+
+	<!-- Catalog course description -->
+	<div class="card" id="catalog-course-description">
+		<div class="row">
+			<div class="col-md-7 col-12 pr-md-0">
+				<div class="card-body">
+					<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Catalog course description</h6>
+					<div class="card-text">
+						<div class="">
+							<p class="plain-content">{{ course.catalog_description|linebreaksbr }} </p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Action section -->
+			<div class="col-md-5 col-12 pl-md-0">
+				{% create_comment object.pk comments_section_1 %}
+			</div>
+			<!-- /Action section -->
+		</div>
+	</div>
+	<!-- /Catalog course description -->
+
+	<!-- Main objectives of this course -->
+	<div class="card" id="main-objectives">
+		<div class="row">
+			<div class="col-md-7 col-12 pr-md-0">
+				<div class="card-body">
+					<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Main objectives of this course</h6>
+					<div class="card-text">
+						<div class="">
+							<ol class="view-list numbered">
+								{% for objective in object.learning_objectives.all %}
+								<li>{{ objective.history_object }}</li>
+								{% endfor %}
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Action section -->
+			<div class="col-md-5 col-12 pl-md-0">
+				{% create_comment object.pk comments_section_2 %}
+			</div>
+			<!-- /Action section -->
+		</div>
+	</div>
+	<!-- /Main objectives of this course -->
+
+	<!-- Course-level Student Learning Outcomes -->
+	<div class="card" id="learning-outcomes">
+		<div class="row">
+			<div class="col-md-7 col-12 pr-md-0">
+				<div class="card-body">
+					<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Course-level Student Learning Outcomes</h6>
+					<div class="card-text">
+						<div class="">
+							{% for clo in object.learning_outcomes.all %}
+							<table class="view-table group-table numbered">
+								<tr class="header">
+									<td style="width:35%"><small class="text-muted">CLO Category</small></td>
+									<td>{{ clo.get_clo_category_display }}</td>
+								</tr>
+								<tr>
+									<td><small class="text-muted">Outcome</small></td>
+									<td>{{ clo.learning_outcome }}</td>
+								</tr>
+{#								<tr>#}
+{#									<td><small class="text-muted">PLO’s code</small></td>#}
+{#									<td>123342</td>#}
+{#								</tr>#}
+								<tr>
+									<td><small class="text-muted">Teaching strategy</small></td>
+									<td>{{ clo.teaching_strategy }}</td>
+								</tr>
+								<tr>
+									<td><small class="text-muted">Assessment method</small></td>
+									<td>{{ clo.assessment_method }}</td>
+								</tr>
+							</table>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Action section -->
+			<div class="col-md-5 col-12 pl-md-0">
+				{% create_comment object.pk comments_section_3 %}
+			</div>
+			<!-- /Action section -->
+		</div>
+	</div>
+	<!-- /Course identification -->
+
+{% endblock course-review-sections %}
