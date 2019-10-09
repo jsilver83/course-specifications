@@ -678,6 +678,7 @@ class ApprovalComment(models.Model):
         SUBJECT_AREA_HRS = 'SUBJECT_AREA_HRS'
         ASSESSMENT_TASKS = 'ASSESSMENT_TASKS'
         LEARNING_RESOURCES = 'LEARNING_RESOURCES'
+        COURSE_EVALUATION = 'COURSE_EVALUATION'
 
         @classmethod
         def choices(cls):
