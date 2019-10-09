@@ -289,6 +289,9 @@ class Course(models.Model):
     def all_releases(self):
         return CourseRelease.objects.filter(course__id=self.id)
 
+    def recent_releases(self):
+        return self.all_releases()[:5]
+
     def current_release(self):
         """Gets the current APPROVED release"""
         try:
@@ -615,7 +618,6 @@ class CourseRelease(models.Model):
             'assignee': self._workflow_assignee,
             'options': task_options or {}
         }
-
 
         return task_summery
 
