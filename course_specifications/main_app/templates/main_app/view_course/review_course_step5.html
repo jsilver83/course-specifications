@@ -54,54 +54,7 @@
 			</div>
 			<!-- Action section -->
 			<div class="col-md-5 col-12 pl-md-0">
-				<div class="card-footer action-section p-3 h-100 d-flex flex-column">
-					<h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
-						<span class="mr-auto">Comments if any</span>
-						<button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal"
-						        data-target="#learning-resources-comments">View all
-						</button>
-
-						<!-- Modal -->
-						<div class="modal fade" id="learning-resources-comments" tabindex="-1" role="dialog"
-						     aria-labelledby="learning-resources-comments" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title">All Comments</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body bg-light">
-										<div class="chat-view">
-											<div class="chat-badge">
-												<span>No Comments</span>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- /Modal -->
-					</h6>
-					<div class="chat-view">
-						<div class="chat-badge">
-							<span>No Comments</span>
-						</div>
-					</div>
-					<div class="chat-textarea mt-auto">
-						<div class="d-flex">
-							<div class="mr-auto"></div>
-							<div class="send-btn">
-								<button class="btn btn-sm">Send</button>
-							</div>
-						</div>
-						<textarea class="form-control" placeholder="Enter your comments"></textarea>
-					</div>
-				</div>
+				{% create_comment object.pk comments_section_1 %}
 			</div>
 			<!-- /Action section -->
 		</div>
