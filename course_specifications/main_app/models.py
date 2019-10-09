@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
-from course_specifications.utils import get_department_name
+from course_specifications.utils import get_department_name, get_full_name, CamundaAPI
 
 User = settings.AUTH_USER_MODEL
 
@@ -222,6 +222,7 @@ class Course(models.Model):
                                                   help_text=_('Arrangements for availability of faculty and teaching '
                                                               'staff for individual student consultations and academic '
                                                               'advice'))
+    # TODO: add grad_flag
     # endregion
 
     history = HistoricalRecords()
@@ -392,6 +393,7 @@ class CourseLearningOutcome(models.Model):
                 (cls.SKILLS, _('Skills')),
                 (cls.COMPETENCE, _('Competence')),
             )
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
                                related_name='learning_outcomes')
     clo_category = models.CharField(_('Category'), max_length=50, null=True, blank=False, choices=Categories.choices())
@@ -422,6 +424,7 @@ class Topic(models.Model):
                 (cls.PRACTICAL, _('Practical')),
                 (cls.OTHER, _('Other')),
             )
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
                                related_name='topics')
     type = models.CharField(_('Type'), max_length=50, null=True, blank=False, choices=Types.choices())
@@ -498,6 +501,7 @@ class FacilitiesRequired(models.Model):
                 (cls.TECHNOLOGY_RESOURCES, _('Technology Resources')),
                 (cls.OTHER, _('Other')),
             )
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
                                related_name='facilities_required')
     type = models.CharField(_('Type'), max_length=50, null=True, blank=False, choices=Types.choices())
@@ -523,12 +527,14 @@ class CourseRelease(models.Model):
     assessment_tasks = models.ManyToManyField('HistoricalAssessmentTask', related_name='releases')
     facilities_required = models.ManyToManyField('HistoricalFacilitiesRequired', related_name='releases')
     _workflow_status = models.CharField(_('Workflow Status (Cached)'), max_length=200, null=True, blank=True)
+    _workflow_assignee = models.CharField(_('Workflow Assignee (Cached)'), max_length=200, null=True, blank=True)
     workflow_instance_id = models.CharField(_('Workflow Instance ID'), max_length=200, null=True, blank=True)
     approved = models.NullBooleanField(_('Approved'), null=True, blank=True)
     approved_on = models.DateTimeField(_('Approved On'), null=True, blank=True)
     approved_by = models.ForeignKey(User, on_delete=models.PROTECT,
                                     null=True, blank=True, verbose_name=_('Approved By'),
                                     related_name='approved_courses', )
+
     # TODO: meaningful names plz
     # flag_1 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
     # flag_2 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
@@ -552,15 +558,68 @@ class CourseRelease(models.Model):
         self.save()
 
     @property
-    def workflow_status(self):
-        # TODO: to be implemented by shaheed to fetch from Camunda API
-        return self._workflow_status or _('Pending')
+    def camunda_task(self):
+        # fetch active task info from camunda api
+        # and save them into _workflow_status and _workflow_assignee
+        task_options = None
 
-    @workflow_status.setter
-    def workflow_status(self, value):
-        # TODO: to be implemented by shaheed to fetch from Camunda API
-        self._workflow_status = value
+        try:
+            camunda_api = CamundaAPI(self.workflow_instance_id)
+            active_task = camunda_api.get_active_task()
+            if active_task:
+                self._workflow_status = active_task['name']
+                self._workflow_assignee = active_task['assignee']
+                self.save()
 
+                task_options = camunda_api.get_task_options(active_task)
+        except:
+            pass
+
+        task_summery = {
+            'name': self._workflow_status,
+            'assignee': self._workflow_assignee,
+            'options':task_options or {}
+        }
+
+
+        return task_summery
+
+    @property
+    def is_completed(self):
+        camunda_api = CamundaAPI(self.workflow_instance_id)
+        return camunda_api.is_process_completed()
+
+    def complete_task(self, decision):
+        camunda_api = CamundaAPI(self.workflow_instance_id)
+
+        return camunda_api.complete_current_task(decision)
+
+    @property
+    def course_release_status(self):
+        camunda_api = CamundaAPI(self.workflow_instance_id)
+        active_task = camunda_api.get_active_task()
+        if active_task:
+            self._workflow_status = active_task['name']
+            self._workflow_assignee = active_task['assignee']
+            self.save()
+            return {
+                'name': self._workflow_status,
+                'assignee': self._workflow_assignee,
+            }
+
+    # TODO get AAC_task_assignee, is graduate course, and (collage id it may be changed in camunda code)
+    def start_camunda_process(self):
+        process_instance = CamundaAPI.start_process(
+            self.course.code,
+            self.id,
+            'AAC_task_assignee',
+            False,
+            self.course.mother_department,
+            'collage_id'
+        )
+
+        self.workflow_instance_id = process_instance['id']
+        self.save()
 
 # May need the explicit 'through' model below to better control on_delete behavior
 # class CourseReleaseLearningObjective(models.Model):
@@ -591,3 +650,40 @@ class ApprovalComments(models.Model):
                                      null=True, blank=True, verbose_name=_('Commenter'),
                                      related_name='approval_comments', )
     comment_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        get_latest_by = ['comment_date', ]
+
+    def __str__(self):
+        return self.comment
+
+    def commenter_role(self):
+        # TODO: get role from Camunda [Shaheed]
+        return ''
+
+    def create_viewership(self, user):
+        # TODO: implement
+        pass
+
+    def is_new_for_user(self, user):
+        # TODO: implement
+        pass
+
+    def commenter_full_name(self):
+        return get_full_name(self.commented_by)
+
+
+class CommentViewership(models.Model):
+    comment = models.ForeignKey('ApprovalComments', on_delete=models.CASCADE,
+                                null=True, blank=False, verbose_name=_('Comment'),
+                                related_name='comment_views', )
+    viewer = models.ForeignKey(User, on_delete=models.CASCADE,
+                               null=True, blank=False, verbose_name=_('Viewer'),
+                               related_name='viewed_comments', )
+    is_new = models.BooleanField(
+        _('Is New?'),
+        default=True,
+        help_text=_('If checked, it means this comment is new to this user. The comment will be considered old, '
+                    'if the user moved on in the process to the next step')
+    )
+    viewed_on = models.DateTimeField(_('Viewed On'), auto_now=True)
