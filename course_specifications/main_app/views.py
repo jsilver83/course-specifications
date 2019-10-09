@@ -399,14 +399,13 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
     comments_sections = [ApprovalComment.Sections.GENERAL, ]
 
     def test_func(self):
-        # FIXME: shaheed
-        return True
-        # # course_release_id = self.kwargs['pk']
-        # # course_release = CourseRelease.objects.filter(id=course_release_id).first()
-        # # camunda_api = CamundaAPI(course_release.workflow_instance_id)
-        # # task = camunda_api.get_active_task()
-        #
-        # return task and task['assignee'] == self.request.user.username
+        # return True
+        course_release_id = self.kwargs['pk']
+        course_release = CourseRelease.objects.filter(id=course_release_id).first()
+        camunda_api = CamundaAPI(course_release.workflow_instance_id)
+        task = camunda_api.get_active_task()
+
+        return task and task['assignee'] == self.request.user.username
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
