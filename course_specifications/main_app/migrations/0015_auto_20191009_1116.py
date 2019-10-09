@@ -8,18 +8,10 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('main_app', '0013_auto_20191006_1159'),
+        ('main_app', '0014_auto_20191008_1317'),
     ]
 
     operations = [
-        migrations.RenameModel(
-            old_name='CommentsViews',
-            new_name='CommentViewership',
-        ),
-        migrations.AlterModelOptions(
-            name='approvalcomments',
-            options={'get_latest_by': ['comment_date']},
-        ),
         migrations.AddField(
             model_name='courserelease',
             name='_workflow_assignee',
