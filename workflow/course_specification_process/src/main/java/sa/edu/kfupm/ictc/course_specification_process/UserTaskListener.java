@@ -32,8 +32,8 @@ public class UserTaskListener implements TaskListener {
         Properties properties = propertiesInstance.getProperties();
 
         String dgs_department_id = properties.getProperty("DGS_DEPARTMENT_ID");
-        String vice_rectort_job_titile_id = properties.getProperty("VICE_RECTORT_JOB_TITLE_ID");
-        String rectort_job_titile_id = properties.getProperty("RECTORT_JOB_TITLE_ID");
+        String vice_rectort_job_titile_id = properties.getProperty("VICE_RECTOR_JOB_TITLE_ID");
+        String rectort_job_titile_id = properties.getProperty("RECTOR_JOB_TITLE_ID");
 
         if (PropertiesHelper.isDebug()) {
             LOGGER.info("TaskDefinitionKey ===============================");
@@ -77,6 +77,9 @@ public class UserTaskListener implements TaskListener {
                     }
                     break;
                 case "ACC_Task":
+                    String aac_assignee = delegateTask.getVariable("AACTaskAssignee") + "";
+                    delegateTask.setAssignee(aac_assignee);
+
                     break;
                 case "Collage_Dean_Task":
                     JSONObject collage = staffApi.getDepartment(collageId);
