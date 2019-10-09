@@ -413,6 +413,11 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
 
         course_release_id = self.kwargs['pk']
         course_release = CourseRelease.objects.filter(id=course_release_id).first()
+
+        if course_release.is_completed:
+            messages.warning(self.request, _('Thi Approval request was completed'))
+            return context
+
         task_summery = course_release.camunda_task
         options = []
         for key in task_summery['options']:
@@ -425,7 +430,8 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
                 'order': order
             })
 
-        if not options:    # FIXME: shaheed
+        if not options:
+            # add Submit button if these is no task options
             options.append({
                 'key': 'submit',
                 'value': _('Submit'),  # TODO: come up with aq more meaningfule genric name
