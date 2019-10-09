@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
-from course_specifications.utils import get_department_name, get_full_name
+from course_specifications.utils import get_department_name, get_full_name, CamundaAPI
 
 User = settings.AUTH_USER_MODEL
 
@@ -527,6 +527,7 @@ class CourseRelease(models.Model):
     assessment_tasks = models.ManyToManyField('HistoricalAssessmentTask', related_name='releases')
     facilities_required = models.ManyToManyField('HistoricalFacilitiesRequired', related_name='releases')
     _workflow_status = models.CharField(_('Workflow Status (Cached)'), max_length=200, null=True, blank=True)
+    _workflow_assignee = models.CharField(_('Workflow Assignee (Cached)'), max_length=200, null=True, blank=True)
     workflow_instance_id = models.CharField(_('Workflow Instance ID'), max_length=200, null=True, blank=True)
     approved = models.NullBooleanField(_('Approved'), null=True, blank=True)
     approved_on = models.DateTimeField(_('Approved On'), null=True, blank=True)
@@ -557,15 +558,68 @@ class CourseRelease(models.Model):
         self.save()
 
     @property
-    def workflow_status(self):
-        # TODO: to be implemented by shaheed to fetch from Camunda API
-        return self._workflow_status or _('Pending')
+    def camunda_task(self):
+        # fetch active task info from camunda api
+        # and save them into _workflow_status and _workflow_assignee
+        task_options = None
 
-    @workflow_status.setter
-    def workflow_status(self, value):
-        # TODO: to be implemented by shaheed to fetch from Camunda API
-        self._workflow_status = value
+        try:
+            camunda_api = CamundaAPI(self.workflow_instance_id)
+            active_task = camunda_api.get_active_task()
+            if active_task:
+                self._workflow_status = active_task['name']
+                self._workflow_assignee = active_task['assignee']
+                self.save()
 
+                task_options = camunda_api.get_task_options(active_task)
+        except:
+            pass
+
+        task_summery = {
+            'name': self._workflow_status,
+            'assignee': self._workflow_assignee,
+            'options':task_options or {}
+        }
+
+
+        return task_summery
+
+    @property
+    def is_completed(self):
+        camunda_api = CamundaAPI(self.workflow_instance_id)
+        return camunda_api.is_process_completed()
+
+    def complete_task(self, decision):
+        camunda_api = CamundaAPI(self.workflow_instance_id)
+
+        return camunda_api.complete_current_task(decision)
+
+    @property
+    def course_release_status(self):
+        camunda_api = CamundaAPI(self.workflow_instance_id)
+        active_task = camunda_api.get_active_task()
+        if active_task:
+            self._workflow_status = active_task['name']
+            self._workflow_assignee = active_task['assignee']
+            self.save()
+            return {
+                'name': self._workflow_status,
+                'assignee': self._workflow_assignee,
+            }
+
+    # TODO get AAC_task_assignee, is graduate course, and (collage id it may be changed in camunda code)
+    def start_camunda_process(self):
+        process_instance = CamundaAPI.start_process(
+            self.course.code,
+            self.id,
+            'AAC_task_assignee',
+            False,
+            self.course.mother_department,
+            'collage_id'
+        )
+
+        self.workflow_instance_id = process_instance['id']
+        self.save()
 
 # May need the explicit 'through' model below to better control on_delete behavior
 # class CourseReleaseLearningObjective(models.Model):
