@@ -1,0 +1,23 @@
+--- models.py
++++ models.py
+@@ -5,7 +5,7 @@
+ from django.utils.translation import ugettext_lazy as _
+ from simple_history.models import HistoricalRecords
+ 
+-from course_specifications.utils import get_department_name
++from course_specifications.utils import get_department_name, CamundaAPI
+ 
+ User = settings.AUTH_USER_MODEL
+ 
+@@ -526,9 +527,11 @@
+     workflow_instance_id = models.CharField(_('Workflow Instance ID'), max_length=200, null=True, blank=True)
+     approved = models.NullBooleanField(_('Approved'), null=True, blank=True)
+     approved_on = models.DateTimeField(_('Approved On'), null=True, blank=True)
+     approved_by = models.ForeignKey(User, on_delete=models.PROTECT,
+                                     null=True, blank=True, verbose_name=_('Approved By'),
+                                     related_name='approved_courses', )
++
++    _active_task=None
+     # TODO: meaningful names plz
+     # flag_1 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
+     # flag_2 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
