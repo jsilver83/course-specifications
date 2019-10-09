@@ -1,0 +1,111 @@
+{% extends 'main_app/view_course/generic_course_review_form.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load course_filters %}
+
+{% block course-review-sections %}
+
+	<!-- Learning resources -->
+	<div class="card" id="learning-resources">
+		<div class="row">
+			<div class="col-md-7 col-12 pr-md-0">
+				<div class="card-body">
+					<div class="card-text">
+						<div class="">
+							<div class="plain-content border-bottom mb-3 pt-2">
+								<h6 class="mb-2">Required Textbooks</h6><br>
+
+								<h6 class="card-subtitle mb-2">Required Textbooks (From Bookstore)</h6><hr>
+								<p>{{ course.required_textbooks_from_sierra }}</p>
+
+								{% if course.other_required_textbooks %}
+								<br>
+								<h6 class="card-subtitle mb-2">Required Textbooks (To Be Acquired)</h6><hr>
+								<p>{{ course.other_required_textbooks|linebreaksbr }}</p>
+								{% endif %}
+							</div>
+							{% if course.essential_reference_materials %}
+								<div class="plain-content border-bottom mb-3 pt-2">
+									<h6 class="card-subtitle mb-2">Essential References Materials</h6>
+									<p>{{ course.essential_reference_materials|linebreaksbr }}</p>
+								</div>
+							{% endif %}
+							{% if course.recommended_textbooks_reference_materials %}
+								<div class="plain-content border-bottom mb-3 pt-2">
+									<h6 class="card-subtitle mb-2">Recommended Textbooks and Reference Materials</h6>
+									<p>{{ course.recommended_textbooks_reference_materials|linebreaksbr }}</p>
+								</div>
+							{% endif %}
+							{% if course.electronic_materials %}
+								<div class="plain-content border-bottom mb-3 pt-2">
+									<h6 class="card-subtitle mb-2">Electronic Materials</h6>
+									<p>{{ course.electronic_materials|linebreaksbr }}</p>
+								</div>
+							{% endif %}
+							{% if course.other_materials %}
+								<div class="plain-content border-bottom mb-3 pt-2">
+									<h6 class="card-subtitle mb-2">Other Learning Materials</h6>
+									<p>{{ course.other_materials|linebreaksbr }}</p>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Action section -->
+			<div class="col-md-5 col-12 pl-md-0">
+				<div class="card-footer action-section p-3 h-100 d-flex flex-column">
+					<h6 class="card-subtitle text-muted mt-1 mb-3 font-weight-bold d-flex">
+						<span class="mr-auto">Comments if any</span>
+						<button class="btn btn-link p-0 small text-muted" type="button" data-toggle="modal"
+						        data-target="#learning-resources-comments">View all
+						</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="learning-resources-comments" tabindex="-1" role="dialog"
+						     aria-labelledby="learning-resources-comments" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">All Comments</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body bg-light">
+										<div class="chat-view">
+											<div class="chat-badge">
+												<span>No Comments</span>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /Modal -->
+					</h6>
+					<div class="chat-view">
+						<div class="chat-badge">
+							<span>No Comments</span>
+						</div>
+					</div>
+					<div class="chat-textarea mt-auto">
+						<div class="d-flex">
+							<div class="mr-auto"></div>
+							<div class="send-btn">
+								<button class="btn btn-sm">Send</button>
+							</div>
+						</div>
+						<textarea class="form-control" placeholder="Enter your comments"></textarea>
+					</div>
+				</div>
+			</div>
+			<!-- /Action section -->
+		</div>
+	</div>
+	<!-- /Learning resources -->
+
+{% endblock course-review-sections %}
