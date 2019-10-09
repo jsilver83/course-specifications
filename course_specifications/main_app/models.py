@@ -348,6 +348,16 @@ class Course(models.Model):
     def total_lab_topic_contact_hours(self):
         return self.topics.filter(type=Topic.Types.LAB).aggregate(Sum('contact_hours')).get('contact_hours__sum')
 
+    def total_lecture_assessment_tasks_weight(self):
+        return self.assessment_tasks.filter(
+            type=AssessmentTask.Types.LECTURE
+        ).aggregate(Sum('weight_percentage')).get('weight_percentage__sum')
+
+    def total_lab_assessment_tasks_weight(self):
+        return self.assessment_tasks.filter(
+            type=AssessmentTask.Types.LAB
+        ).aggregate(Sum('weight_percentage')).get('weight_percentage__sum')
+
     def get_total_self_study_hours(self):
         self_studies = [self.self_study_lecture, self.self_study_lab, self.self_study_other,
                         self.self_study_practical, self.self_study_tutorial]
@@ -666,6 +676,7 @@ class ApprovalComment(models.Model):
         TOPICS = 'TOPICS'
         SELF_LEARNING = 'SELF_LEARNING'
         SUBJECT_AREA_HRS = 'SUBJECT_AREA_HRS'
+        ASSESSMENT_TASKS = 'ASSESSMENT_TASKS'
 
         @classmethod
         def choices(cls):
