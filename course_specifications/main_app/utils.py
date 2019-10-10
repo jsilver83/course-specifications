@@ -2,8 +2,8 @@ from course_specifications.utils import call_web_service, APIType
 
 
 class CourseRoles:
-    MAINTAINER = 'course-maintainer'
-    REVIEWER = 'course-reviewer'
+    MAINTAINER = 'course_specifications_maintainer'
+    REVIEWER = 'course_specifications_reviewer'
 
 
 def assign_new_role(course, role, assigner, assignee, department):
@@ -15,7 +15,7 @@ def assign_new_role(course, role, assigner, assignee, department):
         'department': department,
     }
     return call_web_service(
-        'v2/academic-roles/course/role/add/',
+        'v2/academic-roles/course/role/add',
         method='post',
         data=data,
         api=APIType.ADWAR,
