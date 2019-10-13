@@ -41,7 +41,7 @@
                             <li class="form-group delete-this">
                                 <div class="d-flex">
 	                                {{ formset.empty_form.id }}{{ formset.empty_form.learning_objective }}{{ formset.empty_form.learning_objective.errors }}
-                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ model_form.DELETE }}</span></i></button>
+                                    <button id="mainObjDelBtn" class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ model_form.DELETE }}</span></i></button>
                                 </div>
                             </li>
                         </div>
@@ -52,14 +52,14 @@
                             <li class="form-group delete-this">
                                 <div class="d-flex">
 	                                {{ form.id }}{{ form.learning_objective }}{{ form.learning_objective.errors }}
-                                    <button class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i></button>
+                                    <button id="mainObjDelBtn" class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i></button>
                                 </div>
                             </li>
 	                        {% endfor %}
                         </ol>
                         <div class="row">
                             <div class="col-12 text-right">
-                                <button class="btn btn-sm btn-link bg-light add_more" type="button"><small class="fas fa-plus mr-1"></small>{% trans 'Add objective' %}</button>
+                                <button id="mainObjAddBtn" class="btn btn-sm btn-link bg-light add_more" type="button"><small class="fas fa-plus mr-1"></small>{% trans 'Add objective' %}</button>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                 </div>
                 <!-- /Default for adding -->
                 <div class="row">
-                    <ol class="col-12 add-here pl-4">
+                    <ol class="col-12 add-here pl-4" id="listOfLearnOutcome">
                         {{ formset2.management_form }}
                         {% for form in formset2 %}
                         <li class="delete-this">
@@ -138,7 +138,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
+                                <button id="outcomeDelBtn" class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
                             </div>
                         </li>
 	                    {% endfor %}
@@ -146,7 +146,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 text-right">
-                        <button class="btn btn-sm btn-link bg-light add_more" type="button"><small class="fas fa-plus mr-1"></small>Add outcome</button>
+                        <button id="outcomeAddBtn" class="btn btn-sm btn-link bg-light add_more" type="button"><small class="fas fa-plus mr-1"></small>Add outcome</button>
                     </div>
                 </div>
             </div>
@@ -155,3 +155,4 @@
     <!-- /Course-level Student Learning Outcomes -->
 
 {% endblock form-fields %}
+
