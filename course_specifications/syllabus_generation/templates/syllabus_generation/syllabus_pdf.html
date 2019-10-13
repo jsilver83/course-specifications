@@ -97,7 +97,7 @@
     <body>
         <div class="container">
             <div class="header">
-                <img class="kfupm-logo" src="https://brand.kfupm.edu.sa/wp-content/uploads/2015/06/logo-quranic-verse.jpg">
+                <img class="kfupm-logo" src="{% static 'images/logo-quranic-verse.jpg' %}">
                 <h1 class="college-name">{{ department_name }} Department</h1>
                 <h2 class="course-title">Syllabus<br>{{course.program_code}} {{course.number}}: {{course.title}}({{course.lecture_credit_hours}}-{{course.lab_contact_hours}}-{{course.total_credit_hours}})</h2>
             </div>
