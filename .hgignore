@@ -38,3 +38,4 @@ config.properties
 *.iml
 
 
+course_specifications/syllabus_generation/static/syllabus_template_2.docx

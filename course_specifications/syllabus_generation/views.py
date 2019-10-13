@@ -49,7 +49,7 @@ class GeneratePDFSyllabusView(GenerateSyllabusBaseView):
         super().get(request, *args, **kwargs)
         print(self.get_context_data())
         html_template = get_template('syllabus_generation/syllabus_pdf.html').render(self.get_context_data())
-        pdf_file = HTML(string=html_template).write_pdf()
+        pdf_file = HTML(string=html_template,base_url=request.build_absolute_uri()).write_pdf()
         response = HttpResponse(pdf_file, content_type='application/pdf')
         response['Content-Disposition'] = 'filename="home_page.pdf"'
         # response = HttpResponse(html_template)
@@ -59,7 +59,7 @@ class GeneratePDFSyllabusView(GenerateSyllabusBaseView):
 class GenerateWordSyllabusView(GenerateSyllabusBaseView):
     def get(self, request, *args, **kwargs):
         super().get(request, *args, **kwargs)
-        result = finders.find('syllabus_template.docx')
+        result = finders.find('syllabus_template_2.docx')
         doc = DocxTemplate(result)
         doc.render(self.get_context_data(**kwargs))
         response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
