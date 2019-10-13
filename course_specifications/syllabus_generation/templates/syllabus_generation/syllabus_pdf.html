@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Title</title>
+{#        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
+        <!-- <link href="https://fonts.googleapis.com/css?family=Lato|Lobster&display=swap" rel="stylesheet"> -->
+        <link href="{% static 'fonts/OpenSans.ttf' %}" rel="stylesheet">
+        <style type="text/css">
+            body {
+                font-family: 'Open Sans';
+                font-size: 0.75rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                text-align: left;
+}
+            .table {
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 1rem;
+                background-color: transparent;
+                border-left-color: rgb(222, 226, 230);
+                border-left: 1px solid #dee2e6;
+            }
+            table {
+                border-collapse: collapse;
+            }
+            .table .thead-gray th {
+                color: #000;
+                background-color: #d9d9d9;
+                border-color: #cccccc;
+            }
+            .table thead th {
+                vertical-align: bottom;
+                border-bottom: 2px solid #dee2e6;
+                    border-bottom-color: rgb(222, 226, 230);
+            }
+            .table td, .table th {
+                padding: 5px;
+                vertical-align: top;
+                border-bottom: 1px solid #dee2e6;
+                border-bottom-color: rgb(222, 226, 230);
+                border-right: 1px solid #dee2e6;
+                border-right-color: rgb(222, 226, 230);
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+
+            }
+
+            th {
+                text-align: inherit;
+            }
+
+            .kfupm-logo {
+                width: 100px;
+                height: 100px;
+            }
+            .college-name {
+
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            .section-title {
+                color: rgb(2,126,64);
+            }
+            p {
+                line-height: 1.5;
+            }
+
+            ul li {
+                margin-bottom: 3px;
+            }
+            ul {
+                 padding: 0;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+            .section-content {
+                padding-left: 20px;
+            }
+
+            .topic-item {
+                padding: 3px;
+            }
+            .border-bottom {
+                border-bottom: 1px solid #dee2e6;
+                border-bottom-color: rgb(222, 226, 230);
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <img class="kfupm-logo" src="https://brand.kfupm.edu.sa/wp-content/uploads/2015/06/logo-quranic-verse.jpg">
+                <h1 class="college-name">{{ department_name }} Department</h1>
+                <h2 class="course-title">Syllabus<br>{{course.program_code}} {{course.number}}: {{course.title}}({{course.lecture_credit_hours}}-{{course.lab_contact_hours}}-{{course.total_credit_hours}})</h2>
+            </div>
+{#            <div class="instructors-info">#}
+{#                <h3 class="section-title">Time, Venue and Instructors Information:</h3>#}
+{#                    <table class="table">#}
+{#                            <thead class="thead-gray">#}
+{#                            <tr>#}
+{#                                <th scope="col"  style="width: 8%;">Sec.</th>#}
+{#                                <th scope="col" style="width: 15%;">Time</th>#}
+{#                                <th scope="col" style="width: 12%;">Venue</th>#}
+{#                                <th scope="col" style="width: 45%;">Instructor</th>#}
+{#                                <th scope="col" style="width: 20%;">Office Hours</th>#}
+{#                            </tr>#}
+{#                            </thead>#}
+{#                            <tbody>#}
+{#                            <tr>#}
+{#                                    <td scope="row">01</td>#}
+{#                                    <td>UTR 10:00-10:50 AM</td>#}
+{#                                    <td>24/116</td>#}
+{#                                    <td>Dr. Farag Azzedin <br>#}
+{#                                        Office: 22-309 <br>#}
+{#                                        Phone: 013-860-3431 <br>#}
+{#                                        E-mail:fazzedin@kfupm.edu.sa <br>#}
+{#                                        http://faculty.kfupm.edu.sa/ics/fazzedin</td>#}
+{#                                    <td>URT 11:00-12:00 Am OR By Appointment</td>#}
+{#                                </tr>#}
+{#                            <tr>#}
+{#                                    <td scope="row">01</td>#}
+{#                                    <td>UTR 10:00-10:50 AM</td>#}
+{#                                    <td>24/116</td>#}
+{#                                    <td>Dr. Farag Azzedin <br>#}
+{#                                        Office: 22-309 <br>#}
+{#                                        Phone: 013-860-3431 <br>#}
+{#                                        E-mail:fazzedin@kfupm.edu.sa <br>#}
+{#                                        http://faculty.kfupm.edu.sa/ics/fazzedin</td>#}
+{#                                    <td>URT 11:00-12:00 Am OR By Appointment</td>#}
+{#                                </tr>#}
+{#                            </tbody>#}
+{#                        </table>#}
+{#            </div>#}
+            <div id="course-description">
+                 <h3 class="section-title">Course Catalog Description:</h3>
+                 <div class="section-content">
+                    <p>{{ course.catalog_description }}</p>
+                </div>
+            </div>
+            {% if prerequisite_courses %}
+            <div id="course-Preq">
+                    <h3 class="section-title">Course Pre-requisites:</h3>
+                    <div class="section-content">
+                        <ul>
+                            {% for preq in prerequisite_courses  %}
+                                <li>{{preq.program_code}} {{preq.number}}: {{preq.title}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+            {% endif %}
+        {% if corequisite_courses %}
+            <div id="course-coreq">
+                    <h3 class="section-title">Course Co-requisites:</h3>
+                    <div class="section-content">
+                        <ul>
+                            {% for coreq in corequisite_courses  %}
+                                <li>{{coreq.program_code}} {{coreq.number}}: {{coreq.title}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+            {% endif %}
+            <div id="course-objectves">
+                    <h3 class="section-title">Course Objectives:</h3>
+                    <div class="section-content">
+                        <ul>
+                            {% for objective in learning_objectives %}
+                            <li>{{ objective.learning_objective }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+            <div id="course-learning-outcomes">
+                    <h3 class="section-title">Course Learning Outcomes:</h3>
+                    <div class="section-content">
+                        <ul>
+                            {% for outcome in learning_outcomes %}
+                                <li>{{ outcome.learning_outcome }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+            <div id="required-material">
+                    <h3 class="section-title">Required Material:</h3>
+                    <div class="section-content">
+                        <ul>
+                            <li>Textbook: {{ course.equired_textbooks_from_sierra }}</li>
+                            {% for textbook in other_required_textbooks %}
+                                <li>Textbook: {{ textbook }}</li>
+                            {% endfor %}
+                            {% for material in essential_reference_materials %}
+                                <li>{{ material }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+            {% if  recommended_textbooks_reference_materials %}
+                <div id="recommended-references">
+                    <h3 class="section-title">Other Recommended References</h3>
+                    <div class="section-content">
+                        <ul>
+                            {% for reference in recommended_textbooks_reference_materials %}
+                                <li>{{ reference }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+            {% endif %}
+
+            {% if lecture_assessment_tasks %}
+            <div class="lecture-assessment-plan">
+                    <h3 class="section-title">Lecture Assessment Plan:</h3>
+                    <div class="section-content">
+                        <table class="table">
+                                <thead class="thead-gray">
+                                <tr>
+                                    <th scope="col"  style="width: 75%;">Assessment Task</th>
+                                    <th scope="col" style="width: 15%;">Week Due</th>
+                                    <th scope="col" style="width: 10%;">Weight</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for assessment_task in lecture_assessment_tasks%}
+                                <tr>
+                                        <td>{{ assessment_task.assessment_task }}</td>
+                                        <td class="text-center">{{ assessment_task.week_due }}</td>
+                                        <td class="text-center">{{ assessment_task.weight_percentage|floatformat:1 }}%</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+        {% endif %}
+        {% if lab_assessment_tasks %}
+            <div class="lab-assessment-plan">
+                    <h3 class="section-title">Lab Assessment Plan:</h3>
+                    <div class="section-content">
+                        <table class="table">
+                                <thead class="thead-gray">
+                                <tr>
+                                    <th scope="col"  style="width: 75%;">Assessment Task</th>
+                                    <th scope="col" style="width: 15%;">Week Due</th>
+                                    <th scope="col" style="width: 10%;">Weight</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for assessment_task in lab_assessment_tasks%}
+                                <tr>
+                                        <td>{{ assessment_task.assessment_task }}</td>
+                                        <td class="text-center">{{ assessment_task.week_due }}</td>
+                                        <td class="text-center">{{ assessment_task.weight_percentage|floatformat:1 }}%</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+        {% endif %}
+
+        {% if lecture_topics_lists %}
+            <div class="lecture-weekly-schedule">
+                    <h3 class="section-title">Lecture Weekly Schedule</h3>
+                    <div class="section-content">
+                        <table class="table">
+                                <thead class="thead-gray">
+                                <tr>
+                                    <th scope="col"  style="width: 5%;">Week#</th>
+                                    <th scope="col" style="width: 95%;" class="text-center">Topics</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for topics in lecture_topics_lists %}
+                                    <tr>
+                                    <td class="text-center">{{ forloop.counter }}</td>
+                                    <td style="padding: 0;">
+                                        {% for topic in topics %}
+                                             {% if forloop.last %}
+                                                 <div class="topic-item">{{ topic.topic }}</div>
+                                            {% else %}
+                                                 <div class="topic-item border-bottom">{{ topic.topic }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+        {% endif %}
+
+{#        {% if lab_topics_lists %}#}
+{#            <div class="lab-weekly-schedule">#}
+{#                    <h3 class="section-title">Lab Weekly Schedule</h3>#}
+{#                    <div class="section-content">#}
+{#                        <table class="table">#}
+{#                                <thead class="thead-gray">#}
+{#                                <tr>#}
+{#                                    <th scope="col"  style="width: 5%;">Week#</th>#}
+{#                                    <th scope="col" style="width: 95%;" class="text-center">Topics</th>#}
+{#                                </tr>#}
+{#                                </thead>#}
+{#                                <tbody>#}
+{#                                {% for topics in lab_topics_lists %}#}
+{#                                    <tr>#}
+{#                                    <td class="text-center">{{ forloop.counter }}</td>#}
+{#                                    <td style="padding: 0;">#}
+{#                                        {% for topic in topics %}#}
+{#                                             {% if forloop.last %}#}
+{#                                                 <div class="topic-item">{{ topic.topic }}</div>#}
+{#                                            {% else %}#}
+{#                                                 <div class="topic-item border-bottom">{{ topic.topic }}</div>#}
+{#                                            {% endif %}#}
+{#                                        {% endfor %}#}
+{#                                    </td>#}
+{#                                    </tr>#}
+{#                                {% endfor %}#}
+{#                                </tbody>#}
+{#                            </table>#}
+{#                    </div>#}
+{#                </div>#}
+{#        {% endif %}#}
+        </div>
+</div>
+    </body>
+</html>

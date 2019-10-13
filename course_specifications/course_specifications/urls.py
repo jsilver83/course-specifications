@@ -20,6 +20,7 @@ from django.urls import path, include
 
 urlpatterns = i18n_patterns(
     path('', include('main_app.urls', namespace='main_app')),
+    path('syllabus/', include('syllabus_generation.urls', namespace='syllabus_generation')),
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
