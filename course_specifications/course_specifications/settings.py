@@ -18,7 +18,6 @@ from django.utils.translation import ugettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -29,7 +28,6 @@ SECRET_KEY = 'fa0^rns@l-qmu@(@6rlh_ko8t^$de$ez(a*3n0v##m_b2i7&mm'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -49,6 +47,7 @@ INSTALLED_APPS = [
 
     'impersonate',
     'simple_history',
+    'syllabus_generation'
 ]
 
 MIDDLEWARE = [
@@ -85,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'course_specifications.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -95,7 +93,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
