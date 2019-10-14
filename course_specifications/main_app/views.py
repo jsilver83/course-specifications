@@ -33,6 +33,8 @@ class CoursesListView(AllowedUserTypesMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['can_create_course'] = bool(UserType.get_user_type(self.request) == UserType.CHAIRMAN)
+        context['caretakers'] = get_courses_caretakers(self.get_queryset())
+        context['can_assign_caretakers'] = context['can_create_course']
         return context
 
     def get_queryset(self):

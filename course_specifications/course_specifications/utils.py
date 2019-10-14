@@ -123,7 +123,7 @@ def get_full_name(user):
     f_name = get_api_cached_value('_name', str(user), 'name_en', 'employee/{}'.format(user), APIType.STAFF)
 
     if f_name and f_name != 'N/A':
-        return return_first_and_last_name(f_name)
+        return get_first_and_last_name(f_name)
     else:
         return str(user)
 
@@ -132,12 +132,16 @@ def get_department_name(department_id):
     return get_api_cached_value('_dept', department_id, 'name', 'department/{}'.format(department_id), APIType.STAFF)
 
 
-def return_first_and_last_name(full_name):
+def get_first_and_last_name(full_name):
     try:
         first, *middle, last = full_name.split()
         return '{} {}'.format(first, last)
     except ValueError:
         return full_name
+
+
+def get_short_full_name(user):
+    return get_first_and_last_name(get_full_name(user))
 
 
 def get_subordinates(supervisor):
@@ -170,7 +174,7 @@ class CamundaAPI:
         parameters = {
             'processInstanceId': self.process_instance_id
         }
-        current_tasks = CamundaAPI.call_camunda_api('task', parameters=parameters)
+        current_tasks = CamundaAPI.call_camunda_api('task?processInstanceId={}'.format(self.process_instance_id))
         if current_tasks != 'ERROR':
             if current_tasks and len(current_tasks) != 1:
                 raise Exception("Must be one active task in process id: {}, but {} found".format(self.process_instance_id, len(current_tasks or [])))
@@ -240,10 +244,6 @@ class CamundaAPI:
                     "value": department_id,
                     "type": "Integer"
                 },
-                "CollageId": {
-                    "value": collage_id,
-                    "type": "Integer"
-                }
             }
         }
 
@@ -290,3 +290,7 @@ class CamundaAPI:
             return response
         except:
             return 'ERROR'
+
+
+def list_to_comma_separated_values(my_list):
+    return ','.join(map(str, my_list))
