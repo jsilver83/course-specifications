@@ -405,6 +405,9 @@ class Course(models.Model):
     def can_be_edited(self, user):
         return self.can_be_re_released() and self.is_a_maintainer(user)
 
+    def can_be_reviewed(self):
+        return not self.can_be_re_released()
+
 
 class LearningObjective(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False, verbose_name=_('Course'),
