@@ -83,15 +83,17 @@ class CourseIdentificationForm(forms.ModelForm):
         self.fields['prerequisite_courses'].queryset = courses
         self.fields['corequisite_courses'].queryset = courses
 
+        self.fields['weekly_office_hours'].required = True
+
     def clean(self):
         cleaned_data = super().clean()
 
-        total_credit_hours = cleaned_data.get('total_credit_hours', 0)
-        lecture_credit_hours = cleaned_data.get('lecture_credit_hours', 0)
-        lab_contact_hours = cleaned_data.get('lab_contact_hours', 0)
+        total_credit_hours = cleaned_data.get('total_credit_hours', 0) if cleaned_data.get('total_credit_hours', 0) else 0
+        lecture_credit_hours = cleaned_data.get('lecture_credit_hours', 0) if cleaned_data.get('lecture_credit_hours', 0) else 0
+        lab_contact_hours = cleaned_data.get('lab_contact_hours', 0) if cleaned_data.get('lab_contact_hours', 0) else 0
 
         if total_credit_hours < lecture_credit_hours:
-            raise forms.ValidationError(_('Total credit hours can NOT ne less than lecture credit hours'))
+            raise forms.ValidationError(_('Total credit hours can NOT be less than lecture credit hours'))
 
         if total_credit_hours < lab_contact_hours:
             raise forms.ValidationError(_('Total credit hours can NOT ne less than lab credit hours'))
