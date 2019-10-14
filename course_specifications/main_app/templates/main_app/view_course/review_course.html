@@ -23,7 +23,7 @@
 								</tr>
 								<tr>
 									<td><small class="text-muted">Location</small></td>
-									<td>{{ course.get_location_display }}</td>
+									<td>{{ course.get_location_display|default:"" }}</td>
 								</tr>
 								<tr>
 									<td><small class="text-muted">Credit hours</small></td>
@@ -152,7 +152,7 @@
 					<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Office hours</h6>
 					<div class="card-text">
 						<div class="">
-							<p class="h5 plain-content">{{ course.weekly_office_hours }} hrs</p>
+							<p class="h5 plain-content">{{ course.weekly_office_hours|default:"0" }} hrs</p>
 						</div>
 					</div>
 				</div>
