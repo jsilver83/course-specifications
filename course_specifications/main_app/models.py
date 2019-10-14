@@ -649,7 +649,7 @@ class CourseRelease(models.Model):
 
     def start_camunda_process(self):
         process_instance = CamundaAPI.start_process(
-            self.course.code,
+            self.course.history_object.code,
             self.id,
             'shaheed.alhelal',  # FIXME: add the real 'AAC_task_assignee' from adwar
             self.course.graduate_course_flag,
