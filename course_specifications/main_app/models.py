@@ -250,7 +250,7 @@ class Course(models.Model):
 
     @property
     def code(self):
-        return "{} {}".format(self.program_code, self.number)
+        return "{}{}".format(self.program_code, self.number)
 
     def __str__(self):
         return self.code
