@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block content %}
-	<form class="row" method="post">
+	<div class="row">
 		{% csrf_token %}
 		<div class="col-12">
 			<div class="card mb-4 course-title">
@@ -38,6 +38,6 @@
 			{% endif %}
 
 		</div>
-	</form>
+	</div>
 
 {% endblock content %}

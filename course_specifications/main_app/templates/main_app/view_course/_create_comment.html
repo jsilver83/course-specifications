@@ -91,7 +91,7 @@
 				{% csrf_token %}
 				<div class="mr-auto"></div>
 				{#				<div class="send-btn {{ prefix }}-btn">#}
-				<button class="send-btn btn btn-sm {{ prefix }}-submit">{% trans "Send" %}</button>
+				<button class="send-btn btn btn-sm btn-success {{ prefix }}-submit"><i class="far fa-paper-plane"></i> {% trans "Post Comment" %}</button>
 				{#				</div>#}
 			</div>
 			{{ form.course_release }}
@@ -104,6 +104,7 @@
 
 <script type="application/javascript">
     $(function () {
+        $("#id_comment").val(""); // clear comment areas on refresh
         $('.{{ prefix }}-form').on('submit', function (event) {
             event.preventDefault();
             $.ajax({
