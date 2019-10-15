@@ -110,7 +110,24 @@ class AssignCaretakersView(AllowedUserTypesMixin, SuccessMessageMixin, FormView)
         return super().form_valid(form)
 
 
-class UpdateCourseView(SuccessMessageMixin, UpdateView):
+class BaseUpdateCourseView(UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+
+    def test_func(self):
+        return True
+
+    @staticmethod
+    def update_all_related_objects(course):
+        latest_release = course.latest_release()
+        if latest_release:
+            latest_release.update_all_related_objects()
+
+    def form_valid(self, form):
+        super_return = super().form_valid(form)
+        self.update_all_related_objects(self.object)
+        return super_return
+
+
+class UpdateCourseView(BaseUpdateCourseView):
     model = Course
     form_class = CourseIdentificationForm
     template_name = 'main_app/course_identification.html'
@@ -123,13 +140,6 @@ class UpdateCourseView(SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('main_app:course_description', args=(self.object.pk, ))
-
-
-class ReleaseCourseView(View):
-    def get(self, request, *args, **kwargs):
-        course = Course.objects.get(id=kwargs['course_id'])
-        course.release()
-        return redirect('main_app:course_list')
 
 
 def course_description(request, pk):
@@ -158,6 +168,8 @@ def course_description(request, pk):
                     obj2 = form2.save(commit=False)
                     obj2.course = course
             formset2.save()
+
+            BaseUpdateCourseView.update_all_related_objects(saved_course)
 
             messages.success(request, _('Course updated successfully'))
             return redirect(reverse_lazy('main_app:course_contents', args=(saved_course.pk, )))
@@ -202,6 +214,8 @@ def course_contents(request, pk):
                         obj.course = course
                 formset2.save()
 
+            BaseUpdateCourseView.update_all_related_objects(saved_course)
+
             messages.success(request, _('Course updated successfully'))
             return redirect(reverse_lazy('main_app:assessment_tasks', args=(saved_course.pk, )))
 
@@ -240,6 +254,8 @@ def assessment_tasks(request, pk):
                         obj2.course = course
                 formset2.save()
 
+            BaseUpdateCourseView.update_all_related_objects(course)
+
             messages.success(request, _('Course updated successfully'))
             return redirect(reverse_lazy('main_app:learning_resources', args=(course.pk, )))
 
@@ -249,7 +265,7 @@ def assessment_tasks(request, pk):
     })
 
 
-class LearningResourcesView(SuccessMessageMixin, UpdateView):
+class LearningResourcesView(BaseUpdateCourseView):
     model = Course
     form_class = LearningResourcesForm
     template_name = 'main_app/learning-resources.html'
@@ -264,7 +280,7 @@ class LearningResourcesView(SuccessMessageMixin, UpdateView):
         return reverse_lazy('main_app:evaluation', args=(self.object.pk, ))
 
 
-class EvaluationView(SuccessMessageMixin, UpdateView):
+class EvaluationView(BaseUpdateCourseView):
     model = Course
     form_class = EvaluationForm
     template_name = 'main_app/evaluation.html'
@@ -295,6 +311,8 @@ def accreditation_requirements(request, pk):
                     obj = form1.save(commit=False)
                     obj.course = course
             formset.save()
+
+            BaseUpdateCourseView.update_all_related_objects(saved_course)
 
             messages.success(request, _('Course updated successfully'))
             return redirect(reverse_lazy('main_app:course_list'))

@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Sum
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -315,6 +315,28 @@ class Course(models.Model):
         except CourseRelease.DoesNotExist:
             release = None
         return release
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        super().save(force_insert, force_update, using, update_fields)
+
+        current_release = self.current_release()
+        latest_release = self.latest_release()
+        if latest_release:
+            if latest_release.approved:
+                # a new version needs to be created since latest version is approved
+                CourseRelease.objects.create(version=current_release.version + 1,
+                                             course=self.history.latest())
+            else:
+                # changes needs to be saved to the same version
+                latest_release.course = self.history.latest()
+                latest_release.save()
+        else:
+            # a new version needs to be created since there are no versions before
+            CourseRelease.objects.create(
+                version=0,
+                course=self.history.latest(),
+                approved=True,
+            )
 
     def last_edit(self):
         try:
@@ -658,6 +680,18 @@ class CourseRelease(models.Model):
 
         self.workflow_instance_id = process_instance['id']
         self.save()
+
+    def update_related_objects(self, related_accessor):
+        related_objs = getattr(self.course.history_object, related_accessor).all()
+        for related_obj in related_objs:
+            getattr(self, related_accessor).add(related_obj.history.latest())
+
+    def update_all_related_objects(self):
+        with transaction.atomic():
+            all_related_accessors = ['learning_objectives', 'prerequisite_courses', 'corequisite_courses',
+                                     'learning_outcomes', 'topics', 'assessment_tasks', 'facilities_required', ]
+            for related_accessor in all_related_accessors:
+                self.update_related_objects(related_accessor)
 
 
 # May need the explicit 'through' model below to better control on_delete behavior
