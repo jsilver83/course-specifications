@@ -5,8 +5,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView, ListView, UpdateView, FormView
+from django.views.generic import CreateView, ListView, UpdateView, FormView, DetailView
 
+from course_specifications.mixins import AjaxableResponseMixin
 from course_specifications.utils import UserType
 from .forms import *
 from .models import *
@@ -300,3 +301,180 @@ def accreditation_requirements(request, pk):
         'course': course, 'form': form, 'formset': formset,
         'active_step': '7',
     })
+
+
+class BaseReviewCourseView(AllowedUserTypesMixin, DetailView):
+    template_name = ''
+    model = CourseRelease
+    allowed_user_types = '__all__'
+    title = ''
+    next_url_handler = ''
+    comments_sections = []
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['course'] = self.object.course
+        context['title'] = self.title
+        if self.next_url_handler:
+            context['next_url'] = reverse_lazy('main_app:{}'.format(self.next_url_handler), kwargs={'pk': self.object.pk})
+
+        context['can_comment'] = True  # TODO: use camunda to decide on this
+        for counter, comments_section in enumerate(self.comments_sections):
+            context['comments_section_{}'.format(counter+1)] = comments_section
+
+        return context
+
+
+class ReviewCourseView(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course.html'
+    title = _('Course identification and general information')
+    next_url_handler = 'review_course_release_step2'
+    comments_sections = [ApprovalComment.Sections.COURSE_IDENTIFICATION, ApprovalComment.Sections.REQUISITES,
+                         ApprovalComment.Sections.MODE_OF_INSTRUCTION, ApprovalComment.Sections.OFFICE_HOURS]
+
+
+class ReviewCourseStep2View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step2.html'
+    title = _('Course Description, Objectives & Learning Outcomes')
+    next_url_handler = 'review_course_release_step3'
+    comments_sections = [ApprovalComment.Sections.DESCRIPTION, ApprovalComment.Sections.OBJECTIVES,
+                         ApprovalComment.Sections.CLO]
+
+
+class ReviewCourseStep3View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step3.html'
+    title = _('Course Contents')
+    next_url_handler = 'review_course_release_step4'
+    comments_sections = [ApprovalComment.Sections.TOPICS, ApprovalComment.Sections.SELF_LEARNING,
+                         ApprovalComment.Sections.SUBJECT_AREA_HRS]
+
+
+class ReviewCourseStep4View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step4.html'
+    title = _('Assessment Tasks')
+    next_url_handler = 'review_course_release_step5'
+    comments_sections = [ApprovalComment.Sections.ASSESSMENT_TASKS, ]
+
+
+class ReviewCourseStep5View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step5.html'
+    title = _('Assessment Tasks')
+    next_url_handler = 'review_course_release_step6'
+    comments_sections = [ApprovalComment.Sections.LEARNING_RESOURCES, ]
+
+
+class ReviewCourseStep6View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step6.html'
+    title = _('Course Evaluation')
+    next_url_handler = 'review_course_release_step7'
+    comments_sections = [ApprovalComment.Sections.COURSE_EVALUATION, ]
+
+
+class ReviewCourseStep7View(BaseReviewCourseView):
+    template_name = 'main_app/view_course/review_course_step7.html'
+    title = _('Accreditation Requirements')
+    next_url_handler = 'review_checklist_form'
+    comments_sections = [ApprovalComment.Sections.ACCREDITATION_REQUIREMENTS, ]
+
+
+class CreateCommentView(AjaxableResponseMixin, CreateView):
+    template_name = 'main_app/view_course/review_course.html'
+    form_class = CreateCommentForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['section'] = ''  # we are passing null values here that will be overridden by POST data
+        kwargs['course_release'] = ''  # same a s above
+        return kwargs
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.commented_by = self.request.user
+        return super().form_valid(form)
+
+
+class ReviewChecklistFormView(BaseReviewCourseView, FormView):
+    template_name = 'main_app/view_course/review_course_checklist.html'
+    form_class = ReviewChecklistForm
+    comments_sections = [ApprovalComment.Sections.GENERAL, ]
+
+    def test_func(self):
+        # return True
+        course_release_id = self.kwargs['pk']
+        course_release = CourseRelease.objects.filter(id=course_release_id).first()
+        camunda_api = CamundaAPI(course_release.workflow_instance_id)
+        task = camunda_api.get_active_task()
+
+        return task and task['assignee'] == self.request.user.username
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        course_release_id = self.kwargs['pk']
+        course_release = CourseRelease.objects.filter(id=course_release_id).first()
+
+        if course_release.is_completed:
+            messages.warning(self.request, _('Thi Approval request was completed'))
+            return context
+
+        task_summery = course_release.camunda_task
+        options = []
+        for key in task_summery['options']:
+            color, margin, order = self.get_css_values(key)
+            options.append({
+                'key': key,
+                'value': task_summery['options'][key],
+                'color': color,
+                'margin': margin,
+                'order': order
+            })
+
+        if not options:
+            # add Submit button if these is no task options
+            options.append({
+                'key': 'submit',
+                'value': _('Submit'),  # TODO: come up with aq more meaningfule genric name
+                'color': 'primary',
+                'margin': 'ml-4',
+                'order': 1
+            })
+
+        context['task_options'] = sorted(options, key=lambda option: option['order'])
+
+        return context
+
+    def get_css_values(self, button_key):
+        if button_key.lower().startswith('submit'):
+            return 'warning', 'ml-4', 3
+        elif button_key.lower().startswith('approve'):
+            return 'primary', 'ml-4', 4
+        elif button_key.lower().startswith('reject'):
+            return 'danger', 'ml-4', 2
+        else:
+            return 'secondary', 'mr-auto ml-4', 1
+
+    def form_valid(self, form):
+        course_release_id = self.kwargs['pk']
+        course_release = CourseRelease.objects.filter(id=course_release_id).first()
+
+        camunda_api = CamundaAPI(course_release.workflow_instance_id)
+        active_task = camunda_api.get_active_task()
+        options = camunda_api.get_task_options(active_task)
+
+        if 'submit' in self.request.POST:
+            response = camunda_api.complete_current_task()
+            if response.status_code == 204:
+                messages.success(self.request, _('Your Decision has been submitted successfully'))
+                return redirect(reverse_lazy('main_app:course_list'))
+        else:
+            for key in options:
+                if key in self.request.POST:
+                    response = camunda_api.complete_current_task(key)
+                    if response.status_code == 204:
+                        messages.success(self.request, _('Your Decision has been submitted successfully'))
+                        return redirect(reverse_lazy('main_app:course_list'))
+
+        messages.warning(self.request, _('Oops something wrong happened, your Decision has not been submitted'))
+        return redirect(
+            reverse_lazy('main_app:review_checklist_form', kwargs={"pk": course_release_id})
+        )

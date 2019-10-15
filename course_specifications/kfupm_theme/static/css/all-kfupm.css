@@ -19322,3 +19322,9 @@ readers do not read off random characters that represent icons */
 }
 
 /*# sourceMappingURL=all-kfupm.css.map */
+
+/* added by joud (NOT THROUGH SASS) */
+.col-6 .side-checklist, .col-7 .side-checklist {
+  width: 100% !important;
+}
+/* end of addition by joud */

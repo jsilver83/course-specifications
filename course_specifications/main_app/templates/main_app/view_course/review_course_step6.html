@@ -1,0 +1,33 @@
+{% extends 'main_app/view_course/generic_course_review_form.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load course_filters %}
+
+{% block course-review-sections %}
+
+	<!-- Learning resources -->
+	<div class="card" id="course-evaluation">
+		<div class="row">
+			<div class="col-md-7 col-12 pr-md-0">
+				<div class="card-body">
+					<div class="card-text">
+						<div class="">
+							<div class="plain-content border-bottom mb-3 pt-2">
+								<h6 class="card-subtitle mb-2">Strategies for obtaining student feedback on
+									effectiveness of teaching</h6>
+								<p>{{ course.strategies_of_student_feedback_and_evaluation }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Action section -->
+			<div class="col-md-5 col-12 pl-md-0">
+				{% create_comment object.pk comments_section_1 %}
+			</div>
+			<!-- /Action section -->
+		</div>
+	</div>
+	<!-- /Learning resources -->
+
+{% endblock course-review-sections %}

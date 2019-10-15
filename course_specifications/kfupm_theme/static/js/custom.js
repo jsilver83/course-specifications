@@ -20,7 +20,7 @@ function csrfSafeMethod(method) {
 }
 
 $(document).ready(function ($) {
-    
+
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
             let csrftoken = getCookie('csrftoken');
@@ -41,7 +41,6 @@ $(document).ready(function ($) {
 
     select_two();
 
-    
     $('.add_more').click(function () {
         var this_has_add_content = $(this).parents('.has-add-content');
         var form_idx = this_has_add_content.find("input[name*='-TOTAL_FORMS']").val();
@@ -64,6 +63,7 @@ $(document).ready(function ($) {
 
 
 
+
     $('body').on("click", ".add-button", function () {
 
         var this_has_add_content = $(this).parents('.has-add-content');
@@ -79,6 +79,7 @@ $(document).ready(function ($) {
         var id_number = this_cloned_forms.attr('id').match(/\d+/);
         var name_attr = this_cloned_forms.attr('name').replace(id_number, current_form_count);
         var id_attr = this_cloned_forms.attr('id').replace(id_number, current_form_count);
+
         this_cloned_forms.attr('name', name_attr);
         this_cloned_forms.attr('id', id_attr);
 
@@ -196,7 +197,6 @@ $(document).ready(function ($) {
         } else {
             $(this).find('input[type=checkbox]').prop("checked", false);
         }
-
 
         // disable delete button if form has one list item
         var number_of_list_items = $('#listOfLearnOutcome li:visible').length;
