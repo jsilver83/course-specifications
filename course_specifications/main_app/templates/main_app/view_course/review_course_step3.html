@@ -1,0 +1,407 @@
+{% extends 'main_app/view_course/generic_course_review_form.html' %}
+{% load i18n %}
+{% load course_filters %}
+
+{% block course-review-sections %}
+
+	<!-- Actual contact hours -->
+	<div class="card" id="actual-contact-hours">
+		<div class="row">
+			<div class="col-md-7 col-12 pr-md-0">
+				<div class="card-body">
+					<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Actual contact hours (Estimation per
+						semester)</h6>
+					<div class="card-text">
+						<div class="">
+							<div class="plain-content">
+								<div class="row">
+									<div class="col-12">
+										<!-- Total contact hrs -->
+										<div class="align-self-center mb-3">
+											<p class="small mb-0 text-muted">Total contact hrs: <small
+													class="text-dark h6 font-weight-bold">12 hrs</small></p>
+										</div>
+										<!-- /Total contact hrs -->
+									</div>
+									<div class="col-12">
+										<nav>
+											<div class="nav nav-tabs" id="assessment-tab" role="tablist">
+												<a class="nav-item nav-link active" id="nav-lecture-tab"
+												   data-toggle="tab" href="#nav-lecture" role="tab"
+												   aria-controls="nav-lecture"
+												   aria-selected="true"><small>Lecture</small>
+													<p class="mb-0 text-muted"><small
+															class="text-dark h6 font-weight-bold">{{ course.history_object.total_lecture_topic_contact_hours }} hrs</small></p></a>
+
+												{% if course.lab_contact_hours %}
+												<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab"
+												   href="#nav-laboratory" role="tab" aria-controls="nav-laboratory"
+												   aria-selected="true"><small>Laboratory</small>
+													<p class="mb-0 text-muted"><small
+															class="text-dark h6 font-weight-bold">{{ course.history_object.total_lab_topic_contact_hours }} hrs</small></p></a>
+												{% endif %}
+
+												<a class="nav-item nav-link" id="nav-tutorial-tab" data-toggle="tab"
+												   href="#nav-tutorial" role="tab" aria-controls="nav-tutorial"
+												   aria-selected="true"><small>Tutorial</small>
+													<p class="mb-0 text-muted"><small
+															class="text-dark h6 font-weight-bold">2 hrs</small></p></a>
+
+												<a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab"
+												   href="#nav-practical" role="tab" aria-controls="nav-practical"
+												   aria-selected="true"><small>Practical</small>
+													<p class="mb-0 text-muted"><small
+															class="text-dark h6 font-weight-bold">3 hrs</small></p></a>
+
+												<a class="nav-item nav-link mr-auto" id="nav-other-tab"
+												   data-toggle="tab" href="#nav-other" role="tab"
+												   aria-controls="nav-other" aria-selected="true"><small>Other</small>
+													<p class="mb-0 text-muted"><small
+															class="text-dark h6 font-weight-bold">2 hrs</small></p></a>
+
+
+											</div>
+										</nav>
+										<div class="tab-content" id="nav-tabContent">
+
+											<!-- Lecture -->
+											<div class="tab-pane fade show active has-add-content" id="nav-lecture"
+											     role="tabpanel" aria-labelledby="nav-lecture-tab">
+
+												<table class="table border">
+													<thead class="thead-light">
+													<tr>
+														<th scope="col"
+														    class="align-middle border-top-0 text-muted pt-1 pb-1"
+														    width="50%">
+															<small>List of Lecture topics</small>
+														</th>
+														<th scope="col"
+														    class="align-middle border-top-0 text-muted pt-1 pb-1">
+															<small>Contact hours <b>(Max 15)</b></small>
+														</th>
+														<th scope="col"
+														    class="align-middle border-top-0 text-muted pt-1 pb-1">
+															<small>Related CLOs</small>
+														</th>
+													</tr>
+													</thead>
+													<tbody class="add-here">
+													{% for topic in object.topics.all %}
+														{% if topic.type == 'lecture' %}
+													<tr class="delete-this hours-val">
+														<td scope="row" class="align-middle border-bottom">
+															<p>{{ topic.topic }}</p>
+														</td>
+														<td class="align-middle border-bottom">
+															<p>{{ topic.contact_hours|default:"0" }} hrs</p>
+														</td>
+														<td class="align-middle border-bottom">
+															{% if topic.related_course_learning_outcomes.all %}
+															<button class="small btn btn-sm btn-light has-increment-val"
+															        type="button" data-toggle="modal"
+															        data-target="#lec-clo-{{ topic.pk }}"><b>{{ topic.related_course_learning_outcomes.all|length }}</b> CLOs
+															</button>
+															<!-- CLO Modal -->
+															<div class="modal fade has-increment-val" id="lec-clo-{{ topic.pk }}"
+															     tabindex="-1" role="dialog" aria-labelledby="lec-clo-{{ topic.pk }}"
+															     aria-hidden="true">
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title">Related CLOs</h5>
+																			<button type="button" class="close"
+																			        data-dismiss="modal"
+																			        aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			<div class="row">
+																				<div class="col-md-12">
+																					{% for clo in topic.related_course_learning_outcomes.all %}
+																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span>
+																					{% endfor %}
+																				</div>
+																			</div>
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-light"
+																			        data-dismiss="modal">Close
+																			</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<!-- /CLO Modal -->
+															{% endif %}
+														</td>
+													</tr>
+														{% endif %}
+													{% endfor %}
+													</tbody>
+												</table>
+												<div class="text-right d-flex align-items-center">
+													<p class="text-muted mr-auto mb-0"><small>Total semester hours =
+														Weekly hours X Number of weeks per semester</small></p>
+												</div>
+											</div>
+											<!-- /Lecture -->
+
+										{% if course.lab_contact_hours %}
+											<!-- Laboratory -->
+											<div class="tab-pane fade" id="nav-laboratory" role="tabpanel"
+											     aria-labelledby="nav-laboratory-tab">
+												<table class="table border">
+													<thead class="thead-light">
+													<tr>
+														<th scope="col"
+														    class="align-middle border-top-0 text-muted pt-1 pb-1"
+														    width="50%">
+															<small>List of Laboratory topics</small>
+														</th>
+														<th scope="col"
+														    class="align-middle border-top-0 text-muted pt-1 pb-1">
+															<small>Contact hours <b>(Max 15)</b></small>
+														</th>
+														<th scope="col"
+														    class="align-middle border-top-0 text-muted pt-1 pb-1">
+															<small>Related CLOs</small>
+														</th>
+													</tr>
+													</thead>
+													<tbody class="add-here">
+													{% for topic in object.topics.all %}
+														{% if topic.type == 'lab' %}
+													<tr class="delete-this hours-val">
+														<td scope="row" class="align-middle border-bottom">
+															<p>{{ topic.topic }}</p>
+														</td>
+														<td class="align-middle border-bottom">
+															<p>{{ topic.contact_hours }} hrs</p>
+														</td>
+														<td class="align-middle border-bottom">
+															{% if topic.related_course_learning_outcomes.all %}
+															<button class="small btn btn-sm btn-light" type="button"
+															        data-toggle="modal" data-target="#lab-clo-{{ topic.pk }}">
+																<b>{{ topic.related_course_learning_outcomes.all|length }}</b> CLOs
+															</button>
+															{% endif %}
+															<div class="modal fade" id="lab-clo-{{ topic.pk }}" tabindex="-1"
+															     role="dialog" aria-labelledby="lab-clo-{{ topic.pk }}"
+															     aria-hidden="true">
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title">Related CLOs</h5>
+																			<button type="button" class="close"
+																			        data-dismiss="modal"
+																			        aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			<div class="row">
+																				<div class="col-md-12">
+																					{% for clo in topic.related_course_learning_outcomes.all %}
+																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span>
+																					{% endfor %}
+																				</div>
+																			</div>
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-light"
+																			        data-dismiss="modal">Close
+																			</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</td>
+													</tr>
+															{% endif %}
+													{% endfor %}
+													</tbody>
+												</table>
+												<div class="text-right d-flex align-items-center">
+													<p class="text-muted mr-auto mb-0"><small>Total semester hours =
+														Weekly hours X Number of weeks per semester</small></p>
+												</div>
+											</div>
+											<!-- /Laboratory -->
+										{% endif %}
+
+											<!-- Tutorial -->
+											<div class="tab-pane fade" id="nav-tutorial" role="tabpanel"
+											     aria-labelledby="nav-tutorial-tab">
+												<div class="border p-3">
+													<div class="row hours-val">
+														<div class="col-md-4">
+															<div class="form-group">
+																<small>Tutorial hours</small>
+																<p class="h6 mt-2">{{ course.tutorial_contact_hours|default:"0" }} hrs</p>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="text-right d-flex align-items-center mt-3">
+													<p class="text-muted mr-auto mb-0"><small>Total semester hours =
+														Weekly hours X Number of weeks per semester</small></p>
+												</div>
+											</div>
+											<!-- /Tutorial -->
+
+											<!-- Practical -->
+											<div class="tab-pane fade" id="nav-practical" role="tabpanel"
+											     aria-labelledby="nav-practical-tab">
+												<div class="border p-3">
+													<div class="row hours-val">
+														<div class="col-md-4">
+															<div class="form-group">
+																<small>Practical hours</small>
+																<p class="h6 mt-2">{{ course.practical_contact_hours|default:"0" }} hrs</p>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="text-right d-flex align-items-center mt-3">
+													<p class="text-muted mr-auto mb-0"><small>Total semester hours =
+														Weekly hours X Number of weeks per semester</small></p>
+												</div>
+											</div>
+											<!-- /Practical -->
+
+											<!-- Other -->
+											<div class="tab-pane fade" id="nav-other" role="tabpanel"
+											     aria-labelledby="nav-other-tab">
+												<div class="border p-3">
+													<div class="row hours-val">
+														<div class="col-md-4">
+															<div class="form-group">
+																<small>Other hours</small>
+																<p class="h6 mt-2">{{ course.other_contact_hours|default:"0" }} hrs</p>
+																{% if course.other_contact_hours %}
+																<p class="h6 mt-2">Description: {{ course.other_contact_hours_description }} hrs</p>
+																{% endif %}
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="text-right d-flex align-items-center mt-3">
+													<p class="text-muted mr-auto mb-0"><small>Total semester hours =
+														Weekly hours X Number of weeks per semester</small></p>
+												</div>
+											</div>
+											<!-- /Other -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Action section -->
+			<div class="col-md-5 col-12 pl-md-0">
+				{% create_comment object.pk comments_section_1 %}
+			</div>
+			<!-- /Action section -->
+		</div>
+	</div>
+	<!-- /Actual contact hours -->
+
+	<!-- Self-Learning Hours -->
+	<div class="card" id="self-learning-hours">
+		<div class="row">
+			<div class="col-md-7 col-12 pr-md-0">
+				<div class="card-body">
+					<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Self-Learning Hours</h6>
+					<div class="card-text">
+						<div class="">
+							<table class="view-table">
+								<tr class="header">
+									<td><small class="text-muted">Total</small></td>
+									<td><p class="h6 font-weight-bold mb-0">{{ course.history_object.get_total_self_study_hours }} hrs</p></td>
+								</tr>
+								{% if course.self_study_lecture %}<tr>
+									<td><small class="text-muted">Lecture</small></td>
+									<td>{{ course.self_study_lecture }} hrs</td>
+								</tr>{% endif %}
+								{% if course.self_study_lab %}<tr>
+									<td><small class="text-muted">Laboratory</small></td>
+									<td>{{ course.self_study_lab }} hrs</td>
+								</tr>{% endif %}
+								{% if course.self_study_tutorial %}<tr>
+									<td><small class="text-muted">Tutorial</small></td>
+									<td>{{ course.self_study_tutorial }} hrs</td>
+								</tr>{% endif %}
+								{% if course.self_study_practical %}<tr>
+									<td><small class="text-muted">Practical</small></td>
+									<td>{{ course.self_study_practical }} hrs</td>
+								</tr>{% endif %}
+								{% if course.self_study_other %}<tr>
+									<td><small class="text-muted">Other</small></td>
+									<td>{{ course.self_study_other }} hrs</td>
+								</tr>{% endif %}
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Action section -->
+			<div class="col-md-5 col-12 pl-md-0">
+				{% create_comment object.pk comments_section_2 %}
+			</div>
+			<!-- /Action section -->
+		</div>
+	</div>
+	<!-- /Self-Learning Hours -->
+
+	<!-- Subject area credit hours -->
+	<div class="card" id="subject-credit-hours">
+		<div class="row">
+			<div class="col-md-7 col-12 pr-md-0">
+				<div class="card-body">
+					<h6 class="card-subtitle mt-1 mb-3 font-weight-bold">Subject area credit hours</h6>
+					<div class="card-text">
+						<div class="">
+							<table class="view-table">
+								{% if course.engineering_credit_hours %}<tr>
+									<td><small class="text-muted">Engineering</small></td>
+									<td>{{ course.engineering_credit_hours }} hrs</td>
+								</tr>{% endif %}
+								{% if course.math_science_credit_hours %}<tr>
+									<td><small class="text-muted">Mathematics / Science</small></td>
+									<td>{{ course.math_science_credit_hours }} hrs</td>
+								</tr>{% endif %}
+								{% if course.humanities_credit_hours %}<tr>
+									<td><small class="text-muted">Humanities</small></td>
+									<td>{{ course.humanities_credit_hours }} hrs</td>
+								</tr>{% endif %}
+								{% if course.social_sciences_credit_hours %}<tr>
+									<td><small class="text-muted">Social sciences</small></td>
+									<td>{{ course.social_sciences_credit_hours }} hrs</td>
+								</tr>{% endif %}
+								{% if course.general_education_credit_hours %}<tr>
+									<td><small class="text-muted">General education</small></td>
+									<td>{{ course.general_education_credit_hours }} hrs</td>
+								</tr>{% endif %}
+								{% if course.other_subject_areas_credit_hours %}<tr>
+									<td><small class="text-muted">Other</small></td>
+									<td>{{ course.other_subject_areas_credit_hours }} hrs</td>
+								</tr>{% endif %}
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Action section -->
+			<div class="col-md-5 col-12 pl-md-0">
+				{% create_comment object.pk comments_section_3 %}
+			</div>
+			<!-- /Action section -->
+		</div>
+	</div>
+	<!-- /Course identification -->
+
+{% endblock course-review-sections %}

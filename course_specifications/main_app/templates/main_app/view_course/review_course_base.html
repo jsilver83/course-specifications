@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load course_filters %}
+
+{% block main_content %}
+	<div class="side-checklist side-nav">
+		<h6>Checklist</h6>
+		{% if object.pk %}
+		{% review_checklist object.pk %}
+		{% endif %}
+	</div>
+
+	<div class="content-section">
+		{% block content %}
+
+		{% endblock content %}
+	</div>
+{% endblock main_content %}

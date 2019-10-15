@@ -406,3 +406,23 @@ class FacilitiesRequiredBaseFormSet(BaseModelFormSet):
 FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=FacilitiesRequiredForm,
                                                  formset=FacilitiesRequiredBaseFormSet,
                                                  extra=1, can_delete=True, min_num=1, validate_min=True)
+
+
+class CreateCommentForm(forms.ModelForm):
+    class Meta:
+        model = ApprovalComment
+        fields = ['section', 'comment', 'course_release', ]
+        widgets = {
+            'course_release': forms.HiddenInput,
+            'section': forms.HiddenInput,
+        }
+
+    def __init__(self, section, course_release, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.initial['course_release'] = course_release
+        self.initial['section'] = section
+
+
+class ReviewChecklistForm(forms.Form):
+    pass
+
