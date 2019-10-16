@@ -314,8 +314,17 @@ def accreditation_requirements(request, pk):
 
             BaseUpdateCourseView.update_all_related_objects(saved_course)
 
-            messages.success(request, _('Course updated successfully'))
-            return redirect(reverse_lazy('main_app:course_list'))
+            # start camunda process only if latest release is a new
+            latest_release = saved_course.latest_release()
+            if latest_release and latest_release.is_new():
+                process_started = latest_release.start_camunda_process()
+
+                if process_started:
+                    messages.success(request, _('Course updated successfully'))
+                    return redirect(reverse_lazy('main_app:course_list'))
+                else:
+                    messages.error(request, _('There was an issue starting the approval process. Kindly retry later or '
+                                              'contact system admins to resolve this issue'))
 
     return render(request, 'main_app/accreditation_requirements.html', {
         'course': course, 'form': form, 'formset': formset,
