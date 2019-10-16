@@ -43,5 +43,8 @@ banner_webservice_username: adwar
 staff_webservice_base_url: https://staff-web-service.test.kfupm.edu.sa
 staff_webservice_username: adwar
 
+adwar_webservice_base_url: https://adwar.test.kfupm.edu.sa/api
+adwar_webservice_username: courses
+
 camunda_webservice_base_url: https://workflow.test.kfupm.edu.sa/engine-rest
 camunda_webservice_username: curricula
