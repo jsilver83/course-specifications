@@ -1,0 +1,103 @@
+{% load i18n %}
+
+<ul class="checklist-menu nav flex-column">
+	<li class="{% if active_step == '1' %}active open{% endif %} has-sub-menu completed">
+                    <span class="d-flex">
+                        <a href="{% url 'main_app:review_course_release_step1' object.pk %}" class="mr-auto"><i
+		                        class="far fa-circle check-icon"></i> <span>Course Identification And General Information</span></a>
+                        <i class="fas fa-sort-down drop-btn"></i>
+                    </span>
+		<ul class="sub-menu">
+			<li>
+				<a href="{% url 'main_app:review_course_release_step1' object.pk %}#course-identification"
+				   class="d-flex align-items-center course-identification{#  new-comment #}">
+					<span>Course identification</span>
+				</a>
+			</li>
+			<li><a href="{% url 'main_app:review_course_release_step1' object.pk %}#requisites-course"
+			       class="d-flex align-items-center requisites-course{#  unread-comment #}">
+				<span>Requisites for this course</span>
+			</a>
+			</li>
+			<li><a href="{% url 'main_app:review_course_release_step1' object.pk %}#mode-of-instruction"
+			       class="d-flex align-items-center mode-instruction">
+				<span>Mode of instruction</span>
+			</a>
+			</li>
+			<li><a href="{% url 'main_app:review_course_release_step1' object.pk %}#office-hours"
+			       class="d-flex align-items-center office-hours">
+				<span>Office hours</span>
+			</a>
+			</li>
+		</ul>
+	</li>
+	<li class="{% if active_step == '2' %}active open{% endif %} has-sub-menu completed">
+                    <span class="d-flex">
+                        <a href="{% url 'main_app:review_course_release_step2' object.pk %}" class="mr-auto"><i
+		                        class="far fa-circle check-icon"></i> <span>Course Description, Objectives & Learning Outcomes</span></a>
+                        <i class="fas fa-sort-down drop-btn"></i>
+                    </span>
+		<ul class="sub-menu">
+			<li>
+				<a href="{% url 'main_app:review_course_release_step2' object.pk %}#catalog-course-description"
+				   class="d-flex align-items-center catalog-course-description">
+					<span>Catalog course description</span>
+				</a>
+			</li>
+			<li><a href="{% url 'main_app:review_course_release_step2' object.pk %}#main-objectives"
+			       class="d-flex align-items-center main-objectives">
+				<span>Main objectives of this course</span>
+			</a>
+			</li>
+			<li><a href="{% url 'main_app:review_course_release_step2' object.pk %}#learning-outcomes"
+			       class="d-flex align-items-center learning-outcomes">
+				<span>Course-level Student Learning Outcomes</span>
+			</a>
+			</li>
+		</ul>
+
+	</li>
+	<li class="{% if active_step == '3' %}active open{% endif %} has-sub-menu completed">
+                    <span class="d-flex">
+                        <a href="{% url 'main_app:review_course_release_step3' object.pk %}" class="mr-auto"><i
+		                        class="far fa-circle check-icon"></i> <span>Course Contents</span></a>
+                        <i class="fas fa-sort-down drop-btn"></i>
+                    </span>
+		<ul class="sub-menu">
+			<li>
+				<a href="{% url 'main_app:review_course_release_step3' object.pk %}#course-identification"
+				   class="d-flex align-items-center">
+					<span>Course identification</span>
+				</a>
+			</li>
+			<li><a href="{% url 'main_app:review_course_release_step3' object.pk %}#requisites-course"
+			       class="d-flex align-items-center">
+				<span>Requisites for this course</span>
+			</a>
+			</li>
+			<li><a href="{% url 'main_app:review_course_release_step3' object.pk %}#mode-of-instruction"
+			       class="d-flex align-items-center">
+				<span>Mode of instruction</span>
+			</a>
+			</li>
+			<li><a href="{% url 'main_app:review_course_release_step3' object.pk %}#office-hours"
+			       class="d-flex align-items-center">
+				<span>Office hours</span>
+			</a>
+			</li>
+		</ul>
+	</li>
+	<li class="{% if active_step == '4' %}active{% endif %} completed"><a href="{% url 'main_app:review_course_release_step4' object.pk %}"
+			{#  class="unread-comment" #}><i class="far fa-circle check-icon"></i>
+		<span>Assessment Tasks</span></a></li>
+	<li class="{% if active_step == '5' %}active{% endif %} completed"><a href="{% url 'main_app:review_course_release_step5' object.pk %}">
+		<i class="far fa-circle check-icon"></i>
+		<span>Learning Resources</span></a></li>
+	<li class="{% if active_step == '6' %}active{% endif %} completed"><a href="{% url 'main_app:review_course_release_step6' object.pk %}">
+		<i class="far fa-circle check-icon"></i>
+		<span>Course Evaluation</span></a></li>
+	<li class="{% if active_step == '7' %}active{% endif %} completed"><a href="{% url 'main_app:review_course_release_step7' object.pk %}"><i
+			class="fas fa-check-circle check-icon"></i> <span>Accreditation Requirements</span></a></li>
+	<li class="{% if active_step == 'finish' %}active{% endif %} completed"><a href="{% url 'main_app:review_checklist_form' object.pk %}"><i
+			class="fas fa-check-circle action-icon check-icon"></i> <span>Take Action</span></a></li>
+</ul>

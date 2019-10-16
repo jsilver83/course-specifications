@@ -32,8 +32,9 @@ public class UserTaskListener implements TaskListener {
         Properties properties = propertiesInstance.getProperties();
 
         String dgs_department_id = properties.getProperty("DGS_DEPARTMENT_ID");
-        String vice_rectort_job_titile_id = properties.getProperty("VICE_RECTORT_JOB_TITLE_ID");
-        String rectort_job_titile_id = properties.getProperty("RECTORT_JOB_TITLE_ID");
+
+        String vice_rector_job_title_id = properties.getProperty("VICE_RECTOR_JOB_TITLE_ID");
+        String rector_job_title_id = properties.getProperty("RECTOR_JOB_TITLE_ID");
 
         if (PropertiesHelper.isDebug()) {
             LOGGER.info("TaskDefinitionKey ===============================");
@@ -55,48 +56,27 @@ public class UserTaskListener implements TaskListener {
                     }
                     break;
                 case "Chairman_Task":
-//                    JSONObject department = bannerApi.getDepartment(departmentId);
-//                    if (department != null) {
-//                        delegateTask.setAssignee(department.getString("chairman_username"));
-//                    }
-
                     JSONObject departments = staffApi.getDepartment(departmentId);
-                    if(PropertiesHelper.isDebug()) {
-                        LOGGER.info("Department info  ===============================");
-                        LOGGER.info("departments exists?" + (departments != null));
-                    }
 
                     if (departments != null) {
                         String chainrman_username = departments.getJSONObject("manager").getString("username");
-                        if(PropertiesHelper.isDebug()) {
-                            LOGGER.info("Task Assigned to  ===============================");
-                            LOGGER.info("chainrman_username" + chainrman_username);
-                        }
 
                         delegateTask.setAssignee(chainrman_username);
                     }
                     break;
                 case "ACC_Task":
+                    String aac_assignee = delegateTask.getVariable("AACTaskAssignee") + "";
+                    delegateTask.setAssignee(aac_assignee);
+
                     break;
                 case "Collage_Dean_Task":
                     JSONObject collage = staffApi.getDepartment(collageId);
-                    if(PropertiesHelper.isDebug()){
-                        LOGGER.info("collage info  ===============================");
-                        LOGGER.info("collage exists?" + (collage != null));
-                    }
 
                     if (collage != null) {
                         String collage_dean_username = collage.getJSONObject("manager").getString("username");
-                        if(PropertiesHelper.isDebug()){
-                            LOGGER.info("Task Assigned to  ===============================");
-                            LOGGER.info("collage_dean_username" + collage_dean_username);
-                        }
+
                         delegateTask.setAssignee(collage_dean_username);
                     }
-//                    JSONObject collage = bannerApi.getCollage(collageId);
-//                    if (collage != null) {
-//                        delegateTask.setAssignee(collage.getString("dean_username"));
-//                    }
                     break;
                 case "DGS_Dean_Task":
                     JSONObject dgs_department = staffApi.getDepartment(dgs_department_id);
@@ -105,7 +85,7 @@ public class UserTaskListener implements TaskListener {
                     }
                     break;
                 case "Vice_Rector_Task":
-                    JSONArray vice_rector_users = staffApi.getEmployeesByJobTitle(vice_rectort_job_titile_id);
+                    JSONArray vice_rector_users = staffApi.getEmployeesByJobTitle(vice_rector_job_title_id);
                     if (vice_rector_users != null && vice_rector_users.length() > 0) {
                         if (vice_rector_users.length() == 1) {
                             delegateTask.setAssignee(((JSONObject) vice_rector_users.get(0)).getString("username"));
@@ -115,7 +95,7 @@ public class UserTaskListener implements TaskListener {
                     }
                     break;
                 case "Rector_Task":
-                    JSONArray rector_users = staffApi.getEmployeesByJobTitle(rectort_job_titile_id);
+                    JSONArray rector_users = staffApi.getEmployeesByJobTitle(rector_job_title_id);
                     if (rector_users != null && rector_users.length() > 0) {
                         if (rector_users.length() == 1) {
                             delegateTask.setAssignee(((JSONObject) rector_users.get(0)).getString("username"));
