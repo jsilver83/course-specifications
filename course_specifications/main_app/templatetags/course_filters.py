@@ -40,26 +40,31 @@ def review_checklist(context, course_release_pk, active_step):
     }
 
 
+def get_caretaker_for_course(course_code, caretakers, role=CourseRoles.MAINTAINER):
+    try:
+        for caretaker in caretakers:
+            if (course_code == caretaker.get('course_code')
+                    and caretaker.get('role').get('code_name') == role):
+                return mark_safe('<span class="badge badge-success text-badge">{}</span>'.format(
+                    get_short_full_name(caretaker.get('assignee')))
+                )
+        return mark_safe('<span class="badge badge-danger text-badge">{}</span>'.format(_('Not Assigned')))
+    except:
+        return mark_safe(
+            '<span class="badge badge-danger text-badge">{}</span>'.format(
+                _('ERROR fetching {role}').format(role=role)
+            )
+        )
+
+
 @register.simple_tag
 def maintainer(course_code, caretakers):
-    for caretaker in caretakers:
-        if (course_code == caretaker.get('course_code')
-                and caretaker.get('role').get('code_name') == CourseRoles.MAINTAINER):
-            return mark_safe('<span class="badge badge-success text-badge">{}</span>'.format(
-                get_short_full_name(caretaker.get('assignee')))
-            )
-    return mark_safe('<span class="badge badge-danger text-badge">{}</span>'.format(_('Not Assigned')))
+    return get_caretaker_for_course(course_code, caretakers)
 
 
 @register.simple_tag
 def reviewer(course_code, caretakers):
-    for caretaker in caretakers:
-        if (course_code == caretaker.get('course_code')
-                and caretaker.get('role').get('code_name') == CourseRoles.REVIEWER):
-            return mark_safe('<span class="badge badge-success text-badge">{}</span>'.format(
-                get_short_full_name(caretaker.get('assignee')))
-            )
-    return mark_safe('<span class="badge badge-danger text-badge">{}</span>'.format(_('Not Assigned')))
+    return get_caretaker_for_course(course_code, caretakers, CourseRoles.REVIEWER)
 
 
 @register.simple_tag
