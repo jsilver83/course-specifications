@@ -328,6 +328,7 @@ class BaseReviewCourseView(AllowedUserTypesMixin, DetailView):
     model = CourseRelease
     allowed_user_types = '__all__'
     title = ''
+    active_step = ''
     next_url_handler = ''
     comments_sections = []
 
@@ -335,6 +336,7 @@ class BaseReviewCourseView(AllowedUserTypesMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['course'] = self.object.course
         context['title'] = self.title
+        context['active_step'] = self.active_step
         if self.next_url_handler:
             context['next_url'] = reverse_lazy('main_app:{}'.format(self.next_url_handler), kwargs={'pk': self.object.pk})
 
@@ -348,6 +350,7 @@ class BaseReviewCourseView(AllowedUserTypesMixin, DetailView):
 class ReviewCourseView(BaseReviewCourseView):
     template_name = 'main_app/view_course/review_course.html'
     title = _('Course identification and general information')
+    active_step = '1'
     next_url_handler = 'review_course_release_step2'
     comments_sections = [ApprovalComment.Sections.COURSE_IDENTIFICATION, ApprovalComment.Sections.REQUISITES,
                          ApprovalComment.Sections.MODE_OF_INSTRUCTION, ApprovalComment.Sections.OFFICE_HOURS]
@@ -356,6 +359,7 @@ class ReviewCourseView(BaseReviewCourseView):
 class ReviewCourseStep2View(BaseReviewCourseView):
     template_name = 'main_app/view_course/review_course_step2.html'
     title = _('Course Description, Objectives & Learning Outcomes')
+    active_step = '2'
     next_url_handler = 'review_course_release_step3'
     comments_sections = [ApprovalComment.Sections.DESCRIPTION, ApprovalComment.Sections.OBJECTIVES,
                          ApprovalComment.Sections.CLO]
@@ -364,6 +368,7 @@ class ReviewCourseStep2View(BaseReviewCourseView):
 class ReviewCourseStep3View(BaseReviewCourseView):
     template_name = 'main_app/view_course/review_course_step3.html'
     title = _('Course Contents')
+    active_step = '3'
     next_url_handler = 'review_course_release_step4'
     comments_sections = [ApprovalComment.Sections.TOPICS, ApprovalComment.Sections.SELF_LEARNING,
                          ApprovalComment.Sections.SUBJECT_AREA_HRS]
@@ -372,6 +377,7 @@ class ReviewCourseStep3View(BaseReviewCourseView):
 class ReviewCourseStep4View(BaseReviewCourseView):
     template_name = 'main_app/view_course/review_course_step4.html'
     title = _('Assessment Tasks')
+    active_step = '4'
     next_url_handler = 'review_course_release_step5'
     comments_sections = [ApprovalComment.Sections.ASSESSMENT_TASKS, ]
 
@@ -379,6 +385,7 @@ class ReviewCourseStep4View(BaseReviewCourseView):
 class ReviewCourseStep5View(BaseReviewCourseView):
     template_name = 'main_app/view_course/review_course_step5.html'
     title = _('Assessment Tasks')
+    active_step = '5'
     next_url_handler = 'review_course_release_step6'
     comments_sections = [ApprovalComment.Sections.LEARNING_RESOURCES, ]
 
@@ -386,6 +393,7 @@ class ReviewCourseStep5View(BaseReviewCourseView):
 class ReviewCourseStep6View(BaseReviewCourseView):
     template_name = 'main_app/view_course/review_course_step6.html'
     title = _('Course Evaluation')
+    active_step = '6'
     next_url_handler = 'review_course_release_step7'
     comments_sections = [ApprovalComment.Sections.COURSE_EVALUATION, ]
 
@@ -393,6 +401,7 @@ class ReviewCourseStep6View(BaseReviewCourseView):
 class ReviewCourseStep7View(BaseReviewCourseView):
     template_name = 'main_app/view_course/review_course_step7.html'
     title = _('Accreditation Requirements')
+    active_step = '7'
     next_url_handler = 'review_checklist_form'
     comments_sections = [ApprovalComment.Sections.ACCREDITATION_REQUIREMENTS, ]
 
@@ -416,10 +425,12 @@ class CreateCommentView(AjaxableResponseMixin, CreateView):
 class ReviewChecklistFormView(BaseReviewCourseView, FormView):
     template_name = 'main_app/view_course/review_course_checklist.html'
     form_class = ReviewChecklistForm
+    title = _('Actions Page')
+    active_step = 'finish'
     comments_sections = [ApprovalComment.Sections.GENERAL, ]
 
     def test_func(self):
-        # return True
+        return True
         course_release_id = self.kwargs['pk']
         course_release = CourseRelease.objects.filter(id=course_release_id).first()
         camunda_api = CamundaAPI(course_release.workflow_instance_id)

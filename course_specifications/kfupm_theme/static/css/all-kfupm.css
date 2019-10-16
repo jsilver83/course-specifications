@@ -19342,4 +19342,11 @@ readers do not read off random characters that represent icons */
 .errorlist {
   color: red!important;;
 }
+.side-nav-layout .side-checklist .checklist-menu > li.completed .action-icon {
+  color: #007d40;
+}
+.side-nav-layout .side-checklist .checklist-menu > li.completed .action-icon:before {
+  font-weight: 900;
+  content: "\f35a"!important;
+}
 /* end of addition by joud */

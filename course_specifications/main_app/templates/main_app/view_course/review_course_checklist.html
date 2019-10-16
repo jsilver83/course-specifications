@@ -9,7 +9,7 @@
 			<div class="side-checklist">
 				<h6>{% trans "Checklist" %}</h6>
 				{% if object.pk %}
-					{% review_checklist object.pk %}
+					{% review_checklist object.pk active_step %}
 				{% endif %}
 			</div>
 			<br><br><br>

@@ -5,7 +5,7 @@
 	<div class="side-checklist side-nav">
 		<h6>Checklist</h6>
 		{% if object.pk %}
-		{% review_checklist object.pk %}
+		{% review_checklist object.pk active_step %}
 		{% endif %}
 	</div>
 
