@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load course_filters %}
 
 {% block main_content %}
@@ -6,7 +7,7 @@
 	<div class="row">
 		<div class="col-6">
 			<div class="side-checklist">
-				<h6>ARC 101 Theory of Architecture I</h6>
+				<h6>{% trans "Checklist" %}</h6>
 				{% if object.pk %}
 					{% review_checklist object.pk %}
 				{% endif %}
