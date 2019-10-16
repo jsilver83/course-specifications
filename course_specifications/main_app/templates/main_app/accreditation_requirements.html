@@ -33,7 +33,7 @@
 									{% if forloop.last %}
 											<div class="row mb-2 delete-this">
 												<div class="col-sm-3 col-12">
-													{{ form.type|as_crispy_field }}
+													{{ form.id }}{{ form.type|as_crispy_field }}
 												</div>
 												<div class="col-sm-8 col-12">
 													{{ form.facility_required|as_crispy_field }}
@@ -55,7 +55,7 @@
 								{% for form in formset %}
 									<div class="row mb-2 delete-this">
 										<div class="col-sm-3 col-12">
-											{{ form.type|as_crispy_field }}
+											{{ form.id }}{{ form.type|as_crispy_field }}
 										</div>
 										<div class="col-sm-8 col-12">
 											{{ form.facility_required|as_crispy_field }}
