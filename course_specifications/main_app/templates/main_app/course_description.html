@@ -41,7 +41,7 @@
                             <li class="form-group delete-this">
                                 <div class="d-flex">
 	                                {{ formset.empty_form.id }}{{ formset.empty_form.learning_objective }}{{ formset.empty_form.learning_objective.errors }}
-                                    <button id="mainObjDelBtn" class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ model_form.DELETE }}</span></i></button>
+                                    <button id="mainObjDelBtn" class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ formset.empty_form.DELETE }}</span></i></button>
                                 </div>
                             </li>
                         </div>
@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
+                            <button class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ formset2.empty_form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
                         </div>
                     </li>
                 </div>
