@@ -32,10 +32,11 @@ def create_comment(context, course_release_pk, comment_section):
 
 
 @register.inclusion_tag('main_app/view_course/_review_checklist.html', takes_context=True)
-def review_checklist(context, course_release_pk):
+def review_checklist(context, course_release_pk, active_step):
     course_release = get_object_or_404(CourseRelease, pk=course_release_pk)
     return {
         'object': course_release,
+        'active_step': active_step,
     }
 
 
