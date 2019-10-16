@@ -678,8 +678,11 @@ class CourseRelease(models.Model):
             self.course.mother_department,
         )
 
-        self.workflow_instance_id = process_instance['id']
-        self.save()
+        self.workflow_instance_id = process_instance.get('id', 0)
+
+        if self.workflow_instance_id:
+            self.save()
+            return True
 
     def update_related_objects(self, related_accessor):
         related_objs = getattr(self.course.history_object, related_accessor).all()
