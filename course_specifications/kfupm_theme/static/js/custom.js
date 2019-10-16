@@ -20,6 +20,7 @@ function csrfSafeMethod(method) {
 }
 
 $(document).ready(function ($) {
+
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
             let csrftoken = getCookie('csrftoken');
@@ -48,9 +49,23 @@ $(document).ready(function ($) {
         this_has_add_content.find('.add-here').append(append_form.replace(/__prefix__/g, form_idx).replace(/__placeholder__/g, form_idx));
         this_has_add_content.find("input[name*='-TOTAL_FORMS']").val(parseInt(form_idx) + 1);
         select_two();
+
+
+         //  list of learning outcomes limit to 7 items
+            var number_of_list_items = $('#listOfLearnOutcome li:visible').length;
+                console.log("total # of list items is: " + number_of_list_items);
+                if(number_of_list_items === 7){
+                    $('#outcomeAddBtn').attr("disabled", true);
+                }else{
+                    $('#outcomeAddBtn').attr("disabled", false);
+                }
     });
 
+
+
+
     $('body').on("click", ".add-button", function () {
+
         var this_has_add_content = $(this).parents('.has-add-content');
         var this_add_here = this_has_add_content.find('.add-here');
         var this_last_content = this_has_add_content.find('.add-here .delete-this:visible').last().clone();
@@ -59,9 +74,9 @@ $(document).ready(function ($) {
         var total_forms_count = this_add_here.find("input[name*='-TOTAL_FORMS']");
         var current_form_count = parseInt(total_forms_count.val()) + 1;
         total_forms_count.val(current_form_count);
+        console.log("total form count" + total_forms_count);
         var name_number = this_cloned_forms.attr('name').match(/\d+/);
         var id_number = this_cloned_forms.attr('id').match(/\d+/);
-
         var name_attr = this_cloned_forms.attr('name').replace(id_number, current_form_count);
         var id_attr = this_cloned_forms.attr('id').replace(id_number, current_form_count);
 
@@ -76,6 +91,7 @@ $(document).ready(function ($) {
                 var data_target_num = $(this).attr('data-target').match(/\d+/);
                 var data_target_attr = $(this).attr('data-target').replace(data_target_num, current_form_count);
                 $(this).attr('data-target', data_target_attr);
+
             }
             if ($(this).attr('id')) {
                 var id_modal_num = $(this).attr('id').match(/\d+/);
@@ -86,7 +102,10 @@ $(document).ready(function ($) {
                 var aria_labelledby_num = $(this).attr('aria-labelledby').match(/\d+/);
                 var aria_labelledby_attr = $(this).attr('aria-labelledby').replace(aria_labelledby_num, current_form_count);
                 $(this).attr('aria-labelledby', aria_labelledby_attr);
+
             }
+
+
         });
 
         select_two();
@@ -178,11 +197,25 @@ $(document).ready(function ($) {
         } else {
             $(this).find('input[type=checkbox]').prop("checked", false);
         }
+
+        // disable delete button if form has one list item
+        var number_of_list_items = $('#listOfLearnOutcome li:visible').length;
+            if(number_of_list_items < 7){
+                $('#outcomeAddBtn').attr("disabled", false);
+
+            };
+            if(number_of_list_items === 1){
+                $('#outcomeDelBtn').attr("disabled",true);
+            }
+
+
     });
 
     //Delete adding content for submitting form
     $('body').on("click", ".delete-adding-content", function () {
         $('.add-this').remove();
+
+
     });
 
     if ($('.alert-popup').is(':visible')) {
