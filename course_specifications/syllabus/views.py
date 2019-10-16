@@ -10,7 +10,7 @@ from django.views import View
 
 from course_specifications.utils import get_department_name
 from main_app.models import Course
-from syllabus_generation.utils import get_topics_list
+from syllabus.utils import get_topics_list
 
 
 class GenerateSyllabusBaseView(DetailView):
@@ -27,10 +27,19 @@ class GenerateSyllabusBaseView(DetailView):
         context['corequisite_courses'] = self.get_object().corequisite_courses.all()
         context['learning_objectives'] = self.get_object().learning_objectives.all()
         context['learning_outcomes'] = self.get_object().learning_outcomes.all()
-        context['other_required_textbooks'] = str(self.get_object().other_required_textbooks).splitlines()
-        context['essential_reference_materials'] = str(self.get_object().essential_reference_materials).splitlines()
-        context['recommended_textbooks_reference_materials'] = str(
-                self.get_object().recommended_textbooks_reference_materials).splitlines()
+        if self.get_object().other_required_textbooks:
+            context['other_required_textbooks'] = str(self.get_object().other_required_textbooks).splitlines()
+        else:
+            context['other_required_textbooks'] = None
+        if self.get_object().essential_reference_materials:
+            context['essential_reference_materials'] = str(self.get_object().essential_reference_materials).splitlines()
+        else:
+            context['essential_reference_materials'] = None
+        if self.get_object().recommended_textbooks_reference_materials:
+            context['recommended_textbooks_reference_materials'] = self.get_object()\
+                .recommended_textbooks_reference_materials.splitlines()
+        else:
+            context['recommended_textbooks_reference_materials'] = None
         context['lecture_topics_lists'] = get_topics_list(self.get_object().lab_contact_hours, 15 ,list(self.get_object().topics.filter(type='lecture')))
         context['lab_topics_lists'] = get_topics_list(self.get_object().lab_contact_hours, 15, list(self.get_object().topics.filter(type='lab')))
         data = {}
@@ -48,7 +57,7 @@ class GeneratePDFSyllabusView(GenerateSyllabusBaseView):
     def get(self, request, *args, **kwargs):
         super().get(request, *args, **kwargs)
         print(self.get_context_data())
-        html_template = get_template('syllabus_generation/syllabus_pdf.html').render(self.get_context_data())
+        html_template = get_template('syllabus/syllabus_pdf.html').render(self.get_context_data())
         pdf_file = HTML(string=html_template,base_url=request.build_absolute_uri()).write_pdf()
         response = HttpResponse(pdf_file, content_type='application/pdf')
         response['Content-Disposition'] = 'filename="home_page.pdf"'
@@ -59,7 +68,7 @@ class GeneratePDFSyllabusView(GenerateSyllabusBaseView):
 class GenerateWordSyllabusView(GenerateSyllabusBaseView):
     def get(self, request, *args, **kwargs):
         super().get(request, *args, **kwargs)
-        result = finders.find('syllabus_template_2.docx')
+        result = finders.find('syllabus_template.docx')
         doc = DocxTemplate(result)
         doc.render(self.get_context_data(**kwargs))
         response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')

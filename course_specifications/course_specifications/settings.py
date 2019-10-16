@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 
     'impersonate',
     'simple_history',
-    'syllabus_generation'
+    'syllabus'
 ]
 
 MIDDLEWARE = [

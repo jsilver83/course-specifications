@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import GeneratePDFSyllabusView,GenerateWordSyllabusView
 
-app_name = 'syllabus_generation'
+app_name = 'syllabus'
 
 urlpatterns = [
     path('pdf/<int:pk>/', GeneratePDFSyllabusView.as_view(), name='generate_pdf_syllabus'),
