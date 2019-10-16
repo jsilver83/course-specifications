@@ -651,6 +651,10 @@ class CourseRelease(models.Model):
         camunda_api = CamundaAPI(self.workflow_instance_id)
         return camunda_api.is_process_completed()
 
+    def is_new(self):
+        # a course release is considered new if it is not approved and doesnt have any approval process going on
+        return not self.approved and not self.workflow_instance_id
+
     def complete_task(self, decision):
         camunda_api = CamundaAPI(self.workflow_instance_id)
 
