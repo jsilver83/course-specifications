@@ -38,7 +38,8 @@ class CourseAdmin(SimpleHistoryAdmin):
 class CourseReleaseAdmin(admin.ModelAdmin):
     list_display = ('version', 'course', )
     search_fields = ('course__program_code', 'course__number', 'course__title', )
-    readonly_fields = ('course', )
+    readonly_fields = ('course', 'prerequisite_courses', 'corequisite_courses', 'learning_objectives',
+                       'learning_outcomes', 'topics', 'assessment_tasks', 'facilities_required', )
 
 
 class LearningObjectiveAdmin(SimpleHistoryAdmin):
