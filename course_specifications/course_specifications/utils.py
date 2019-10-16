@@ -64,6 +64,7 @@ class APIType:
 
 
 def call_web_service(url, method='get', parameters=None, data=None, basic_auth=True, api=APIType.BANNER):
+    # TODO: use https://aiohttp.readthedocs.io/en/stable/ to make async calls
     try:
         if api == APIType.BANNER:
             base_url = settings.BANNER_WEBSERVICE_BASE_URL
@@ -122,7 +123,7 @@ def get_full_name(user):
     f_name = get_api_cached_value('_name', str(user), 'name_en', 'employee/{}'.format(user), APIType.STAFF)
 
     if f_name and f_name != 'N/A':
-        return return_first_and_last_name(f_name)
+        return get_first_and_last_name(f_name)
     else:
         return str(user)
 
@@ -131,12 +132,16 @@ def get_department_name(department_id):
     return get_api_cached_value('_dept', department_id, 'name', 'department/{}'.format(department_id), APIType.STAFF)
 
 
-def return_first_and_last_name(full_name):
+def get_first_and_last_name(full_name):
     try:
         first, *middle, last = full_name.split()
         return '{} {}'.format(first, last)
     except ValueError:
         return full_name
+
+
+def get_short_full_name(user):
+    return get_first_and_last_name(get_full_name(user))
 
 
 def get_subordinates(supervisor):
@@ -165,45 +170,54 @@ class CamundaAPI:
     def __init__(self, process_instance_id):
         self.process_instance_id = process_instance_id
 
-    def get_active_tasks(self):
+    def get_active_task(self):
         parameters = {
             'processInstanceId': self.process_instance_id
         }
-        current_tasks = CamundaAPI.call_camunda_api('task', parameters=parameters)
+        current_tasks = CamundaAPI.call_camunda_api('task?processInstanceId={}'.format(self.process_instance_id))
         if current_tasks != 'ERROR':
             if current_tasks and len(current_tasks) != 1:
                 raise Exception("Must be one active task in process id: {}, but {} found".format(self.process_instance_id, len(current_tasks or [])))
-            return current_tasks
+            return current_tasks[0]
 
     def get_task_options(self, task=None):
         if not task:
-            task = self.get_active_tasks()
+            task = self.get_active_task()
 
         response = CamundaAPI.call_camunda_api('task/{task_id}/localVariables/options'.format(task_id=task['id']))
         if response != 'ERROR':
             return json.loads(response['value'])
 
-    def complete_current_task(self, decision, task=None):
+    def complete_current_task(self, decision=None, task=None):
         if not task:
-            task = self.get_active_tasks()
+            task = self.get_active_task()
 
         headers = {
             'Content-Type': 'application/json',
         }
 
-        body = {
-            "variables":
-                {
-                    "GatewayDecision": {
-                        "value": decision
+        if decision:
+            body = {
+                "variables":
+                    {
+                        "GatewayDecision": {
+                            "value": decision
+                        }
                     }
-                }
-        }
+            }
+        else:
+            body=None
+
         response = CamundaAPI.post_to_web_service('task/{task_id}/complete'.format(task_id=task['id']), json=body, headers=headers)
         return response
 
+    def is_process_completed(self):
+        response = CamundaAPI.call_camunda_api('history/process-instance/{}'.format(self.process_instance_id))
+        if response != 'ERROR':
+            return response['state']=='COMPLETED'
+
     @staticmethod
-    def start_process(CourseCode, MaintainerTaskAssignee, ReviewerTaskAssignee, ChairmanTaskAssignee, AACTaskAssignee, isGraguateCourse):
+    def start_process(course_code, course_history_id, AAC_task_assignee, is_graduate_course, department_id):
         headers = {
             'Content-Type': 'application/json',
         }
@@ -211,29 +225,25 @@ class CamundaAPI:
         body = {
             "variables": {
                 "CourseCode": {
-                    "value": CourseCode,
+                    "value": course_code,
                     "type": "String"
                 },
-                "MaintainerTaskAssignee": {
-                    "value": MaintainerTaskAssignee,
-                    "type": "String"
-                },
-                "ReviewerTaskAssignee": {
-                    "value": ReviewerTaskAssignee,
-                    "type": "String"
-                },
-                "ChairmanTaskAssignee": {
-                    "value": ChairmanTaskAssignee,
-                    "type": "String"
+                "CourseHistoryId": {
+                    "value": course_history_id,
+                    "type": "Integer"
                 },
                 "AACTaskAssignee": {
-                    "value": AACTaskAssignee,
+                    "value": AAC_task_assignee,
                     "type": "String"
                 },
                 "GraduateCourse": {
-                    "value": isGraguateCourse,
+                    "value": is_graduate_course,
                     "type": "boolean"
-                }
+                },
+                "DepartmentId": {
+                    "value": department_id,
+                    "type": "Integer"
+                },
             }
         }
 
@@ -280,3 +290,7 @@ class CamundaAPI:
             return response
         except:
             return 'ERROR'
+
+
+def list_to_comma_separated_values(my_list):
+    return ','.join(map(str, my_list))
