@@ -113,6 +113,10 @@
 												<a href="{% url 'main_app:assign_caretakers' course.pk %}"
 												   class="dropdown-item"><i class="fa fa-user"></i> {% trans "Caretakers" %}</a>
 											{% endif %}
+												<a href="{% url 'syllabus:generate_pdf_syllabus' course.pk %}"
+												   class="dropdown-item"><i class="fa fa-file-pdf"></i> {% trans "Syllabus (PDF)" %}</a>
+												<a href="{% url 'syllabus:generate_word_syllabus' course.pk %}"
+												   class="dropdown-item"><i class="fa fa-file-word"></i> {% trans "Syllabus (DOC)" %}</a>
 										</div>
 									</div>
 								</td>
