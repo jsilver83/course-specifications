@@ -28,6 +28,7 @@ database_host: postgres.test.kfupm.edu.sa
 database_port: 5432
 
 django_debug: no
+camunda_debug: no
 apache_debug: yes
 
 email_user: courses@test.kfupm.edu.sa
@@ -38,10 +39,15 @@ cas_validate_url: "{{ test_cas_validate_url }}"
 cas_logout_url: "{{ test_cas_logout_url }}"
 
 banner_webservice_base_url: https://banner-api.test.kfupm.edu.sa
-banner_webservice_username: adwar
+banner_webservice_username: curricula
+
+adwar_web_service_url: https://adwar.test.kfupm.edu.sa
+adwar_web_service_username: curricula
 
 staff_webservice_base_url: https://staff-web-service.test.kfupm.edu.sa
-staff_webservice_username: adwar
+staff_webservice_username: curricula
+
+workflow_url: https://workflow.test.kfupm.edu.sa
 
 adwar_webservice_base_url: https://adwar.test.kfupm.edu.sa/api
 adwar_webservice_username: courses
