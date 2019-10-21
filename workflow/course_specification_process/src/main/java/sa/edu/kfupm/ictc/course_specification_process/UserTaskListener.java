@@ -26,7 +26,7 @@ public class UserTaskListener implements TaskListener {
 
         String courseCode = delegateTask.getVariable("CourseCode") + "";
         String departmentId = delegateTask.getVariable("DepartmentId") + "";
-        String collageId = delegateTask.getVariable("CollageId") + "";
+        String collegeId = delegateTask.getVariable("CollegeId") + "";
 
         PropertiesHelper propertiesInstance = PropertiesHelper.getInstance();
         Properties properties = propertiesInstance.getProperties();
@@ -70,12 +70,12 @@ public class UserTaskListener implements TaskListener {
 
                     break;
                 case "Collage_Dean_Task":
-                    JSONObject collage = staffApi.getDepartment(collageId);
+                    JSONObject college = staffApi.getDepartment(collegeId);
 
-                    if (collage != null) {
-                        String collage_dean_username = collage.getJSONObject("manager").getString("username");
+                    if (college != null) {
+                        String dean_username = college.getJSONObject("manager").getString("username");
 
-                        delegateTask.setAssignee(collage_dean_username);
+                        delegateTask.setAssignee(dean_username);
                     }
                     break;
                 case "DGS_Dean_Task":
@@ -107,6 +107,7 @@ public class UserTaskListener implements TaskListener {
             }
         } catch (UnirestException e) {
             LOGGER.warning(e.getStackTrace().toString());
+            throw new IllegalStateException(e.getStackTrace().toString());
         }
 
         if (PropertiesHelper.isDebug()) {
