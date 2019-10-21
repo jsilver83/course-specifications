@@ -3,6 +3,7 @@ import json
 import requests
 from django.conf import settings
 from django.core.cache import cache
+from django.utils.translation import ugettext_lazy as _
 from requests.auth import HTTPBasicAuth
 
 
@@ -165,6 +166,29 @@ def get_subordinates_choices(supervisor):
 
 
 class CamundaAPI:
+    class TaskTypes:
+        Maintainer_Task = 'Maintainer_Task'
+        Reviewer_Task = 'Reviewer_Task'
+        Chairman_Task = 'Chairman_Task'
+        ACC_Task = 'ACC_Task'
+        Collage_Dean_Task = 'Collage_Dean_Task'
+        DGS_Dean_Task = 'DGS_Dean_Task'
+        Vice_Rector_Task = 'Vice_Rector_Task'
+        Rector_Task = 'Rector_Task'
+
+        @classmethod
+        def types(cls):
+            return (
+                (cls.Maintainer_Task, _('Maintainer')),
+                (cls.Reviewer_Task, _('Reviewer_Task')),
+                (cls.Chairman_Task, _('Chairman_Task')),
+                (cls.ACC_Task, _('ACC_Task')),
+                (cls.Collage_Dean_Task, _('Collage_Dean_Task')),
+                (cls.DGS_Dean_Task, _('DGS_Dean_Task')),
+                (cls.Vice_Rector_Task, _('Vice_Rector_Task')),
+                (cls.Rector_Task, _('Rector_Task')),
+            )
+
     process_definition_key = 'course_spicification_process'
 
     def __init__(self, process_instance_id):
@@ -253,6 +277,9 @@ class CamundaAPI:
 
     @staticmethod
     def get_role_tasks(task_name, college_id=None, department_id=None, course_code=None):
+        # if task_name not in CamundaAPI.TaskTypes.types():
+        #     raise ValueError('task name passed \'{}\' is not valid'.format(task_name))
+
         headers = {
             'Content-Type': 'application/json',
         }
