@@ -252,6 +252,42 @@ class CamundaAPI:
         return response.json()
 
     @staticmethod
+    def get_role_tasks(task_name, college_id=None, department_id=None, course_code=None):
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        body = {
+            "processDefinitionKey": CamundaAPI.process_definition_key,
+            "taskDefinitionKey": task_name,
+            "processVariables": []
+        }
+        if college_id:
+            body['processVariables'].append({
+                "name": "CollegeId",
+                "value": college_id,
+                "operator": "eq"
+            })
+
+        if department_id:
+            body['processVariables'].append({
+                "name": "DepartmentId",
+                "value": department_id,
+                "operator": "eq"
+            })
+
+        if course_code:
+            body['processVariables'].append({
+                "name": "CourseCode",
+                "value": course_code,
+                "operator": "eq"
+            })
+
+        url = 'task'
+        response = CamundaAPI.post_to_web_service(url, json=body, headers=headers)
+        return response.json()
+
+    @staticmethod
     def call_camunda_api(end_point, parameters=None, basic_auth=True):
         base_url = settings.CAMUNDA_BASE_URL
         user = settings.CAMUNDA_USERNAME
