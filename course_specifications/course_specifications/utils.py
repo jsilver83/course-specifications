@@ -217,7 +217,7 @@ class CamundaAPI:
             return response['state']=='COMPLETED'
 
     @staticmethod
-    def start_process(course_code, course_history_id, AAC_task_assignee, is_graduate_course, department_id):
+    def start_process(course_code, course_history_id, AAC_task_assignee, is_graduate_course, department_id, college_id):
         headers = {
             'Content-Type': 'application/json',
         }
@@ -242,7 +242,11 @@ class CamundaAPI:
                 },
                 "DepartmentId": {
                     "value": department_id,
-                    "type": "Integer"
+                    "type": "String"
+                },
+                "CollegeId": {
+                    "value": college_id,
+                    "type": "String"
                 },
             }
         }
