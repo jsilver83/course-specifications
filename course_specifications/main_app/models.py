@@ -607,7 +607,6 @@ class CourseRelease(models.Model):
     # flag_7 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
 
     class Meta:
-        unique_together = ('version', 'course')
         ordering = ['-course__history_date', 'version']
         get_latest_by = ['course__history_date', 'version']
 
@@ -680,6 +679,7 @@ class CourseRelease(models.Model):
             'shaheed.alhelal',  # FIXME: add the real 'AAC_task_assignee' from adwar
             self.course.graduate_course_flag,
             self.course.mother_department,
+            '271',  # FIXME: hardcoded, implement a func to get college id for a release
         )
 
         self.workflow_instance_id = process_instance.get('id', 0)
