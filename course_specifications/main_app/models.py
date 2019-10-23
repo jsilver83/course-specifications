@@ -607,7 +607,6 @@ class CourseRelease(models.Model):
     # flag_7 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
 
     class Meta:
-        unique_together = ('version', 'course')
         ordering = ['-course__history_date', 'version']
         get_latest_by = ['course__history_date', 'version']
 
