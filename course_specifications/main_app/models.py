@@ -679,6 +679,7 @@ class CourseRelease(models.Model):
             'shaheed.alhelal',  # FIXME: add the real 'AAC_task_assignee' from adwar
             self.course.graduate_course_flag,
             self.course.mother_department,
+            '271',  # FIXME: hardcoded, implement a func to get college id for a release
         )
 
         self.workflow_instance_id = process_instance.get('id', 0)
