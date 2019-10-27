@@ -44,28 +44,34 @@ $(document).ready(function ($) {
     $('.add_more').click(function () {
         var this_has_add_content = $(this).parents('.has-add-content');
         var form_idx = this_has_add_content.find("input[name*='-TOTAL_FORMS']").val();
-        console.log('Total Forms:', form_idx);
         var append_form = this_has_add_content.find('.add-this').html();
         this_has_add_content.find('.add-here').append(append_form.replace(/__prefix__/g, form_idx).replace(/__placeholder__/g, form_idx));
         this_has_add_content.find("input[name*='-TOTAL_FORMS']").val(parseInt(form_idx) + 1);
+
+        //  list of learning outcomes limit to 7 items
+            var number_of_learning_outcomes = $('#listOfLearnOutcome li:visible').length;
+            var number_of_main_objective_items = $('#listmainobjectives li:visible').length;
+
+                if (number_of_main_objective_items < 6 ){
+                    $('#mainObjDelBtn').removeAttr("disabled");
+                }
+                  if(number_of_main_objective_items === 6){
+                    $('#mainObjAddBtn').prop("disabled", true);
+                }
+              if (number_of_learning_outcomes < 7 ){
+                    $('#outcomeDelBtn').removeAttr("disabled");
+                 }
+                   if(number_of_learning_outcomes === 7){
+                    $('#outcomeAddBtn').prop("disabled", true);
+                }
+
         select_two();
 
 
-         //  list of learning outcomes limit to 7 items
-            var number_of_list_items = $('#listOfLearnOutcome li:visible').length;
-                console.log("total # of list items is: " + number_of_list_items);
-                if(number_of_list_items === 7){
-                    $('#outcomeAddBtn').attr("disabled", true);
-                }else{
-                    $('#outcomeAddBtn').attr("disabled", false);
-                }
     });
 
 
-
-
     $('body').on("click", ".add-button", function () {
-
         var this_has_add_content = $(this).parents('.has-add-content');
         var this_add_here = this_has_add_content.find('.add-here');
         var this_last_content = this_has_add_content.find('.add-here .delete-this:visible').last().clone();
@@ -74,12 +80,10 @@ $(document).ready(function ($) {
         var total_forms_count = this_add_here.find("input[name*='-TOTAL_FORMS']");
         var current_form_count = parseInt(total_forms_count.val()) + 1;
         total_forms_count.val(current_form_count);
-        console.log("total form count" + total_forms_count);
         var name_number = this_cloned_forms.attr('name').match(/\d+/);
         var id_number = this_cloned_forms.attr('id').match(/\d+/);
         var name_attr = this_cloned_forms.attr('name').replace(id_number, current_form_count);
         var id_attr = this_cloned_forms.attr('id').replace(id_number, current_form_count);
-
         this_cloned_forms.attr('name', name_attr);
         this_cloned_forms.attr('id', id_attr);
 
@@ -159,7 +163,7 @@ $(document).ready(function ($) {
                 $('.total_other_contact_hrs').addClass('text-dark h6 font-weight-bold').html(other_hrs + ' hrs');
             }
         });
-        console.log(lec_hrs, lab_hrs, tutorial_hrs, practical_hrs, other_hrs);
+      //  console.log(lec_hrs, lab_hrs, tutorial_hrs, practical_hrs, other_hrs);
         var total_contact_hrs = lec_hrs + lab_hrs + tutorial_hrs + practical_hrs + other_hrs;
         $('.total_contact_hrs').addClass('text-dark h6 font-weight-bold').html(total_contact_hrs + ' hrs');
     }
@@ -171,7 +175,7 @@ $(document).ready(function ($) {
         $('#self-study .contact_hrs input').each(function () {
             if ($(this).val()) {
                 self_study_contact_hrs += parseInt($(this).val());
-                console.log('Self study hrs', self_study_contact_hrs);
+        //        console.log('Self study hrs', self_study_contact_hrs);
                 $('#total_self_study_contact_hrs').html(self_study_contact_hrs);
             }
         });
@@ -199,17 +203,37 @@ $(document).ready(function ($) {
         }
 
         // disable delete button if form has one list item
-        var number_of_list_items = $('#listOfLearnOutcome li:visible').length;
-            if(number_of_list_items < 7){
-                $('#outcomeAddBtn').attr("disabled", false);
+        var number_of_learning_outcomes = $('#listOfLearnOutcome li:visible').length;
+        var number_of_main_objective_items = $('#listmainobjectives li:visible').length;
+        console.log(number_of_main_objective_items);
+            // learning outcome validation
+            if(number_of_learning_outcomes  < 7){
+                 $('#outcomeAddBtn').removeAttr('disabled');
+                 $('#outcomeDelBtn').removeAttr('disabled');
+                }
+            if(number_of_learning_outcomes === 1){
+                $('#outcomeDelBtn').prop("disabled");
+                }
 
-            };
-            if(number_of_list_items === 1){
-                $('#outcomeDelBtn').attr("disabled",true);
+            // main objective validation
+         if(number_of_main_objective_items < 6){
+
+                    $('#mainObjAddBtn').removeAttr('disabled');
+                    $('#mainObjDelBtn').removeAttr('disabled');
+            }
+
+          if(number_of_main_objective_items === 1 ){
+
+                 $('#mainObjDelBtn').prop('disabled', true);
             }
 
 
+
+
     });
+
+
+
 
     //Delete adding content for submitting form
     $('body').on("click", ".delete-adding-content", function () {
@@ -235,7 +259,7 @@ $(document).ready(function ($) {
         // clo_counts();
         // $('.clo-sec').each(function (){
         var added_clo_count = $(this).parent('.modal-footer').siblings('.modal-body').find('.select2-selection__choice').length;
-        console.log('CLO added count', added_clo_count);
+     //   console.log('CLO added count', added_clo_count);
         // $(this).find('.add_clo').hide();
         // if(added_clo_count < 1){
         //     $(this).find('.add_clo.add').show();
