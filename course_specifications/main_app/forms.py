@@ -119,7 +119,7 @@ class CourseDescriptionForm(forms.ModelForm):
 
         self.fields['catalog_description'].widget.attrs.update({
             'class': 'form-control',
-            'placeholder': _('General description about the course & topics')
+            'placeholder': _('General description of the course (Bulletin description)')
         })
 
 
@@ -143,7 +143,7 @@ class LearningObjectiveBaseFormSet(BaseModelFormSet):
 
 LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
                                                 formset=LearningObjectiveBaseFormSet,
-                                                extra=1, can_delete=True, min_num=1, validate_min=True)
+                                                extra=1, can_delete=True, min_num=1,  validate_min=True)
 
 
 class CourseLearningOutcomeForm(forms.ModelForm):
@@ -158,7 +158,7 @@ class CourseLearningOutcomeBaseFormSet(BaseModelFormSet):
 
 CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
                                                     formset=CourseLearningOutcomeBaseFormSet,
-                                                    extra=1, can_delete=True, min_num=1, validate_min=True)
+                                                    max_num=7, extra=1, can_delete=True, min_num=1, validate_min=True)
 
 
 class TopicForm(forms.ModelForm):
