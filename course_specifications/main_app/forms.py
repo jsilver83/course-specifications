@@ -346,9 +346,9 @@ class AssessmentTaskBaseFormSet(BaseModelFormSet):
                 continue
             total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
 
-        if total > 100:
+        if total != 100:
             raise forms.ValidationError(_('Total weights of ALL assessment tasks for lecture/lab '
-                                          'should NOT exceed 100'))
+                                          'should add up to 100 EXACTLY'))
 
 
 AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
