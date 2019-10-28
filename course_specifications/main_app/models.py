@@ -524,7 +524,7 @@ class AssessmentTask(models.Model):
     type = models.CharField(_('Type'), max_length=50, null=True, blank=False, choices=Types.choices())
     assessment_task = models.CharField(_('Assessment Task'), max_length=2000, null=True, blank=False,
                                        help_text=_('e.g essay, test, group project, examination, speech, etc...'))
-    week_due = models.PositiveSmallIntegerField(_('Week Due'), null=True, blank=False,
+    week_due = models.PositiveSmallIntegerField(_('Week Due'), null=True, blank=True,
                                                 validators=[
                                                     MinValueValidator(1),
                                                     MaxValueValidator(17),
