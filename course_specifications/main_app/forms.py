@@ -143,9 +143,13 @@ class LearningObjectiveBaseFormSet(BaseModelFormSet):
     verbose_name = _('Learning Objective')
 
 
-LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
-                                                formset=LearningObjectiveBaseFormSet,
-                                                extra=1, can_delete=True, min_num=1,  validate_min=True)
+LearningObjectiveFormSet = modelformset_factory(
+    model=LearningObjective, form=LearningObjectiveForm,
+    formset=LearningObjectiveBaseFormSet,
+    extra=1, can_delete=True,
+    min_num=1, validate_min=True,
+    max_num=6, validate_max=True,
+)
 
 
 class CourseLearningOutcomeForm(forms.ModelForm):
@@ -158,14 +162,13 @@ class CourseLearningOutcomeBaseFormSet(BaseModelFormSet):
     verbose_name = _('Course Learning Outcome')
 
 
-CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
-                                                    formset=CourseLearningOutcomeBaseFormSet,
-<<<<<<< working copy
-                                                    max_num=7, extra=1, can_delete=True, min_num=1, validate_min=True)
-=======
-                                                    extra=1, can_delete=True, min_num=1, validate_min=True,
-                                                    max_num=7, validate_max=True, )
->>>>>>> merge rev
+CourseLearningOutcomeFormSet = modelformset_factory(
+    model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
+    formset=CourseLearningOutcomeBaseFormSet,
+    extra=1, can_delete=True,
+    min_num=1, validate_min=True,
+    max_num=7, validate_max=True,
+)
 
 
 class TopicForm(forms.ModelForm):
