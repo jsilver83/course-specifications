@@ -15,7 +15,7 @@
             <div class="collapse show p-3 pt-4 pb-4" id="coursedescription">
                 <div class="row">
                     <div class="col-12">
-                        <div class="form-group">
+                        <div class="form-group" >
                             {{ form.catalog_description }}
                             {{ form.catalog_description.errors }}
                         </div>
@@ -41,7 +41,12 @@
                             <li class="form-group delete-this">
                                 <div class="d-flex">
 	                                {{ formset.empty_form.id }}{{ formset.empty_form.learning_objective }}{{ formset.empty_form.learning_objective.errors }}
+<<<<<<< working copy
+
+                                    <button  class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ model_form.DELETE }}</span></i></button>
+=======
                                     <button id="mainObjDelBtn" class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ formset.empty_form.DELETE }}</span></i></button>
+>>>>>>> merge rev
                                 </div>
                             </li>
                         </div>
@@ -52,14 +57,14 @@
                             <li class="form-group delete-this">
                                 <div class="d-flex">
 	                                {{ form.id }}{{ form.learning_objective }}{{ form.learning_objective.errors }}
-                                    <button id="mainObjDelBtn" class="btn btn-sm delete-btn" type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i></button>
+                                    <button id="mainObjDelBtn" class="btn btn-sm delete-btn"  type="button"><i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i></button>
                                 </div>
                             </li>
 	                        {% endfor %}
                         </ol>
                         <div class="row">
                             <div class="col-12 text-right">
-                                <button id="mainObjAddBtn" class="btn btn-sm btn-link bg-light add_more" type="button"><small class="fas fa-plus mr-1"></small>{% trans 'Add objective' %}</button>
+                                <button id="mainObjAddBtn" class="btn btn-sm btn-link bg-light add_more"  type="button"><small class="fas fa-plus mr-1"></small>{% trans 'Add objective' %}</button>
                             </div>
                         </div>
                     </div>
@@ -104,9 +109,21 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< working copy
+
+                             <div class="mt-lg-3 ml-1 pd-1 align-self-center">
+                                <button class="btn btn-md  delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
+                            <div>
+                             </div>
+
+=======
                             <button class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ formset2.empty_form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
                         </div>
+>>>>>>> merge rev
                     </li>
+
+
+
                 </div>
                 <!-- /Default for adding -->
                 <div class="row">
@@ -114,7 +131,7 @@
                         {{ formset2.management_form }}
                         {% for form in formset2 %}
                         <li class="delete-this">
-                            <div class="d-flex">
+                            <div class="d-flex ">
                                 <div class="row">
                                     <div class="col-sm-2 col-12 pr-sm-1">
                                         <div class="form-group">
@@ -137,8 +154,11 @@
                                             {{ form.assessment_method|as_crispy_field }}
                                         </div>
                                     </div>
+
                                 </div>
-                                <button id="outcomeDelBtn" class="btn btn-sm btn-link delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
+                                <div class="mt-lg-3 ml-1 align-self-center">
+                                <button id="outcomeDelBtn" class="btn btn-md  delete-btn" type="button"><span style="display:none">{{ form.DELETE }}</span><i class="fas fa-trash-alt text-danger"></i></button>
+                                </div>
                             </div>
                         </li>
 	                    {% endfor %}
