@@ -1,10 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 {% load staticfiles %}
 <html>
     <head>
-        <title>Title</title>
-{#        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
-        <!-- <link href="https://fonts.googleapis.com/css?family=Lato|Lobster&display=swap" rel="stylesheet"> -->
+        <title>{{course.program_code}} {{course.number}} Syllabus</title>
         <link href="{% static 'fonts/OpenSans.ttf' %}" rel="stylesheet">
         <style type="text/css">
             body {
@@ -265,37 +263,37 @@
                 </div>
         {% endif %}
 
-{#        {% if lab_topics_lists %}#}
-{#            <div class="lab-weekly-schedule">#}
-{#                    <h3 class="section-title">Lab Weekly Schedule</h3>#}
-{#                    <div class="section-content">#}
-{#                        <table class="table">#}
-{#                                <thead class="thead-gray">#}
-{#                                <tr>#}
-{#                                    <th scope="col"  style="width: 5%;">Week#</th>#}
-{#                                    <th scope="col" style="width: 95%;" class="text-center">Topics</th>#}
-{#                                </tr>#}
-{#                                </thead>#}
-{#                                <tbody>#}
-{#                                {% for topics in lab_topics_lists %}#}
-{#                                    <tr>#}
-{#                                    <td class="text-center">{{ forloop.counter }}</td>#}
-{#                                    <td style="padding: 0;">#}
-{#                                        {% for topic in topics %}#}
-{#                                             {% if forloop.last %}#}
-{#                                                 <div class="topic-item">{{ topic.topic }}</div>#}
-{#                                            {% else %}#}
-{#                                                 <div class="topic-item border-bottom">{{ topic.topic }}</div>#}
-{#                                            {% endif %}#}
-{#                                        {% endfor %}#}
-{#                                    </td>#}
-{#                                    </tr>#}
-{#                                {% endfor %}#}
-{#                                </tbody>#}
-{#                            </table>#}
-{#                    </div>#}
-{#                </div>#}
-{#        {% endif %}#}
+        {% if lab_topics_lists %}
+            <div class="lab-weekly-schedule">
+                    <h3 class="section-title">Lab Weekly Schedule</h3>
+                    <div class="section-content">
+                        <table class="table">
+                                <thead class="thead-gray">
+                                <tr>
+                                    <th scope="col"  style="width: 5%;">Week#</th>
+                                    <th scope="col" style="width: 95%;" class="text-center">Topics</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for topics in lab_topics_lists %}
+                                    <tr>
+                                    <td class="text-center">{{ forloop.counter }}</td>
+                                    <td style="padding: 0;">
+                                        {% for topic in topics %}
+                                             {% if forloop.last %}
+                                                 <div class="topic-item">{{ topic.topic }}</div>
+                                            {% else %}
+                                                 <div class="topic-item border-bottom">{{ topic.topic }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+        {% endif %}
         </div>
 </div>
     </body>
