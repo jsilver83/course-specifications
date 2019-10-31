@@ -425,7 +425,7 @@ class Course(models.Model):
         return not CourseRelease.objects.filter(course__id=self.id, approved__isnull=True).exists()
 
     def can_be_edited(self, user):
-        return self.can_be_re_released() and self.is_a_maintainer(user)
+        return True  #  self.can_be_re_released() and self.is_a_maintainer(user)
 
     def can_be_reviewed(self):
         return not self.can_be_re_released()
@@ -597,15 +597,6 @@ class CourseRelease(models.Model):
                                     null=True, blank=True, verbose_name=_('Approved By'),
                                     related_name='approved_courses', )
 
-    # TODO: meaningful names plz
-    # flag_1 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_2 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_3 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_4 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_5 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_6 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_7 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-
     class Meta:
         ordering = ['-course__history_date', 'version']
         get_latest_by = ['course__history_date', 'version']
@@ -690,6 +681,14 @@ class CourseRelease(models.Model):
 
     def update_related_objects(self, related_accessor):
         related_objs = getattr(self.course.history_object, related_accessor).all()
+
+        current_related_objects = getattr(self, related_accessor).all()
+        if current_related_objects.count():
+            print(current_related_objects)
+            getattr(self, related_accessor).clear()
+            # getattr(self, related_accessor).set(None)
+            # current_related_objects.delete()
+
         for related_obj in related_objs:
             getattr(self, related_accessor).add(related_obj.history.latest())
 
