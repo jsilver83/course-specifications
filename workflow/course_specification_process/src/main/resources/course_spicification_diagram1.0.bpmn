@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_11apbq0">
     <bpmn:participant id="Participant_1tn6van" name="Course Spicification" processRef="course_specification_process" />
   </bpmn:collaboration>
-  <bpmn:process id="course_specification_process" name="Course Spicification" isExecutable="false">
+  <bpmn:process id="course_specification_process" name="Course Spicification" isExecutable="false" camunda:isStartableInTasklist="false">
     <bpmn:laneSet id="LaneSet_0quj771">
       <bpmn:lane id="Lane_0o516be" name="Dean of Graduate Studies">
         <bpmn:flowNodeRef>ExclusiveGateway_1magmhj</bpmn:flowNodeRef>

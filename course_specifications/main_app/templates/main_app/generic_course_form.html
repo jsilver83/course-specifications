@@ -12,7 +12,7 @@
 						<h6 class="mb-0 mr-auto">{% if form.instance.pk %}{{ form.instance }} ({{ form.instance.get_department_name }}){% elif course %}{{ course }} ({{ course.get_department_name }}){% else %}{% trans 'New Course' %}{% endif %}</h6>
 						<div class="d-flex align-items-center">
 							<small class="text-danger mr-3">* {% trans 'Mandatory' %}</small>
-							<button class="btn btn-sm btn-warning delete-adding-content">{% trans 'Save' %}</button>
+{#							<button class="btn btn-sm btn-warning delete-adding-content">{% trans 'Save' %}</button>#}
 						</div>
 					</div>
 				</div>

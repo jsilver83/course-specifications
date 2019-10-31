@@ -83,15 +83,17 @@ class CourseIdentificationForm(forms.ModelForm):
         self.fields['prerequisite_courses'].queryset = courses
         self.fields['corequisite_courses'].queryset = courses
 
+        self.fields['weekly_office_hours'].required = True
+
     def clean(self):
         cleaned_data = super().clean()
 
-        total_credit_hours = cleaned_data.get('total_credit_hours', 0)
-        lecture_credit_hours = cleaned_data.get('lecture_credit_hours', 0)
-        lab_contact_hours = cleaned_data.get('lab_contact_hours', 0)
+        total_credit_hours = cleaned_data.get('total_credit_hours', 0) if cleaned_data.get('total_credit_hours', 0) else 0
+        lecture_credit_hours = cleaned_data.get('lecture_credit_hours', 0) if cleaned_data.get('lecture_credit_hours', 0) else 0
+        lab_contact_hours = cleaned_data.get('lab_contact_hours', 0) if cleaned_data.get('lab_contact_hours', 0) else 0
 
         if total_credit_hours < lecture_credit_hours:
-            raise forms.ValidationError(_('Total credit hours can NOT ne less than lecture credit hours'))
+            raise forms.ValidationError(_('Total credit hours can NOT be less than lecture credit hours'))
 
         if total_credit_hours < lab_contact_hours:
             raise forms.ValidationError(_('Total credit hours can NOT ne less than lab credit hours'))
@@ -119,7 +121,7 @@ class CourseDescriptionForm(forms.ModelForm):
 
         self.fields['catalog_description'].widget.attrs.update({
             'class': 'form-control',
-            'placeholder': _('General description about the course & topics')
+            'placeholder': _('General description of the course (Bulletin description)')
         })
 
 
@@ -141,9 +143,13 @@ class LearningObjectiveBaseFormSet(BaseModelFormSet):
     verbose_name = _('Learning Objective')
 
 
-LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
-                                                formset=LearningObjectiveBaseFormSet,
-                                                extra=1, can_delete=True, min_num=1, validate_min=True)
+LearningObjectiveFormSet = modelformset_factory(
+    model=LearningObjective, form=LearningObjectiveForm,
+    formset=LearningObjectiveBaseFormSet,
+    extra=1, can_delete=True,
+    min_num=1, validate_min=True,
+    max_num=6, validate_max=True,
+)
 
 
 class CourseLearningOutcomeForm(forms.ModelForm):
@@ -156,9 +162,13 @@ class CourseLearningOutcomeBaseFormSet(BaseModelFormSet):
     verbose_name = _('Course Learning Outcome')
 
 
-CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
-                                                    formset=CourseLearningOutcomeBaseFormSet,
-                                                    extra=1, can_delete=True, min_num=1, validate_min=True)
+CourseLearningOutcomeFormSet = modelformset_factory(
+    model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
+    formset=CourseLearningOutcomeBaseFormSet,
+    extra=1, can_delete=True,
+    min_num=1, validate_min=True,
+    max_num=7, validate_max=True,
+)
 
 
 class TopicForm(forms.ModelForm):
@@ -343,9 +353,9 @@ class AssessmentTaskBaseFormSet(BaseModelFormSet):
                 continue
             total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
 
-        if total > 100:
+        if total != 100:
             raise forms.ValidationError(_('Total weights of ALL assessment tasks for lecture/lab '
-                                          'should NOT exceed 100'))
+                                          'should add up to 100 EXACTLY'))
 
 
 AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
@@ -406,3 +416,23 @@ class FacilitiesRequiredBaseFormSet(BaseModelFormSet):
 FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=FacilitiesRequiredForm,
                                                  formset=FacilitiesRequiredBaseFormSet,
                                                  extra=1, can_delete=True, min_num=1, validate_min=True)
+
+
+class CreateCommentForm(forms.ModelForm):
+    class Meta:
+        model = ApprovalComment
+        fields = ['section', 'comment', 'course_release', ]
+        widgets = {
+            'course_release': forms.HiddenInput,
+            'section': forms.HiddenInput,
+        }
+
+    def __init__(self, section, course_release, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.initial['course_release'] = course_release
+        self.initial['section'] = section
+
+
+class ReviewChecklistForm(forms.Form):
+    pass
+
