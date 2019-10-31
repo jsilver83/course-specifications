@@ -1,21 +1,18 @@
-from django.views.generic import DetailView
 from docxtpl import DocxTemplate
 from weasyprint import HTML
 
+from django.views.generic import DetailView
 from django.contrib.staticfiles import finders
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 from django.template.loader import get_template
-from django.views import View
 
 from course_specifications.utils import get_department_name
 from main_app.models import Course
-from syllabus.utils import get_topics_list
+from syllabus.utils import get_weekly_topics_list
 
 
 class GenerateSyllabusBaseView(DetailView):
     model = Course
-    # object = None
 
     def get_context_data(self, **kwargs):
 
@@ -40,14 +37,8 @@ class GenerateSyllabusBaseView(DetailView):
                 .recommended_textbooks_reference_materials.splitlines()
         else:
             context['recommended_textbooks_reference_materials'] = None
-        context['lecture_topics_lists'] = get_topics_list(self.get_object().lab_contact_hours, 15 ,list(self.get_object().topics.filter(type='lecture')))
-        context['lab_topics_lists'] = get_topics_list(self.get_object().lab_contact_hours, 15, list(self.get_object().topics.filter(type='lab')))
-        data = {}
-        data['coll'] = 'Cool'
-        print(data)
-        print(type(context['department_name']))
-        print(context['department_name'])
-        print(self.get_object().mother_department)
+        context['lecture_topics_lists'] = get_weekly_topics_list(self.get_object().lab_contact_hours, 15, list(self.get_object().topics.filter(type='lecture')))
+        context['lab_topics_lists'] = get_weekly_topics_list(self.get_object().lab_contact_hours, 15, list(self.get_object().topics.filter(type='lab')))
         return context
 
 
@@ -56,12 +47,13 @@ class GeneratePDFSyllabusView(GenerateSyllabusBaseView):
 
     def get(self, request, *args, **kwargs):
         super().get(request, *args, **kwargs)
-        print(self.get_context_data())
         html_template = get_template('syllabus/syllabus_pdf.html').render(self.get_context_data())
         pdf_file = HTML(string=html_template,base_url=request.build_absolute_uri()).write_pdf()
         response = HttpResponse(pdf_file, content_type='application/pdf')
-        response['Content-Disposition'] = 'filename="home_page.pdf"'
-        # response = HttpResponse(html_template)
+        file_name = self.get_context_data(**kwargs)['course'].program_code + " " + \
+                    self.get_context_data(**kwargs)[
+                        'course'].number + " Syllabus"
+        response['Content-Disposition'] = 'filename="%s.pdf"' % file_name
         return response
 
 
