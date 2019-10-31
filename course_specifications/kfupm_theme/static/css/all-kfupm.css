@@ -19322,3 +19322,31 @@ readers do not read off random characters that represent icons */
 }
 
 /*# sourceMappingURL=all-kfupm.css.map */
+
+/* added by joud (NOT THROUGH SASS) */
+.col-6 .side-checklist, .col-7 .side-checklist {
+  width: 100% !important;
+}
+.btn-sm, .btn-group-sm > .btn {
+    padding: 0.25rem 0.25rem;
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+.chat-textarea .send-btn {
+    opacity: 0.9;
+}
+.chat-textarea .d-flex {
+  margin-bottom: 3px;
+  margin-top: 7px;
+}
+.errorlist {
+  color: red!important;;
+}
+.side-nav-layout .side-checklist .checklist-menu > li.completed .action-icon {
+  color: #007d40;
+}
+.side-nav-layout .side-checklist .checklist-menu > li.completed .action-icon:before {
+  font-weight: 900;
+  content: "\f35a"!important;
+}
+/* end of addition by joud */

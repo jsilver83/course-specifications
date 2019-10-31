@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load course_filters %}
+
+{% block main_content %}
+
+	<div class="row">
+		<div class="col-6">
+			<div class="side-checklist">
+				<h6>{% trans "Checklist" %}</h6>
+				{% if object.pk %}
+					{% review_checklist object.pk active_step %}
+				{% endif %}
+			</div>
+			<br><br><br>
+		</div>
+		<div class="col-6">
+			<div class="card mb-4 course-title">
+				<div class="card-body">
+					<div class="pb-2 d-flex align-items-center">
+						<p class="mb-0 mr-auto text-muted">{{ course.history_object.code }}
+							({{ course.history_object.get_department_name }})</p>
+					</div>
+					<div class="pt-2 border-top d-flex align-items-center">
+						<h6 class="mb-0 mr-auto">{{ title }}</h6>
+					</div>
+				</div>
+			</div>
+			<div class="card mb-4">
+				{% create_comment object.pk comments_section_1 %}
+			</div>
+			<div class="card mt-5">
+				<div class="card-body btn-row d-flex">
+					<!--Form Button -->
+					{% for option in task_options %}
+						<button type="submit" class="btn btn-{{ option.color }} {{ option.margin }}" data-toggle="modal"
+						        data-target="#{{ option.key }}-modal">{{ option.value }}</button>
+					{% endfor %}
+					{#                <button class="btn btn-secondary mr-auto" data-toggle="modal" data-target="#return-modal">Return to reviewer</button>#}
+					{#                <button class="btn btn-warning ml-4" data-toggle="modal" data-target="#submit-committee-modal">Submit to Committee</button>#}
+					{#                <button type="submit" class="btn btn-primary ml-4"  data-toggle="modal" data-target="#approve-modal" disabled="">Approve</button>#}
+					<!--/Form Button -->
+
+
+					{% for option in task_options %}
+						<!-- {{ option.value }} confirmation Modal -->
+						<div class="modal fade has-increment-val" id="{{ option.key }}-modal" tabindex="-1"
+						     role="dialog"
+						     aria-labelledby="{{ option.key }}-modal" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">{{ option.value }}?</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										Please confirm if you want to {{ option.value }}.
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-light mr-auto" data-dismiss="modal">Close
+										</button>
+										<form method="post">
+											{% csrf_token %}
+											<button type="submit" class="btn btn-{{ option.color }}"
+											        name="{{ option.key }}">{{ option.value }}</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /{{ option.value }} confirmation Modal -->
+					{% endfor %}
+					{#                <!-- Return confirmation Modal -->#}
+					{#                <div class="modal fade has-increment-val" id="return-modal" tabindex="-1" role="dialog" aria-labelledby="return-modal" aria-hidden="true">#}
+					{#                  <div class="modal-dialog" role="document">#}
+					{#                    <div class="modal-content">#}
+					{#                      <div class="modal-header">#}
+					{#                        <h5 class="modal-title">Return to Reviewer?</h5>#}
+					{#                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+					{#                          <span aria-hidden="true">&times;</span>#}
+					{#                        </button>#}
+					{#                      </div>#}
+					{#                      <div class="modal-body">#}
+					{#                        Please confirm if you want to return to reviewer.#}
+					{#                      </div>#}
+					{#                      <div class="modal-footer">#}
+					{#                        <button type="button" class="btn btn-light mr-auto" data-dismiss="modal">Close</button>#}
+					{#                        <button type="button" class="btn btn-secondary">Return to reviewer</button>#}
+					{#                      </div>#}
+					{#                    </div>#}
+					{#                  </div>#}
+					{#                </div>#}
+					{#                <!-- /Return confirmation Modal -->#}
+					{##}
+					{#                <!-- Committee confirmation Modal -->#}
+					{#                <div class="modal fade has-increment-val" id="submit-committee-modal" tabindex="-1" role="dialog" aria-labelledby="submit-committee-modal" aria-hidden="true">#}
+					{#                  <div class="modal-dialog" role="document">#}
+					{#                    <div class="modal-content">#}
+					{#                      <div class="modal-header">#}
+					{#                        <h5 class="modal-title">Submit to Committee?</h5>#}
+					{#                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+					{#                          <span aria-hidden="true">&times;</span>#}
+					{#                        </button>#}
+					{#                      </div>#}
+					{#                      <div class="modal-body">#}
+					{#                        Please confirm if you want to submit to committee.#}
+					{#                      </div>#}
+					{#                      <div class="modal-footer">#}
+					{#                        <button type="button" class="btn btn-light mr-auto" data-dismiss="modal">Close</button>#}
+					{#                        <button type="button" class="btn btn-warning">Submit to Committee</button>#}
+					{#                      </div>#}
+					{#                    </div>#}
+					{#                  </div>#}
+					{#                </div>#}
+					{#                <!-- /Committee confirmation Modal -->#}
+					{##}
+					{#                <!-- approve confirmation Modal -->#}
+					{#                <div class="modal fade has-increment-val" id="approve-modal" tabindex="-1" role="dialog" aria-labelledby="approve-modal" aria-hidden="true">#}
+					{#                  <div class="modal-dialog" role="document">#}
+					{#                    <div class="modal-content">#}
+					{#                      <div class="modal-header">#}
+					{#                        <h5 class="modal-title">Approve?</h5>#}
+					{#                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+					{#                          <span aria-hidden="true">&times;</span>#}
+					{#                        </button>#}
+					{#                      </div>#}
+					{#                      <div class="modal-body">#}
+					{#                        Please confirm if you want to approve.#}
+					{#                      </div>#}
+					{#                      <div class="modal-footer">#}
+					{#                        <button type="button" class="btn btn-light mr-auto" data-dismiss="modal">Close</button>#}
+					{#                        <button type="button" class="btn btn-primary">Approve</button>#}
+					{#                      </div>#}
+					{#                    </div>#}
+					{#                  </div>#}
+					{#                </div>#}
+					{#                <!-- /approve confirmation Modal -->#}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock main_content %}

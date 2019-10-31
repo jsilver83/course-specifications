@@ -85,6 +85,16 @@
         staff_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/staff_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
       connection: local
 
+    - name: Retrieve adwar webservice password from vault
+      set_fact:
+        adwar_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/adwar_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
+      connection: local
+
+    - name: Retrieve camunda webservice password from vault
+      set_fact:
+        camunda_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/camunda_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
+      connection: local
+
     - name: Generate local settings
       set_fact:
         django_project_local_settings: "{{ lookup('template', 'local_settings.py.j2') }}"
