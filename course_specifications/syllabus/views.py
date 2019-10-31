@@ -37,8 +37,9 @@ class GenerateSyllabusBaseView(DetailView):
                 .recommended_textbooks_reference_materials.splitlines()
         else:
             context['recommended_textbooks_reference_materials'] = None
-        context['lecture_topics_lists'] = get_weekly_topics_list(self.get_object().lab_contact_hours, 15, list(self.get_object().topics.filter(type='lecture')))
-        context['lab_topics_lists'] = get_weekly_topics_list(self.get_object().lab_contact_hours, 15, list(self.get_object().topics.filter(type='lab')))
+        context['lecture_topics_lists'] = get_weekly_topics_list(self.get_object().lecture_credit_hours, 15, list(self.get_object().topics.filter(type='lecture')))
+        if self.get_object().lab_contact_hours:
+            context['lab_topics_lists'] = get_weekly_topics_list(self.get_object().lab_contact_hours, 15, list(self.get_object().topics.filter(type='lab')))
         return context
 
 
