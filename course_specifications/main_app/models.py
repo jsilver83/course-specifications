@@ -413,6 +413,15 @@ class Course(models.Model):
     def can_navigate_to_step7(self):
         return self.facilities_required.all().count()
 
+    def completed_percentage(self):
+        completed_steps = 0
+        for i in range(2, 8):
+            f = getattr(self, 'can_navigate_to_step{}'.format(i))
+            if bool(f()):
+                completed_steps += 1
+        completed_steps = completed_steps + 1 if completed_steps else 0
+        return floor(completed_steps/7 * 100)
+
     def get_department_name(self):
         return get_department_name(self.mother_department)
 
