@@ -71,10 +71,10 @@
 									<td><small class="text-muted">Pre-requisites for this course</small>
 									</td>
 									<td>
-										{% if course.prerequisite_courses %}
+										{% if object.prerequisite_courses.all %}
 											<ul>
-										{% for req in course.prerequisite_courses %}
-											<li>{{ req.code }}</li>
+										{% for req in object.prerequisite_courses.all %}
+											<li>{{ req.history_object.code }}</li>
 										{% endfor %}
 											</ul>
 										{% else %}
@@ -84,10 +84,22 @@
 								</tr>
 								<tr>
 									<td><small class="text-muted">Co-requisites for this course</small></td>
-									<td>{% if course.corequisite_courses %}
+									<td>{% if object.corequisite_courses.all %}
 											<ul>
-										{% for req in course.corequisite_courses %}
-											<li>{{ req.code }}</li>
+										{% for req in object.corequisite_courses.all %}
+											<li>{{ req.history_object.code }}</li>
+										{% endfor %}
+											</ul>
+										{% else %}
+										{% trans "None" %}
+										{% endif %}</td>
+								</tr>
+								<tr>
+									<td><small class="text-muted">Not to be taken with this course</small></td>
+									<td>{% if object.not_to_be_taken_with_courses.all %}
+											<ul>
+										{% for req in object.not_to_be_taken_with_courses.all %}
+											<li>{{ req.history_object.code }}</li>
 										{% endfor %}
 											</ul>
 										{% else %}

@@ -52,7 +52,8 @@ class CourseIdentificationForm(forms.ModelForm):
         model = Course
         fields = ['program_code', 'number', 'title', 'location',
                   'lecture_credit_hours', 'lab_contact_hours', 'total_credit_hours', 'weekly_office_hours',
-                  'prerequisite_courses', 'corequisite_courses', 'mode_of_instruction_in_class',
+                  'prerequisite_courses', 'corequisite_courses', 'not_to_be_taken_with_courses',
+                  'mode_of_instruction_in_class',
                   'mode_of_instruction_other', 'mode_of_instruction_other_desc', 'mode_of_instruction_comments']
 
     def __init__(self, *args, **kwargs):
@@ -78,10 +79,12 @@ class CourseIdentificationForm(forms.ModelForm):
 
         self.fields['prerequisite_courses'].widget.attrs.update({'class': 'select2'})
         self.fields['corequisite_courses'].widget.attrs.update({'class': 'select2'})
+        self.fields['not_to_be_taken_with_courses'].widget.attrs.update({'class': 'select2'})
 
         courses = Course.objects.exclude(pk=self.instance.pk)
         self.fields['prerequisite_courses'].queryset = courses
         self.fields['corequisite_courses'].queryset = courses
+        self.fields['not_to_be_taken_with_courses'].queryset = courses
 
         self.fields['weekly_office_hours'].required = True
 

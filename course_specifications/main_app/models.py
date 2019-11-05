@@ -1,3 +1,5 @@
+from math import floor
+
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models, transaction
@@ -61,6 +63,7 @@ class Course(models.Model):
 
     prerequisite_courses = models.ManyToManyField('Course', blank=True, related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('Course', blank=True, related_name='corequisite_for')
+    not_to_be_taken_with_courses = models.ManyToManyField('Course', blank=True, related_name='not_to_be_taken_with')
     graduate_course_flag = models.BooleanField(_('Is Graduate Course?'), default=False, )
     # endregion desc
 
@@ -273,6 +276,9 @@ class Course(models.Model):
 
         for corequisite in self.corequisite_courses.all():
             new_release.corequisite_courses.add(corequisite.history.latest())
+
+        for not_to_be_taken_with_course in self.not_to_be_taken_with_courses.all():
+            new_release.not_to_be_taken_with_courses.add(not_to_be_taken_with_course.history.latest())
 
         for clo in self.learning_outcomes.all():
             new_release.learning_outcomes.add(clo.history.latest())
@@ -592,6 +598,7 @@ class CourseRelease(models.Model):
                                related_name='releases')
     prerequisite_courses = models.ManyToManyField('HistoricalCourse', related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('HistoricalCourse', related_name='corequisite_for')
+    not_to_be_taken_with_courses = models.ManyToManyField('HistoricalCourse', related_name='not_to_be_taken_with')
     learning_objectives = models.ManyToManyField('HistoricalLearningObjective', related_name='releases')
     learning_outcomes = models.ManyToManyField('HistoricalCourseLearningOutcome', related_name='releases')
     topics = models.ManyToManyField('HistoricalTopic', related_name='releases')
@@ -704,6 +711,7 @@ class CourseRelease(models.Model):
     def update_all_related_objects(self):
         with transaction.atomic():
             all_related_accessors = ['learning_objectives', 'prerequisite_courses', 'corequisite_courses',
+                                     'not_to_be_taken_with_courses',
                                      'learning_outcomes', 'topics', 'assessment_tasks', 'facilities_required', ]
             for related_accessor in all_related_accessors:
                 self.update_related_objects(related_accessor)
