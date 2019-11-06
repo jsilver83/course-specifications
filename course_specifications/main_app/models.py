@@ -32,9 +32,9 @@ class Course(models.Model):
     # region desc
     mother_department = models.CharField(_('Mother Department'), max_length=500, null=True, blank=False)
     program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False,
-                                    help_text=_('3 or 4 upper-case letters only'),
+                                    help_text=_('2 or 4 upper-case letters only'),
                                     validators=[
-                                        RegexValidator(r'^[A-Z]{3,4}$'),
+                                        RegexValidator(r'^[A-Z]{2,4}$'),
                                     ])
     number = models.CharField(_('Number'), max_length=10, null=True, blank=False)
     title = models.CharField(_('Title'), max_length=500, null=True, blank=False)
