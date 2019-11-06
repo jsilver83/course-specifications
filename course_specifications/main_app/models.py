@@ -417,7 +417,7 @@ class Course(models.Model):
         return self.strategies_of_student_feedback_and_evaluation
 
     def can_navigate_to_step7(self):
-        return self.facilities_required.all().count()
+        return self.can_navigate_to_step6()
 
     def completed_percentage(self):
         completed_steps = 0
