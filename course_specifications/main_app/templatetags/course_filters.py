@@ -70,3 +70,12 @@ def reviewer(course_code, caretakers):
 @register.simple_tag
 def short_full_name(username):
     return get_short_full_name(username)
+
+
+@register.simple_tag
+def is_formset_erroneous(formset):
+    if formset:
+        return not formset.is_valid()
+    else:
+        # formset does NOT exist and hence it can not be erroneous
+        return False
