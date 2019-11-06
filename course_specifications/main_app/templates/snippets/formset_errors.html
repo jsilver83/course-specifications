@@ -1,5 +1,9 @@
 {% load i18n %}
-{% if formset.errors or formset.non_form_errors %}
+{% load course_filters %}
+
+{% is_formset_erroneous formset as is_formset_erroneous %}
+
+{% if is_formset_erroneous %} {# can NOT use formset.errors to check for validity since even if all forms in the formset are valid, you will still get a list of empty dicts #}
 	<div>
 		<i class="fas fa-exclamation-triangle"></i>
 		{% if formset.verbose_name %}{{ formset.verbose_name }}{% else %}
