@@ -700,10 +700,7 @@ class CourseRelease(models.Model):
 
         current_related_objects = getattr(self, related_accessor).all()
         if current_related_objects.count():
-            print(current_related_objects)
             getattr(self, related_accessor).clear()
-            # getattr(self, related_accessor).set(None)
-            # current_related_objects.delete()
 
         for related_obj in related_objs:
             getattr(self, related_accessor).add(related_obj.history.latest())
