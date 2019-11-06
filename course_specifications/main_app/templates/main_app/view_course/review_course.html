@@ -133,6 +133,11 @@
 									<td><small class="text-muted">In class <br>(face to face)</small></td>
 									<td>{{ course.mode_of_instruction_in_class }}% <span class="text-muted">/ 100%</span></td>
 								</tr>
+								<tr>
+									<td><small class="text-muted">Other <br></small></td>
+									<td>{{ course.mode_of_instruction_other_desc }}:
+										{{ course.mode_of_instruction_other }}% <span class="text-muted">/ 100%</span></td>
+								</tr>
 								{% if course.mode_of_instruction_comments %}
 								<tr>
 									<td colspan="2">
