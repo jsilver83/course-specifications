@@ -3,7 +3,7 @@
 	<div>
 		<i class="fas fa-exclamation-triangle"></i>
 		{% if formset.verbose_name %}{{ formset.verbose_name }}{% else %}
-			{% trans "Formset" %}{% endif %} {% trans "Erorrs" %}:
+			{% trans "Formset" %}{% endif %} {% trans "Errors" %}:
 		<ul>
 			{% for error in formset.non_form_errors %}
 				<li>{{ error }}</li>
