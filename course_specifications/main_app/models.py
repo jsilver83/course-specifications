@@ -39,7 +39,7 @@ class Course(models.Model):
     number = models.CharField(_('Number'), max_length=10, null=True, blank=False)
     title = models.CharField(_('Title'), max_length=500, null=True, blank=False)
     catalog_description = models.TextField(_('Catalog Description'), null=True, blank=False,
-                                           help_text=_('General description about the course and topics covered'))
+                                           help_text=_('General description of the course (Bulletin description)'))
     location = models.CharField(_('Location'), max_length=50, null=True, blank=False, choices=Locations.choices())
     lecture_credit_hours = models.PositiveSmallIntegerField(_('Lecture Credit Hours'), null=True, blank=False,
                                                             validators=[
