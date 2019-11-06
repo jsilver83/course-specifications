@@ -425,7 +425,7 @@ class FacilitiesRequiredBaseFormSet(BaseModelFormSet):
 
 FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=FacilitiesRequiredForm,
                                                  formset=FacilitiesRequiredBaseFormSet,
-                                                 extra=1, can_delete=True, min_num=1, validate_min=True)
+                                                 extra=1, can_delete=True, )
 
 
 class CreateCommentForm(forms.ModelForm):
