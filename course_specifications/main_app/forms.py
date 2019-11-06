@@ -399,6 +399,13 @@ class EvaluationForm(forms.ModelForm):
         model = Course
         fields = ['strategies_of_student_feedback_and_evaluation', ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.strategies_of_student_feedback_and_evaluation is None:
+            self.initial['strategies_of_student_feedback_and_evaluation'] = 'The normal end-of-semester University ' \
+                                                                            'online evaluation of the instructor, ' \
+                                                                            'course, and textbook by students'
+
 
 class AccreditationRequirementsForm(forms.ModelForm):
     class Meta:
