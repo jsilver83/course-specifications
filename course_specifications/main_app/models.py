@@ -182,7 +182,7 @@ class Course(models.Model):
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     social_sciences_credit_hours = models.DecimalField(
-        _('Social Sciences Credit Hours'),
+        _('Social Sciences and Business Credit Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
