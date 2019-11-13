@@ -8,7 +8,7 @@ from django.template.loader import get_template
 
 from course_specifications.utils import get_department_name
 from main_app.models import Course
-from syllabus.utils import get_weekly_topics_list
+from syllabus.utils import get_weekly_topics_list, get_textbooks_list
 
 
 class GenerateSyllabusBaseView(DetailView):
@@ -24,6 +24,7 @@ class GenerateSyllabusBaseView(DetailView):
         context['corequisite_courses'] = self.get_object().corequisite_courses.all()
         context['learning_objectives'] = self.get_object().learning_objectives.all()
         context['learning_outcomes'] = self.get_object().learning_outcomes.all()
+        context['required_textbooks'] = get_textbooks_list(self.get_object().required_textbooks_from_sierra)
         if self.get_object().other_required_textbooks:
             context['other_required_textbooks'] = str(self.get_object().other_required_textbooks).splitlines()
         else:
