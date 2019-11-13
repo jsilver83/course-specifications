@@ -321,11 +321,15 @@ def accreditation_requirements(request, pk):
                 process_started = latest_release.start_camunda_process()
 
                 if process_started:
-                    messages.success(request, _('Course updated successfully'))
+                    messages.success(request, _('Course updated successfully and a new version has been added and it '
+                                                'is pending approval'))
                     return redirect(reverse_lazy('main_app:course_list'))
                 else:
                     messages.error(request, _('There was an issue starting the approval process. Kindly retry later or '
                                               'contact system admins to resolve this issue'))
+            else:
+                messages.success(request, _('Course updated successfully'))
+                return redirect(reverse_lazy('main_app:course_list'))
 
     return render(request, 'main_app/accreditation_requirements.html', {
         'course': course, 'form': form, 'formset': formset,

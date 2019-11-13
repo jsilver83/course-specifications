@@ -34,9 +34,9 @@ apache_debug: yes
 email_user: courses@test.kfupm.edu.sa
 email_host: mail.test.kfupm.edu.sa
 
-cas_login_url: "{{ test_cas_login_url }}"
-cas_validate_url: "{{ test_cas_validate_url }}"
-cas_logout_url: "{{ test_cas_logout_url }}"
+# cas_login_url: "{{ test_cas_login_url }}"
+# cas_validate_url: "{{ test_cas_validate_url }}"
+# cas_logout_url: "{{ test_cas_logout_url }}"
 
 banner_webservice_base_url: https://banner-api.test.kfupm.edu.sa
 banner_webservice_username: curricula
