@@ -1,3 +1,5 @@
+from math import floor
+
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models, transaction
@@ -30,14 +32,14 @@ class Course(models.Model):
     # region desc
     mother_department = models.CharField(_('Mother Department'), max_length=500, null=True, blank=False)
     program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False,
-                                    help_text=_('3 or 4 upper-case letters only'),
+                                    help_text=_('2 or 4 upper-case letters only'),
                                     validators=[
-                                        RegexValidator(r'^[A-Z]{3,4}$'),
+                                        RegexValidator(r'^[A-Z]{2,4}$'),
                                     ])
     number = models.CharField(_('Number'), max_length=10, null=True, blank=False)
     title = models.CharField(_('Title'), max_length=500, null=True, blank=False)
     catalog_description = models.TextField(_('Catalog Description'), null=True, blank=False,
-                                           help_text=_('General description about the course and topics covered'))
+                                           help_text=_('General description of the course (Bulletin description)'))
     location = models.CharField(_('Location'), max_length=50, null=True, blank=False, choices=Locations.choices())
     lecture_credit_hours = models.PositiveSmallIntegerField(_('Lecture Credit Hours'), null=True, blank=False,
                                                             validators=[
@@ -61,6 +63,7 @@ class Course(models.Model):
 
     prerequisite_courses = models.ManyToManyField('Course', blank=True, related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('Course', blank=True, related_name='corequisite_for')
+    not_to_be_taken_with_courses = models.ManyToManyField('Course', blank=True, related_name='not_to_be_taken_with')
     graduate_course_flag = models.BooleanField(_('Is Graduate Course?'), default=False, )
     # endregion desc
 
@@ -179,7 +182,7 @@ class Course(models.Model):
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     social_sciences_credit_hours = models.DecimalField(
-        _('Social Sciences Credit Hours'),
+        _('Social Sciences and Business Credit Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
@@ -273,6 +276,9 @@ class Course(models.Model):
 
         for corequisite in self.corequisite_courses.all():
             new_release.corequisite_courses.add(corequisite.history.latest())
+
+        for not_to_be_taken_with_course in self.not_to_be_taken_with_courses.all():
+            new_release.not_to_be_taken_with_courses.add(not_to_be_taken_with_course.history.latest())
 
         for clo in self.learning_outcomes.all():
             new_release.learning_outcomes.add(clo.history.latest())
@@ -411,7 +417,16 @@ class Course(models.Model):
         return self.strategies_of_student_feedback_and_evaluation
 
     def can_navigate_to_step7(self):
-        return self.facilities_required.all().count()
+        return self.can_navigate_to_step6()
+
+    def completed_percentage(self):
+        completed_steps = 0
+        for i in range(2, 8):
+            f = getattr(self, 'can_navigate_to_step{}'.format(i))
+            if bool(f()):
+                completed_steps += 1
+        completed_steps = completed_steps + 1 if completed_steps else 0
+        return floor(completed_steps/7 * 100)
 
     def get_department_name(self):
         return get_department_name(self.mother_department)
@@ -583,6 +598,7 @@ class CourseRelease(models.Model):
                                related_name='releases')
     prerequisite_courses = models.ManyToManyField('HistoricalCourse', related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('HistoricalCourse', related_name='corequisite_for')
+    not_to_be_taken_with_courses = models.ManyToManyField('HistoricalCourse', related_name='not_to_be_taken_with')
     learning_objectives = models.ManyToManyField('HistoricalLearningObjective', related_name='releases')
     learning_outcomes = models.ManyToManyField('HistoricalCourseLearningOutcome', related_name='releases')
     topics = models.ManyToManyField('HistoricalTopic', related_name='releases')
@@ -684,10 +700,7 @@ class CourseRelease(models.Model):
 
         current_related_objects = getattr(self, related_accessor).all()
         if current_related_objects.count():
-            print(current_related_objects)
             getattr(self, related_accessor).clear()
-            # getattr(self, related_accessor).set(None)
-            # current_related_objects.delete()
 
         for related_obj in related_objs:
             getattr(self, related_accessor).add(related_obj.history.latest())
@@ -695,6 +708,7 @@ class CourseRelease(models.Model):
     def update_all_related_objects(self):
         with transaction.atomic():
             all_related_accessors = ['learning_objectives', 'prerequisite_courses', 'corequisite_courses',
+                                     'not_to_be_taken_with_courses',
                                      'learning_outcomes', 'topics', 'assessment_tasks', 'facilities_required', ]
             for related_accessor in all_related_accessors:
                 self.update_related_objects(related_accessor)

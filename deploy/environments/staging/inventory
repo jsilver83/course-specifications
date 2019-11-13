@@ -1,0 +1,5 @@
+[application-servers]
+courses.staging.kfupm.edu.sa  # TODO: Verify
+
+[database-servers]
+postgres-->  # TODO: change to the staging DB server

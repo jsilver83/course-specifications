@@ -5,7 +5,7 @@
 		{% if message %}
 			{% trans message %}:
 		{% else %}
-			{% trans "Fix form" %}{% if counter %} [{{ counter }}]{% endif %} {% trans "erorrs" %}:
+			{% trans "Fix form" %}{% if counter %} [{{ counter }}]{% endif %} {% trans "errors" %}:
 		{% endif %}
 		<ul>
 			{% for error in form.non_field_errors %}
