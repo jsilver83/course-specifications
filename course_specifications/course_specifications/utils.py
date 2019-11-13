@@ -62,6 +62,7 @@ class APIType:
     BANNER = 'BANNER'
     STAFF = 'STAFF'
     ADWAR = 'ADWAR'
+    SIERRA = 'SIERRA'
 
 
 def call_web_service(url, method='get', parameters=None, data=None, basic_auth=True, api=APIType.BANNER):
@@ -75,10 +76,15 @@ def call_web_service(url, method='get', parameters=None, data=None, basic_auth=T
             base_url = settings.STAFF_WEBSERVICE_BASE_URL
             user = settings.STAFF_WEBSERVICE_USERNAME
             password = settings.STAFF_WEBSERVICE_PASSWORD
-        else:
+        elif api == APIType.ADWAR:
             base_url = settings.ADWAR_WEBSERVICE_BASE_URL
             user = settings.ADWAR_WEBSERVICE_USERNAME
             password = settings.ADWAR_WEBSERVICE_PASSWORD
+        else:
+            base_url = settings.SIERRA_WEBSERVICE_BASE_URL
+            user = settings.SIERRA_WEBSERVICE_USERNAME
+            password = settings.SIERRA_WEBSERVICE_PASSWORD
+
 
         auth = HTTPBasicAuth(username=user, password=password) if basic_auth else None
         full_url = '{}/{}'.format(base_url, url)
@@ -105,6 +111,9 @@ def get_chairman_details(chairman):
 def get_employee_details(employee):
     return call_web_service(url='employee/{}'.format(employee), api=APIType.STAFF)
 
+
+def get_textbooks_by_system_id(book_system_ids):
+    return call_web_service(url='books?system_id={}'.format(book_system_ids), api=APIType.SIERRA)
 
 def get_api_cached_value(cache_suffix, param, api_attribute, url, api_type):
     if param:
