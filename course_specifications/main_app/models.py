@@ -375,10 +375,24 @@ class Course(models.Model):
             pass
 
     def total_lecture_topic_contact_hours(self):
-        return self.topics.filter(type=Topic.Types.LECTURE).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+        total = self.topics.filter(type=Topic.Types.LECTURE).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+        return total if total else 0
 
     def total_lab_topic_contact_hours(self):
-        return self.topics.filter(type=Topic.Types.LAB).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+        if self.lab_contact_hours:
+            total = self.topics.filter(type=Topic.Types.LAB).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+            return total if total else 0
+        return 0
+
+    def total_contact_hours(self):
+        total_lecture_topic_contact_hours = self.total_lecture_topic_contact_hours()
+        total_lab_topic_contact_hours = self.total_lab_topic_contact_hours()
+        tutorial_contact_hours = self.tutorial_contact_hours if self.tutorial_contact_hours else 0
+        practical_contact_hours = self.practical_contact_hours if self.practical_contact_hours else 0
+        other_contact_hours = self.other_contact_hours if self.other_contact_hours else 0
+
+        return total_lecture_topic_contact_hours + total_lab_topic_contact_hours + tutorial_contact_hours \
+            + practical_contact_hours + other_contact_hours
 
     def total_lecture_assessment_tasks_weight(self):
         return self.assessment_tasks.filter(
