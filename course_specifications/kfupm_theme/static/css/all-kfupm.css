@@ -19349,4 +19349,7 @@ readers do not read off random characters that represent icons */
   font-weight: 900;
   content: "\f35a"!important;
 }
+.delete-btn input[type=checkbox] {
+  display: none!important;
+}
 /* end of addition by joud */
