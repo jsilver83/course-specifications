@@ -19,7 +19,7 @@
 										<!-- Total contact hrs -->
 										<div class="align-self-center mb-3">
 											<p class="small mb-0 text-muted">Total contact hrs: <small
-													class="text-dark h6 font-weight-bold">12 hrs</small></p>
+													class="text-dark h6 font-weight-bold">{{ course.history_object.total_contact_hours }} hrs</small></p>
 										</div>
 										<!-- /Total contact hrs -->
 									</div>
@@ -45,19 +45,19 @@
 												   href="#nav-tutorial" role="tab" aria-controls="nav-tutorial"
 												   aria-selected="true"><small>Tutorial</small>
 													<p class="mb-0 text-muted"><small
-															class="text-dark h6 font-weight-bold">2 hrs</small></p></a>
+															class="text-dark h6 font-weight-bold">{{ course.tutorial_contact_hours|default_if_none:"0" }} hrs</small></p></a>
 
 												<a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab"
 												   href="#nav-practical" role="tab" aria-controls="nav-practical"
 												   aria-selected="true"><small>Practical</small>
 													<p class="mb-0 text-muted"><small
-															class="text-dark h6 font-weight-bold">3 hrs</small></p></a>
+															class="text-dark h6 font-weight-bold">{{ course.practical_contact_hours|default_if_none:"0" }} hrs</small></p></a>
 
 												<a class="nav-item nav-link mr-auto" id="nav-other-tab"
 												   data-toggle="tab" href="#nav-other" role="tab"
 												   aria-controls="nav-other" aria-selected="true"><small>Other</small>
 													<p class="mb-0 text-muted"><small
-															class="text-dark h6 font-weight-bold">2 hrs</small></p></a>
+															class="text-dark h6 font-weight-bold">{{ course.other_contact_hours|default_if_none:"0" }} hrs</small></p></a>
 
 
 											</div>
