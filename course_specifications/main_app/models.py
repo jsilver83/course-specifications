@@ -207,7 +207,7 @@ class Course(models.Model):
     # region material
     required_textbooks_from_sierra = models.CharField(
         max_length=1000, verbose_name=_('required_textbooks'),
-        help_text=_('List of required textbooks from Sierra system'), null=True, blank=False,
+        help_text=_('List of required textbooks from Sierra system'), null=True, blank=True,
     )
 
     other_required_textbooks = models.TextField(
@@ -425,7 +425,7 @@ class Course(models.Model):
         return self.assessment_tasks.all().count()
 
     def can_navigate_to_step5(self):
-        return self.required_textbooks_from_sierra
+        return self.can_navigate_to_step4()
 
     def can_navigate_to_step6(self):
         return self.strategies_of_student_feedback_and_evaluation
