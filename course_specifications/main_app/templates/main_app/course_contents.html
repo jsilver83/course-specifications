@@ -119,9 +119,9 @@
 											<!-- /Add CLO Modal -->
 										</td>
 										<td>
-											<button class="btn btn-sm delete-btn" type="button"><input type="checkbox"
-											                                                           class="delete-check"/><i
-													class="fas fa-trash-alt text-danger"></i></button>
+											<button class="btn btn-sm delete-btn" type="button">
+												{{ formset.empty_form.DELETE }}
+												<i class="fas fa-trash-alt text-danger"></i></button>
 										</td>
 									</tr>
 									</tbody>
@@ -203,9 +203,9 @@
 												<!-- /Add CLO Modal -->
 											</td>
 											<td>
-												<button class="btn btn-sm delete-btn" type="button"><input
-														type="checkbox" class="delete-check"/><i
-														class="fas fa-trash-alt text-danger"></i></button>
+												<button class="btn btn-sm delete-btn" type="button">
+													{{ form.DELETE }}
+													<i class="fas fa-trash-alt text-danger"></i></button>
 											</td>
 										</tr>
 									{% endfor %}
@@ -272,9 +272,9 @@
 												<!-- /Add CLO Modal -->
 											</td>
 											<td>
-												<button class="btn btn-sm delete-btn" type="button"><input type="checkbox"
-												                                                           class="delete-check"/><i
-														class="fas fa-trash-alt text-danger"></i></button>
+												<button class="btn btn-sm delete-btn" type="button">
+													{{ formset2.empty_form.DELETE }}
+													<i class="fas fa-trash-alt text-danger"></i></button>
 											</td>
 										</tr>
 									</tbody>
@@ -360,9 +360,9 @@
 												<!-- /Add CLO Modal -->
 											</td>
 											<td>
-												<button class="btn btn-sm delete-btn" type="button"><input
-														type="checkbox" class="delete-check"/><i
-														class="fas fa-trash-alt text-danger"></i></button>
+												<button class="btn btn-sm delete-btn" type="button">
+													{{ form.DELETE }}
+													<i class="fas fa-trash-alt text-danger"></i></button>
 											</td>
 										</tr>
 									{% endfor %}
