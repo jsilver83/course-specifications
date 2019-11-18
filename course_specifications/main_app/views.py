@@ -303,6 +303,15 @@ def accreditation_requirements(request, pk):
 
     formset = FacilitiesRequiredFormSet(request.POST or None, queryset=course.facilities_required.all())
 
+    latest_release = course.latest_release()
+    if not latest_release or latest_release.approved is False or latest_release.approved is None:
+        new_release = True
+        confirm_message = _('Are you sure you want to submit this release for approval? You may NOT be able to modify '
+                            'this release afterwards')
+    else:
+        new_release = False
+        confirm_message = _('Are you sure you want to submit?')
+
     if request.method == 'POST':
         if form.is_valid() and formset.is_valid():
             saved_course = form.save()
@@ -333,7 +342,7 @@ def accreditation_requirements(request, pk):
 
     return render(request, 'main_app/accreditation_requirements.html', {
         'course': course, 'form': form, 'formset': formset,
-        'active_step': '7',
+        'active_step': '7', 'confirm_message': confirm_message,
     })
 
 

@@ -8,7 +8,8 @@
 	<!-- Course evaluation -->
 	<div class="card mb-4 form-accordian completed">
 		<div class="card-body p-0">
-			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#learning-resources" aria-expanded="false" aria-controls="learning-resources">
+			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse"
+			     data-target="#learning-resources" aria-expanded="false" aria-controls="learning-resources">
 				<i class="fas fa-check check-icon"></i>
 				<span class="mr-auto">{% trans "Accreditation Requirements" %} ({% trans "Optional" %})</span>
 				<i class="fas fa-caret-down"></i>
@@ -94,3 +95,17 @@
 
 
 {% endblock form-fields %}
+
+{% block form-buttons %}
+	<!--Form Button -->
+	<div class="row">
+		<div class="col-sm-6 col-12">
+		</div>
+		<div class="col-sm-6 col-12 text-right">
+			<button class="btn btn-primary delete-adding-content" onclick="confirm('{{ confirm_message }}');">{% trans 'Submit' %}
+				<small class="fas fa-chevron-right ml-1"></small>
+			</button>
+		</div>
+	</div>
+	<!--/Form Button -->
+{% endblock form-buttons %}
