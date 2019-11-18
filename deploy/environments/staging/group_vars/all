@@ -1,17 +1,18 @@
-env: production
+env: staging
 django_project_branch: staging
 django_project_hg_root: stable
 
 apache_server_names:
-  - courses.staging.kfupm.edu.sa  # TODO: Verify
+  - courses-staging.kfupm.edu.sa
+
 
 # pick a unique port that is not used by any other application on the target
 # application server
 uwsgi_http_port: 5656
 
 # required for proper SSL termination on load-balancer while using CAS
-apache_public_url: https://course-specification.kfupm.edu.sa
-apache_load_balancer_ips: []  # TODO: fill in the load-balancer in the staging zone
+apache_public_url: https://courses-staging.kfupm.edu.sa
+apache_load_balancer_ips: ["10.142.24.1", "10.142.26.1"]
 apache_proxy:
   - path: /
     protocol: uwsgi
@@ -20,14 +21,29 @@ apache_proxy:
     remote_path: /
 
 database_engine: django.db.backends.postgresql
-database_name: course-specification
-database_user: course-specification
+database_name: courses
+database_user: courses
 # database_password: set from Vault in playbook
-database_host: postgres-->  # TODO: change to the staging DB server
+database_host: postgres96-1-staging.kfupm.edu.sa
 database_port: 5432
 
 django_debug: no
-apache_debug: no
+camunda_debug: no
+apache_debug: yes
 
-email_user: course-specification@kfupm.edu.sa
-email_host: mail.kfupm.edu.sa
+email_user: courses@test.kfupm.edu.sa
+email_host: mail.test.kfupm.edu.sa
+
+banner_webservice_base_url: https://banner-api.kfupm.edu.sa
+banner_webservice_username: curricula
+
+adwar_webservice_base_url: https://adwar.test.kfupm.edu.sa/api
+adwar_webservice_username: curricula
+
+staff_webservice_base_url: https://staff-web-service.kfupm.edu.sa
+staff_webservice_username: curricula
+
+workflow_url: https://workflow.test.kfupm.edu.sa
+
+camunda_webservice_base_url: https://workflow.test.kfupm.edu.sa/engine-rest
+camunda_webservice_username: curricula
