@@ -377,7 +377,7 @@ class LearningResourcesForm(forms.ModelForm):
     )
 
     required_textbooks_from_sierra = forms.MultipleChoiceField(widget=forms.SelectMultiple(attrs={'class': 'select2'}),
-                                                               choices=CHOICES)
+                                                               choices=CHOICES, required=False)
 
     class Meta:
         model = Course
