@@ -29,6 +29,16 @@ database_port: 5432
 
 django_debug: no
 apache_debug: no
+camunda_debug: no
 
 email_user: course-specification@kfupm.edu.sa
 email_host: mail.kfupm.edu.sa
+
+adwar_web_service_url: https://adwar.kfupm.edu.sa
+adwar_web_service_username: curricula
+
+staff_webservice_base_url: https://staff-web-service.kfupm.edu.sa
+staff_webservice_username: curricula
+
+camunda_webservice_base_url: https://tasks.kfupm.edu.sa/engine-rest
+camunda_webservice_username: curricula

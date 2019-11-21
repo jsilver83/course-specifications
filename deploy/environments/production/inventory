@@ -3,3 +3,6 @@ course-specification-1.kfupm.edu.sa
 
 [database-servers]
 postgres-1.kfupm.edu.sa
+
+[workflow-server]
+tasks-camunda-1.kfupm.edu.sa
