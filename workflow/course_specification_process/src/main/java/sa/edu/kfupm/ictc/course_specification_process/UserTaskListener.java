@@ -17,7 +17,7 @@ public class UserTaskListener implements TaskListener {
     private final static Logger LOGGER = Logger.getLogger("course_specification_process");
 
     public void notify(DelegateTask delegateTask) {
-        assignUser(delegateTask);
+        //assignUser(delegateTask);
     }
 
     private void assignUser(DelegateTask delegateTask) {
