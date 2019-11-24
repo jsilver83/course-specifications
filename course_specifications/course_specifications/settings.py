@@ -170,6 +170,8 @@ LOGGING = {
     },
 }
 
+DEFAULT_CACHE_DURATION_WEBSERVICES = 24 * 60 * 60
+
 try:
     from .local_settings import *
 except ImportError:
