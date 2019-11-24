@@ -61,6 +61,8 @@ class CourseIdentificationForm(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+            if field in NewCourseForm.Meta.fields:  # make all fields coming from chairman as readonly
+                self.fields[field].widget.attrs.update({'readonly': 'readonly'})
 
         # self.fields['number'].widget.attrs.update({'placeholder': _('000')})
         self.fields['mode_of_instruction_in_class'].widget.attrs.update({'placeholder': _('Percentage (%)')})
