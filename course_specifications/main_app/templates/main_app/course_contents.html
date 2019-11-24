@@ -441,34 +441,34 @@
 		<div class="card-body p-0">
 			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse"
 			     data-target="#self-study" aria-expanded="false" aria-controls="course-level-outcomes">
-				<i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'Self-Study Hours' %}</span>
+				<i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'Self-Learning Hours' %}</span>
 				<i class="fas fa-caret-down"></i>
 			</div>
 			<div class="collapse show p-3 pt-4 pb-4" id="self-study">
 				<div class="row self-study-hours-val">
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_lecture|as_crispy_field }}
+							{{ form.self_learning_study|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_lab|as_crispy_field }}
+							{{ form.self_learning_assignments|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_tutorial|as_crispy_field }}
+							{{ form.self_learning_library|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_practical|as_crispy_field }}
+							{{ form.self_learning_practical|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_other|as_crispy_field }}
+							{{ form.self_learning_other|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
