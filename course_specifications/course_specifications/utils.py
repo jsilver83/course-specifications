@@ -1,5 +1,7 @@
+import asyncio
 import json
 
+import aiohttp
 import requests
 from django.conf import settings
 from django.core.cache import cache
@@ -167,26 +169,26 @@ def get_subordinates_choices(supervisor):
 
 class CamundaAPI:
     class TaskTypes:
-        Maintainer_Task = 'Maintainer_Task'
-        Reviewer_Task = 'Reviewer_Task'
-        Chairman_Task = 'Chairman_Task'
-        ACC_Task = 'ACC_Task'
-        Collage_Dean_Task = 'Collage_Dean_Task'
-        DGS_Dean_Task = 'DGS_Dean_Task'
-        Vice_Rector_Task = 'Vice_Rector_Task'
-        Rector_Task = 'Rector_Task'
+        MAINTAINER = 'Maintainer_Task'
+        REVIEWER = 'Reviewer_Task'
+        CHAIRMAN = 'Chairman_Task'
+        ACC = 'ACC_Task'
+        COLLAGE_DEAN = 'Collage_Dean_Task'
+        DGS_DEAN = 'DGS_Dean_Task'
+        VICE_RECTOR = 'Vice_Rector_Task'
+        RECTOR = 'Rector_Task'
 
         @classmethod
         def types(cls):
             return (
-                (cls.Maintainer_Task, _('Maintainer')),
-                (cls.Reviewer_Task, _('Reviewer_Task')),
-                (cls.Chairman_Task, _('Chairman_Task')),
-                (cls.ACC_Task, _('ACC_Task')),
-                (cls.Collage_Dean_Task, _('Collage_Dean_Task')),
-                (cls.DGS_Dean_Task, _('DGS_Dean_Task')),
-                (cls.Vice_Rector_Task, _('Vice_Rector_Task')),
-                (cls.Rector_Task, _('Rector_Task')),
+                (cls.MAINTAINER, _('Maintainer Task')),
+                (cls.REVIEWER, _('Reviewer Task')),
+                (cls.CHAIRMAN, _('Chairman Task')),
+                (cls.ACC, _('ACC Task')),
+                (cls.COLLAGE_DEAN, _('Collage Dean Task')),
+                (cls.DGS_DEAN, _('DGS Dean Task')),
+                (cls.VICE_RECTOR, _('Vice Rector Task')),
+                (cls.RECTOR, _('Rector Task')),
             )
 
     process_definition_key = 'course_spicification_process'
@@ -319,6 +321,11 @@ class CamundaAPI:
         return response.json()
 
     @staticmethod
+    def get_tasks(process_ids):
+        camunda_async = CamundaAsyncAPICall(process_ids)
+        return camunda_async.data()
+
+    @staticmethod
     def call_camunda_api(end_point, parameters=None, basic_auth=True):
         base_url = settings.CAMUNDA_BASE_URL
         user = settings.CAMUNDA_USERNAME
@@ -358,6 +365,48 @@ class CamundaAPI:
         except:
             return 'ERROR'
 
+
+class CamundaAsyncAPICall:
+    '''
+    This class return multiple process instances' active tasks asynchronously
+    '''
+    CAMUNDA_BASE_URL = settings.CAMUNDA_BASE_URL
+
+    def __init__(self, process_ids):
+        self._process_ids = process_ids
+
+    async def _data(self):
+        coroutines = list()
+        auth = aiohttp.BasicAuth(settings.CAMUNDA_USERNAME, settings.CAMUNDA_PASSWORD)
+        async with aiohttp.ClientSession(auth=auth) as session:
+            for process_id in self._process_ids:
+                coroutines.append(self._fetch(session, process_id))
+            return await asyncio.gather(*coroutines)
+
+    async def _fetch(self, session, process_id):
+        url = '{}/task?processInstanceId={}'.format(self.CAMUNDA_BASE_URL, process_id)
+
+        async with session.get(url) as response:
+            return await response.text()
+
+    def data(self):
+        event_loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(event_loop)
+        results = event_loop.run_until_complete(self._data())
+        data = []
+        if results:
+            for response in results:
+                try:
+                    tasks = json.loads(response)
+                    if tasks and len(tasks)==1:
+                        data.append(tasks[0])
+                except:
+                    pass
+        if data:
+            try:
+                return {task['processInstanceId']: task for task in data}
+            except:
+                pass
 
 def list_to_comma_separated_values(my_list):
     return ','.join(map(str, my_list))

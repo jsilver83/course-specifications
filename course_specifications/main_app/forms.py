@@ -52,7 +52,8 @@ class CourseIdentificationForm(forms.ModelForm):
         model = Course
         fields = ['program_code', 'number', 'title', 'location',
                   'lecture_credit_hours', 'lab_contact_hours', 'total_credit_hours', 'weekly_office_hours',
-                  'prerequisite_courses', 'corequisite_courses', 'mode_of_instruction_in_class',
+                  'prerequisite_courses', 'corequisite_courses', 'not_to_be_taken_with_courses',
+                  'mode_of_instruction_in_class',
                   'mode_of_instruction_other', 'mode_of_instruction_other_desc', 'mode_of_instruction_comments']
 
     def __init__(self, *args, **kwargs):
@@ -78,10 +79,12 @@ class CourseIdentificationForm(forms.ModelForm):
 
         self.fields['prerequisite_courses'].widget.attrs.update({'class': 'select2'})
         self.fields['corequisite_courses'].widget.attrs.update({'class': 'select2'})
+        self.fields['not_to_be_taken_with_courses'].widget.attrs.update({'class': 'select2'})
 
         courses = Course.objects.exclude(pk=self.instance.pk)
         self.fields['prerequisite_courses'].queryset = courses
         self.fields['corequisite_courses'].queryset = courses
+        self.fields['not_to_be_taken_with_courses'].queryset = courses
 
         self.fields['weekly_office_hours'].required = True
 
@@ -143,9 +146,13 @@ class LearningObjectiveBaseFormSet(BaseModelFormSet):
     verbose_name = _('Learning Objective')
 
 
-LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
-                                                formset=LearningObjectiveBaseFormSet,
-                                                extra=1, can_delete=True, min_num=1,  validate_min=True)
+LearningObjectiveFormSet = modelformset_factory(
+    model=LearningObjective, form=LearningObjectiveForm,
+    formset=LearningObjectiveBaseFormSet,
+    extra=1, can_delete=True,
+    min_num=1, validate_min=True,
+    max_num=6, validate_max=True,
+)
 
 
 class CourseLearningOutcomeForm(forms.ModelForm):
@@ -158,14 +165,13 @@ class CourseLearningOutcomeBaseFormSet(BaseModelFormSet):
     verbose_name = _('Course Learning Outcome')
 
 
-CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
-                                                    formset=CourseLearningOutcomeBaseFormSet,
-<<<<<<< working copy
-                                                    max_num=7, extra=1, can_delete=True, min_num=1, validate_min=True)
-=======
-                                                    extra=1, can_delete=True, min_num=1, validate_min=True,
-                                                    max_num=7, validate_max=True, )
->>>>>>> merge rev
+CourseLearningOutcomeFormSet = modelformset_factory(
+    model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
+    formset=CourseLearningOutcomeBaseFormSet,
+    extra=1, can_delete=True,
+    min_num=1, validate_min=True,
+    max_num=7, validate_max=True,
+)
 
 
 class TopicForm(forms.ModelForm):
@@ -350,9 +356,9 @@ class AssessmentTaskBaseFormSet(BaseModelFormSet):
                 continue
             total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
 
-        if total > 100:
+        if total != 100:
             raise forms.ValidationError(_('Total weights of ALL assessment tasks for lecture/lab '
-                                          'should NOT exceed 100'))
+                                          'should add up to 100 EXACTLY'))
 
 
 AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
@@ -393,6 +399,13 @@ class EvaluationForm(forms.ModelForm):
         model = Course
         fields = ['strategies_of_student_feedback_and_evaluation', ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.strategies_of_student_feedback_and_evaluation is None:
+            self.initial['strategies_of_student_feedback_and_evaluation'] = 'The normal end-of-semester University ' \
+                                                                            'online evaluation of the instructor, ' \
+                                                                            'course, and textbook by students'
+
 
 class AccreditationRequirementsForm(forms.ModelForm):
     class Meta:
@@ -412,7 +425,7 @@ class FacilitiesRequiredBaseFormSet(BaseModelFormSet):
 
 FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=FacilitiesRequiredForm,
                                                  formset=FacilitiesRequiredBaseFormSet,
-                                                 extra=1, can_delete=True, min_num=1, validate_min=True)
+                                                 extra=1, can_delete=True, )
 
 
 class CreateCommentForm(forms.ModelForm):
