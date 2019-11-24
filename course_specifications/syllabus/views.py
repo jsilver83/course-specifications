@@ -24,7 +24,8 @@ class GenerateSyllabusBaseView(DetailView):
         context['corequisite_courses'] = self.get_object().corequisite_courses.all()
         context['learning_objectives'] = self.get_object().learning_objectives.all()
         context['learning_outcomes'] = self.get_object().learning_outcomes.all()
-        context['required_textbooks'] = get_textbooks_list(self.get_object().required_textbooks_from_sierra)
+        if self.get_object().required_textbooks_from_sierra:
+            context['required_textbooks'] = get_textbooks_list(self.get_object().required_textbooks_from_sierra)
         if self.get_object().other_required_textbooks:
             context['other_required_textbooks'] = str(self.get_object().other_required_textbooks).splitlines()
         else:
@@ -38,14 +39,14 @@ class GenerateSyllabusBaseView(DetailView):
                 .recommended_textbooks_reference_materials.splitlines()
         else:
             context['recommended_textbooks_reference_materials'] = None
-        context['lecture_topics_lists'] = get_weekly_topics_list(self.get_object().lecture_credit_hours, 15, list(self.get_object().topics.filter(type='lecture')))
+        if self.get_object().lecture_credit_hours:
+            context['lecture_topics_lists'] = get_weekly_topics_list(self.get_object().lecture_credit_hours, 15, list(self.get_object().topics.filter(type='lecture')))
         if self.get_object().lab_contact_hours:
             context['lab_topics_lists'] = get_weekly_topics_list(self.get_object().lab_contact_hours, 15, list(self.get_object().topics.filter(type='lab')))
         return context
 
 
 class GeneratePDFSyllabusView(GenerateSyllabusBaseView):
-
 
     def get(self, request, *args, **kwargs):
         super().get(request, *args, **kwargs)
@@ -60,6 +61,7 @@ class GeneratePDFSyllabusView(GenerateSyllabusBaseView):
 
 
 class GenerateWordSyllabusView(GenerateSyllabusBaseView):
+
     def get(self, request, *args, **kwargs):
         super().get(request, *args, **kwargs)
         result = finders.find('syllabus_template.docx')
