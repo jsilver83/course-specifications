@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <html>
     <head>
-        <title>{{course.program_code}} {{course.number}} Syllabus</title>
+        <title>{{object.course.history_object.program_code}} {{object.course.history_object.number}} Syllabus</title>
         <link href="{% static 'fonts/OpenSans.ttf' %}" rel="stylesheet">
         <style type="text/css">
             body {
@@ -97,12 +97,12 @@
             <div class="header">
                 <img class="kfupm-logo" src="{% static 'images/logo-quranic-verse.jpg' %}">
                 <h1 class="college-name">{{ department_name }} Department</h1>
-                <h2 class="course-title">Syllabus<br>{{course.program_code}} {{course.number}}: {{course.title}} ({% if  course.lecture_credit_hours%}{{course.lecture_credit_hours}}{% else %}0{% endif %}-{% if  course.lab_contact_hours%}{{course.lab_contact_hours}}{% else %}0{% endif %}-{{course.total_credit_hours}})</h2>
+                <h2 class="course-title">Syllabus<br>{{object.course.history_object.program_code}} {{object.course.history_object.number}}: {{object.course.history_object.title}} ({% if  object.course.history_object.lecture_credit_hours%}{{object.course.history_object.lecture_credit_hours}}{% else %}0{% endif %}-{% if  object.course.history_object.lab_contact_hours%}{{object.course.history_object.lab_contact_hours}}{% else %}0{% endif %}-{{object.course.history_object.total_credit_hours}})</h2>
             </div>
             <div id="course-description">
                  <h3 class="section-title">Course Catalog Description:</h3>
                  <div class="section-content">
-                    <p>{{ course.catalog_description }}</p>
+                    <p>{{ object.course.history_object.catalog_description }}</p>
                 </div>
             </div>
             {% if prerequisite_courses %}
@@ -305,6 +305,5 @@
                 </div>
         {% endif %}
         </div>
-</div>
     </body>
 </html>
