@@ -80,10 +80,10 @@
 														    class="align-middle border-top-0 text-muted pt-1 pb-1">
 															<small>Contact hours <b>(Max 15)</b></small>
 														</th>
-														<th scope="col"
-														    class="align-middle border-top-0 text-muted pt-1 pb-1">
-															<small>Related CLOs</small>
-														</th>
+{#														<th scope="col"#}
+{#														    class="align-middle border-top-0 text-muted pt-1 pb-1">#}
+{#															<small>Related CLOs</small>#}
+{#														</th>#}
 													</tr>
 													</thead>
 													<tbody class="add-here">
@@ -96,46 +96,46 @@
 														<td class="align-middle border-bottom">
 															<p>{{ topic.contact_hours|default:"0" }} hrs</p>
 														</td>
-														<td class="align-middle border-bottom">
-															{% if topic.history_object.related_course_learning_outcomes.all %}
-															<button class="small btn btn-sm btn-light has-increment-val"
-															        type="button" data-toggle="modal"
-															        data-target="#lec-clo-{{ topic.pk }}"><b>{{ topic.history_object.related_course_learning_outcomes.all|length }}</b> CLOs
-															</button>
-															<!-- CLO Modal -->
-															<div class="modal fade has-increment-val" id="lec-clo-{{ topic.pk }}"
-															     tabindex="-1" role="dialog" aria-labelledby="lec-clo-{{ topic.pk }}"
-															     aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<h5 class="modal-title">Related CLOs</h5>
-																			<button type="button" class="close"
-																			        data-dismiss="modal"
-																			        aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">
-																			<div class="row">
-																				<div class="col-md-12">
-																					{% for clo in topic.history_object.related_course_learning_outcomes.all %}
-																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span><br>
-																					{% endfor %}
-																				</div>
-																			</div>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-light"
-																			        data-dismiss="modal">Close
-																			</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<!-- /CLO Modal -->
-															{% endif %}
-														</td>
+{#														<td class="align-middle border-bottom">#}
+{#															{% if topic.history_object.related_course_learning_outcomes.all %}#}
+{#															<button class="small btn btn-sm btn-light has-increment-val"#}
+{#															        type="button" data-toggle="modal"#}
+{#															        data-target="#lec-clo-{{ topic.pk }}"><b>{{ topic.history_object.related_course_learning_outcomes.all|length }}</b> CLOs#}
+{#															</button>#}
+{#															<!-- CLO Modal -->#}
+{#															<div class="modal fade has-increment-val" id="lec-clo-{{ topic.pk }}"#}
+{#															     tabindex="-1" role="dialog" aria-labelledby="lec-clo-{{ topic.pk }}"#}
+{#															     aria-hidden="true">#}
+{#																<div class="modal-dialog" role="document">#}
+{#																	<div class="modal-content">#}
+{#																		<div class="modal-header">#}
+{#																			<h5 class="modal-title">Related CLOs</h5>#}
+{#																			<button type="button" class="close"#}
+{#																			        data-dismiss="modal"#}
+{#																			        aria-label="Close">#}
+{#																				<span aria-hidden="true">&times;</span>#}
+{#																			</button>#}
+{#																		</div>#}
+{#																		<div class="modal-body">#}
+{#																			<div class="row">#}
+{#																				<div class="col-md-12">#}
+{#																					{% for clo in topic.history_object.related_course_learning_outcomes.all %}#}
+{#																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span><br>#}
+{#																					{% endfor %}#}
+{#																				</div>#}
+{#																			</div>#}
+{#																		</div>#}
+{#																		<div class="modal-footer">#}
+{#																			<button type="button" class="btn btn-light"#}
+{#																			        data-dismiss="modal">Close#}
+{#																			</button>#}
+{#																		</div>#}
+{#																	</div>#}
+{#																</div>#}
+{#															</div>#}
+{#															<!-- /CLO Modal -->#}
+{#															{% endif %}#}
+{#														</td>#}
 													</tr>
 														{% endif %}
 													{% endfor %}
@@ -164,10 +164,10 @@
 														    class="align-middle border-top-0 text-muted pt-1 pb-1">
 															<small>Contact hours <b>(Max 15)</b></small>
 														</th>
-														<th scope="col"
-														    class="align-middle border-top-0 text-muted pt-1 pb-1">
-															<small>Related CLOs</small>
-														</th>
+{#														<th scope="col"#}
+{#														    class="align-middle border-top-0 text-muted pt-1 pb-1">#}
+{#															<small>Related CLOs</small>#}
+{#														</th>#}
 													</tr>
 													</thead>
 													<tbody class="add-here">
@@ -180,44 +180,44 @@
 														<td class="align-middle border-bottom">
 															<p>{{ topic.contact_hours }} hrs</p>
 														</td>
-														<td class="align-middle border-bottom">
-															{% if topic.history_object.related_course_learning_outcomes.all %}
-															<button class="small btn btn-sm btn-light" type="button"
-															        data-toggle="modal" data-target="#lab-clo-{{ topic.pk }}">
-																<b>{{ topic.history_object.related_course_learning_outcomes.all|length }}</b> CLOs
-															</button>
-															{% endif %}
-															<div class="modal fade" id="lab-clo-{{ topic.pk }}" tabindex="-1"
-															     role="dialog" aria-labelledby="lab-clo-{{ topic.pk }}"
-															     aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<h5 class="modal-title">Related CLOs</h5>
-																			<button type="button" class="close"
-																			        data-dismiss="modal"
-																			        aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">
-																			<div class="row">
-																				<div class="col-md-12">
-																					{% for clo in topic.history_object.related_course_learning_outcomes.all %}
-																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span>
-																					{% endfor %}
-																				</div>
-																			</div>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-light"
-																			        data-dismiss="modal">Close
-																			</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</td>
+{#														<td class="align-middle border-bottom">#}
+{#															{% if topic.history_object.related_course_learning_outcomes.all %}#}
+{#															<button class="small btn btn-sm btn-light" type="button"#}
+{#															        data-toggle="modal" data-target="#lab-clo-{{ topic.pk }}">#}
+{#																<b>{{ topic.history_object.related_course_learning_outcomes.all|length }}</b> CLOs#}
+{#															</button>#}
+{#															{% endif %}#}
+{#															<div class="modal fade" id="lab-clo-{{ topic.pk }}" tabindex="-1"#}
+{#															     role="dialog" aria-labelledby="lab-clo-{{ topic.pk }}"#}
+{#															     aria-hidden="true">#}
+{#																<div class="modal-dialog" role="document">#}
+{#																	<div class="modal-content">#}
+{#																		<div class="modal-header">#}
+{#																			<h5 class="modal-title">Related CLOs</h5>#}
+{#																			<button type="button" class="close"#}
+{#																			        data-dismiss="modal"#}
+{#																			        aria-label="Close">#}
+{#																				<span aria-hidden="true">&times;</span>#}
+{#																			</button>#}
+{#																		</div>#}
+{#																		<div class="modal-body">#}
+{#																			<div class="row">#}
+{#																				<div class="col-md-12">#}
+{#																					{% for clo in topic.history_object.related_course_learning_outcomes.all %}#}
+{#																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span>#}
+{#																					{% endfor %}#}
+{#																				</div>#}
+{#																			</div>#}
+{#																		</div>#}
+{#																		<div class="modal-footer">#}
+{#																			<button type="button" class="btn btn-light"#}
+{#																			        data-dismiss="modal">Close#}
+{#																			</button>#}
+{#																		</div>#}
+{#																	</div>#}
+{#																</div>#}
+{#															</div>#}
+{#														</td>#}
 													</tr>
 															{% endif %}
 													{% endfor %}
