@@ -1,18 +1,18 @@
-env: testing
-django_project_branch: default
-django_project_hg_root: dev
+env: staging
+django_project_branch: staging
+django_project_hg_root: stable
 
 apache_server_names:
-  - courses.test.kfupm.edu.sa
+  - courses-staging.kfupm.edu.sa
 
 
 # pick a unique port that is not used by any other application on the target
 # application server
-uwsgi_http_port: 5566
+uwsgi_http_port: 5656
 
 # required for proper SSL termination on load-balancer while using CAS
-apache_public_url: https://courses.test.kfupm.edu.sa
-apache_load_balancer_ips: ["10.180.24.1"]
+apache_public_url: https://courses-staging.kfupm.edu.sa
+apache_load_balancer_ips: ["10.142.24.1", "10.142.26.1"]
 apache_proxy:
   - path: /
     protocol: uwsgi
@@ -24,7 +24,7 @@ database_engine: django.db.backends.postgresql
 database_name: courses
 database_user: courses
 # database_password: set from Vault in playbook
-database_host: postgres.test.kfupm.edu.sa
+database_host: postgres96-1-staging.kfupm.edu.sa
 database_port: 5432
 
 django_debug: no
@@ -34,23 +34,16 @@ apache_debug: yes
 email_user: courses@test.kfupm.edu.sa
 email_host: mail.test.kfupm.edu.sa
 
-# cas_login_url: "{{ test_cas_login_url }}"
-# cas_validate_url: "{{ test_cas_validate_url }}"
-# cas_logout_url: "{{ test_cas_logout_url }}"
-
-banner_webservice_base_url: https://banner-api.test.kfupm.edu.sa
+banner_webservice_base_url: https://banner-api.kfupm.edu.sa
 banner_webservice_username: curricula
 
-adwar_web_service_url: https://adwar.test.kfupm.edu.sa
-adwar_web_service_username: curricula
+adwar_webservice_base_url: https://adwar.test.kfupm.edu.sa/api
+adwar_webservice_username: curricula
 
-staff_webservice_base_url: https://staff-web-service.test.kfupm.edu.sa
+staff_webservice_base_url: https://staff-web-service.kfupm.edu.sa
 staff_webservice_username: curricula
 
 workflow_url: https://workflow.test.kfupm.edu.sa
-
-adwar_webservice_base_url: https://adwar.test.kfupm.edu.sa/api
-adwar_webservice_username: courses
 
 camunda_webservice_base_url: https://workflow.test.kfupm.edu.sa/engine-rest
 camunda_webservice_username: curricula

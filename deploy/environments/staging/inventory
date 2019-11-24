@@ -1,0 +1,8 @@
+[application-servers]
+courses-1-staging.kfupm.edu.sa
+ 
+[database-servers]
+postgres96-1-staging.kfupm.edu.sa
+
+[workflow-server]
+camunda-2.test.kfupm.edu.sa

@@ -1,3 +1,5 @@
+from math import floor
+
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models, transaction
@@ -30,14 +32,14 @@ class Course(models.Model):
     # region desc
     mother_department = models.CharField(_('Mother Department'), max_length=500, null=True, blank=False)
     program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False,
-                                    help_text=_('3 or 4 upper-case letters only'),
+                                    help_text=_('2 or 4 upper-case letters only'),
                                     validators=[
-                                        RegexValidator(r'^[A-Z]{3,4}$'),
+                                        RegexValidator(r'^[A-Z]{2,4}$'),
                                     ])
     number = models.CharField(_('Number'), max_length=10, null=True, blank=False)
     title = models.CharField(_('Title'), max_length=500, null=True, blank=False)
     catalog_description = models.TextField(_('Catalog Description'), null=True, blank=False,
-                                           help_text=_('General description about the course and topics covered'))
+                                           help_text=_('General description of the course (Bulletin description)'))
     location = models.CharField(_('Location'), max_length=50, null=True, blank=False, choices=Locations.choices())
     lecture_credit_hours = models.PositiveSmallIntegerField(_('Lecture Credit Hours'), null=True, blank=False,
                                                             validators=[
@@ -61,6 +63,7 @@ class Course(models.Model):
 
     prerequisite_courses = models.ManyToManyField('Course', blank=True, related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('Course', blank=True, related_name='corequisite_for')
+    not_to_be_taken_with_courses = models.ManyToManyField('Course', blank=True, related_name='not_to_be_taken_with')
     graduate_course_flag = models.BooleanField(_('Is Graduate Course?'), default=False, )
     # endregion desc
 
@@ -179,7 +182,7 @@ class Course(models.Model):
         decimal_places=settings.MAX_DECIMAL_POINT
     )
     social_sciences_credit_hours = models.DecimalField(
-        _('Social Sciences Credit Hours'),
+        _('Social Sciences and Business Credit Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
@@ -204,7 +207,7 @@ class Course(models.Model):
     # region material
     required_textbooks_from_sierra = models.CharField(
         max_length=1000, verbose_name=_('required_textbooks'),
-        help_text=_('List of required textbooks from Sierra system'), null=True, blank=False,
+        help_text=_('List of required textbooks from Sierra system'), null=True, blank=True,
     )
 
     other_required_textbooks = models.TextField(
@@ -273,6 +276,9 @@ class Course(models.Model):
 
         for corequisite in self.corequisite_courses.all():
             new_release.corequisite_courses.add(corequisite.history.latest())
+
+        for not_to_be_taken_with_course in self.not_to_be_taken_with_courses.all():
+            new_release.not_to_be_taken_with_courses.add(not_to_be_taken_with_course.history.latest())
 
         for clo in self.learning_outcomes.all():
             new_release.learning_outcomes.add(clo.history.latest())
@@ -369,10 +375,24 @@ class Course(models.Model):
             pass
 
     def total_lecture_topic_contact_hours(self):
-        return self.topics.filter(type=Topic.Types.LECTURE).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+        total = self.topics.filter(type=Topic.Types.LECTURE).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+        return total if total else 0
 
     def total_lab_topic_contact_hours(self):
-        return self.topics.filter(type=Topic.Types.LAB).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+        if self.lab_contact_hours:
+            total = self.topics.filter(type=Topic.Types.LAB).aggregate(Sum('contact_hours')).get('contact_hours__sum')
+            return total if total else 0
+        return 0
+
+    def total_contact_hours(self):
+        total_lecture_topic_contact_hours = self.total_lecture_topic_contact_hours()
+        total_lab_topic_contact_hours = self.total_lab_topic_contact_hours()
+        tutorial_contact_hours = self.tutorial_contact_hours if self.tutorial_contact_hours else 0
+        practical_contact_hours = self.practical_contact_hours if self.practical_contact_hours else 0
+        other_contact_hours = self.other_contact_hours if self.other_contact_hours else 0
+
+        return total_lecture_topic_contact_hours + total_lab_topic_contact_hours + tutorial_contact_hours \
+            + practical_contact_hours + other_contact_hours
 
     def total_lecture_assessment_tasks_weight(self):
         return self.assessment_tasks.filter(
@@ -405,13 +425,22 @@ class Course(models.Model):
         return self.assessment_tasks.all().count()
 
     def can_navigate_to_step5(self):
-        return self.required_textbooks_from_sierra
+        return self.can_navigate_to_step4()
 
     def can_navigate_to_step6(self):
         return self.strategies_of_student_feedback_and_evaluation
 
     def can_navigate_to_step7(self):
-        return self.facilities_required.all().count()
+        return self.can_navigate_to_step6()
+
+    def completed_percentage(self):
+        completed_steps = 0
+        for i in range(2, 8):
+            f = getattr(self, 'can_navigate_to_step{}'.format(i))
+            if bool(f()):
+                completed_steps += 1
+        completed_steps = completed_steps + 1 if completed_steps else 0
+        return floor(completed_steps/7 * 100)
 
     def get_department_name(self):
         return get_department_name(self.mother_department)
@@ -425,7 +454,7 @@ class Course(models.Model):
         return not CourseRelease.objects.filter(course__id=self.id, approved__isnull=True).exists()
 
     def can_be_edited(self, user):
-        return self.can_be_re_released() and self.is_a_maintainer(user)
+        return True  #  self.can_be_re_released() and self.is_a_maintainer(user)
 
     def can_be_reviewed(self):
         return not self.can_be_re_released()
@@ -524,7 +553,7 @@ class AssessmentTask(models.Model):
     type = models.CharField(_('Type'), max_length=50, null=True, blank=False, choices=Types.choices())
     assessment_task = models.CharField(_('Assessment Task'), max_length=2000, null=True, blank=False,
                                        help_text=_('e.g essay, test, group project, examination, speech, etc...'))
-    week_due = models.PositiveSmallIntegerField(_('Week Due'), null=True, blank=False,
+    week_due = models.PositiveSmallIntegerField(_('Week Due'), null=True, blank=True,
                                                 validators=[
                                                     MinValueValidator(1),
                                                     MaxValueValidator(17),
@@ -583,6 +612,7 @@ class CourseRelease(models.Model):
                                related_name='releases')
     prerequisite_courses = models.ManyToManyField('HistoricalCourse', related_name='prerequisite_for')
     corequisite_courses = models.ManyToManyField('HistoricalCourse', related_name='corequisite_for')
+    not_to_be_taken_with_courses = models.ManyToManyField('HistoricalCourse', related_name='not_to_be_taken_with')
     learning_objectives = models.ManyToManyField('HistoricalLearningObjective', related_name='releases')
     learning_outcomes = models.ManyToManyField('HistoricalCourseLearningOutcome', related_name='releases')
     topics = models.ManyToManyField('HistoricalTopic', related_name='releases')
@@ -596,15 +626,6 @@ class CourseRelease(models.Model):
     approved_by = models.ForeignKey(User, on_delete=models.PROTECT,
                                     null=True, blank=True, verbose_name=_('Approved By'),
                                     related_name='approved_courses', )
-
-    # TODO: meaningful names plz
-    # flag_1 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_2 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_3 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_4 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_5 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_6 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
-    # flag_7 = models.NullBooleanField(_('Course Identification Flag'), null=True, blank=True)
 
     class Meta:
         ordering = ['-course__history_date', 'version']
@@ -690,12 +711,18 @@ class CourseRelease(models.Model):
 
     def update_related_objects(self, related_accessor):
         related_objs = getattr(self.course.history_object, related_accessor).all()
+
+        current_related_objects = getattr(self, related_accessor).all()
+        if current_related_objects.count():
+            getattr(self, related_accessor).clear()
+
         for related_obj in related_objs:
             getattr(self, related_accessor).add(related_obj.history.latest())
 
     def update_all_related_objects(self):
         with transaction.atomic():
             all_related_accessors = ['learning_objectives', 'prerequisite_courses', 'corequisite_courses',
+                                     'not_to_be_taken_with_courses',
                                      'learning_outcomes', 'topics', 'assessment_tasks', 'facilities_required', ]
             for related_accessor in all_related_accessors:
                 self.update_related_objects(related_accessor)

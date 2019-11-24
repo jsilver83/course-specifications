@@ -29,6 +29,7 @@ class CoursesListView(AllowedUserTypesMixin, ListView):
     template_name = 'main_app/courses_list.html'
     context_object_name = 'courses'
     allowed_user_types = '__all__'
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -302,6 +303,15 @@ def accreditation_requirements(request, pk):
 
     formset = FacilitiesRequiredFormSet(request.POST or None, queryset=course.facilities_required.all())
 
+    latest_release = course.latest_release()
+    if not latest_release or latest_release.approved is False or latest_release.approved is None:
+        new_release = True
+        confirm_message = _('Are you sure you want to submit this release for approval? You may NOT be able to modify '
+                            'this release afterwards')
+    else:
+        new_release = False
+        confirm_message = _('Are you sure you want to submit?')
+
     if request.method == 'POST':
         if form.is_valid() and formset.is_valid():
             saved_course = form.save()
@@ -320,15 +330,19 @@ def accreditation_requirements(request, pk):
                 process_started = latest_release.start_camunda_process()
 
                 if process_started:
-                    messages.success(request, _('Course updated successfully'))
+                    messages.success(request, _('Course updated successfully and a new version has been added and it '
+                                                'is pending approval'))
                     return redirect(reverse_lazy('main_app:course_list'))
                 else:
                     messages.error(request, _('There was an issue starting the approval process. Kindly retry later or '
                                               'contact system admins to resolve this issue'))
+            else:
+                messages.success(request, _('Course updated successfully'))
+                return redirect(reverse_lazy('main_app:course_list'))
 
     return render(request, 'main_app/accreditation_requirements.html', {
         'course': course, 'form': form, 'formset': formset,
-        'active_step': '7',
+        'active_step': '7', 'confirm_message': confirm_message,
     })
 
 

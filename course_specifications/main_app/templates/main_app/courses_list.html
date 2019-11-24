@@ -30,7 +30,7 @@
 				<div class="card-body p-0">
 					<table class="table clickable">
 						<thead class="thead-light">
-						<tr>
+						<tr class="sticky-top">
 							<th class="p-0"></th>
 							<th scope="col" class="align-middle border-top-0 text-muted">
 								<small>{% trans 'Course Code' %}</small>
@@ -60,6 +60,7 @@
 									<small class="text-muted">{% if course.recent_releases %}
 										<i class="fas fa-caret-right mr-2"></i>{% endif %}
 										<b>{{ course.current_version }}</b></small>
+									<br><small class="badge badge-{% if course.completed_percentage == 100 %}success{% elif course.completed_percentage == 0 %}danger{% else %}warning{% endif %} text-badge mr-auto">{{ course.completed_percentage }}%</small>
 								</td>
 								<td scope="row" class="align-middle">
 									<p class="mb-0">
@@ -88,8 +89,8 @@
 								<td class="status align-middle text-center">
 									<span class="badge badge-primary text-badge mr-auto">
 										{% if course.can_be_reviewed and course.latest_release.camunda_task.name %}
-											{{ course.latest_release.camunda_task.name }}<br>
-											<small>{% trans "WITH" %} {% short_full_name course.latest_release.camunda_task.assignee %}</small>
+											{{ course.latest_release.camunda_task.name }}
+{#											<br><small>{% trans "WITH" %} {% short_full_name course.latest_release.camunda_task.assignee %}</small>#}
 										{% endif %}
 									</span>
 								</td>
@@ -166,8 +167,10 @@
 							{% endfor %}
 						{% endfor %}
 					</table>
+
 				</div>
 			</div>
+			{% include 'snippets/pagination.html' %}
 		</div>
 	</div>
 {% endblock main_content %}

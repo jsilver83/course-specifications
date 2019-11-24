@@ -19,7 +19,7 @@
 										<!-- Total contact hrs -->
 										<div class="align-self-center mb-3">
 											<p class="small mb-0 text-muted">Total contact hrs: <small
-													class="text-dark h6 font-weight-bold">12 hrs</small></p>
+													class="text-dark h6 font-weight-bold">{{ course.history_object.total_contact_hours }} hrs</small></p>
 										</div>
 										<!-- /Total contact hrs -->
 									</div>
@@ -45,19 +45,19 @@
 												   href="#nav-tutorial" role="tab" aria-controls="nav-tutorial"
 												   aria-selected="true"><small>Tutorial</small>
 													<p class="mb-0 text-muted"><small
-															class="text-dark h6 font-weight-bold">2 hrs</small></p></a>
+															class="text-dark h6 font-weight-bold">{{ course.tutorial_contact_hours|default_if_none:"0" }} hrs</small></p></a>
 
 												<a class="nav-item nav-link" id="nav-practical-tab" data-toggle="tab"
 												   href="#nav-practical" role="tab" aria-controls="nav-practical"
 												   aria-selected="true"><small>Practical</small>
 													<p class="mb-0 text-muted"><small
-															class="text-dark h6 font-weight-bold">3 hrs</small></p></a>
+															class="text-dark h6 font-weight-bold">{{ course.practical_contact_hours|default_if_none:"0" }} hrs</small></p></a>
 
 												<a class="nav-item nav-link mr-auto" id="nav-other-tab"
 												   data-toggle="tab" href="#nav-other" role="tab"
 												   aria-controls="nav-other" aria-selected="true"><small>Other</small>
 													<p class="mb-0 text-muted"><small
-															class="text-dark h6 font-weight-bold">2 hrs</small></p></a>
+															class="text-dark h6 font-weight-bold">{{ course.other_contact_hours|default_if_none:"0" }} hrs</small></p></a>
 
 
 											</div>
@@ -97,10 +97,10 @@
 															<p>{{ topic.contact_hours|default:"0" }} hrs</p>
 														</td>
 														<td class="align-middle border-bottom">
-															{% if topic.related_course_learning_outcomes.all %}
+															{% if topic.history_object.related_course_learning_outcomes.all %}
 															<button class="small btn btn-sm btn-light has-increment-val"
 															        type="button" data-toggle="modal"
-															        data-target="#lec-clo-{{ topic.pk }}"><b>{{ topic.related_course_learning_outcomes.all|length }}</b> CLOs
+															        data-target="#lec-clo-{{ topic.pk }}"><b>{{ topic.history_object.related_course_learning_outcomes.all|length }}</b> CLOs
 															</button>
 															<!-- CLO Modal -->
 															<div class="modal fade has-increment-val" id="lec-clo-{{ topic.pk }}"
@@ -119,8 +119,8 @@
 																		<div class="modal-body">
 																			<div class="row">
 																				<div class="col-md-12">
-																					{% for clo in topic.related_course_learning_outcomes.all %}
-																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span>
+																					{% for clo in topic.history_object.related_course_learning_outcomes.all %}
+																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span><br>
 																					{% endfor %}
 																				</div>
 																			</div>
@@ -181,10 +181,10 @@
 															<p>{{ topic.contact_hours }} hrs</p>
 														</td>
 														<td class="align-middle border-bottom">
-															{% if topic.related_course_learning_outcomes.all %}
+															{% if topic.history_object.related_course_learning_outcomes.all %}
 															<button class="small btn btn-sm btn-light" type="button"
 															        data-toggle="modal" data-target="#lab-clo-{{ topic.pk }}">
-																<b>{{ topic.related_course_learning_outcomes.all|length }}</b> CLOs
+																<b>{{ topic.history_object.related_course_learning_outcomes.all|length }}</b> CLOs
 															</button>
 															{% endif %}
 															<div class="modal fade" id="lab-clo-{{ topic.pk }}" tabindex="-1"
@@ -203,7 +203,7 @@
 																		<div class="modal-body">
 																			<div class="row">
 																				<div class="col-md-12">
-																					{% for clo in topic.related_course_learning_outcomes.all %}
+																					{% for clo in topic.history_object.related_course_learning_outcomes.all %}
 																					<span class="badge badge-secondary mr-2 mb-2">{{ clo }}</span>
 																					{% endfor %}
 																				</div>
@@ -379,7 +379,7 @@
 									<td>{{ course.humanities_credit_hours }} hrs</td>
 								</tr>{% endif %}
 								{% if course.social_sciences_credit_hours %}<tr>
-									<td><small class="text-muted">Social sciences</small></td>
+									<td><small class="text-muted">Social Sciences and Business</small></td>
 									<td>{{ course.social_sciences_credit_hours }} hrs</td>
 								</tr>{% endif %}
 								{% if course.general_education_credit_hours %}<tr>

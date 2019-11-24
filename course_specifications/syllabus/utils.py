@@ -1,13 +1,18 @@
 import copy
 
-def get_topics_list(w_hours,w_num,topics):
+def get_weekly_topics_list(w_hours, w_num, topics):
+    """"
+    :param w_hours: the number of hours per week
+    :param w_num: the number of weeks
+    :param topics:the list of topics
+    :return: A list that contains lists. Each list contains topics for a week
+    """
     topics_list = []
     if(topics):
         for i in range(0,w_num):
             week_list= []
             temp = w_hours
             temp_list = []
-            # print(topics)
             for topic in topics:
                 if temp >= topic.contact_hours:
                     temp_list.append(topic)
