@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
-from course_specifications.utils import get_department_name, get_full_name, CamundaAPI
+from course_specifications.utils import get_department_name, get_full_name, CamundaAPI, get_aac_head_username
 
 User = settings.AUTH_USER_MODEL
 
@@ -32,7 +32,7 @@ class Course(models.Model):
     # region desc
     mother_department = models.CharField(_('Mother Department'), max_length=500, null=True, blank=False)
     program_code = models.CharField(_('Program Code'), max_length=10, null=True, blank=False,
-                                    help_text=_('2 or 4 upper-case letters only'),
+                                    help_text=_('2 to 4 upper-case letters only'),
                                     validators=[
                                         RegexValidator(r'^[A-Z]{2,4}$'),
                                     ])
@@ -121,37 +121,37 @@ class Course(models.Model):
                                                        max_length=200)
     # endregion contact-hrs
 
-    # region self-study
-    self_study_lecture = models.DecimalField(
-        _('Self-Study Lecture Hours'),
+    # region self-learning
+    self_learning_study = models.DecimalField(
+        _('Self-Learning Study Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
-    self_study_lab = models.DecimalField(
-        _('Self-Study Laboratory Hours'),
+    self_learning_assignments = models.DecimalField(
+        _('Self-Learning Assignments Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
-    self_study_tutorial = models.DecimalField(
-        _('Self-Study Tutorial Hours'),
+    self_learning_library = models.DecimalField(
+        _('Self-Learning Library Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
-    self_study_practical = models.DecimalField(
-        _('Self-Study Practical Hours'),
+    self_learning_practical = models.DecimalField(
+        _('Self-Learning Project/Research/Essay/Thesis Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.MAX_DECIMAL_POINT
     )
-    self_study_other = models.DecimalField(
-        _('Self-Study Other Hours'),
+    self_learning_other = models.DecimalField(
+        _('Self-Learning Other Hours'),
         null=True,
         blank=True,
         max_digits=settings.MAX_DIGITS,
@@ -404,9 +404,9 @@ class Course(models.Model):
             type=AssessmentTask.Types.LAB
         ).aggregate(Sum('weight_percentage')).get('weight_percentage__sum')
 
-    def get_total_self_study_hours(self):
-        self_studies = [self.self_study_lecture, self.self_study_lab, self.self_study_other,
-                        self.self_study_practical, self.self_study_tutorial]
+    def get_total_self_learning_hours(self):
+        self_studies = [self.self_learning_study, self.self_learning_assignments, self.self_learning_other,
+                        self.self_learning_practical, self.self_learning_library]
 
         return sum(filter(None, self_studies))
 
@@ -697,7 +697,7 @@ class CourseRelease(models.Model):
         process_instance = CamundaAPI.start_process(
             self.course.history_object.code,
             self.id,
-            'shaheed.alhelal',  # FIXME: add the real 'AAC_task_assignee' from adwar
+            get_aac_head_username(),
             self.course.graduate_course_flag,
             self.course.mother_department,
             '271',  # FIXME: hardcoded, implement a func to get college id for a release

@@ -81,43 +81,43 @@
 											{{ formset.empty_form.contact_hours }}{{ formset.empty_form.contact_hours.errors }}
 										</td>
 
-										<td class="align-middle border-bottom clo-sec">
-											<button class="small btn btn-sm btn-light has-increment-val" type="button"
-											        data-toggle="modal" data-target="#lec-clo-__placeholder__">
-												<span class="add_clo add"><b
-														class="clo-count">{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}</span>
-											</button>
-
-											<!-- Add CLO Modal -->
-											<div class="modal fade has-increment-val" id="lec-clo-__placeholder__"
-											     tabindex="-1" role="dialog" aria-labelledby="lec-clo-__placeholder__"
-											     aria-hidden="true">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title">{% trans 'Related CLOs' %}</h5>
-															<button type="button" class="close" data-dismiss="modal"
-															        aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<div class="row">
-																<div class="col-md-12">
-																	{{ formset.empty_form.related_course_learning_outcomes }}
-																	{{ formset.empty_form.related_course_learning_outcomes.errors }}
-																</div>
-															</div>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-primary update-clo"
-															        data-dismiss="modal">{% trans "Update" %}</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!-- /Add CLO Modal -->
-										</td>
+{#										<td class="align-middle border-bottom clo-sec">#}
+{#											<button class="small btn btn-sm btn-light has-increment-val" type="button"#}
+{#											        data-toggle="modal" data-target="#lec-clo-__placeholder__">#}
+{#												<span class="add_clo add"><b#}
+{#														class="clo-count">{{ form.instance.related_course_learning_outcomes.all|length }}</b> {% trans "Added" %}</span>#}
+{#											</button>#}
+{##}
+{#											<!-- Add CLO Modal -->#}
+{#											<div class="modal fade has-increment-val" id="lec-clo-__placeholder__"#}
+{#											     tabindex="-1" role="dialog" aria-labelledby="lec-clo-__placeholder__"#}
+{#											     aria-hidden="true">#}
+{#												<div class="modal-dialog" role="document">#}
+{#													<div class="modal-content">#}
+{#														<div class="modal-header">#}
+{#															<h5 class="modal-title">{% trans 'Related CLOs' %}</h5>#}
+{#															<button type="button" class="close" data-dismiss="modal"#}
+{#															        aria-label="Close">#}
+{#																<span aria-hidden="true">&times;</span>#}
+{#															</button>#}
+{#														</div>#}
+{#														<div class="modal-body">#}
+{#															<div class="row">#}
+{#																<div class="col-md-12">#}
+{#																	{{ formset.empty_form.related_course_learning_outcomes }}#}
+{#																	{{ formset.empty_form.related_course_learning_outcomes.errors }}#}
+{#																</div>#}
+{#															</div>#}
+{#														</div>#}
+{#														<div class="modal-footer">#}
+{#															<button type="button" class="btn btn-primary update-clo"#}
+{#															        data-dismiss="modal">{% trans "Update" %}</button>#}
+{#														</div>#}
+{#													</div>#}
+{#												</div>#}
+{#											</div>#}
+{#											<!-- /Add CLO Modal -->#}
+{#										</td>#}
 										<td>
 											<button class="btn btn-sm delete-btn" type="button">
 												{{ formset.empty_form.DELETE }}
@@ -139,9 +139,9 @@
 											<small>{% trans "Contact hours" %}
 												<b>({% trans "Max" %} {{ max_lec_hrs }})</b></small>
 										</th>
-										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
-											<small>{% trans "Related CLOs" %}</small>
-										</th>
+{#										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">#}
+{#											<small>{% trans "Related CLOs" %}</small>#}
+{#										</th>#}
 										<th scope="col"></th>
 									</tr>
 									</thead>
@@ -156,52 +156,52 @@
 												{{ form.contact_hours }}{{ form.contact_hours.errors }}
 											</td>
 
-											<td class="align-middle border-bottom clo-sec">
-												<button class="small btn btn-sm btn-light has-increment-val"
-												        type="button" data-toggle="modal"
-												        data-target="#lec-clo-{{ forloop.counter0 }}">
-
-		                                            <span class="add_clo added">
-		                                                <b class="clo-count">
-			                                             {% if form.instance.pk and form.instance.related_course_learning_outcomes %}
-				                                             {{ form.instance.related_course_learning_outcomes.all|length }}
-			                                             {% else %}
-				                                             0
-			                                             {% endif %}
-		                                                </b> {% trans "Added" %}</span>
-												</button>
-
-												<!-- Add CLO Modal -->
-												<div class="modal fade has-increment-val"
-												     id="lec-clo-{{ forloop.counter0 }}" tabindex="-1" role="dialog"
-												     aria-labelledby="lec-clo-{{ forloop.counter0 }}"
-												     aria-hidden="true">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title">{% trans 'Related CLOs' %}</h5>
-																<button type="button" class="close" data-dismiss="modal"
-																        aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<div class="row">
-																	<div class="col-md-12">
-																		{{ form.related_course_learning_outcomes }}
-																		{{ form.related_course_learning_outcomes.errors }}
-																	</div>
-																</div>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-primary update-clo"
-																        data-dismiss="modal">{% trans "Update" %}</button>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- /Add CLO Modal -->
-											</td>
+{#											<td class="align-middle border-bottom clo-sec">#}
+{#												<button class="small btn btn-sm btn-light has-increment-val"#}
+{#												        type="button" data-toggle="modal"#}
+{#												        data-target="#lec-clo-{{ forloop.counter0 }}">#}
+{##}
+{#		                                            <span class="add_clo added">#}
+{#		                                                <b class="clo-count">#}
+{#			                                             {% if form.instance.pk and form.instance.related_course_learning_outcomes %}#}
+{#				                                             {{ form.instance.related_course_learning_outcomes.all|length }}#}
+{#			                                             {% else %}#}
+{#				                                             0#}
+{#			                                             {% endif %}#}
+{#		                                                </b> {% trans "Added" %}</span>#}
+{#												</button>#}
+{##}
+{#												<!-- Add CLO Modal -->#}
+{#												<div class="modal fade has-increment-val"#}
+{#												     id="lec-clo-{{ forloop.counter0 }}" tabindex="-1" role="dialog"#}
+{#												     aria-labelledby="lec-clo-{{ forloop.counter0 }}"#}
+{#												     aria-hidden="true">#}
+{#													<div class="modal-dialog" role="document">#}
+{#														<div class="modal-content">#}
+{#															<div class="modal-header">#}
+{#																<h5 class="modal-title">{% trans 'Related CLOs' %}</h5>#}
+{#																<button type="button" class="close" data-dismiss="modal"#}
+{#																        aria-label="Close">#}
+{#																	<span aria-hidden="true">&times;</span>#}
+{#																</button>#}
+{#															</div>#}
+{#															<div class="modal-body">#}
+{#																<div class="row">#}
+{#																	<div class="col-md-12">#}
+{#																		{{ form.related_course_learning_outcomes }}#}
+{#																		{{ form.related_course_learning_outcomes.errors }}#}
+{#																	</div>#}
+{#																</div>#}
+{#															</div>#}
+{#															<div class="modal-footer">#}
+{#																<button type="button" class="btn btn-primary update-clo"#}
+{#																        data-dismiss="modal">{% trans "Update" %}</button>#}
+{#															</div>#}
+{#														</div>#}
+{#													</div>#}
+{#												</div>#}
+{#												<!-- /Add CLO Modal -->#}
+{#											</td>#}
 											<td>
 												<button class="btn btn-sm delete-btn" type="button">
 													{{ form.DELETE }}
@@ -235,42 +235,42 @@
 												{{ formset2.empty_form.contact_hours }}{{ formset2.empty_form.contact_hours.errors }}
 											</td>
 
-											<td class="align-middle border-bottom clo-sec">
-												<button class="small btn btn-sm btn-light" type="button" data-toggle="modal"
-												        data-target="#lab-clo-__placeholder__">
-													<span class="add_clo added"><b class="clo-count">0</b> {% trans "Added" %}</span>
-												</button>
-
-												<!-- Add CLO Modal -->
-												<div class="modal fade" id="lab-clo-__placeholder__" tabindex="-1"
-												     role="dialog" aria-labelledby="lab-clo-__placeholder__"
-												     aria-hidden="true">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title">{% trans 'Related CLOs' %}</h5>
-																<button type="button" class="close" data-dismiss="modal"
-																        aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<div class="row">
-																	<div class="col-md-12">
-																		{{ formset2.empty_form.related_course_learning_outcomes }}
-																		{{ formset2.empty_form.related_course_learning_outcomes.errors }}
-																	</div>
-																</div>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-primary update-clo"
-																        data-dismiss="modal">{% trans "Update" %}</button>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- /Add CLO Modal -->
-											</td>
+{#											<td class="align-middle border-bottom clo-sec">#}
+{#												<button class="small btn btn-sm btn-light" type="button" data-toggle="modal"#}
+{#												        data-target="#lab-clo-__placeholder__">#}
+{#													<span class="add_clo added"><b class="clo-count">0</b> {% trans "Added" %}</span>#}
+{#												</button>#}
+{##}
+{#												<!-- Add CLO Modal -->#}
+{#												<div class="modal fade" id="lab-clo-__placeholder__" tabindex="-1"#}
+{#												     role="dialog" aria-labelledby="lab-clo-__placeholder__"#}
+{#												     aria-hidden="true">#}
+{#													<div class="modal-dialog" role="document">#}
+{#														<div class="modal-content">#}
+{#															<div class="modal-header">#}
+{#																<h5 class="modal-title">{% trans 'Related CLOs' %}</h5>#}
+{#																<button type="button" class="close" data-dismiss="modal"#}
+{#																        aria-label="Close">#}
+{#																	<span aria-hidden="true">&times;</span>#}
+{#																</button>#}
+{#															</div>#}
+{#															<div class="modal-body">#}
+{#																<div class="row">#}
+{#																	<div class="col-md-12">#}
+{#																		{{ formset2.empty_form.related_course_learning_outcomes }}#}
+{#																		{{ formset2.empty_form.related_course_learning_outcomes.errors }}#}
+{#																	</div>#}
+{#																</div>#}
+{#															</div>#}
+{#															<div class="modal-footer">#}
+{#																<button type="button" class="btn btn-primary update-clo"#}
+{#																        data-dismiss="modal">{% trans "Update" %}</button>#}
+{#															</div>#}
+{#														</div>#}
+{#													</div>#}
+{#												</div>#}
+{#												<!-- /Add CLO Modal -->#}
+{#											</td>#}
 											<td>
 												<button class="btn btn-sm delete-btn" type="button">
 													{{ formset2.empty_form.DELETE }}
@@ -292,9 +292,9 @@
 											<small>{% trans "Contact hours" %}
 												<b>({% trans "Max" %} {{ max_lab_hrs }})</b></small>
 										</th>
-										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
-											<small>{% trans "Related CLOs" %}</small>
-										</th>
+{#										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">#}
+{#											<small>{% trans "Related CLOs" %}</small>#}
+{#										</th>#}
 										<th scope="col"></th>
 									</tr>
 									</thead>
@@ -313,52 +313,52 @@
 												{{ form.contact_hours }}{{ form.contact_hours.errors }}
 											</td>
 
-											<td class="align-middle border-bottom clo-sec">
-												<button class="small btn btn-sm btn-light" type="button"
-												        data-toggle="modal"
-												        data-target="#lab-clo-{{ forloop.counter0 }}">
-
-														<b class="clo-count">
-															{% if form.instance.pk and form.instance.related_course_learning_outcomes %}
-																{{ form.instance.related_course_learning_outcomes.all|length }}
-															{% else %}
-																0
-															{% endif %}
-														</b>
-														{% trans "Added" %}
-												</button>
-
-												<!-- Add CLO Modal -->
-												<div class="modal fade" id="lab-clo-{{ forloop.counter0 }}"
-												     tabindex="-1" role="dialog"
-												     aria-labelledby="lab-clo-{{ forloop.counter0 }}"
-												     aria-hidden="true">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title">{% trans 'Related CLOs' %}</h5>
-																<button type="button" class="close" data-dismiss="modal"
-																        aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<div class="row">
-																	<div class="col-md-12">
-																		{{ form.related_course_learning_outcomes }}
-																		{{ form.related_course_learning_outcomes.errors }}
-																	</div>
-																</div>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-primary update-clo"
-																        data-dismiss="modal">{% trans "Update" %}</button>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- /Add CLO Modal -->
-											</td>
+{#											<td class="align-middle border-bottom clo-sec">#}
+{#												<button class="small btn btn-sm btn-light" type="button"#}
+{#												        data-toggle="modal"#}
+{#												        data-target="#lab-clo-{{ forloop.counter0 }}">#}
+{##}
+{#														<b class="clo-count">#}
+{#															{% if form.instance.pk and form.instance.related_course_learning_outcomes %}#}
+{#																{{ form.instance.related_course_learning_outcomes.all|length }}#}
+{#															{% else %}#}
+{#																0#}
+{#															{% endif %}#}
+{#														</b>#}
+{#														{% trans "Added" %}#}
+{#												</button>#}
+{##}
+{#												<!-- Add CLO Modal -->#}
+{#												<div class="modal fade" id="lab-clo-{{ forloop.counter0 }}"#}
+{#												     tabindex="-1" role="dialog"#}
+{#												     aria-labelledby="lab-clo-{{ forloop.counter0 }}"#}
+{#												     aria-hidden="true">#}
+{#													<div class="modal-dialog" role="document">#}
+{#														<div class="modal-content">#}
+{#															<div class="modal-header">#}
+{#																<h5 class="modal-title">{% trans 'Related CLOs' %}</h5>#}
+{#																<button type="button" class="close" data-dismiss="modal"#}
+{#																        aria-label="Close">#}
+{#																	<span aria-hidden="true">&times;</span>#}
+{#																</button>#}
+{#															</div>#}
+{#															<div class="modal-body">#}
+{#																<div class="row">#}
+{#																	<div class="col-md-12">#}
+{#																		{{ form.related_course_learning_outcomes }}#}
+{#																		{{ form.related_course_learning_outcomes.errors }}#}
+{#																	</div>#}
+{#																</div>#}
+{#															</div>#}
+{#															<div class="modal-footer">#}
+{#																<button type="button" class="btn btn-primary update-clo"#}
+{#																        data-dismiss="modal">{% trans "Update" %}</button>#}
+{#															</div>#}
+{#														</div>#}
+{#													</div>#}
+{#												</div>#}
+{#												<!-- /Add CLO Modal -->#}
+{#											</td>#}
 											<td>
 												<button class="btn btn-sm delete-btn" type="button">
 													{{ form.DELETE }}
@@ -441,34 +441,34 @@
 		<div class="card-body p-0">
 			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse"
 			     data-target="#self-study" aria-expanded="false" aria-controls="course-level-outcomes">
-				<i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'Self-Study Hours' %}</span>
+				<i class="fas fa-check check-icon"></i> <span class="mr-auto">{% trans 'Self-Learning Hours' %}</span>
 				<i class="fas fa-caret-down"></i>
 			</div>
 			<div class="collapse show p-3 pt-4 pb-4" id="self-study">
 				<div class="row self-study-hours-val">
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_lecture|as_crispy_field }}
+							{{ form.self_learning_study|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_lab|as_crispy_field }}
+							{{ form.self_learning_assignments|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_tutorial|as_crispy_field }}
+							{{ form.self_learning_library|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_practical|as_crispy_field }}
+							{{ form.self_learning_practical|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
 						<div class="form-group contact_hrs">
-							{{ form.self_study_other|as_crispy_field }}
+							{{ form.self_learning_other|as_crispy_field }}
 						</div>
 					</div>
 					<div class="col-sm-2 col-12">
