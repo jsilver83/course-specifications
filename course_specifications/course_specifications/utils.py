@@ -87,7 +87,7 @@ class UserType:
                     return
 
                 if employee_details.get('type', 0) == 'Faculty':
-                    request.session['department_id'] = employee_details.get('department_id', 0)
+                    request.session['department_id'] = employee_details.get('secondary_department_id', 0)
                     request.session['type'] = UserType.FACULTY
                     return
                 else:
