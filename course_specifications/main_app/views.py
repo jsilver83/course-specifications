@@ -471,13 +471,14 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
             messages.warning(self.request, _('Thi Approval request was completed'))
             return context
 
-        task_summery = course_release.camunda_task
         options = []
-        for key in task_summery['options']:
+
+        task_options = course_release.camunda_task_options
+        for key in task_options:
             color, margin, order = self.get_css_values(key)
             options.append({
                 'key': key,
-                'value': task_summery['options'][key],
+                'value': task_options[key],
                 'color': color,
                 'margin': margin,
                 'order': order

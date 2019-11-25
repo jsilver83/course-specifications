@@ -88,8 +88,8 @@
 								</td>
 								<td class="status align-middle text-center">
 									<span class="badge badge-primary text-badge mr-auto">
-										{% if course.can_be_reviewed and course.latest_release.camunda_task.name %}
-											{{ course.latest_release.camunda_task.name }}
+										{% if course.latest_release.approved is None and course.latest_release.workflow_instance_id %}
+											{{ course.latest_release.camunda_task.name|default_if_none:'' }}
 {#											<br><small>{% trans "WITH" %} {% short_full_name course.latest_release.camunda_task.assignee %}</small>#}
 										{% endif %}
 									</span>
@@ -162,7 +162,6 @@
 										</td>
 									{% endif %}
 									<td></td>
-
 								</tr>
 							{% endfor %}
 						{% endfor %}

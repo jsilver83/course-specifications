@@ -644,8 +644,6 @@ class CourseRelease(models.Model):
     def camunda_task(self):
         # fetch active task info from camunda api
         # and save them into _workflow_status and _workflow_assignee
-        task_options = None
-
         try:
             camunda_api = CamundaAPI(self.workflow_instance_id)
             active_task = camunda_api.get_active_task()
@@ -653,18 +651,22 @@ class CourseRelease(models.Model):
                 self._workflow_status = active_task['name']
                 self._workflow_assignee = active_task['assignee']
                 self.save()
-
-                task_options = camunda_api.get_task_options(active_task)
         except:
             pass
 
         task_summery = {
             'name': self._workflow_status,
             'assignee': self._workflow_assignee,
-            'options': task_options or {}
         }
 
         return task_summery
+
+    @property
+    def camunda_task_options(self):
+        try:
+            return CamundaAPI(self.workflow_instance_id).get_task_options()
+        except:
+            return {}
 
     @property
     def is_completed(self):

@@ -306,22 +306,25 @@ class CamundaAPI:
         self.process_instance_id = process_instance_id
 
     def get_active_task(self):
-        parameters = {
-            'processInstanceId': self.process_instance_id
-        }
         current_tasks = CamundaAPI.call_camunda_api('task?processInstanceId={}'.format(self.process_instance_id))
         if current_tasks != 'ERROR':
             if current_tasks and len(current_tasks) != 1:
-                raise Exception("Must be one active task in process id: {}, but {} found".format(self.process_instance_id, len(current_tasks or [])))
+                raise Exception("Must be one active task in process id: {}, but {} found".format(
+                    self.process_instance_id,
+                    len(current_tasks or [])
+                ))
             return current_tasks[0]
 
-    def get_task_options(self, task=None):
-        if not task:
+    def get_task_options(self):
+        try:
             task = self.get_active_task()
-
-        response = CamundaAPI.call_camunda_api('task/{task_id}/localVariables/options'.format(task_id=task['id']))
-        if response != 'ERROR':
-            return json.loads(response['value'])
+            response = CamundaAPI.call_camunda_api(
+                'task/{task_id}/localVariables/options'.format(task_id=task['id'])
+            )
+            if response and response != 'ERROR':
+                return json.loads(response['value'])
+        except:
+            return {}
 
     def complete_current_task(self, decision=None, task=None):
         if not task:
@@ -341,7 +344,7 @@ class CamundaAPI:
                     }
             }
         else:
-            body=None
+            body = None
 
         response = CamundaAPI.post_to_web_service('task/{task_id}/complete'.format(task_id=task['id']), json=body, headers=headers)
         return response
@@ -453,6 +456,7 @@ class CamundaAPI:
             return response
 
         except Exception as err:
+            print('Error in calling camunda API:::: ', err)
             return 'ERROR'
 
     @staticmethod
@@ -516,6 +520,7 @@ class CamundaAsyncAPICall:
                 return {task['processInstanceId']: task for task in data}
             except:
                 pass
+
 
 def list_to_comma_separated_values(my_list):
     return ','.join(map(str, my_list))
