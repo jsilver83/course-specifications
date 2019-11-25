@@ -8,7 +8,8 @@
 			<div class="card mb-4">
 				<div class="card-body">
 					<div class="card-title mb-0 d-flex align-items-center">
-						<h5 class="mb-0 mr-auto">{% trans 'Courses List' %}</h5>
+						<h5 class="mb-0 mr-auto">{% trans 'Courses List' %}{% if department_name %}<br><b>{{ department_name }}</b>
+							{% if college_name %}<br><em>{{ college_name }}</em>{% endif %}{% endif %}</h5>
 						{% if can_create_course %}
 							<a href="{% url 'main_app:new_course' %}" class="btn btn-sm btn-primary"><i
 									class="fas fa-plus mr-1"></i>

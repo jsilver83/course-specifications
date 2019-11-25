@@ -220,6 +220,21 @@ def get_department_name(department_id):
         return get_department_details(department_id).get('name')
 
 
+def get_college_id(department_id):
+    department_details = get_department_details(department_id)
+    if department_details:
+        return department_details.get('college', {}).get('id')
+
+
+def get_college_details(college_id):
+    return call_web_service(url='college/{}'.format(college_id), api=APIType.STAFF)
+
+
+def get_college_name(college_id):
+    if get_college_details(college_id):
+        return get_college_details(college_id).get('name')
+
+
 def get_first_and_last_name(full_name):
     try:
         first, *middle, last = full_name.split()
