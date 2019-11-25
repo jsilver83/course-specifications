@@ -184,7 +184,7 @@ def course_description(request, pk):
 def course_contents(request, pk):
     course = get_object_or_404(Course, pk=pk)
 
-    total_self_study_hours = course.get_total_self_study_hours()
+    total_self_study_hours = course.get_total_self_learning_hours()
 
     form = CourseContentForm(request.POST or None, instance=course)
 
