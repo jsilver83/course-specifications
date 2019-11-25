@@ -34,17 +34,25 @@ class CoursesListView(AllowedUserTypesMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['can_create_course'] = bool(UserType.get_user_type(self.request) == UserType.CHAIRMAN)
-        context['caretakers'] = get_courses_caretakers(self.get_queryset())
+
+        queryset = self.get_queryset()
+        context['caretakers'] = get_courses_caretakers(queryset)
+
+        if UserType.get_user_type(self.request) in (UserType.CHAIRMAN, UserType.FACULTY):
+            context['department_name'] = get_department_name(UserType.get_department_id(self.request))
+            college_id = get_college_id(UserType.get_department_id(self.request))
+            context['college_name'] = get_college_name(college_id)
+
         context['can_assign_caretakers'] = context['can_create_course']
         return context
 
     def get_queryset(self):
         if UserType.get_user_type(self.request) in (UserType.CHAIRMAN, UserType.FACULTY):
             return self.model.objects.filter(mother_department=UserType.get_department_id(self.request))
-        elif UserType.get_user_type(self.request) == UserType.ADMIN:
-            return self.model.objects.all()
-        else:
+        elif UserType.get_user_type(self.request) == UserType.NONE:
             return self.model.objects.none()
+        else:
+            return self.model.objects.all()
 
 
 class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):

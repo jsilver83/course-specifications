@@ -31,12 +31,13 @@ def assign_new_reviewer(course, assigner, assignee, department):
 
 
 def get_courses_caretakers(courses_list):
-    return call_web_service(
-        'v2/academic-roles/course/roles',
-        method='get',
-        parameters={
-            'course': list_to_comma_separated_values(courses_list),
-            'role_code': '{},{}'.format(CourseRoles.MAINTAINER, CourseRoles.REVIEWER)
-        },
-        api=APIType.ADWAR,
-    )
+    if courses_list:
+        return call_web_service(
+            'v2/academic-roles/course/roles',
+            method='get',
+            parameters={
+                'course': list_to_comma_separated_values(courses_list),
+                'role_code': '{},{}'.format(CourseRoles.MAINTAINER, CourseRoles.REVIEWER)
+            },
+            api=APIType.ADWAR,
+        )

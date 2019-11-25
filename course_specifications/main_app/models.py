@@ -8,7 +8,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
-from course_specifications.utils import get_department_name, get_full_name, CamundaAPI, get_aac_head_username
+from course_specifications.utils import get_department_name, get_full_name, CamundaAPI, get_aac_head_username, \
+    get_college_name, get_college_id
 
 User = settings.AUTH_USER_MODEL
 
@@ -444,6 +445,9 @@ class Course(models.Model):
 
     def get_department_name(self):
         return get_department_name(self.mother_department)
+
+    def get_college_name(self):
+        return get_college_name(get_college_id(self.mother_department))
 
     # TODO: use Hassan's API from Adwar
     def is_a_maintainer(self, user):
