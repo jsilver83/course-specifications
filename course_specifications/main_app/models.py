@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
-from course_specifications.utils import get_department_name, get_full_name, CamundaAPI
+from course_specifications.utils import get_department_name, get_full_name, CamundaAPI, get_aac_head_username
 
 User = settings.AUTH_USER_MODEL
 
@@ -697,7 +697,7 @@ class CourseRelease(models.Model):
         process_instance = CamundaAPI.start_process(
             self.course.history_object.code,
             self.id,
-            'shaheed.alhelal',  # FIXME: add the real 'AAC_task_assignee' from adwar
+            get_aac_head_username(),
             self.course.graduate_course_flag,
             self.course.mother_department,
             '271',  # FIXME: hardcoded, implement a func to get college id for a release
