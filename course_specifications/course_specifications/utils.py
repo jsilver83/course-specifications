@@ -43,56 +43,57 @@ class UserType:
             else:
                 user = request.user
 
-        chairman = get_chairman_details(user)
-        if chairman:
-            request.session['department_id'] = chairman.get('department_id', 0)
-            request.session['type'] = UserType.CHAIRMAN
-            return
-
-        dean = get_dean_details(user)
-        if dean:
-            request.session['type'] = UserType.DEAN
-            return
-
-        rector = get_rector_username()
-        if user.username == rector:
-            request.session['type'] = UserType.RECTOR
-            return
-
-        vice_rector_academics = get_vice_rector_academics_username()
-        if user.username == vice_rector_academics:
-            request.session['type'] = UserType.VICE_RECTOR_ACADEMICS
-            return
-
-        dgs_dean = get_dgs_dean_username()
-        if user.username == dgs_dean:
-            request.session['type'] = UserType.DGS_DEAN
-            return
-
-        aac_head = get_aac_head_username()
-        if user.username == aac_head:
-            request.session['type'] = UserType.AAC_HEAD
+        # TODO: handle cases of users who have multiple roles like ibudaiwi
+        if user.is_superuser:
+            request.session['type'] = UserType.ADMIN
             return
 
         employee_details = get_employee_details(user)
         if employee_details:
-            if employee_details.get('type', 0) == 'Faculty':
-                """if the faculty is_manager, then his real academic dept is the secondary_department_id"""
-                if employee_details.get('is_manager', 0):
-                    request.session['department_id'] = employee_details.get('department_id', 0)
-                else:
-                    request.session['department_id'] = employee_details.get('secondary_department_id', 0)
-                request.session['type'] = UserType.FACULTY
-            else:
-                request.session['type'] = UserType.EMPLOYEE
-            return
+            if employee_details.get('is_manager', 0):  # Could be chairman, dean, v-rector or rector
+                request.session['department_id'] = employee_details.get('secondary_department_id', 0)
 
-        if user.is_superuser:
-            request.session['type'] = UserType.ADMIN
-            return
-        else:
-            request.session['type'] = UserType.NONE
-            return
+                chairman = get_chairman_details(user)
+                if chairman:
+                    request.session['type'] = UserType.CHAIRMAN
+                    return
+
+                dean = get_dean_details(user)
+                if dean:
+                    request.session['type'] = UserType.DEAN
+                    return
+
+                rector = get_rector_username()
+                if user.username == rector:
+                    request.session['type'] = UserType.RECTOR
+                    return
+
+                vice_rector_academics = get_vice_rector_academics_username()
+                if user.username == vice_rector_academics:
+                    request.session['type'] = UserType.VICE_RECTOR_ACADEMICS
+                    return
+
+                dgs_dean = get_dgs_dean_username()
+                if user.username == dgs_dean:
+                    request.session['type'] = UserType.DGS_DEAN
+                    return
+
+            else:
+                aac_head = get_aac_head_username()
+                if user.username == aac_head:
+                    request.session['type'] = UserType.AAC_HEAD
+                    return
+
+                if employee_details.get('type', 0) == 'Faculty':
+                    request.session['department_id'] = employee_details.get('department_id', 0)
+                    request.session['type'] = UserType.FACULTY
+                    return
+                else:
+                    request.session['type'] = UserType.EMPLOYEE
+                    return
+
+        request.session['type'] = UserType.NONE
+        return
 
 
 class APIType:
@@ -433,7 +434,6 @@ class CamundaAPI:
         password = settings.CAMUNDA_PASSWORD
 
         full_url = '{}/{}'.format(base_url, end_point)
-        print(full_url)
         """ calling webservice """
 
         try:
