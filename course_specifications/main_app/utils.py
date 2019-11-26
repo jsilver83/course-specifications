@@ -40,4 +40,5 @@ def get_courses_caretakers(courses_list):
                 'role_code': '{},{}'.format(CourseRoles.MAINTAINER, CourseRoles.REVIEWER)
             },
             api=APIType.ADWAR,
+            cache_duration=10,  # we want a short cache duration because it is better than having no caching at all
         )
