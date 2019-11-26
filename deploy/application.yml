@@ -26,7 +26,7 @@
     admins:
       - name: Abdullah Joud
         email: joud@kfupm.edu.sa
-    uwsgi_processes: 2
+    uwsgi_processes: 64
 
   # tasks to be performed before role tasks, if any
   pre_tasks:
