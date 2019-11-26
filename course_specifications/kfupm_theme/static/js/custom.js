@@ -399,17 +399,17 @@ $(document).ready(function ($) {
           // console.log($(this));
         $(this).radialIndicator({
             barColor: {
-            0: '#7F1416',
-            33: '#DECD6A',
+            0: '#dc3545',
+            33: '#DFBE76',
             66: '#004A80',
             100: '#027E40'
              },
         initValue: precentValue,
         percentage: true,
-        radius:25,
+        radius:22,
         roundCorner : true,
         barWidth: 3,
-        fontSize:13,
+        fontSize:10,
         });
       });
 
