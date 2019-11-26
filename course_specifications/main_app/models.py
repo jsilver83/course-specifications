@@ -706,7 +706,7 @@ class CourseRelease(models.Model):
             get_aac_head_username(),
             self.course.graduate_course_flag,
             self.course.mother_department,
-            '271',  # FIXME: hardcoded, implement a func to get college id for a release
+            get_college_id(self.course.mother_department),
         )
 
         self.workflow_instance_id = process_instance.get('id', 0)
