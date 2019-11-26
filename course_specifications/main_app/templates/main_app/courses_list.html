@@ -28,6 +28,7 @@
 				{#					</form>#}
 				{#				</div>#}
 				<div class="card-body p-0">
+
 					<table class="table clickable">
 						<thead class="thead-light">
 						<tr class="sticky-top">
@@ -55,12 +56,18 @@
 						<tbody>
 						{% for course in courses %}
 							<tr class="">
-								<td class="align-middle text-right{% if course.recent_releases %} accordion-toggle{% endif %}"
+
+                                <td class="align-middle text-right{% if course.recent_releases %} accordion-toggle{% endif %}"
 								    data-toggle="collapse" data-target="#demo{{ course.pk }}">
 									<small class="text-muted">{% if course.recent_releases %}
-										<i class="fas fa-caret-right mr-2"></i>{% endif %}
-										<b>{{ course.current_version }}</b></small>
-									<br><small class="badge badge-{% if course.completed_percentage == 100 %}success{% elif course.completed_percentage == 0 %}danger{% else %}warning{% endif %} text-badge mr-auto">{{ course.completed_percentage }}%</small>
+                                       <i class="fas fa-caret-right mr-2"></i>{% endif %}
+                                 	<div class="float-left mr-3 indicatorContainer"  data-precent="{{ course.completed_percentage }}"> </div>
+
+                                        <b class="align-middle pt-4">{{ course.current_version }}</b></small>
+
+{#									<br><small class="badge badge-{% if course.completed_percentage == 100 %}success{% elif course.completed_percentage == 0 %}danger{% else %}warning{% endif %} text-badge mr-auto">{{ course.completed_percentage }}%</small>#}
+{#						            #}
+
 								</td>
 								<td scope="row" class="align-middle">
 									<p class="mb-0">
