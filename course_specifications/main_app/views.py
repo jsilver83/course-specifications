@@ -522,7 +522,7 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
 
         camunda_api = CamundaAPI(course_release.workflow_instance_id)
         active_task = camunda_api.get_active_task()
-        options = camunda_api.get_task_options(active_task)
+        options = camunda_api.get_task_options()
 
         if 'submit' in self.request.POST:
             response = camunda_api.complete_current_task()
