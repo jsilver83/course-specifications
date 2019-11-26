@@ -31,19 +31,19 @@ django_debug: no
 camunda_debug: no
 apache_debug: yes
 
-email_user: courses@test.kfupm.edu.sa
-email_host: mail.test.kfupm.edu.sa
+email_user: courses@kfupm.edu.sa
+email_host: mail.kfupm.edu.sa
 
 banner_webservice_base_url: https://banner-api.kfupm.edu.sa
 banner_webservice_username: curricula
 
-adwar_webservice_base_url: https://adwar.test.kfupm.edu.sa/api
+adwar_webservice_base_url: https://adwar.kfupm.edu.sa/api
 adwar_webservice_username: curricula
 
 staff_webservice_base_url: https://staff-web-service.kfupm.edu.sa
 staff_webservice_username: curricula
 
-workflow_url: https://workflow.test.kfupm.edu.sa
+workflow_url: https://tasks.kfupm.edu.sa
 
-camunda_webservice_base_url: https://workflow.test.kfupm.edu.sa/engine-rest
+camunda_webservice_base_url: https://tasks.kfupm.edu.sa/engine-rest
 camunda_webservice_username: curricula

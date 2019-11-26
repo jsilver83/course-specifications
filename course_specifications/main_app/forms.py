@@ -61,6 +61,8 @@ class CourseIdentificationForm(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+            if field in NewCourseForm.Meta.fields:  # make all fields coming from chairman as readonly
+                self.fields[field].widget.attrs.update({'readonly': 'readonly'})
 
         # self.fields['number'].widget.attrs.update({'placeholder': _('000')})
         self.fields['mode_of_instruction_in_class'].widget.attrs.update({'placeholder': _('Percentage (%)')})
@@ -256,8 +258,9 @@ LabTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LabT
 class CourseContentForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['self_study_lecture', 'self_study_lab', 'self_study_tutorial', 'self_study_practical',
-                  'self_study_other', 'engineering_credit_hours', 'math_science_credit_hours',
+        fields = ['self_learning_study', 'self_learning_assignments', 'self_learning_library',
+                  'self_learning_practical',
+                  'self_learning_other', 'engineering_credit_hours', 'math_science_credit_hours',
                   'humanities_credit_hours', 'social_sciences_credit_hours', 'general_education_credit_hours',
                   'other_subject_areas_credit_hours', 'tutorial_contact_hours', 'practical_contact_hours',
                   'other_contact_hours', 'other_contact_hours_description', ]
@@ -377,7 +380,7 @@ class LearningResourcesForm(forms.ModelForm):
     )
 
     required_textbooks_from_sierra = forms.MultipleChoiceField(widget=forms.SelectMultiple(attrs={'class': 'select2'}),
-                                                               choices=CHOICES)
+                                                               choices=CHOICES, required=False)
 
     class Meta:
         model = Course

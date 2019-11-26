@@ -34,17 +34,25 @@ class CoursesListView(AllowedUserTypesMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['can_create_course'] = bool(UserType.get_user_type(self.request) == UserType.CHAIRMAN)
-        context['caretakers'] = get_courses_caretakers(self.get_queryset())
+
+        queryset = self.get_queryset()
+        context['caretakers'] = get_courses_caretakers(queryset)
+
+        if UserType.get_user_type(self.request) in (UserType.CHAIRMAN, UserType.FACULTY):
+            context['department_name'] = get_department_name(UserType.get_department_id(self.request))
+            college_id = get_college_id(UserType.get_department_id(self.request))
+            context['college_name'] = get_college_name(college_id)
+
         context['can_assign_caretakers'] = context['can_create_course']
         return context
 
     def get_queryset(self):
         if UserType.get_user_type(self.request) in (UserType.CHAIRMAN, UserType.FACULTY):
             return self.model.objects.filter(mother_department=UserType.get_department_id(self.request))
-        elif UserType.get_user_type(self.request) == UserType.ADMIN:
-            return self.model.objects.all()
-        else:
+        elif UserType.get_user_type(self.request) == UserType.NONE:
             return self.model.objects.none()
+        else:
+            return self.model.objects.all()
 
 
 class NewCourseView(AllowedUserTypesMixin, SuccessMessageMixin, CreateView):
@@ -184,7 +192,7 @@ def course_description(request, pk):
 def course_contents(request, pk):
     course = get_object_or_404(Course, pk=pk)
 
-    total_self_study_hours = course.get_total_self_study_hours()
+    total_self_study_hours = course.get_total_self_learning_hours()
 
     form = CourseContentForm(request.POST or None, instance=course)
 
@@ -471,13 +479,14 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
             messages.warning(self.request, _('Thi Approval request was completed'))
             return context
 
-        task_summery = course_release.camunda_task
         options = []
-        for key in task_summery['options']:
+
+        task_options = course_release.camunda_task_options
+        for key in task_options:
             color, margin, order = self.get_css_values(key)
             options.append({
                 'key': key,
-                'value': task_summery['options'][key],
+                'value': task_options[key],
                 'color': color,
                 'margin': margin,
                 'order': order
@@ -513,7 +522,7 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
 
         camunda_api = CamundaAPI(course_release.workflow_instance_id)
         active_task = camunda_api.get_active_task()
-        options = camunda_api.get_task_options(active_task)
+        options = camunda_api.get_task_options()
 
         if 'submit' in self.request.POST:
             response = camunda_api.complete_current_task()
