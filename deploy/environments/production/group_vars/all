@@ -3,10 +3,10 @@ django_project_branch: stable
 django_project_hg_root: stable
 
 apache_server_names:
-  - course-specification.kfupm.edu.sa
+  - courses.kfupm.edu.sa
   - "{{ inventory_hostname }}"
 
-  # pick a unique port that is not used by any other application on the target
+# pick a unique port that is not used by any other application on the target
 # application server
 uwsgi_http_port: 8000
 
@@ -24,14 +24,14 @@ database_engine: django.db.backends.postgresql
 database_name: course-specification
 database_user: course-specification
 # database_password: set from Vault in playbook
-database_host: postgres-1.kfupm.edu.sa
+database_host: postgres96-1.kfupm.edu.sa
 database_port: 5432
 
 django_debug: no
 apache_debug: no
 camunda_debug: no
 
-email_user: course-specification@kfupm.edu.sa
+email_user: courses@kfupm.edu.sa
 email_host: mail.kfupm.edu.sa
 
 adwar_web_service_url: https://adwar.kfupm.edu.sa
@@ -42,3 +42,5 @@ staff_webservice_username: curricula
 
 camunda_webservice_base_url: https://tasks.kfupm.edu.sa/engine-rest
 camunda_webservice_username: curricula
+
+workflow_url: https://tasks.kfupm.edu.sa
