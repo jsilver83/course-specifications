@@ -392,4 +392,33 @@ $(document).ready(function ($) {
     }
 
 
+    // circle indicator settings
+
+      $('.indicatorContainer').each(function () {
+          const precentValue = $(this).attr("data-precent");
+          // console.log($(this));
+        $(this).radialIndicator({
+            barColor: {
+            0: '#7F1416',
+            33: '#DECD6A',
+            66: '#004A80',
+            100: '#027E40'
+             },
+        initValue: precentValue,
+        percentage: true,
+        radius:25,
+        roundCorner : true,
+        barWidth: 3,
+        fontSize:13,
+        });
+      });
+
+
+
+
+
+
+
+
+
 });
