@@ -315,7 +315,7 @@ class CamundaAPI:
                 (cls.RECTOR, _('Rector Task')),
             )
 
-    PROCESS_DEFINITION_KEY = 'course_spicification_process'
+    PROCESS_DEFINITION_KEY = 'course_specification_process'
 
     def __init__(self, process_instance_id):
         self.process_instance_id = process_instance_id
