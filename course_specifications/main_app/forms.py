@@ -348,21 +348,6 @@ class AssessmentTaskBaseFormSet(BaseModelFormSet):
         else:
             self.verbose_name = _('Laboratory Assessment Tasks')
 
-    def clean(self):
-        if any(self.errors):
-            # Don't bother validating the formset unless each form is valid on its own
-            return
-
-        total = Decimal('0.00')
-        for form in self.forms:
-            if self.can_delete and self._should_delete_form(form):
-                continue
-            total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
-
-        if total != 100:
-            raise forms.ValidationError(_('Total weights of ALL assessment tasks for lecture/lab '
-                                          'should add up to 100 EXACTLY'))
-
 
 AssessmentTaskFormSet = modelformset_factory(model=AssessmentTask, form=AssessmentTaskForm,
                                              formset=AssessmentTaskBaseFormSet,
