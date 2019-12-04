@@ -322,52 +322,51 @@ class CamundaAPI:
 
     def get_active_task(self):
         current_tasks = CamundaAPI.call_camunda_api('task?processInstanceId={}'.format(self.process_instance_id))
-        if current_tasks != 'ERROR':
-            if current_tasks and len(current_tasks) != 1:
-                raise Exception("Must be one active task in process id: {}, but {} found".format(
-                    self.process_instance_id,
-                    len(current_tasks or [])
-                ))
+        if current_tasks != 'ERROR' and len(current_tasks) == 1:
             return current_tasks[0]
 
     def get_task_options(self):
         try:
             task = self.get_active_task()
-            response = CamundaAPI.call_camunda_api(
-                'task/{task_id}/localVariables/options'.format(task_id=task['id'])
-            )
-            if response and response != 'ERROR':
-                return json.loads(response['value'])
+            if task:
+                response = CamundaAPI.call_camunda_api(
+                    'task/{task_id}/localVariables/options'.format(task_id=task.get('id'))
+                )
+                return json.loads(response.get('value'))
         except:
-            return {}
+            pass
+        return {}
 
     def complete_current_task(self, decision=None, task=None):
         if not task:
             task = self.get_active_task()
 
-        headers = {
-            'Content-Type': 'application/json',
-        }
-
-        if decision:
-            body = {
-                "variables":
-                    {
-                        "GatewayDecision": {
-                            "value": decision
-                        }
-                    }
+        if task:
+            headers = {
+                'Content-Type': 'application/json',
             }
-        else:
-            body = None
 
-        response = CamundaAPI.post_to_web_service('task/{task_id}/complete'.format(task_id=task['id']), json=body, headers=headers)
-        return response
+            if decision:
+                body = {
+                    "variables":
+                        {
+                            "GatewayDecision": {
+                                "value": decision
+                            }
+                        }
+                }
+            else:
+                body = None
+
+            response = CamundaAPI.post_to_web_service('task/{task_id}/complete'.format(task_id=task.get('id')),
+                                                      json=body,
+                                                      headers=headers)
+            return response
 
     def is_process_completed(self):
         response = CamundaAPI.call_camunda_api('history/process-instance/{}'.format(self.process_instance_id))
         if response != 'ERROR':
-            return response['state']=='COMPLETED'
+            return response.get('state') == 'COMPLETED'
 
     @staticmethod
     def start_process(course_code, course_history_id, AAC_task_assignee, is_graduate_course, department_id, college_id):

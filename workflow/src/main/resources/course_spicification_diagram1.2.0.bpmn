@@ -176,8 +176,8 @@
     <bpmn:sequenceFlow id="SequenceFlow_18rmiqw" name="Approve" sourceRef="ExclusiveGateway_1fcd669" targetRef="Collage_Dean_Task">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${GatewayDecision=='approve'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1jummou" name="Reject" sourceRef="ExclusiveGateway_1fcd669" targetRef="Task_1tc8ozq">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${GatewayDecision=='reject'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="SequenceFlow_1jummou" name="Terminate" sourceRef="ExclusiveGateway_1fcd669" targetRef="Task_1tc8ozq">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${GatewayDecision=='terminate'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0i1667r" default="SequenceFlow_1hqga1s">
       <bpmn:incoming>SequenceFlow_0atwcgb</bpmn:incoming>
@@ -474,7 +474,7 @@
         <di:waypoint x="567" y="584" />
         <di:waypoint x="721" y="584" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="575" y="593" width="32" height="14" />
+          <dc:Bounds x="626" y="564" width="49" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_0i1667r_di" bpmnElement="ExclusiveGateway_0i1667r" isMarkerVisible="true">
