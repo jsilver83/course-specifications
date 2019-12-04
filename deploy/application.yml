@@ -23,9 +23,6 @@
         authn_type: cas
         authz_type: none
 
-    admins:
-      - name: Abdullah Joud
-        email: joud@kfupm.edu.sa
     uwsgi_processes: 64
 
   # tasks to be performed before role tasks, if any
