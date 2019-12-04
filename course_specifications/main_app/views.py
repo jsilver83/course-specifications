@@ -360,8 +360,9 @@ def accreditation_requirements(request, pk):
                                                 'is pending approval'))
                     return redirect(reverse_lazy('main_app:course_list'))
                 else:
-                    messages.error(request, _('There was an issue starting the approval process. Kindly retry later or '
-                                              'contact system admins to resolve this issue'))
+                    messages.error(request, _('There was an issue starting the approval process. This could happen if '
+                                              'no maintainer or reviewer is assigned to this course. Kindly retry later'
+                                              ' or contact system admins to resolve this issue'))
             else:
                 messages.success(request, _('Course updated successfully'))
                 return redirect(reverse_lazy('main_app:course_list'))
