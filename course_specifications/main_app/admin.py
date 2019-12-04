@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from impersonate.admin import UserAdminImpersonateMixin
+from import_export.admin import ImportExportMixin
 
 from .models import *
 from simple_history.admin import SimpleHistoryAdmin
@@ -27,7 +28,7 @@ class FacilitiesRequiredInlineAdmin(admin.TabularInline):
     model = FacilitiesRequired
 
 
-class CourseAdmin(SimpleHistoryAdmin):
+class CourseAdmin(ImportExportMixin, SimpleHistoryAdmin):
     list_display = ('get_department_name', 'program_code', 'number', 'title', 'lecture_credit_hours',
                     'lab_contact_hours', 'total_credit_hours', )
     search_fields = ('program_code', 'number', 'title', )
