@@ -250,23 +250,40 @@ def assessment_tasks(request, pk):
 
     if request.method == 'POST':
         if formset.is_valid() and (formset2.is_valid() if formset2 else True):
-            for form1 in formset.forms:
-                if form1.is_valid():
-                    obj = form1.save(commit=False)
-                    obj.course = course
-            formset.save()
+
+            total = Decimal('0.00')
+            for form in formset.forms:
+                if form in formset.deleted_forms:
+                    continue
+                total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
 
             if formset2:
-                for form2 in formset2.forms:
-                    if form2.is_valid():
-                        obj2 = form2.save(commit=False)
-                        obj2.course = course
-                formset2.save()
+                for form in formset2.forms:
+                    if form in formset2.deleted_forms:
+                        continue
+                    total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
 
-            BaseUpdateCourseView.update_all_related_objects(course)
+            if total == Decimal('100.00'):
+                for form1 in formset.forms:
+                    if form1.is_valid():
+                        obj = form1.save(commit=False)
+                        obj.course = course
+                formset.save()
 
-            messages.success(request, _('Course updated successfully'))
-            return redirect(reverse_lazy('main_app:learning_resources', args=(course.pk, )))
+                if formset2:
+                    for form2 in formset2.forms:
+                        if form2.is_valid():
+                            obj2 = form2.save(commit=False)
+                            obj2.course = course
+                    formset2.save()
+
+                BaseUpdateCourseView.update_all_related_objects(course)
+
+                messages.success(request, _('Course updated successfully'))
+                return redirect(reverse_lazy('main_app:learning_resources', args=(course.pk, )))
+            else:
+                messages.error(request, _('The total weights of ALL assessment tasks for lecture/lab you entered is '
+                                          '[{total}] BUT it should add up to 100 EXACTLY').format(total=total))
 
     return render(request, 'main_app/assessment_tasks.html', {
         'course': course, 'formset': formset, 'formset2': formset2,
