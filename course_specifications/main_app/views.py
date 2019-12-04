@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import mail_admins
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
@@ -250,23 +251,40 @@ def assessment_tasks(request, pk):
 
     if request.method == 'POST':
         if formset.is_valid() and (formset2.is_valid() if formset2 else True):
-            for form1 in formset.forms:
-                if form1.is_valid():
-                    obj = form1.save(commit=False)
-                    obj.course = course
-            formset.save()
+
+            total = Decimal('0.00')
+            for form in formset.forms:
+                if form in formset.deleted_forms:
+                    continue
+                total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
 
             if formset2:
-                for form2 in formset2.forms:
-                    if form2.is_valid():
-                        obj2 = form2.save(commit=False)
-                        obj2.course = course
-                formset2.save()
+                for form in formset2.forms:
+                    if form in formset2.deleted_forms:
+                        continue
+                    total += form.cleaned_data.get('weight_percentage', Decimal('0.00'))
 
-            BaseUpdateCourseView.update_all_related_objects(course)
+            if total == Decimal('100.00'):
+                for form1 in formset.forms:
+                    if form1.is_valid():
+                        obj = form1.save(commit=False)
+                        obj.course = course
+                formset.save()
 
-            messages.success(request, _('Course updated successfully'))
-            return redirect(reverse_lazy('main_app:learning_resources', args=(course.pk, )))
+                if formset2:
+                    for form2 in formset2.forms:
+                        if form2.is_valid():
+                            obj2 = form2.save(commit=False)
+                            obj2.course = course
+                    formset2.save()
+
+                BaseUpdateCourseView.update_all_related_objects(course)
+
+                messages.success(request, _('Course updated successfully'))
+                return redirect(reverse_lazy('main_app:learning_resources', args=(course.pk, )))
+            else:
+                messages.error(request, _('The total weights of ALL assessment tasks for lecture/lab you entered is '
+                                          '[{total}] BUT it should add up to 100 EXACTLY').format(total=total))
 
     return render(request, 'main_app/assessment_tasks.html', {
         'course': course, 'formset': formset, 'formset2': formset2,
@@ -342,8 +360,9 @@ def accreditation_requirements(request, pk):
                                                 'is pending approval'))
                     return redirect(reverse_lazy('main_app:course_list'))
                 else:
-                    messages.error(request, _('There was an issue starting the approval process. Kindly retry later or '
-                                              'contact system admins to resolve this issue'))
+                    messages.error(request, _('There was an issue starting the approval process. This could happen if '
+                                              'no maintainer or reviewer is assigned to this course. Kindly retry later'
+                                              ' or contact system admins to resolve this issue'))
             else:
                 messages.success(request, _('Course updated successfully'))
                 return redirect(reverse_lazy('main_app:course_list'))
@@ -467,7 +486,7 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
         camunda_api = CamundaAPI(course_release.workflow_instance_id)
         task = camunda_api.get_active_task()
 
-        return task and task['assignee'] == self.request.user.username
+        return task and task.get('assignee') == self.request.user.username
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -476,7 +495,7 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
         course_release = CourseRelease.objects.filter(id=course_release_id).first()
 
         if course_release.is_completed:
-            messages.warning(self.request, _('Thi Approval request was completed'))
+            messages.warning(self.request, _('This Approval request was completed'))
             return context
 
         options = []
@@ -522,22 +541,34 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
 
         camunda_api = CamundaAPI(course_release.workflow_instance_id)
         active_task = camunda_api.get_active_task()
-        options = camunda_api.get_task_options()
+        if active_task:
+            options = camunda_api.get_task_options()
 
-        if 'submit' in self.request.POST:
-            response = camunda_api.complete_current_task()
-            if response.status_code == 204:
-                messages.success(self.request, _('Your Decision has been submitted successfully'))
-                return redirect(reverse_lazy('main_app:course_list'))
-        else:
-            for key in options:
-                if key in self.request.POST:
-                    response = camunda_api.complete_current_task(key)
-                    if response.status_code == 204:
-                        messages.success(self.request, _('Your Decision has been submitted successfully'))
-                        return redirect(reverse_lazy('main_app:course_list'))
+            if 'submit' in self.request.POST:
+                response = camunda_api.complete_current_task(task=active_task)
+                if response and response.status_code == 204:
+                    messages.success(self.request, _('Your Decision has been submitted successfully'))
+                    return redirect(reverse_lazy('main_app:course_list'))
+            else:
+                for decision in options:
+                    if decision in self.request.POST:
+                        response = camunda_api.complete_current_task(decision, task=active_task)
+                        if response and response.status_code == 204:
+                            messages.success(self.request, _('Your Decision has been submitted successfully'))
+                            return redirect(reverse_lazy('main_app:course_list'))
 
-        messages.warning(self.request, _('Oops something wrong happened, your Decision has not been submitted'))
+        messages.warning(self.request, _('Something wrong happened and your decision has not been submitted. Please '
+                                         'try again later. Also, the system admins have been notified of this error'))
+        import json
+        mail_admins(subject='Error in Course Specifications Workflow While Submitting Decision',
+                    message='Error in Course Specifications Workflow '
+                            'While Submitting Decision for {} by {}'.format(course_release, self.request.user),
+                    html_message='Error in Course Specifications Workflow While Submitting Decision for {} by {}.<br>'
+                                 'Active Task: {}<br>'
+                                 'self.request.POST: {}<br>'.format(course_release,
+                                                                    self.request.user,
+                                                                    active_task,
+                                                                    json.dumps(self.request.POST), ))
         return redirect(
             reverse_lazy('main_app:review_checklist_form', kwargs={"pk": course_release_id})
         )
