@@ -652,8 +652,8 @@ class CourseRelease(models.Model):
             camunda_api = CamundaAPI(self.workflow_instance_id)
             active_task = camunda_api.get_active_task()
             if active_task:
-                self._workflow_status = active_task['name']
-                self._workflow_assignee = active_task['assignee']
+                self._workflow_status = active_task.get('name')
+                self._workflow_assignee = active_task.get('assignee')
                 self.save()
         except:
             pass
