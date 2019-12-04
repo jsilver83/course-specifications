@@ -154,23 +154,6 @@ MAX_DECIMAL_POINT = 2  # .00
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'ERROR',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'ERROR',
-        },
-    },
-}
-
 DEFAULT_CACHE_DURATION_WEBSERVICES = 24 * 60 * 60
 
 try:
