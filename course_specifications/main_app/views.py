@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import mail_admins
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
@@ -484,7 +485,7 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
         camunda_api = CamundaAPI(course_release.workflow_instance_id)
         task = camunda_api.get_active_task()
 
-        return task and task['assignee'] == self.request.user.username
+        return task and task.get('assignee') == self.request.user.username
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -493,7 +494,7 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
         course_release = CourseRelease.objects.filter(id=course_release_id).first()
 
         if course_release.is_completed:
-            messages.warning(self.request, _('Thi Approval request was completed'))
+            messages.warning(self.request, _('This Approval request was completed'))
             return context
 
         options = []
@@ -539,22 +540,34 @@ class ReviewChecklistFormView(BaseReviewCourseView, FormView):
 
         camunda_api = CamundaAPI(course_release.workflow_instance_id)
         active_task = camunda_api.get_active_task()
-        options = camunda_api.get_task_options()
+        if active_task:
+            options = camunda_api.get_task_options()
 
-        if 'submit' in self.request.POST:
-            response = camunda_api.complete_current_task()
-            if response.status_code == 204:
-                messages.success(self.request, _('Your Decision has been submitted successfully'))
-                return redirect(reverse_lazy('main_app:course_list'))
-        else:
-            for key in options:
-                if key in self.request.POST:
-                    response = camunda_api.complete_current_task(key)
-                    if response.status_code == 204:
-                        messages.success(self.request, _('Your Decision has been submitted successfully'))
-                        return redirect(reverse_lazy('main_app:course_list'))
+            if 'submit' in self.request.POST:
+                response = camunda_api.complete_current_task(task=active_task)
+                if response and response.status_code == 204:
+                    messages.success(self.request, _('Your Decision has been submitted successfully'))
+                    return redirect(reverse_lazy('main_app:course_list'))
+            else:
+                for decision in options:
+                    if decision in self.request.POST:
+                        response = camunda_api.complete_current_task(decision, task=active_task)
+                        if response and response.status_code == 204:
+                            messages.success(self.request, _('Your Decision has been submitted successfully'))
+                            return redirect(reverse_lazy('main_app:course_list'))
 
-        messages.warning(self.request, _('Oops something wrong happened, your Decision has not been submitted'))
+        messages.warning(self.request, _('Something wrong happened and your decision has not been submitted. Please '
+                                         'try again later. Also, the system admins have been notified of this error'))
+        import json
+        mail_admins(subject='Error in Course Specifications Workflow While Submitting Decision',
+                    message='Error in Course Specifications Workflow '
+                            'While Submitting Decision for {} by {}'.format(course_release, self.request.user),
+                    html_message='Error in Course Specifications Workflow While Submitting Decision for {} by {}.<br>'
+                                 'Active Task: {}<br>'
+                                 'self.request.POST: {}<br>'.format(course_release,
+                                                                    self.request.user,
+                                                                    active_task,
+                                                                    json.dumps(self.request.POST), ))
         return redirect(
             reverse_lazy('main_app:review_checklist_form', kwargs={"pk": course_release_id})
         )
