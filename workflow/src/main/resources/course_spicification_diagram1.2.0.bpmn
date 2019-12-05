@@ -474,7 +474,7 @@
         <di:waypoint x="567" y="584" />
         <di:waypoint x="721" y="584" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="626" y="564" width="49" height="14" />
+          <dc:Bounds x="627" y="564" width="49" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_0i1667r_di" bpmnElement="ExclusiveGateway_0i1667r" isMarkerVisible="true">
