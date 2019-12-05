@@ -3,13 +3,14 @@ import copy
 from course_specifications.utils import get_textbooks_by_system_id
 
 
-def get_weekly_topics_list(w_hours, w_num, topics):
+def get_weekly_topics_list(total_contact_hours, w_num, topics):
     """"
-    :param w_hours: the number of hours per week
+    :param total_contact_hours: the total number of contact hours
     :param w_num: the number of weeks
     :param topics:the list of topics
     :return: A list that contains lists. Each list contains topics for a week
     """
+    w_hours = total_contact_hours / w_num
     topics_list = []
     if(topics):
         for i in range(0,w_num):
