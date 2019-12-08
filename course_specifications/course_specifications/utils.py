@@ -102,10 +102,12 @@ class APIType:
     BANNER = 'BANNER'
     STAFF = 'STAFF'
     ADWAR = 'ADWAR'
+    SIERRA = 'SIERRA'
 
 
 def call_web_service(url, method='get', parameters=None, data=None, basic_auth=True, api=APIType.BANNER,
                      cache_duration=settings.DEFAULT_CACHE_DURATION_WEBSERVICES):
+
     if api == APIType.BANNER:
         base_url = settings.BANNER_WEBSERVICE_BASE_URL
         user = settings.BANNER_WEBSERVICE_USERNAME
@@ -114,10 +116,14 @@ def call_web_service(url, method='get', parameters=None, data=None, basic_auth=T
         base_url = settings.STAFF_WEBSERVICE_BASE_URL
         user = settings.STAFF_WEBSERVICE_USERNAME
         password = settings.STAFF_WEBSERVICE_PASSWORD
-    else:
+    elif api == APIType.ADWAR:
         base_url = settings.ADWAR_WEBSERVICE_BASE_URL
         user = settings.ADWAR_WEBSERVICE_USERNAME
         password = settings.ADWAR_WEBSERVICE_PASSWORD
+    else:
+        base_url = settings.SIERRA_WEBSERVICE_BASE_URL
+        user = settings.SIERRA_WEBSERVICE_USERNAME
+        password = settings.SIERRA_WEBSERVICE_PASSWORD
 
     full_url = '{}/{}'.format(base_url, url)
 
@@ -198,6 +204,9 @@ def get_rector_username():
 def get_employee_details(employee):
     return call_web_service(url='employee/{}'.format(employee), api=APIType.STAFF)
 
+
+def get_textbooks_by_system_id(book_system_ids):
+    return call_web_service(url='books?system_id={}'.format(book_system_ids), api=APIType.SIERRA)
 
 def get_full_name(user):
     f_name = 'N/A'
