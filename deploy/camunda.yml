@@ -56,12 +56,12 @@
     #   become: no
     #   register: email_password
 
-    - name: Generate workflow properties
-      set_fact:
-        process_config_file: "{{ lookup('template', 'config.properties.j2') }}"
+    # - name: Generate workflow properties
+    #   set_fact:
+    #     process_config_file: "{{ lookup('template', 'config.properties.j2') }}"
 
   roles:
 
     - name: camunda-project
-      camunda_app_name: "course_specification_process"
+      camunda_process_name: "course_specification_process"
       process_config_file: "{{ lookup('template', 'config.properties.j2') }}"
