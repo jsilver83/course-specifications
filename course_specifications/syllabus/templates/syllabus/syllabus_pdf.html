@@ -161,16 +161,18 @@
                     <h3 class="section-title">Required Material:</h3>
                     <div class="section-content">
                         <ul>
-                            <li>Textbook: {{ course.equired_textbooks_from_sierra }}</li>
-                             {% if  other_required_textbooks%}
-                            {% for textbook in other_required_textbooks %}
-                                <li>Textbook: {{ textbook }}</li>
+                            {% for textbook in required_textbooks %}
+                                <li>Textbook: {{ textbook.book_title }}{% if  textbook.best_author%}. {{ textbook.best_author }}{% endif %}, {{ textbook.publish_year }}</li>
                             {% endfor %}
-                             {% endif %}
+                            {% if  other_required_textbooks%}
+                                {% for textbook in other_required_textbooks %}
+                                    <li>Textbook: {{ textbook }}</li>
+                                {% endfor %}
+                            {% endif %}
                             {% if  essential_reference_materials%}
-                            {% for material in essential_reference_materials %}
-                                <li>{{ material }}</li>
-                            {% endfor %}
+                                {% for material in essential_reference_materials %}
+                                        <li>{{ material }}</li>
+                                {% endfor %}
                             {% endif %}
                         </ul>
                     </div>
@@ -303,6 +305,5 @@
                 </div>
         {% endif %}
         </div>
-</div>
     </body>
 </html>
