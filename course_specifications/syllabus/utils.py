@@ -12,16 +12,16 @@ def get_weekly_topics_list(total_contact_hours, w_num, topics):
     """
     w_hours = total_contact_hours / w_num
     topics_list = []
-    if(topics):
-        for i in range(0,w_num):
-            week_list= []
+    if (topics):
+        for i in range(0, w_num):
+            week_list = []
             temp = w_hours
             temp_list = []
             for topic in topics:
                 if temp >= topic.contact_hours:
                     temp_list.append(topic)
                     week_list.append(topic)
-                    if(temp == topic.contact_hours):
+                    if (temp == topic.contact_hours):
                         break
                     else:
                         temp -= topic.contact_hours
@@ -39,6 +39,7 @@ def get_weekly_topics_list(total_contact_hours, w_num, topics):
                 topics.remove(item)
     return topics_list
 
+
 def get_textbooks_list(book_system_ids):
     cleaned_book_system_ids = clean_book_ids(book_system_ids)
     text_book_list = []
@@ -47,16 +48,11 @@ def get_textbooks_list(book_system_ids):
         text_book_list = [textbook for textbook in response]
     return text_book_list
 
+
 def clean_book_ids(book_system_ids):
-    book_system_ids = book_system_ids.replace("'",'')
-    book_system_ids = book_system_ids.replace('"','')
-    book_system_ids = book_system_ids.replace('[','')
-    book_system_ids = book_system_ids.replace(']','')
-    book_system_ids = book_system_ids.replace(' ','')
+    book_system_ids = book_system_ids.replace("'", '')
+    book_system_ids = book_system_ids.replace('"', '')
+    book_system_ids = book_system_ids.replace('[', '')
+    book_system_ids = book_system_ids.replace(']', '')
+    book_system_ids = book_system_ids.replace(' ', '')
     return book_system_ids
-
-
-
-
-
-
