@@ -55,6 +55,10 @@ adwar_webservice_username: courses
 camunda_webservice_base_url: https://workflow.test.kfupm.edu.sa/engine-rest
 camunda_webservice_username: curricula
 
+sierra_webservice_base_url: https://sierra-api.test.kfupm.edu.sa
+sierra_webservice_username: curricula
+
 admins:
   - name: Shaheed Alhelal
     email: shaheed.alhelal@test.kfupm.edu.sa
+
