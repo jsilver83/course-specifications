@@ -4,7 +4,47 @@ from django import forms
 from django.forms import modelformset_factory, BaseModelFormSet
 from django.utils.translation import ugettext_lazy as _
 
+from course_specifications.utils import get_subordinates_choices
+from kfupm_theme.base_forms import *
 from .models import *
+
+
+class NewCourseForm(forms.ModelForm):
+
+    class Meta:
+        model = Course
+        fields = ['program_code', 'number', 'title', 'total_credit_hours', ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['total_credit_hours'].widget.attrs.update({'placeholder': _('Credit Hrs')})
+
+
+class AssignCaretakersForm(BaseCrispyForm, forms.Form):
+    maintainer = forms.ChoiceField(label=_('Maintainer'))
+    reviewer = forms.ChoiceField(label=_('Reviewer'))
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['maintainer'].choices = get_subordinates_choices(user)
+        self.fields['reviewer'].choices = get_subordinates_choices(user)
+
+        self.fields['maintainer'].widget.attrs.update({'class': 'select2'})
+        self.fields['reviewer'].widget.attrs.update({'class': 'select2'})
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data['maintainer'] == cleaned_data['reviewer']:
+            raise forms.ValidationError(_('Maintainer and reviewer can NOT be the same person'))
+        return cleaned_data
 
 
 class CourseIdentificationForm(forms.ModelForm):
@@ -12,7 +52,8 @@ class CourseIdentificationForm(forms.ModelForm):
         model = Course
         fields = ['program_code', 'number', 'title', 'location',
                   'lecture_credit_hours', 'lab_contact_hours', 'total_credit_hours', 'weekly_office_hours',
-                  'prerequisite_courses', 'corequisite_courses', 'mode_of_instruction_in_class',
+                  'prerequisite_courses', 'corequisite_courses', 'not_to_be_taken_with_courses',
+                  'mode_of_instruction_in_class',
                   'mode_of_instruction_other', 'mode_of_instruction_other_desc', 'mode_of_instruction_comments']
 
     def __init__(self, *args, **kwargs):
@@ -20,6 +61,8 @@ class CourseIdentificationForm(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+            if field in NewCourseForm.Meta.fields:  # make all fields coming from chairman as readonly
+                self.fields[field].widget.attrs.update({'readonly': 'readonly'})
 
         # self.fields['number'].widget.attrs.update({'placeholder': _('000')})
         self.fields['mode_of_instruction_in_class'].widget.attrs.update({'placeholder': _('Percentage (%)')})
@@ -38,20 +81,36 @@ class CourseIdentificationForm(forms.ModelForm):
 
         self.fields['prerequisite_courses'].widget.attrs.update({'class': 'select2'})
         self.fields['corequisite_courses'].widget.attrs.update({'class': 'select2'})
+        self.fields['not_to_be_taken_with_courses'].widget.attrs.update({'class': 'select2'})
 
         courses = Course.objects.exclude(pk=self.instance.pk)
         self.fields['prerequisite_courses'].queryset = courses
         self.fields['corequisite_courses'].queryset = courses
+        self.fields['not_to_be_taken_with_courses'].queryset = courses
+
+        self.fields['weekly_office_hours'].required = True
 
     def clean(self):
         cleaned_data = super().clean()
 
-        mode_of_instruction_in_class = cleaned_data.get('mode_of_instruction_in_class')
-        mode_of_instruction_other = cleaned_data.get('mode_of_instruction_other')
+        total_credit_hours = cleaned_data.get('total_credit_hours', 0) if cleaned_data.get('total_credit_hours', 0) else 0
+        lecture_credit_hours = cleaned_data.get('lecture_credit_hours', 0) if cleaned_data.get('lecture_credit_hours', 0) else 0
+        lab_contact_hours = cleaned_data.get('lab_contact_hours', 0) if cleaned_data.get('lab_contact_hours', 0) else 0
 
-        if mode_of_instruction_other and mode_of_instruction_in_class + mode_of_instruction_other > 100:
+        if total_credit_hours < lecture_credit_hours:
+            raise forms.ValidationError(_('Total credit hours can NOT be less than lecture credit hours'))
+
+        if total_credit_hours < lab_contact_hours:
+            raise forms.ValidationError(_('Total credit hours can NOT ne less than lab credit hours'))
+
+        mode_of_instruction_in_class = \
+            cleaned_data.get('mode_of_instruction_in_class') if cleaned_data.get('mode_of_instruction_in_class') else 0
+        mode_of_instruction_other = \
+            cleaned_data.get('mode_of_instruction_other') if cleaned_data.get('mode_of_instruction_other') else 0
+
+        if mode_of_instruction_in_class + mode_of_instruction_other != 100:
             raise forms.ValidationError(
-                _('Mode of Instruction summation of In-Class and Other should NOT exceed 100'),
+                _('Mode of Instruction summation of In-Class and Other should be equal to 100'),
             )
 
         return cleaned_data
@@ -67,7 +126,7 @@ class CourseDescriptionForm(forms.ModelForm):
 
         self.fields['catalog_description'].widget.attrs.update({
             'class': 'form-control',
-            'placeholder': _('General description about the course & topics')
+            'placeholder': _('General description of the course (Bulletin description)')
         })
 
 
@@ -89,9 +148,13 @@ class LearningObjectiveBaseFormSet(BaseModelFormSet):
     verbose_name = _('Learning Objective')
 
 
-LearningObjectiveFormSet = modelformset_factory(model=LearningObjective, form=LearningObjectiveForm,
-                                                formset=LearningObjectiveBaseFormSet,
-                                                extra=1, can_delete=True, min_num=1, validate_min=True)
+LearningObjectiveFormSet = modelformset_factory(
+    model=LearningObjective, form=LearningObjectiveForm,
+    formset=LearningObjectiveBaseFormSet,
+    extra=1, can_delete=True,
+    min_num=1, validate_min=True,
+    max_num=6, validate_max=True,
+)
 
 
 class CourseLearningOutcomeForm(forms.ModelForm):
@@ -104,9 +167,13 @@ class CourseLearningOutcomeBaseFormSet(BaseModelFormSet):
     verbose_name = _('Course Learning Outcome')
 
 
-CourseLearningOutcomeFormSet = modelformset_factory(model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
-                                                    formset=CourseLearningOutcomeBaseFormSet,
-                                                    extra=1, can_delete=True, min_num=1, validate_min=True)
+CourseLearningOutcomeFormSet = modelformset_factory(
+    model=CourseLearningOutcome, form=CourseLearningOutcomeForm,
+    formset=CourseLearningOutcomeBaseFormSet,
+    extra=1, can_delete=True,
+    min_num=1, validate_min=True,
+    max_num=7, validate_max=True,
+)
 
 
 class TopicForm(forms.ModelForm):
@@ -191,8 +258,9 @@ LabTopicFormSet = modelformset_factory(model=Topic, form=TopicForm, formset=LabT
 class CourseContentForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['self_study_lecture', 'self_study_lab', 'self_study_tutorial', 'self_study_practical',
-                  'self_study_other', 'engineering_credit_hours', 'math_science_credit_hours',
+        fields = ['self_learning_study', 'self_learning_assignments', 'self_learning_library',
+                  'self_learning_practical',
+                  'self_learning_other', 'engineering_credit_hours', 'math_science_credit_hours',
                   'humanities_credit_hours', 'social_sciences_credit_hours', 'general_education_credit_hours',
                   'other_subject_areas_credit_hours', 'tutorial_contact_hours', 'practical_contact_hours',
                   'other_contact_hours', 'other_contact_hours_description', ]
@@ -227,22 +295,32 @@ class CourseContentForm(forms.ModelForm):
                     cleaned_data.get('other_subject_areas_credit_hours'), ]):
             raise forms.ValidationError(_('You need to specify credit hours in one classification at least'))
 
+        hours_sum = sum(filter(None, [cleaned_data.get('engineering_credit_hours', 0),
+                                      cleaned_data.get('math_science_credit_hours', 0),
+                                      cleaned_data.get('humanities_credit_hours', 0),
+                                      cleaned_data.get('social_sciences_credit_hours', 0),
+                                      cleaned_data.get('general_education_credit_hours', 0),
+                                      cleaned_data.get('other_subject_areas_credit_hours', 0), ]))
+
+        if hours_sum != self.instance.total_credit_hours:
+            raise forms.ValidationError(
+                _('Total classifications'' credit hours you entered [{hours_sum}] should be equal to [{total}]'.format(
+                    hours_sum=hours_sum,
+                    total=self.instance.total_credit_hours,
+                ))
+            )
+
         return cleaned_data
 
 
 class AssessmentTaskForm(forms.ModelForm):
     class Meta:
         model = AssessmentTask
-        fields = ['type', 'assessment_task', 'week_due', 'weight_percentage', ]
-        widgets = {
-            'type': forms.HiddenInput,
-        }
+        fields = ['assessment_task', 'week_due', 'weight_percentage', ]
 
     def __init__(self, task_type, *args, **kwargs):
         self.task_type = task_type
         super().__init__(*args, **kwargs)
-
-        self.initial['type'] = self.task_type
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
@@ -251,6 +329,13 @@ class AssessmentTaskForm(forms.ModelForm):
                                                                 _('e.g. essay, test, group project, speech, etc.')})
         self.fields['week_due'].widget.attrs.update({'placeholder': _('e.g. 3')})
         self.fields['weight_percentage'].widget.attrs.update({'placeholder': _('e.g. 20'), 'step': '0.5'})
+
+    def save(self, commit=True):
+        assessment_task = super().save(commit=False)
+        assessment_task.type = self.task_type
+        if commit:
+            assessment_task.save()
+        return assessment_task
 
 
 class AssessmentTaskBaseFormSet(BaseModelFormSet):
@@ -280,7 +365,7 @@ class LearningResourcesForm(forms.ModelForm):
     )
 
     required_textbooks_from_sierra = forms.MultipleChoiceField(widget=forms.SelectMultiple(attrs={'class': 'select2'}),
-                                                               choices=CHOICES)
+                                                               choices=CHOICES, required=False)
 
     class Meta:
         model = Course
@@ -302,6 +387,13 @@ class EvaluationForm(forms.ModelForm):
         model = Course
         fields = ['strategies_of_student_feedback_and_evaluation', ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.strategies_of_student_feedback_and_evaluation is None:
+            self.initial['strategies_of_student_feedback_and_evaluation'] = 'The normal end-of-semester University ' \
+                                                                            'online evaluation of the instructor, ' \
+                                                                            'course, and textbook by students'
+
 
 class AccreditationRequirementsForm(forms.ModelForm):
     class Meta:
@@ -321,4 +413,24 @@ class FacilitiesRequiredBaseFormSet(BaseModelFormSet):
 
 FacilitiesRequiredFormSet = modelformset_factory(model=FacilitiesRequired, form=FacilitiesRequiredForm,
                                                  formset=FacilitiesRequiredBaseFormSet,
-                                                 extra=1, can_delete=True, min_num=1, validate_min=True)
+                                                 extra=1, can_delete=True, )
+
+
+class CreateCommentForm(forms.ModelForm):
+    class Meta:
+        model = ApprovalComment
+        fields = ['section', 'comment', 'course_release', ]
+        widgets = {
+            'course_release': forms.HiddenInput,
+            'section': forms.HiddenInput,
+        }
+
+    def __init__(self, section, course_release, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.initial['course_release'] = course_release
+        self.initial['section'] = section
+
+
+class ReviewChecklistForm(forms.Form):
+    pass
+

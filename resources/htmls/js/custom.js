@@ -95,9 +95,25 @@ $(document).ready(function($) {
         });
         console.log(lec_hrs, lab_hrs, tutorial_hrs, practical_hrs, other_hrs);
         var total_contact_hrs = lec_hrs+lab_hrs+tutorial_hrs+practical_hrs+other_hrs;
-        $('.total_contact_hrs').addClass('text-dark h6 font-weight-bold').html(total_contact_hrs +' hrs');
+        $('.total_contact_hrs').addClass('text-dark h6 font-weight-bold').html(total_contact_hrs +' hrs');        
     }
     contact_hrs_calc();
+
+    function self_study_contact_hrs(){
+        var self_study_contact_hrs = 0;
+        $('#self-study .contact_hrs input').each(function(){
+            if($(this).val()){
+                self_study_contact_hrs += parseInt($(this).val());
+                console.log('Self study hrs', self_study_contact_hrs);
+                $('#total_self_study_contact_hrs').html(self_study_contact_hrs);
+            }
+        });
+    }
+    self_study_contact_hrs();
+
+    $('body').on('keyup', '#self-study .contact_hrs', function(){
+        self_study_contact_hrs();
+    });
 
     $('body').on('keyup', '.form-accordian input.contact_hrs', function(){
         contact_hrs_calc($(this));
@@ -127,26 +143,27 @@ $(document).ready(function($) {
     }
 
 
-    function clo_counts(){
-        $('.clo-sec').each(function (){
-            var added_clo_count = $(this).find('.select2-selection__choice').length;
-            $(this).find('.add_clo').hide();
-            if(added_clo_count < 1){
-                $(this).find('.add_clo.add').show();
-            }
-            else{
-                $(this).find('.add_clo.added').show();
-                $(this).parents('.clo-sec').find('.clo-count').html(added_clo_count);
-            }
-        });
-    }
+    // function clo_counts(){
+    // }
 
     $('body').on( "click", ".update-clo", function() {
         // var clo_count = $(this).parents('.modal-footer').siblings('.modal-body').find('.select2-selection__choice').length;
         // $(this).parents('.clo-sec').find('.add_clo').hide();
         // $(this).parents('.clo-sec').find('.add_clo.added').show();
         // $(this).parents('.clo-sec').find('.clo-count').html(clo_count);
-        clo_counts();
+        // clo_counts();
+        // $('.clo-sec').each(function (){
+        var added_clo_count = $(this).parent('.modal-footer').siblings('.modal-body').find('.select2-selection__choice').length;
+        console.log('CLO added count', added_clo_count);
+        // $(this).find('.add_clo').hide();
+        // if(added_clo_count < 1){
+        //     $(this).find('.add_clo.add').show();
+        // }
+        // else{
+        // $(this).find('.add_clo.added').show();
+        $(this).parents('.modal').siblings('.btn').find('.clo-count').html(added_clo_count);
+            // }
+        // });
     });
 
 
@@ -263,5 +280,11 @@ $(document).ready(function($) {
     });
 
     //menu_completed_check();
+
+    //Chat view scroll to bottom
+    $('#chat-scroll').animate({
+        scrollTop: $('#chat-scroll').get(0).scrollHeight
+    }, 500);
+
 
 });

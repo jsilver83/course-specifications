@@ -8,9 +8,11 @@
 			<div class="card mb-4">
 				<div class="card-body">
 					<div class="card-title mb-0 d-flex align-items-center">
-						<h5 class="mb-0 mr-auto">{% trans 'Courses List' %}</h5>
+						<h5 class="mb-0 mr-auto">{% trans 'Courses List' %}{% if department_name %}<br><b>{{ department_name }}</b>
+							{% if college_name %}<br><em>{{ college_name }}</em>{% endif %}{% endif %}</h5>
 						{% if can_create_course %}
-							<a href="{% url 'main_app:new_course' %}" class="btn btn-sm btn-primary"><i class="fas fa-plus mr-1"></i>
+							<a href="{% url 'main_app:new_course' %}" class="btn btn-sm btn-primary"><i
+									class="fas fa-plus mr-1"></i>
 								<span>{% trans 'Create Course' %}</span></a>{% endif %}
 					</div>
 				</div>
@@ -27,15 +29,13 @@
 				{#					</form>#}
 				{#				</div>#}
 				<div class="card-body p-0">
+
 					<table class="table clickable">
 						<thead class="thead-light">
-						<tr>
+						<tr class="sticky-top">
 							<th class="p-0"></th>
 							<th scope="col" class="align-middle border-top-0 text-muted">
 								<small>{% trans 'Course Code' %}</small>
-							</th>
-							<th scope="col" class="align-middle border-top-0 text-muted">
-								<small>{% trans 'Title' %}</small>
 							</th>
 							<th scope="col" class="status align-middle border-top-0 text-muted">
 								<small>{% trans 'Credit Hours' %}</small>
@@ -44,6 +44,9 @@
 								<small>{% trans 'Last Edit' %}</small>
 							</th>
 							<th scope="col" class="status align-middle border-top-0 text-muted">
+								<small>{% trans 'Maintainer' %}<br>{% trans 'Reviewer' %}</small>
+							</th>
+							<th scope="col" class="status align-middle text-center border-top-0 text-muted">
 								<small>{% trans 'Status' %}</small>
 							</th>
 							<th scope="col" class="align-middle border-top-0 text-muted">
@@ -54,17 +57,22 @@
 						<tbody>
 						{% for course in courses %}
 							<tr class="">
-								<td class="align-middle text-right accordion-toggle" data-toggle="collapse" data-target="#demo{{ course.pk }}">
-									<small class="text-muted"><i class="fas fa-caret-right mr-2"></i><b>{{ course.current_version }}</b></small>
+
+                                <td class="align-middle text-right{% if course.recent_releases %} accordion-toggle{% endif %}"
+								    data-toggle="collapse" data-target="#demo{{ course.pk }}">
+									<small class="text-muted">{% if course.recent_releases %}
+                                       <i class="fas fa-caret-right mr-2 align-bottom"></i>{% endif %}
+                                 	<div class="float-left mr-3 indicatorContainer"  data-precent="{{ course.completed_percentage }}"> </div>
+
+                                        <b class="align-middle pt-4">{{ course.current_version }}</b></small>
+
+{#									<br><small class="badge badge-{% if course.completed_percentage == 100 %}success{% elif course.completed_percentage == 0 %}danger{% else %}warning{% endif %} text-badge mr-auto">{{ course.completed_percentage }}%</small>#}
+{#						            #}
+
 								</td>
 								<td scope="row" class="align-middle">
 									<p class="mb-0">
 										{{ course }}
-									</p>
-								</td>
-								<td class="align-middle">
-									<p class="mb-0">
-										{{ course.title }}
 									</p>
 								</td>
 								<td class="align-middle">
@@ -79,14 +87,50 @@
 										</small>
 									</p>
 								</td>
-								<td class="status align-middle">
-									<span class="badge badge-primary text-badge mr-auto">--</span>
+								<td class="align-middle">
+									<p class="mb-0">
+										<small>
+											{% maintainer course.code caretakers %}<br>{% reviewer course.code caretakers %}
+										</small>
+									</p>
+								</td>
+								<td class="status align-middle text-center">
+									<span class="badge badge-primary text-badge mr-auto">
+										{% if course.latest_release.approved is None and course.latest_release.workflow_instance_id %}
+											{{ course.latest_release.camunda_task.name|default_if_none:'' }}
+{#											<br><small>{% trans "WITH" %} {% short_full_name course.latest_release.camunda_task.assignee %}</small>#}
+										{% endif %}
+									</span>
 								</td>
 								<td class="align-middle text-right">
-									{% if course|can_be_edited:request.user %}<a href="{% url 'main_app:update_course' course.pk %}" class="btn btn-sm btn-outline-secondary"><i class="far fa-edit"></i> {% trans "Edit" %}</a>{% endif %} {% if course.current_release %}<a href="{% url 'main_app:view_course_release' course.current_release.pk %}" class="btn btn-sm btn-outline-secondary"><i class="fa fa-search-plus"></i> {% trans "View" %}</a>{% endif %}
+									<div class="dropdown">
+										<button class="btn btn-success btn-sm dropdown-toggle" type="button"
+										        data-toggle="dropdown" aria-haspopup="true"
+										        aria-expanded="false">
+											<i class="far fa-edit"></i> {% trans "Actions" %}
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											{% if course|can_be_edited:request.user %}
+												<a href="{% url 'main_app:update_course' course.pk %}"
+												   class="dropdown-item"><i class="far fa-edit"></i> {% trans "Edit" %}</a>
+											{% endif %}
+											{% if course.can_be_reviewed %}
+												<a href="{% url 'main_app:view_course_release' course.latest_release.pk %}"
+												   class="dropdown-item"><i class="fa fa-search-plus"></i> {% trans "Review" %}</a>
+											{% endif %}
+											{% if can_assign_caretakers %}
+												<a href="{% url 'main_app:assign_caretakers' course.pk %}"
+												   class="dropdown-item"><i class="fa fa-user"></i> {% trans "Caretakers" %}</a>
+											{% endif %}
+												<a href="{% url 'syllabus:generate_pdf_syllabus' course.pk %}"
+												   class="dropdown-item"><i class="fa fa-file-pdf"></i> {% trans "Syllabus (PDF)" %}</a>
+												<a href="{% url 'syllabus:generate_word_syllabus' course.pk %}"
+												   class="dropdown-item"><i class="fa fa-file-word"></i> {% trans "Syllabus (DOC)" %}</a>
+										</div>
+									</div>
 								</td>
 							</tr>
-							{% for release in course.all_releases %}
+							{% for release in course.recent_releases %}
 								<tr class="hiddenRow accordian-body collapse version-row" id="demo{{ course.pk }}">
 									<td class="align-middle text-right">
 										<small class="text-muted"><b>V{{ release.version }}</b></small>
@@ -94,11 +138,6 @@
 									<td scope="row" class="align-middle course-code">
 										<p class="mb-0">
 											{{ release.course.instance }}
-										</p>
-									</td>
-									<td class="align-middle">
-										<p class="mb-0">
-											{{ release.course.title }}
 										</p>
 									</td>
 									<td class="align-middle">
@@ -118,7 +157,9 @@
 											<span class="badge badge-{% if release.approved %}primary{% else %}danger{% endif %} text-badge mr-auto">{{ release.approved|yesno:"Approved,Rejected,Pending" }}</span>
 										</td>
 										<td class="align-middle text-right">
+											{% if release.approved_by is not None %}
 											<span class="badge badge-{% if release.approved %}primary{% else %}danger{% endif %} text-badge mr-auto"><small>{{ release.approved_on }}</small><br>{% trans "by" %} {{ release.approved_by }}</span>
+											{% endif %}
 										</td>
 									{% else %}
 										<td class="status align-middle">
@@ -128,13 +169,15 @@
 											<span class="badge badge-warning text-badge mr-auto">{{ release.pending_with }}</span>
 										</td>
 									{% endif %}
-
+									<td></td>
 								</tr>
 							{% endfor %}
 						{% endfor %}
 					</table>
+
 				</div>
 			</div>
+			{% include 'snippets/pagination.html' %}
 		</div>
 	</div>
 {% endblock main_content %}

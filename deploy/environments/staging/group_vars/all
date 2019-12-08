@@ -1,0 +1,57 @@
+env: staging
+django_project_branch: staging
+django_project_hg_root: stable
+
+apache_server_names:
+  - courses-staging.kfupm.edu.sa
+
+
+# pick a unique port that is not used by any other application on the target
+# application server
+uwsgi_http_port: 5656
+
+# required for proper SSL termination on load-balancer while using CAS
+apache_public_url: https://courses-staging.kfupm.edu.sa
+apache_load_balancer_ips: ["10.142.24.1", "10.142.26.1"]
+apache_proxy:
+  - path: /
+    protocol: uwsgi
+    host: localhost
+    port: "{{ uwsgi_http_port }}"
+    remote_path: /
+
+database_engine: django.db.backends.postgresql
+database_name: courses
+database_user: courses
+# database_password: set from Vault in playbook
+database_host: postgres96-1-staging.kfupm.edu.sa
+database_port: 5432
+
+django_debug: no
+camunda_debug: no
+apache_debug: yes
+
+email_user: courses@kfupm.edu.sa
+email_host: mail.kfupm.edu.sa
+
+banner_webservice_base_url: https://banner-api.kfupm.edu.sa
+banner_webservice_username: curricula
+
+adwar_webservice_base_url: https://adwar.kfupm.edu.sa/api
+adwar_webservice_username: curricula
+
+staff_webservice_base_url: https://staff-web-service.kfupm.edu.sa
+staff_webservice_username: curricula
+
+workflow_url: https://tasks.kfupm.edu.sa
+
+camunda_webservice_base_url: https://tasks.kfupm.edu.sa/engine-rest
+camunda_webservice_username: curricula
+
+admins:
+  - name: Shaheed Alhelal
+    email: shaheed.alhelal@kfupm.edu.sa
+  - name: Abdullah Joud
+    email: joud@kfupm.edu.sa
+  - name: Abdulrahman H. Abdulmuhsen
+    email: a.abdulmuhsen@kfupm.edu.sa
