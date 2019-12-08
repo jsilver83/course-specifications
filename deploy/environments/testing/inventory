@@ -3,3 +3,6 @@ apps-1.test.kfupm.edu.sa
 
 [database-servers]
 postgres.test.kfupm.edu.sa
+
+[workflow-server]
+camunda-2.test.kfupm.edu.sa

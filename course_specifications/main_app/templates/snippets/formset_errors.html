@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load course_filters %}
+
+{% is_formset_erroneous formset as is_formset_erroneous %}
+
+{% if is_formset_erroneous %} {# can NOT use formset.errors to check for validity since even if all forms in the formset are valid, you will still get a list of empty dicts #}
+	<div>
+		<i class="fas fa-exclamation-triangle"></i>
+		{% if formset.verbose_name %}{{ formset.verbose_name }}{% else %}
+			{% trans "Formset" %}{% endif %} {% trans "Errors" %}:
+		<ul>
+			{% for error in formset.non_form_errors %}
+				<li>{{ error }}</li>
+			{% endfor %}
+			{% for form1 in formset.forms %}
+				{% include 'snippets/form_erros.html' with form=form1 counter=forloop.counter enclosing_tag="li" only %}
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}

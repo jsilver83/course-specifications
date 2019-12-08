@@ -23,10 +23,7 @@
         authn_type: cas
         authz_type: none
 
-    admins:
-      - name: Abdullah Joud
-        email: joud@kfupm.edu.sa
-    uwsgi_processes: 2
+    uwsgi_processes: 64
 
   # tasks to be performed before role tasks, if any
   pre_tasks:
@@ -83,6 +80,21 @@
     - name: Retrieve ebs api password from vault
       set_fact:
         staff_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/staff_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
+      connection: local
+
+    - name: Retrieve adwar webservice password from vault
+      set_fact:
+        adwar_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/adwar_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
+      connection: local
+
+    - name: Retrieve camunda webservice password from vault
+      set_fact:
+        camunda_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/camunda_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
+      connection: local
+
+    - name: Retrieve sierra webservice password from vault
+      set_fact:
+        sierra_webservice_password: "{{ lookup('hashi_vault', 'secret=secret/{{ env }}/operations/apps/course-specifications/sierra_webservice_password:value token={{ vault_access_token }} url={{ vault_url }} cacert={{ ssl_cert_path }}') }}"
       connection: local
 
     - name: Generate local settings

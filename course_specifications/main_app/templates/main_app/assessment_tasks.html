@@ -9,7 +9,8 @@
 	<!-- assessment tasks -->
 	<div class="card mb-4 form-accordian completed">
 		<div class="card-body p-0">
-			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse" data-target="#learning-resources" aria-expanded="false" aria-controls="learning-resources">
+			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse"
+			     data-target="#learning-resources" aria-expanded="false" aria-controls="learning-resources">
 				<i class="fas fa-check check-icon"></i>
 				<span class="mr-auto">{% trans "Schedule of assessment tasks for students during the semester" %}</span>
 				<i class="fas fa-caret-down"></i>
@@ -19,46 +20,53 @@
 					<div class="col-12">
 						<nav>
 							<div class="nav nav-tabs" id="assessment-tab" role="tablist">
-								<a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true">{% trans "Lecture" %}
+								<a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab"
+								   href="#nav-lecture" role="tab" aria-controls="nav-lecture"
+								   aria-selected="true">{% trans "Lecture" %}
 									<sup class="text-danger">*</sup></a>
-								<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab" href="#nav-laboratory" role="tab" aria-controls="nav-laboratory" aria-selected="false">{% trans "Laboratory" %}
-									<sup class="text-danger">*</sup></a>
+								{% if formset2 %}
+									<a class="nav-item nav-link" id="nav-laboratory-tab" data-toggle="tab"
+									   href="#nav-laboratory" role="tab" aria-controls="nav-laboratory"
+									   aria-selected="false">{% trans "Laboratory" %}
+										<sup class="text-danger">*</sup></a>
+								{% endif %}
 							</div>
 						</nav>
 
 						<div class="tab-content" id="nav-tabContent">
 							<!-- Lecture -->
-							<div class="tab-pane fade show has-add-content active" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
+							<div class="tab-pane fade show has-add-content active" id="nav-lecture" role="tabpanel"
+							     aria-labelledby="nav-lecture-tab">
 
 								<!-- Default for adding -->
 								<table class="d-none">
 									<tbody class="add-this">
-									{% for form in formset %}
-										{% if forloop.last %}
-											<tr class="delete-this">
-												<td scope="row" class="align-middle border-bottom">
-													{{ form.id }}{{ form.assessment_task }}{{ form.assessment_task.errors }}
-												</td>
-												<td class="align-middle border-bottom">
-													{{ form.week_due }}{{ form.week_due.errors }}
-													{{ form.type }}{{ form.type.errors }}
-												</td>
-												<td class="align-middle border-bottom">
-													<div class="input-group">
-														{{ form.weight_percentage }}{{ form.weight_percentage.errors }}
-														<div class="input-group-append m-0">
-															<small class="input-group-text text-muted pl-2 pr-2" id="total-value">{% trans "Max 100%" %}</small>
-														</div>
-													</div>
-												</td>
-												<td>
-													<button class="btn btn-sm delete-btn" type="button">
-														<i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i>
-													</button>
-												</td>
-											</tr>
-										{% endif %}
-									{% endfor %}
+
+									<tr class="delete-this">
+										<td scope="row" class="align-middle border-bottom">
+											{{ formset.empty_form.id }}{{ formset.empty_form.assessment_task }}{{ formset.empty_form.assessment_task.errors }}
+										</td>
+										<td class="align-middle border-bottom">
+											{{ formset.empty_form.week_due }}{{ formset.empty_form.week_due.errors }}
+											{{ formset.empty_form.type }}{{ formset.empty_form.type.errors }}
+										</td>
+										<td class="align-middle border-bottom">
+											<div class="input-group">
+												{{ formset.empty_form.weight_percentage }}{{ formset.empty_form.weight_percentage.errors }}
+												<div class="input-group-append m-0">
+													<small class="input-group-text text-muted pl-2 pr-2"
+													       id="total-value">{% trans "Max 100%" %}</small>
+												</div>
+											</div>
+										</td>
+										<td>
+											<button class="btn btn-sm delete-btn" type="button">
+												<i class="fas fa-trash-alt text-danger"><span
+														style="display:none">{{ formset.empty_form.DELETE }}</span></i>
+											</button>
+										</td>
+									</tr>
+
 									</tbody>
 								</table>
 								<!-- /Default for adding -->
@@ -66,7 +74,8 @@
 								<table class="table border">
 									<thead class="thead-light">
 									<tr>
-										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1" width="50%">
+										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1"
+										    width="50%">
 											<small>{% trans "Assessment task" %}</small>
 										</th>
 										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
@@ -85,21 +94,23 @@
 											<td scope="row" class="align-middle border-bottom">
 												{{ form.id }}{{ form.assessment_task }}{{ form.assessment_task.errors }}
 											</td>
+
 											<td class="align-middle border-bottom">
 												{{ form.week_due }}{{ form.week_due.errors }}
-												{{ form.type }}{{ form.type.errors }}
 											</td>
 											<td class="align-middle border-bottom">
 												<div class="input-group">
 													{{ form.weight_percentage }}{{ form.weight_percentage.errors }}
 													<div class="input-group-append m-0">
-														<small class="input-group-text text-muted pl-2 pr-2" id="total-value">{% trans "Max 100%" %}</small>
+														<small class="input-group-text text-muted pl-2 pr-2"
+														       id="total-value">{% trans "Max 100%" %}</small>
 													</div>
 												</div>
 											</td>
 											<td>
 												<button class="btn btn-sm delete-btn" type="button">
-													<i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i>
+													<i class="fas fa-trash-alt text-danger"><span
+															style="display:none">{{ form.DELETE }}</span></i>
 												</button>
 											</td>
 										</tr>
@@ -107,7 +118,7 @@
 									</tbody>
 								</table>
 								<div class="text-right">
-									<button class="btn btn-sm btn-link bg-light add-button" type="button">
+									<button class="btn btn-sm btn-link bg-light add_more" type="button">
 										<small class="fas fa-plus mr-1"></small>
 										{% trans "Add assessment" %}
 									</button>
@@ -115,92 +126,95 @@
 							</div>
 							<!-- /Lecture -->
 
-							<!-- Laboratory -->
-							<div class="tab-pane fade has-add-content" id="nav-laboratory" role="tabpanel" aria-labelledby="nav-laboratory-tab">
-								<!-- Default for adding -->
-								<table class="d-none">
-									<tbody class="add-this">
-									{% for form in formset2 %}
-										{% if forloop.last %}
+							{% if formset2 %}
+								<!-- Laboratory -->
+								<div class="tab-pane fade has-add-content" id="nav-laboratory" role="tabpanel"
+								     aria-labelledby="nav-laboratory-tab">
+									<!-- Default for adding -->
+									<table class="d-none">
+										<tbody class="add-this">
+										<tr class="delete-this">
+											<td scope="row" class="align-middle border-bottom">
+												{{ formset2.empty_form.id }}{{ formset2.empty_form.assessment_task }}{{ formset2.empty_form.assessment_task.errors }}
+											</td>
+											<td class="align-middle border-bottom">
+												{{ formset2.empty_form.week_due }}{{ formset2.empty_form.week_due.errors }}
+												{{ formset2.empty_form.type }}{{ formset2.empty_form.type.errors }}
+											</td>
+											<td class="align-middle border-bottom">
+												<div class="input-group">
+													{{ formset2.empty_form.weight_percentage }}{{ formset2.empty_form.weight_percentage.errors }}
+													<div class="input-group-append m-0">
+														<small class="input-group-text text-muted pl-2 pr-2"
+														       id="total-value">{% trans "Max 100%" %}</small>
+													</div>
+												</div>
+											</td>
+											<td>
+												<button class="btn btn-sm delete-btn" type="button">
+													<i class="fas fa-trash-alt text-danger"><span
+															style="display:none">{{ formset2.empty_form.DELETE }}</span></i>
+												</button>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+									<!-- /Default for adding -->
+
+									<table class="table border">
+										<thead class="thead-light">
+										<tr>
+											<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1"
+											    width="50%">
+												<small>{% trans "Assessment task" %}</small>
+											</th>
+											<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+												<small>{% trans "Week due" %}</small>
+											</th>
+											<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
+												<small>{% trans "Proportion of Total Assessment" %}</small>
+											</th>
+											<th></th>
+										</tr>
+										</thead>
+										<tbody class="add-here">
+										{{ formset2.management_form }}
+										{% for form in formset2 %}
 											<tr class="delete-this">
 												<td scope="row" class="align-middle border-bottom">
 													{{ form.id }}{{ form.assessment_task }}{{ form.assessment_task.errors }}
 												</td>
 												<td class="align-middle border-bottom">
 													{{ form.week_due }}{{ form.week_due.errors }}
-													{{ form.type }}{{ form.type.errors }}
 												</td>
 												<td class="align-middle border-bottom">
 													<div class="input-group">
 														{{ form.weight_percentage }}{{ form.weight_percentage.errors }}
 														<div class="input-group-append m-0">
-															<small class="input-group-text text-muted pl-2 pr-2" id="total-value">{% trans "Max 100%" %}</small>
+															<small class="input-group-text text-muted pl-2 pr-2"
+															       id="total-value">{% trans "Max 100%" %}</small>
 														</div>
 													</div>
 												</td>
 												<td>
 													<button class="btn btn-sm delete-btn" type="button">
-														<i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i>
+														<i class="fas fa-trash-alt text-danger"><span
+																style="display:none">{{ form.DELETE }}</span></i>
 													</button>
 												</td>
 											</tr>
-										{% endif %}
-									{% endfor %}
-									</tbody>
-								</table>
-								<!-- /Default for adding -->
-
-								<table class="table border">
-									<thead class="thead-light">
-									<tr>
-										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1" width="50%">
-											<small>{% trans "Assessment task" %}</small>
-										</th>
-										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
-											<small>{% trans "Week due" %}</small>
-										</th>
-										<th scope="col" class="align-middle border-top-0 text-muted pt-1 pb-1">
-											<small>{% trans "Proportion of Total Assessment" %}</small>
-										</th>
-										<th></th>
-									</tr>
-									</thead>
-									<tbody class="add-here">
-									{{ formset2.management_form }}
-									{% for form in formset2 %}
-										<tr class="delete-this">
-											<td scope="row" class="align-middle border-bottom">
-												{{ form.id }}{{ form.assessment_task }}{{ form.assessment_task.errors }}
-											</td>
-											<td class="align-middle border-bottom">
-												{{ form.week_due }}{{ form.week_due.errors }}
-												{{ form.type }}{{ form.type.errors }}
-											</td>
-											<td class="align-middle border-bottom">
-												<div class="input-group">
-													{{ form.weight_percentage }}{{ form.weight_percentage.errors }}
-													<div class="input-group-append m-0">
-														<small class="input-group-text text-muted pl-2 pr-2" id="total-value">{% trans "Max 100%" %}</small>
-													</div>
-												</div>
-											</td>
-											<td>
-												<button class="btn btn-sm delete-btn" type="button">
-													<i class="fas fa-trash-alt text-danger"><span style="display:none">{{ form.DELETE }}</span></i>
-												</button>
-											</td>
-										</tr>
-									{% endfor %}
-									</tbody>
-								</table>
-								<div class="text-right">
-									<button class="btn btn-sm btn-link bg-light add-button" type="button">
-										<small class="fas fa-plus mr-1"></small>
-										{% trans "Add assessment" %}
-									</button>
+										{% endfor %}
+										</tbody>
+									</table>
+									<div class="text-right">
+										<button class="btn btn-sm btn-link bg-light add_more" type="button">
+											<small class="fas fa-plus mr-1"></small>
+											{% trans "Add assessment" %}
+										</button>
+									</div>
 								</div>
-							</div>
-							<!-- /Laboratory -->
+								<!-- /Laboratory -->
+							{% endif %}
 						</div>
 
 					</div>

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block main_content %}
+
+	<div class="card mb-4 course-title">
+		<div class="card-body">
+			<div class="d-flex align-items-center">
+				<h6 class="mb-0 mr-auto">{{ title }}</h6>
+				<div class="d-flex align-items-center">
+					<small class="text-danger mr-3">* {% trans "Mandatory" %}</small>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card mb-4 form-accordian completed">
+		<div class="card-body p-0">
+			<div class="card-header pl-3 pr-3 pt-2 pb-2 d-flex align-items-center border-0" data-toggle="collapse"
+			     data-target="#courseidentification" aria-expanded="false" aria-controls="courseidentification">
+				<i class="fas fa-check check-icon"></i> <span class="mr-auto">{{ sub_title }}</span>
+				<i class="fas fa-caret-down"></i>
+			</div>
+			<div class="collapse show p-3 pt-4 pb-4" id="courseidentification">
+				<div class="row">
+					<div class="col-12">
+						<div class="container">
+							<form method="post">
+								{% crispy form %}
+								<div class="row">
+									<div class="col-sm-12 col-12 text-right">
+										<button class="btn btn-primary">{% trans "Submit" %}</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	</form>
+{% endblock main_content %}
+
+{% block css %}
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet"/>
+{% endblock css %}
+
+{% block js %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+	<script type="application/javascript">
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+	</script>
+{% endblock js %}
