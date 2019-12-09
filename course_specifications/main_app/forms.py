@@ -275,7 +275,7 @@ class CourseContentForm(forms.ModelForm):
             if field not in ['tutorial_contact_hours', 'practical_contact_hours', 'other_contact_hours',
                              'other_contact_hours_description']:
                 self.fields[field].label = self.fields[field].label.replace('Hours', '').replace(
-                    'Self-Study', '').replace('Credit', '')
+                    'Self-Study', '').replace('Credit', '').replace('Self-Learning', '')
 
             if field in ['tutorial_contact_hours', 'practical_contact_hours', 'other_contact_hours']:
                 self.fields[field].widget.attrs.update(
