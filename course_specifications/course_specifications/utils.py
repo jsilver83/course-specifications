@@ -5,9 +5,9 @@ import aiohttp
 import requests
 from django.conf import settings
 from django.core.cache import cache
+from django.core.mail import mail_admins
 from django.utils.translation import ugettext_lazy as _
 from requests.auth import HTTPBasicAuth
-
 
 # constants required for figuring out the user type
 AAC_HEAD_ADWAR_ROLE_CODE = 'AAC_Head'
@@ -414,7 +414,17 @@ class CamundaAPI:
 
         url = 'process-definition/key/{}/start'.format(CamundaAPI.PROCESS_DEFINITION_KEY)
         response = CamundaAPI.post_to_web_service(url, json=body, headers=headers)
-        return response.json()
+
+        if response.ok:
+            return response.json()
+        else:
+            mail_admins(subject='Error in Course Specifications Workflow While Starting The Process',
+                        message='Error in Course Specifications Workflow '
+                                'While Starting The Process for {} (ID: {})'.format(course_code, course_history_id),
+                        html_message='Error in Course Specifications Workflow While Starting The Process for {} '
+                                     '(ID: {}).<br><br>'
+                                     'Response.text: {}<br>'.format(course_code, course_history_id, response.text, ))
+            return {}
 
     @staticmethod
     def get_role_tasks(task_name, college_id=None, department_id=None, course_code=None):
