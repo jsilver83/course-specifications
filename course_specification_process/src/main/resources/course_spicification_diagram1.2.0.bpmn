@@ -29,13 +29,11 @@
         <bpmn:flowNodeRef>Rector_Task</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0faqr1b</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_1y12fqr</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_0comr14</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_0mlo6nv">
           <bpmn:lane id="Lane_1gxwjyk">
             <bpmn:flowNodeRef>Rector_Task</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>ExclusiveGateway_0faqr1b</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>EndEvent_1y12fqr</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Task_0comr14</bpmn:flowNodeRef>
           </bpmn:lane>
         </bpmn:childLaneSet>
       </bpmn:lane>
@@ -53,13 +51,11 @@
         <bpmn:flowNodeRef>Chairman_Task</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1fcd669</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0oezl6l</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_1tc8ozq</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_07dg9z7">
           <bpmn:lane id="Lane_0yefdhk">
             <bpmn:flowNodeRef>Chairman_Task</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>ExclusiveGateway_1fcd669</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>EndEvent_0oezl6l</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Task_1tc8ozq</bpmn:flowNodeRef>
             <bpmn:childLaneSet id="LaneSet_1gon4bk" />
           </bpmn:lane>
         </bpmn:childLaneSet>
@@ -102,7 +98,6 @@
     <bpmn:userTask id="Maintainer_Task" name="Mintainer" camunda:asyncBefore="true" camunda:formKey="embedded:app:forms/UserTaskForm.html">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserTaskListener" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1h1km6q</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0osspef</bpmn:outgoing>
@@ -117,7 +112,6 @@
     <bpmn:userTask id="Reviewer_Task" name="Reviewer" camunda:asyncBefore="true" camunda:formKey="embedded:app:forms/UserTaskForm.html">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserTaskListener" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0xjtbjp</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_08p7xci</bpmn:incoming>
@@ -128,7 +122,6 @@
     <bpmn:userTask id="Chairman_Task" name="Chairman" camunda:asyncBefore="true" camunda:formKey="embedded:app:forms/UserTaskForm.html">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserTaskListener" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_10dfhe1</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1hqga1s</bpmn:incoming>
@@ -167,7 +160,6 @@
     <bpmn:userTask id="Collage_Dean_Task" name="College Dean" camunda:asyncBefore="true" camunda:formKey="embedded:app:forms/UserTaskForm.html">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserTaskListener" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_18rmiqw</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0ousudg</bpmn:incoming>
@@ -176,7 +168,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_18rmiqw" name="Approve" sourceRef="ExclusiveGateway_1fcd669" targetRef="Collage_Dean_Task">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${GatewayDecision=='approve'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1jummou" name="Terminate" sourceRef="ExclusiveGateway_1fcd669" targetRef="Task_1tc8ozq">
+    <bpmn:sequenceFlow id="SequenceFlow_1jummou" name="Terminate" sourceRef="ExclusiveGateway_1fcd669" targetRef="EndEvent_0oezl6l">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${GatewayDecision=='terminate'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0i1667r" default="SequenceFlow_1hqga1s">
@@ -203,7 +195,6 @@
     <bpmn:userTask id="Vice_Rector_Task" name="VIce rector" camunda:asyncBefore="true" camunda:formKey="embedded:app:forms/UserTaskForm.html">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserTaskListener" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1s7nep6</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1sxlabk</bpmn:incoming>
@@ -243,7 +234,6 @@
     <bpmn:userTask id="Rector_Task" name="Rector" camunda:asyncBefore="true" camunda:formKey="embedded:app:forms/UserTaskForm.html">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserTaskListener" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1mh4md8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0w6j9kf</bpmn:outgoing>
@@ -254,32 +244,15 @@
       <bpmn:outgoing>SequenceFlow_00hnbcv</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_0w6j9kf" sourceRef="Rector_Task" targetRef="ExclusiveGateway_0faqr1b" />
-    <bpmn:sequenceFlow id="SequenceFlow_0cdevyx" name="Approve" sourceRef="ExclusiveGateway_0faqr1b" targetRef="Task_0comr14">
+    <bpmn:sequenceFlow id="SequenceFlow_0cdevyx" name="Approve" sourceRef="ExclusiveGateway_0faqr1b" targetRef="EndEvent_1y12fqr">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${GatewayDecision=='approve'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_00hnbcv" name="Return to Vice Rector" sourceRef="ExclusiveGateway_0faqr1b" targetRef="Vice_Rector_Task">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${GatewayDecision=='return_to_vice_rector'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:endEvent id="EndEvent_0oezl6l">
-      <bpmn:incoming>SequenceFlow_0eihm7e</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0eihm7e" sourceRef="Task_1tc8ozq" targetRef="EndEvent_0oezl6l" />
-    <bpmn:sequenceFlow id="SequenceFlow_0plz40h" sourceRef="Task_0comr14" targetRef="EndEvent_1y12fqr" />
-    <bpmn:endEvent id="EndEvent_1y12fqr">
-      <bpmn:incoming>SequenceFlow_0plz40h</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:serviceTask id="Task_0comr14" name="Notify Course Spicification App" camunda:asyncBefore="true" camunda:class="sa.edu.kfupm.ictc.course_specification_process.ApprovedCourseSpecification">
-      <bpmn:incoming>SequenceFlow_0cdevyx</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0plz40h</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_1tc8ozq" name="Notify Course Spicification App" camunda:asyncBefore="true" camunda:class="sa.edu.kfupm.ictc.course_specification_process.RejectedCourseSpecification">
-      <bpmn:incoming>SequenceFlow_1jummou</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0eihm7e</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:userTask id="ACC_Task" name="AAC" camunda:asyncBefore="true" camunda:formKey="embedded:app:forms/UserTaskForm.html">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserTaskListener" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_04t1axb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0atwcgb</bpmn:outgoing>
@@ -287,11 +260,16 @@
     <bpmn:userTask id="DGS_Dean_Task" name="Dean of Graduate Studies" camunda:asyncBefore="true" camunda:formKey="embedded:app:forms/UserTaskForm.html">
       <bpmn:extensionElements>
         <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserDecisions" event="create" />
-        <camunda:taskListener class="sa.edu.kfupm.ictc.course_specification_process.UserTaskListener" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1uqxp9b</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_030phd1</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_1y12fqr">
+      <bpmn:incoming>SequenceFlow_0cdevyx</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_0oezl6l">
+      <bpmn:incoming>SequenceFlow_1jummou</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_11apbq0">
@@ -467,12 +445,12 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_0oezl6l_di" bpmnElement="EndEvent_0oezl6l">
-        <dc:Bounds x="753" y="688" width="36" height="36" />
+        <dc:Bounds x="753" y="566" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1jummou_di" bpmnElement="SequenceFlow_1jummou">
         <di:waypoint x="567" y="622" />
         <di:waypoint x="567" y="584" />
-        <di:waypoint x="721" y="584" />
+        <di:waypoint x="753" y="584" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="627" y="564" width="49" height="14" />
         </bpmndi:BPMNLabel>
@@ -614,13 +592,13 @@
         <di:waypoint x="524" y="1683" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1y12fqr_di" bpmnElement="EndEvent_1y12fqr">
-        <dc:Bounds x="871" y="1665" width="36" height="36" />
+        <dc:Bounds x="753" y="1665" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0cdevyx_di" bpmnElement="SequenceFlow_0cdevyx">
         <di:waypoint x="574" y="1683" />
-        <di:waypoint x="721" y="1683" />
+        <di:waypoint x="753" y="1683" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="627" y="1665" width="41" height="14" />
+          <dc:Bounds x="643" y="1665" width="41" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_00hnbcv_di" bpmnElement="SequenceFlow_00hnbcv">
@@ -633,20 +611,6 @@
           <dc:Bounds x="447" y="1714" width="70" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0eihm7e_di" bpmnElement="SequenceFlow_0eihm7e">
-        <di:waypoint x="771" y="624" />
-        <di:waypoint x="771" y="688" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0plz40h_di" bpmnElement="SequenceFlow_0plz40h">
-        <di:waypoint x="821" y="1683" />
-        <di:waypoint x="871" y="1683" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_1r6w2x1_di" bpmnElement="Task_0comr14">
-        <dc:Bounds x="721" y="1643" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1yc9nys_di" bpmnElement="Task_1tc8ozq">
-        <dc:Bounds x="721" y="544" width="100" height="80" />
-      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
