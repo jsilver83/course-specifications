@@ -31,7 +31,7 @@ django_debug: no
 camunda_debug: no
 apache_debug: yes
 
-email_user: courses@kfupm.edu.sa
+email_user: curricula@kfupm.edu.sa
 email_host: mail.kfupm.edu.sa
 
 banner_webservice_base_url: https://banner-api.kfupm.edu.sa
@@ -46,6 +46,7 @@ staff_webservice_username: curricula
 workflow_url: https://tasks.kfupm.edu.sa
 
 camunda_webservice_base_url: https://tasks.kfupm.edu.sa/engine-rest
+camunda_webservice_username: curricula
 
 sierra_webservice_base_url: https://sierra-api.test.kfupm.edu.sa
 sierra_webservice_username: curricula
