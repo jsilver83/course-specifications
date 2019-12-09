@@ -47,6 +47,9 @@ workflow_url: https://tasks.kfupm.edu.sa
 
 camunda_webservice_base_url: https://tasks.kfupm.edu.sa/engine-rest
 
+sierra_webservice_base_url: https://sierra-api.test.kfupm.edu.sa
+sierra_webservice_username: curricula
+
 admins:
   - name: Shaheed Alhelal
     email: shaheed.alhelal@kfupm.edu.sa
