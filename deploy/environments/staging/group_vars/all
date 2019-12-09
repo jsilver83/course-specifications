@@ -46,7 +46,6 @@ staff_webservice_username: curricula
 workflow_url: https://tasks.kfupm.edu.sa
 
 camunda_webservice_base_url: https://tasks.kfupm.edu.sa/engine-rest
-camunda_webservice_username: curricula
 
 admins:
   - name: Shaheed Alhelal
@@ -55,3 +54,5 @@ admins:
     email: joud@kfupm.edu.sa
   - name: Abdulrahman H. Abdulmuhsen
     email: a.abdulmuhsen@kfupm.edu.sa
+  - name: Mohammad Ismail Hasan Amro
+    email: mamro@kfupm.edu.sa
