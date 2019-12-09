@@ -61,9 +61,6 @@ class ApprovalCommentsAdmin(admin.ModelAdmin):
     list_display = ('course_release', 'section', 'comment', 'commented_by', 'comment_date', )
     autocomplete_fields = ('course_release', )
 
-class AssessmentTaskAdmin(admin.ModelAdmin):
-    ordering = ['pk']
-    list_display = ['pk','__str__']
 
 # admin.site.register(LearningObjective, LearningObjectiveInlineAdmin)
 admin.site.register(LearningObjective, LearningObjectiveAdmin)
@@ -72,4 +69,3 @@ admin.site.register(Topic)
 admin.site.register(CourseRelease, CourseReleaseAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(ApprovalComment, ApprovalCommentsAdmin)
-admin.site.register(AssessmentTask,AssessmentTaskAdmin)
