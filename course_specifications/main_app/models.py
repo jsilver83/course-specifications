@@ -251,6 +251,7 @@ class Course(models.Model):
 
     class Meta:
         unique_together = ('program_code', 'number')
+        ordering = ('mother_department', 'program_code', 'number', )
 
     @property
     def code(self):
