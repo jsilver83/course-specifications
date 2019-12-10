@@ -461,7 +461,8 @@ class Course(models.Model):
         return True  #  self.can_be_re_released() and self.is_a_maintainer(user)
 
     def can_be_reviewed(self):
-        return not self.can_be_re_released()
+        latest_release = self.latest_release()
+        return latest_release and latest_release.approved is None and latest_release.workflow_instance_id
 
 
 class LearningObjective(models.Model):
