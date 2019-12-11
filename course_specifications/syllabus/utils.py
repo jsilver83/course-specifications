@@ -41,6 +41,7 @@ def get_weekly_topics_list(total_contact_hours, w_num, topics):
 
 
 def get_textbooks_list(book_system_ids):
+    return []
     cleaned_book_system_ids = clean_book_ids(book_system_ids)
     text_book_list = []
     response = get_textbooks_by_system_id(cleaned_book_system_ids)
