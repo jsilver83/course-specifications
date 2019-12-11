@@ -36,7 +36,7 @@ class CoursesListView(AllowedUserTypesMixin, ListView):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['can_create_course'] = bool(UserType.get_user_type(self.request) == UserType.CHAIRMAN)
 
-        queryset = self.get_queryset()
+        paginator, page, queryset, is_paginated = self.paginate_queryset(self.get_queryset(), self.paginate_by)
         context['caretakers'] = get_courses_caretakers(queryset)
 
         if UserType.get_user_type(self.request) in (UserType.CHAIRMAN, UserType.FACULTY):
