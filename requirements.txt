@@ -5,5 +5,5 @@ requests==2.22.0
 django-impersonate==1.4.1
 docxtpl==0.6.3
 WeasyPrint==50
-aiohttp==3.6.2
+aiohttp==3.7.4
 django-import-export==1.2.0
